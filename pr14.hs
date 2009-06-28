@@ -25,6 +25,7 @@ module Main where
 import Data.Array.IArray
 import Data.List (maximumBy)
 import Data.Function (on)
+import Data.Int (Int64)
 
 -- Since we have to compare all of the values, we keep track of the
 -- counts we've seen before.
@@ -32,7 +33,7 @@ import Data.Function (on)
 main :: IO ()
 main = print $ maximumBy (compare `on` snd) $ assocs counts
 
-counts :: Array Int Int
+counts :: Array Int64 Int64
 counts = array (1,999999) [(i, count i i) | i <- [1..999999] ]
    where
       count _ 1 = 1
