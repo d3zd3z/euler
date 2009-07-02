@@ -21,18 +21,18 @@ import Data.Maybe (catMaybes)
 -- This is actually fairly wasteful, since it tests all permutations.
 -- Really, we only need the initial choosings of 5 digits, and a check
 -- if the rest is correct.  But, that's a lot more code, and this only
--- takes a few seconds.
+-- takes a few miliseconds.
 
 main :: IO ()
-main = print $ sum $ nub $ catMaybes $ map justPan $ permutations "123456789"
+main = print $ sum $ nub $ catMaybes $ map justPan $ permutations [1,2,3,4,5,6,7,8,9]
 
 -- If the value is pandigital, return 'Just product', otherwise return
 -- Nothing.  The only possible ways of getting a proper sum is
 -- nn*nnn=nnnn or n*nnnn=nnnn.
-justPan :: String -> Maybe Int
-justPan (a:b:c:d:e:rs) =
-   if (read [a,b] * read [c,d,e] == product ||
-       read [a] * read [b,c,d,e] == product)
+justPan :: [Int] -> Maybe Int
+justPan [a,b,c,d,e,f,g,h,i] =
+   if ((10*a+b) * (100*c+10*d+e) == product ||
+       a * (1000*b+100*c+10*d+e) == product)
       then Just product
       else Nothing
-   where product = read rs
+   where product = f*1000 + g*100 + h*10 + i
