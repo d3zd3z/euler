@@ -30,6 +30,6 @@ primes :: [Int]
 primes = 2 : 3 : [x | x <- [5..], isPrime x]
 
 isPrime :: Int -> Bool
-isPrime n = filter (\x -> n `mod` x == 0) factors == []
+isPrime n = n > 1 && filter (\x -> n `mod` x == 0) factors == []
    where
       factors = takeWhile (<= (floor $ sqrt $ fromIntegral n)) primes
