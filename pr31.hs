@@ -32,3 +32,5 @@ solve n (c:cs)
          coin 0 _ = id
          coin t c = ((t,c):)
 solve _ [] = error "Implementation error"
+
+-- TODO: Try this with list monad.
