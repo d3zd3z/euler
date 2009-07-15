@@ -10,6 +10,7 @@
 module Main where
 
 import Data.Char (digitToInt)
+import Data.Array
 
 main :: IO ()
 main = print $ sum $ [ n | n <- [10..limit], factOfDigits n == n ]
@@ -19,10 +20,22 @@ main = print $ sum $ [ n | n <- [10..limit], factOfDigits n == n ]
 limit :: Int
 limit = 7 * fact 9
 
--- The use of 'show', and the recomptuation of 'fact' makes this quite
--- a bit slower than it needs to be.
+-- 'show' is actually quite a bit faster since the library show code is
+-- hand optimized.
 factOfDigits :: Int -> Int
-factOfDigits = sum . map (fact . digitToInt) . show
+factOfDigits n = sum $ map fact $ digits n []
+-- factOfDigits = sum . map (fact . digitToInt) . show
+
+-- digits :: Int -> [Int]
+-- digits 0 = []
+-- digits n = (n `mod` 10) : digits (n `div` 10)
+
+digits :: Int -> [Int] -> [Int]
+digits x cs
+   | x < 10 = x : cs
+   | otherwise =
+      case x `mod` 10 of
+	 c -> digits (x `div` 10) (c : cs)
 
 fact :: Int -> Int
-fact n = product [2..n]
+fact = (!) (listArray (0 :: Int, 9) [ product [2..n] | n <- [0..9] ])
