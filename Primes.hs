@@ -33,3 +33,9 @@ isPrime :: Int -> Bool
 isPrime n = n > 1 && filter (\x -> n `mod` x == 0) factors == []
    where
       factors = takeWhile (<= (floor $ sqrt $ fromIntegral n)) primes
+
+-- Horrible solution, but interesting in it's simplicity.
+primes2 :: [Int]
+primes2 = sieve [2..]
+   where
+      sieve (p:x) = p : sieve [ n | n <- x, n `mod` p > 0 ]
