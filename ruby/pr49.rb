@@ -28,24 +28,13 @@ def perm_pairs(first, rest, &block)
   perms.permutation(2, &block)
 end
 
-def scan(nums)
-  nums = nums.dup
-
-  while nums.length >= 3
-    first = nums.shift
-    perm_pairs(first, nums) do |rest|
-      if 2*rest[0] - first == rest[1]
-        # The desired answer is the concatenation of all of these.
-        answer = first.to_s
-        answer += rest[0].to_s
-        answer += rest[1].to_s
-        puts answer unless answer == "148748178147"
-      end
+nums = Prime.each(9999).select { |x| x >= 1000 }
+while nums.length >= 3
+  first = nums.shift
+  perm_pairs(first, nums) do |rest|
+    if 2*rest[0] - first == rest[1]
+      # The desired answer is the concatenation of all of these.
+      puts ([first].concat(rest).map &:to_s).join unless first == 1487
     end
   end
-end
-
-begin
-  pnums = Prime.each(9999).select { |x| x >= 1000 }
-  scan pnums
 end
