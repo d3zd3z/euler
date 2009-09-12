@@ -23,7 +23,14 @@ $-w = true
 @solutions = Array.new(600)
 
 def shrink(n)
-  n.to_s.chars.to_a.map {|x| x.to_i**2 }.reduce(:+)
+  # n.to_s.chars.to_a.map {|x| x.to_i**2 }.reduce(:+)
+  ans = 0
+  while n > 0 do
+    tmp = n % 10
+    n = n / 10
+    ans += tmp * tmp
+  end
+  ans
 end
 
 # Resolve a given number to the 89 or 1 sequence.
@@ -46,6 +53,6 @@ end
 count = 0
 1.upto(10_000_000) do |x|
   count += 1 if resolve(x) == 89
-  puts x if (x % 100000) == 0
+  # puts x if (x % 100000) == 0
 end
 puts count
