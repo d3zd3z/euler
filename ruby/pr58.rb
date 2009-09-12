@@ -28,43 +28,48 @@ require 'rational'
 require 'set'
 
 # Return an array of the diagonals of a square with sides 2*n+1.
+# Returns the set of diagonals (outer 3) of a square with sides 2*n+1.
 def diags(n)
   #result = [1]
   result = []
-  1.upto(n) do |x|
-    sq = (2*x-1)**2
-    # Don't compute the squre value, since it is never prime.
-    1.upto(3) do |ph|
-      result << sq + 2*ph*x
-    end
+  sq = (2*n-1)**2
+  # Don't compute the squre value, since it is never prime.
+  1.upto(3) do |ph|
+    result << sq + 2*ph*n
   end
   result
 end
 
-# The limit of our search.
-LIMIT = 3000
-@primes = Set.new
-puts "Computing prime numbers up to #{(2*LIMIT)**2}..."
-Prime.each((2*LIMIT)**2) { |x| @primes << x }
-puts "Done"
-# p @primes.to_a.sort[-1]
+# The search might be faster by constructing the primes in order and
+# grabbing as many as are needed to test for primality.
 
-def ratio(n)
-  fail "LIMIT set too low" if n > LIMIT
-  d = diags(n)
-  pcount = d.count {|x| @primes.include?(x)}
-  #pcount = d.count {|x| x.prime?}
-  puts "For #{2*n+1} pcount=#{pcount}, d=#{d.length}, d2=#{4*n+1}"
-  Rational(pcount, 4*n+1)
+class Search
+  def initialize
+    # setup for 1x1 square.
+    @diags = 1
+    @primes = 0
+    @size = 0
+  end
+
+  def each
+    loop do
+      bump
+      yield (2*@size+1), Rational(@primes, @diags)
+    end
+  end
+
+  def bump
+    @size += 1
+    p = diags @size
+    @primes += p.count {|x| x.prime?}
+    @diags += 4
+  end
 end
 
-n = 1
-r = nil
-stop_limit = Rational(1, 10)
-loop do
-  r = ratio(n)
-  printf "%3d %9.3f\n", (2*n+1), (r.to_f * 100)
-  break if r < stop_limit
-  n += 1
+Search.new.each do |size, r|
+  # printf "%3d %9.3f\n", size, (r * 100)
+  if r < Rational(1, 10)
+    printf "%3d %9.3f\n", size, (r * 100)
+    break
+  end
 end
-printf "%3d %9.3f\n", (2*n+1), (r.to_f * 100)
