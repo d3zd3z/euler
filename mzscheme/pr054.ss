@@ -110,7 +110,7 @@
   (define-values (aa bb) (split-at cards 5))
   (values (sort aa card>) (sort bb card>)))
 
-(define-values (aa bb) (line->hands test-line))
+;(define-values (aa bb) (line->hands test-line))
 
 (define-struct ranking (key name cards) #:transparent)
 
@@ -280,5 +280,7 @@
 (define (read-hands)
   (call-with-input-file "poker.txt" hand-reader))
 
-(display (read-hands))
-(newline)
+(provide main)
+(define (main)
+  (display (read-hands))
+  (newline))
