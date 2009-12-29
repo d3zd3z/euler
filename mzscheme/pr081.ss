@@ -30,11 +30,7 @@
 
 ;;; Read the table in, and build a list of lists of numbers.
 (define (read-nodes)
-  (define (read-it inp)
-    (for/list ([line (in-lines inp)])
-      (map string->number (regexp-split #rx"," line))))
-  (define nested-nodes
-    (call-with-input-file* "matrix.txt" read-it))
+  (define nested-nodes (read-matrix "matrix.txt"))
   (define prior (map (lambda (x) '()) (first nested-nodes)))
   (define last-node #f)
   (for ([row (in-list nested-nodes)])
@@ -55,4 +51,4 @@
   (display (solve-dijkstra first-node))
   (newline))
 
-(main)
+(time (main))

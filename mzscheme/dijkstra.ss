@@ -6,9 +6,17 @@
 ;;;   'never - Not yet seen.
 ;;;   'seen - Seen and inserted into the queue.
 ;;;   'done - Fully computed.
-(provide (struct-out node)
+(provide read-matrix
+	 (struct-out node)
 	 show-node
 	 solve-dijkstra)
+
+;;; Read in the matrix table into a list of lists.
+(define (read-matrix path)
+  (define (read-it inp)
+    (for/list ([line (in-lines inp)])
+      (map string->number (regexp-split #rx"," line))))
+  (call-with-input-file* path read-it))
 
 (define-struct node
   (value
