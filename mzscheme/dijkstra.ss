@@ -8,6 +8,7 @@
 ;;;   'done - Fully computed.
 (provide read-matrix
 	 (struct-out node)
+	 add-node-neighbor!
 	 show-node
 	 solve-dijkstra)
 
@@ -22,9 +23,15 @@
   (value
     (sum #:mutable)
     (visited #:mutable)
-    neighbors))
+    (neighbors #:mutable)))
 (define (show-node node)
-  (printf "Visiting ~s, sum ~s~%" (node-value node) (node-sum node)))
+  (printf "Visiting ~s, sum ~s neigh:" (node-value node) (node-sum node))
+  (for ([i (in-list (node-neighbors node))])
+    (printf " ~a" (node-value i)))
+  (newline))
+
+(define (add-node-neighbor! node neighbor)
+  (set-node-neighbors! node (cons neighbor (node-neighbors node))))
 
 ;;; Needs to be larger than any possible sum.
 (define max-sum (* 100 10000))
@@ -58,12 +65,12 @@
        my-sum]
       [items
 	(for ([child items])
-	  (when (eq? (node-visited child) 'done)
-	    (error "Cycle detected"))
-	  (let ([sum (+ my-sum (node-value child))])
-	    (when (< sum (node-sum child))
-	      (set-node-sum! child sum)))
-	  (add-to-work child))
+	  (unless (eq? (node-visited child) 'done)
+	    (let ([sum (+ my-sum (node-value child))])
+	      (when (< sum (node-sum child))
+		(set-node-sum! child sum)))
+	    (add-to-work child)))
+	(set-node-visited! node 'done)
 	(dijkstra)]))
 
   ;; Make sure the first node has a proper sum, insert it, and run
