@@ -6,7 +6,9 @@
 ;;; where each “_” is a single digit.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Try brute force first.  We can barely do it.
+;;; Known that the answer ends in 00, we could check 1/10 as many of
+;;; them, and only check for the pattern 1_2_3_4_5_6_7_8_9, which
+;;; makes things a bit simpler, and faster.
 
 ;;; Does the number match the pattern.  In order to get the
 ;;; performanced we need, unroll the whole thing.
@@ -24,14 +26,14 @@
 	       #f)))])))
 
 (define (valid num)
-  (unroll-check num 10))
+  (unroll-check num 9))
 
 (define (compute)
-  (define low (integer-sqrt 1020304050607080900))
-  (define high (add1 (integer-sqrt 1929394959697989990)))
+  (define low (integer-sqrt 10203040506070809))
+  (define high (add1 (integer-sqrt 19293949596979899)))
   (for/first ([i (in-range low high)]
 	      #:when (valid (sqr i)))
-    i))
+    (* i 10)))
 
 (display (compute))
 (newline)
