@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="Colin Hughes" />
+<meta name="description" content="A website dedicated to the fascinating world of mathematics and programming" />
+<meta name="keywords" content="programming,mathematics,problems,puzzles" />
+
+<title>Problem 137 - Project Euler</title>
+<link rel="shortcut icon" href="http://projecteuler.net/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="style_main.css" />
+<script type="text/javascript" src="MathJax/MathJax.js"></script>
+<link rel="stylesheet" type="text/css" href="style_light.css" /></head>
+
+<body>
+<div id="container">
+
+   <div id="nav" class="noprint">
+      <ul>
+<li><a href="about" title="About" accesskey="h">About</a></li>
+<li><a href="register" title="Register" accesskey="1">Register</a></li>
+<li id="current"><a href="problems" title="Problems" accesskey="2">Problems</a></li>
+<li><a href="login" title="Login" accesskey="3">Login</a></li>
+      </ul>
+   </div>
+<div id="info_panel"><a href="rss2_euler.xml"><img src="images/icon_rss.png" alt="RSS Feed" title="RSS Feed" /></a></div>
+
+<div id="logo" class="noprint">
+   <img src="images/pe_banner_light.png" alt="Project Euler .net" />
+</div>
+
+<div id="content">
+<div style="text-align:center;" class="print"><img src="images/pe_banner.png" alt="projecteuler.net" style="border:none;" /></div>
+<h2>Problem 137</h2>
+<div title="Published on 12 January 2007 at 06:00 pm" style="cursor:help;color:#666;font-size:80%;">12 January 2007</div><br />
+<div class="problem_content" role="problem">
+
+<p>Consider the infinite polynomial series A<sub>F</sub>(<i>x</i>) = <i>x</i>F<sub>1</sub> + <i>x</i><sup>2</sup>F<sub>2</sub> + <i>x</i><sup>3</sup>F<sub>3</sub> + ..., where F<sub><i>k</i></sub> is the <i>k</i>th term in the Fibonacci sequence: 1, 1, 2, 3, 5, 8, ... ; that is, F<sub><i>k</i></sub> = F<sub><i>k</i><img src='images/symbol_minus.gif' width='9' height='3' alt='&minus;' border='0' style='vertical-align:middle;' />1</sub> + F<sub><i>k</i><img src='images/symbol_minus.gif' width='9' height='3' alt='&minus;' border='0' style='vertical-align:middle;' />2</sub>, F<sub>1</sub> = 1 and F<sub>2</sub> = 1.</p>
+<p>For this problem we shall be interested in values of <i>x</i> for which A<sub>F</sub>(<i>x</i>) is a positive integer.</p>
+<table cellpadding='0' cellspacing='0' border='0'>
+<tr>
+<td>Surprisingly A<sub>F</sub>(1/2)</td>
+<td>&nbsp;=&nbsp;</td>
+<td>(1/2).1 + (1/2)<sup>2</sup>.1 + (1/2)<sup>3</sup>.2 + (1/2)<sup>4</sup>.3 + (1/2)<sup>5</sup>.5 + ...</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;=&nbsp;</td>
+<td>1/2 + 1/4 + 2/8 + 3/16 + 5/32 + ...</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;=&nbsp;</td>
+<td>2</td>
+</tr>
+</table>
+<p>The corresponding values of <i>x</i> for the first five natural numbers are shown below.</p>
+<div style='text-align:center;'>
+<table cellspacing='0' cellpadding='2' border='1' align='center'>
+<tr style='background-color:#c1daf9;'>
+<td><b><i>x</i></b></td><td width='50'><b>A<sub>F</sub>(<i>x</i>)</b></td>
+</tr>
+<tr>
+<td><img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />2<img src='images/symbol_minus.gif' width='9' height='3' alt='&minus;' border='0' style='vertical-align:middle;' />1</td><td>1</td>
+</tr>
+<tr>
+<td>1/2</td><td>2</td>
+</tr>
+<tr>
+<td>(<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />13<img src='images/symbol_minus.gif' width='9' height='3' alt='&minus;' border='0' style='vertical-align:middle;' />2)/3</td><td>3</td>
+</tr>
+<tr>
+<td>(<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />89<img src='images/symbol_minus.gif' width='9' height='3' alt='&minus;' border='0' style='vertical-align:middle;' />5)/8</td><td>4</td>
+</tr>
+<tr>
+<td>(<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />34<img src='images/symbol_minus.gif' width='9' height='3' alt='&minus;' border='0' style='vertical-align:middle;' />3)/5</td><td>5</td>
+</tr>
+</table>
+</div>
+<p>We shall call A<sub>F</sub>(<i>x</i>) a golden nugget if <i>x</i> is rational, because they become increasingly rarer; for example, the 10th golden nugget is 74049690.</p>
+<p>Find the 15th golden nugget.</p>
+
+</div><br />
+<br /></div>
+
+
+
+
+
+<div id="footer" class="noprint">
+<a href="copyright">Project Euler Copyright Information</a>
+<!--/Creative Commons License--><!-- <rdf:RDF xmlns="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+   <Work rdf:about="">
+      <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.0/uk/" />
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/Text" />
+   </Work>
+   <License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.0/uk/"><permits rdf:resource="http://web.resource.org/cc/Reproduction"/><permits rdf:resource="http://web.resource.org/cc/Distribution"/><requires rdf:resource="http://web.resource.org/cc/Notice"/><requires rdf:resource="http://web.resource.org/cc/Attribution"/><prohibits rdf:resource="http://web.resource.org/cc/CommercialUse"/><permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/><requires rdf:resource="http://web.resource.org/cc/ShareAlike"/></License></rdf:RDF> -->
+</div>
+</div>
+<div style="height:1px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </div></body>
+</html>

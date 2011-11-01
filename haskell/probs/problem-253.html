@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="Colin Hughes" />
+<meta name="description" content="A website dedicated to the fascinating world of mathematics and programming" />
+<meta name="keywords" content="programming,mathematics,problems,puzzles" />
+
+<title>Problem 253 - Project Euler</title>
+<link rel="shortcut icon" href="http://projecteuler.net/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="style_main.css" />
+<script type="text/javascript" src="MathJax/MathJax.js"></script>
+<link rel="stylesheet" type="text/css" href="style_light.css" /></head>
+
+<body>
+<div id="container">
+
+   <div id="nav" class="noprint">
+      <ul>
+<li><a href="about" title="About" accesskey="h">About</a></li>
+<li><a href="register" title="Register" accesskey="1">Register</a></li>
+<li id="current"><a href="problems" title="Problems" accesskey="2">Problems</a></li>
+<li><a href="login" title="Login" accesskey="3">Login</a></li>
+      </ul>
+   </div>
+<div id="info_panel"><a href="rss2_euler.xml"><img src="images/icon_rss.png" alt="RSS Feed" title="RSS Feed" /></a></div>
+
+<div id="logo" class="noprint">
+   <img src="images/pe_banner_light.png" alt="Project Euler .net" />
+</div>
+
+<div id="content">
+<div style="text-align:center;" class="print"><img src="images/pe_banner.png" alt="projecteuler.net" style="border:none;" /></div>
+<h2>Problem 253</h2>
+<div title="Published on 28 August 2009 at 01:00 pm" style="cursor:help;color:#666;font-size:80%;">28 August 2009</div><br />
+<div class="problem_content" role="problem">
+<p>A small child has a &ldquo;number caterpillar&rdquo; consisting of forty jigsaw pieces, each with one number on it, which, when connected together in a line, reveal the numbers 1 to 40 in order.</p>
+
+<p>Every night, the child&#39;s father has to pick up the pieces of the caterpillar that have been scattered across the play room. He picks up the pieces at random and places them in the correct order.<br /> As the caterpillar is built up in this way, it forms distinct segments that gradually merge together.<br /> The number of segments starts at zero (no pieces placed), generally increases up to about eleven or twelve, then tends to drop again before finishing at a single segment (all pieces placed).<p>
+
+<p>For example:</p>
+<div align='center'>
+<table cellspacing='0' cellpadding='2' border='1' align='center'>
+<tr style='background-color:#c1daf9;'>
+<td width='80' align='center'><b>Piece Placed</b></td>
+<td width='80' align='center'><b>Segments So Far</b></td></tr>
+<tr><td align='center'>12</td><td align='center'>1</td></tr>
+<tr><td align='center'>4</td><td align='center'>2</td></tr>
+<tr><td align='center'>29</td><td align='center'>3</td></tr>
+<tr><td align='center'>6</td><td align='center'>4</td></tr>
+<tr><td align='center'>34</td><td align='center'>5</td></tr>
+<tr><td align='center'>5</td><td align='center'>4</td></tr>
+<tr><td align='center'>35</td><td align='center'>4</td></tr>
+<tr><td align='center'>&hellip;</td><td align='center'>&hellip;</td></tr>
+</table></div>
+
+<p>Let <var>M</var> be the maximum number of segments encountered during a random tidy-up of the caterpillar.<br />
+For a caterpillar of ten pieces, the number of possibilities for each <var>M</var> is</p>
+<div align='center'>
+<table cellspacing='0' cellpadding='2' border='1' align='center'>
+<tr style='background-color:#c1daf9;'>
+<td width='50' align='center'><b><var>M</var></b></td>
+<td width='90' align='center'><b>Possibilities</b></td></tr>
+<tr><td align='center'>1</td><td align='right'>512&nbsp; &nbsp;&nbsp; &nbsp;</td></tr>
+<tr><td align='center'>2</td><td align='right'>250912&nbsp; &nbsp;&nbsp; &nbsp;</td></tr>
+<tr><td align='center'>3</td><td align='right'>1815264&nbsp; &nbsp;&nbsp; &nbsp;</td></tr>
+<tr><td align='center'>4</td><td align='right'>1418112&nbsp; &nbsp;&nbsp; &nbsp;</td></tr>
+<tr><td align='center'>5</td><td align='right'>144000&nbsp; &nbsp;&nbsp; &nbsp;</td></tr>
+</table>
+</div>
+
+<p>so the most likely value of <var>M</var> is 3 and the average value is <sup>385643</sup>&frasl;<sub>113400</sub> = 3.400732, rounded to six decimal places.</p>
+
+<p>The most likely value of <var>M</var> for a forty-piece caterpillar is 11; but what is the average value of <var>M</var>?</p>
+<p>Give your answer rounded to six decimal places.</p>
+
+</div><br />
+<br /></div>
+
+
+
+
+
+<div id="footer" class="noprint">
+<a href="copyright">Project Euler Copyright Information</a>
+<!--/Creative Commons License--><!-- <rdf:RDF xmlns="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+   <Work rdf:about="">
+      <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.0/uk/" />
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/Text" />
+   </Work>
+   <License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.0/uk/"><permits rdf:resource="http://web.resource.org/cc/Reproduction"/><permits rdf:resource="http://web.resource.org/cc/Distribution"/><requires rdf:resource="http://web.resource.org/cc/Notice"/><requires rdf:resource="http://web.resource.org/cc/Attribution"/><prohibits rdf:resource="http://web.resource.org/cc/CommercialUse"/><permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/><requires rdf:resource="http://web.resource.org/cc/ShareAlike"/></License></rdf:RDF> -->
+</div>
+</div>
+<div style="height:1px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </div></body>
+</html>

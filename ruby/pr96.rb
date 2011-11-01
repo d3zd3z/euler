@@ -1,8 +1,36 @@
+#! /usr/bin/env ruby
 #! /usr/bin/env ruby19
 #
 # Sudoku solver.
 
 require 'benchmark'
+
+# A +Board+ is a 9x9 grid of squares that can be accessed either via
+# row-major counting, column-major counting, or cell-major counting.
+class Board
+  def initialize
+    @board = Array.new(81)
+  end
+
+  # Access via row-major.
+  def row(row, column)
+    @board[9*row + column]
+  end
+  def row=(row, column, value)
+    @board[9*row + column] = value
+  end
+
+  # Column major.
+  def col(column, row)
+    @board[9*row + column]
+  end
+  def col=(column, row, value)
+    @board[9*row + column] = value
+  end
+
+  # Cell major.
+  #def cell(cl, index)
+end
 
 class Puzzle
   def initialize(board = nil, name = "unknown")

@@ -33,3 +33,5 @@
 		 (< numb 3/7))
 	  (loop numb (sub1 index))
 	  (loop fmin (sub1 index)))))))
+(display (answer))
+(newline)

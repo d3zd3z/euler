@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="Colin Hughes" />
+<meta name="description" content="A website dedicated to the fascinating world of mathematics and programming" />
+<meta name="keywords" content="programming,mathematics,problems,puzzles" />
+
+<title>Problem 256 - Project Euler</title>
+<link rel="shortcut icon" href="http://projecteuler.net/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="style_main.css" />
+<script type="text/javascript" src="MathJax/MathJax.js"></script>
+<link rel="stylesheet" type="text/css" href="style_light.css" /></head>
+
+<body>
+<div id="container">
+
+   <div id="nav" class="noprint">
+      <ul>
+<li><a href="about" title="About" accesskey="h">About</a></li>
+<li><a href="register" title="Register" accesskey="1">Register</a></li>
+<li id="current"><a href="problems" title="Problems" accesskey="2">Problems</a></li>
+<li><a href="login" title="Login" accesskey="3">Login</a></li>
+      </ul>
+   </div>
+<div id="info_panel"><a href="rss2_euler.xml"><img src="images/icon_rss.png" alt="RSS Feed" title="RSS Feed" /></a></div>
+
+<div id="logo" class="noprint">
+   <img src="images/pe_banner_light.png" alt="Project Euler .net" />
+</div>
+
+<div id="content">
+<div style="text-align:center;" class="print"><img src="images/pe_banner.png" alt="projecteuler.net" style="border:none;" /></div>
+<h2>Problem 256</h2>
+<div title="Published on 19 September 2009 at 01:00 am" style="cursor:help;color:#666;font-size:80%;">19 September 2009</div><br />
+<div class="problem_content" role="problem">
+<span style="font-size:10pt;">
+<p>Tatami are rectangular mats, used to completely cover the floor of a room, without overlap.</p>
+
+<p>Assuming that the only type of available tatami has dimensions 1<img src='images/symbol_times.gif' width='9' height='9' alt='&times;' border='0' style='vertical-align:middle;' />2, there are obviously some limitations for the shape and size of the rooms that can be covered.</p>
+
+<p>For this problem, we consider only rectangular rooms with integer dimensions <var>a</var>, <var>b</var> and even size <var>s</var> = <var>a</var>&middot;<var>b</var>.<br />
+We use the term 'size' to denote the floor surface area of the room, and &mdash; without loss of generality &mdash; we add the condition <var>a</var> <img src='images/symbol_le.gif' width='10' height='12' alt='&le;' border='0' style='vertical-align:middle;' /> <var>b</var>.</p>
+
+<p>There is one rule to follow when laying out tatami: there must be no points where corners of four different mats meet.<br />
+For example, consider the two arrangements below for a 4<img src='images/symbol_times.gif' width='9' height='9' alt='&times;' border='0' style='vertical-align:middle;' />4 room:</p>
+<div align='center'>
+<img src="project/images/p_256_tatami3.gif" /><br />
+</div>
+
+<p>The arrangement on the left is acceptable, whereas the one on the right is not: a red "<span style="color:red"><b>X</b></span>" in the middle, marks the point where four tatami meet.</p>
+
+<p>Because of this rule, certain even-sized rooms cannot be covered with tatami: we call them tatami-free rooms.<br />
+Further, we define <var>T</var>(<var>s</var>) as the number of tatami-free rooms of size <var>s</var>.</p>
+
+<p>The smallest tatami-free room has size <var>s</var> = 70 and dimensions 7<img src='images/symbol_times.gif' width='9' height='9' alt='&times;' border='0' style='vertical-align:middle;' />10.<br />
+All the other rooms of size <var>s</var> = 70 can be covered with tatami; they are: 1<img src='images/symbol_times.gif' width='9' height='9' alt='&times;' border='0' style='vertical-align:middle;' />70, 2<img src='images/symbol_times.gif' width='9' height='9' alt='&times;' border='0' style='vertical-align:middle;' />35 and 5<img src='images/symbol_times.gif' width='9' height='9' alt='&times;' border='0' style='vertical-align:middle;' />14.<br />
+Hence, <var>T</var>(70) = 1.</p>
+
+<p>Similarly, we can verify that <var>T</var>(1320) = 5 because there are exactly 5 tatami-free rooms of size <var>s</var> = 1320:<br />
+20<img src='images/symbol_times.gif' width='9' height='9' alt='&times;' border='0' style='vertical-align:middle;' />66, 22<img src='images/symbol_times.gif' width='9' height='9' alt='&times;' border='0' style='vertical-align:middle;' />60, 24<img src='images/symbol_times.gif' width='9' height='9' alt='&times;' border='0' style='vertical-align:middle;' />55, 30<img src='images/symbol_times.gif' width='9' height='9' alt='&times;' border='0' style='vertical-align:middle;' />44 and 33<img src='images/symbol_times.gif' width='9' height='9' alt='&times;' border='0' style='vertical-align:middle;' />40.<br />
+In fact, <var>s</var> = 1320 is the smallest room-size <var>s</var> for which <var>T</var>(<var>s</var>) = 5.</p>
+
+<p>Find the smallest room-size <var>s</var> for which <var>T</var>(<var>s</var>) = 200.</p>
+</span>
+
+</div><br />
+<br /></div>
+
+
+
+
+
+<div id="footer" class="noprint">
+<a href="copyright">Project Euler Copyright Information</a>
+<!--/Creative Commons License--><!-- <rdf:RDF xmlns="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+   <Work rdf:about="">
+      <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.0/uk/" />
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/Text" />
+   </Work>
+   <License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.0/uk/"><permits rdf:resource="http://web.resource.org/cc/Reproduction"/><permits rdf:resource="http://web.resource.org/cc/Distribution"/><requires rdf:resource="http://web.resource.org/cc/Notice"/><requires rdf:resource="http://web.resource.org/cc/Attribution"/><prohibits rdf:resource="http://web.resource.org/cc/CommercialUse"/><permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/><requires rdf:resource="http://web.resource.org/cc/ShareAlike"/></License></rdf:RDF> -->
+</div>
+</div>
+<div style="height:1px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </div></body>
+</html>

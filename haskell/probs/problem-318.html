@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="author" content="Colin Hughes" />
+<meta name="description" content="A website dedicated to the fascinating world of mathematics and programming" />
+<meta name="keywords" content="programming,mathematics,problems,puzzles" />
+
+<title>Problem 318 - Project Euler</title>
+<link rel="shortcut icon" href="http://projecteuler.net/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="style_main.css" />
+<script type="text/javascript" src="MathJax/MathJax.js"></script>
+<link rel="stylesheet" type="text/css" href="style_light.css" /></head>
+
+<body>
+<div id="container">
+
+   <div id="nav" class="noprint">
+      <ul>
+<li><a href="about" title="About" accesskey="h">About</a></li>
+<li><a href="register" title="Register" accesskey="1">Register</a></li>
+<li id="current"><a href="problems" title="Problems" accesskey="2">Problems</a></li>
+<li><a href="login" title="Login" accesskey="3">Login</a></li>
+      </ul>
+   </div>
+<div id="info_panel"><a href="rss2_euler.xml"><img src="images/icon_rss.png" alt="RSS Feed" title="RSS Feed" /></a></div>
+
+<div id="logo" class="noprint">
+   <img src="images/pe_banner_light.png" alt="Project Euler .net" />
+</div>
+
+<div id="content">
+<div style="text-align:center;" class="print"><img src="images/pe_banner.png" alt="projecteuler.net" style="border:none;" /></div>
+<h2>Problem 318</h2>
+<div title="Published on 01 January 2011 at 04:00 pm" style="cursor:help;color:#666;font-size:80%;">01 January 2011</div><br />
+<div class="problem_content" role="problem">
+<p>
+Consider the real number <img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />2+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />3.<BR />
+When we calculate the even powers of <img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />2+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />3
+we get:<BR />
+(<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />2+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />3)<sup>2</sup> = 9.898979485566356...<BR />
+(<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />2+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />3)<sup>4</sup> = 97.98979485566356...<BR />
+(<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />2+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />3)<sup>6</sup> = 969.998969071069263...<BR />
+(<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />2+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />3)<sup>8</sup> = 9601.99989585502907...<BR />
+(<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />2+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />3)<sup>10</sup> = 95049.999989479221...<BR />
+(<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />2+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />3)<sup>12</sup> = 940897.9999989371855...<BR />
+(<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />2+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />3)<sup>14</sup> = 9313929.99999989263...<BR />
+(<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />2+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />3)<sup>16</sup> = 92198401.99999998915...<BR />
+</p>
+<p>
+It looks like that the number of consecutive nines at the beginning of the fractional part of these powers is non-decreasing.<BR />
+In fact it can be proven that the fractional part of (<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />2+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />3)<sup>2n</sup> approaches 1 for large n.
+</p>
+<p>
+Consider all real numbers of the form <img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />p+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />q with p and q positive integers and p<img src='images/symbol_lt.gif' width='10' height='10' alt='&lt;' border='0' style='vertical-align:middle;' />q, such that the fractional part 
+of (<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />p+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />q)<sup>2n</sup> approaches 1 for large n.
+</p>
+<p>
+Let C(p,q,n) be the number of consecutive nines at the beginning of the fractional part of <BR /> (<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />p+<img src='images/symbol_radic.gif' width='14' height='16' alt='&radic;' border='0' style='vertical-align:middle;' />q)<sup>2n</sup>.
+</p>
+<p>
+Let N(p,q) be the minimal value of n such that C(p,q,n) <img src='images/symbol_ge.gif' width='10' height='12' alt='&ge;' border='0' style='vertical-align:middle;' /> 2011.
+</p>
+<p>
+Find <img src='images/symbol_sum.gif' width='11' height='14' alt='&sum;' border='0' style='vertical-align:middle;' />N(p,q) for p+q <img src='images/symbol_le.gif' width='10' height='12' alt='&le;' border='0' style='vertical-align:middle;' /> 2011.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+</div><br />
+<br /></div>
+
+
+
+
+
+<div id="footer" class="noprint">
+<a href="copyright">Project Euler Copyright Information</a>
+<!--/Creative Commons License--><!-- <rdf:RDF xmlns="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+   <Work rdf:about="">
+      <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.0/uk/" />
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/Text" />
+   </Work>
+   <License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.0/uk/"><permits rdf:resource="http://web.resource.org/cc/Reproduction"/><permits rdf:resource="http://web.resource.org/cc/Distribution"/><requires rdf:resource="http://web.resource.org/cc/Notice"/><requires rdf:resource="http://web.resource.org/cc/Attribution"/><prohibits rdf:resource="http://web.resource.org/cc/CommercialUse"/><permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/><requires rdf:resource="http://web.resource.org/cc/ShareAlike"/></License></rdf:RDF> -->
+</div>
+</div>
+<div style="height:1px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </div></body>
+</html>
