@@ -3,13 +3,12 @@
 package euler
 
 import "container/heap"
-import "container/vector"
 
 // A buildable prime-sieve, as described in
 // http://programmingpraxis.com/2011/10/14/the-first-n-primes/
 type node struct {
 	next  int64
-	steps vector.Vector // of int64
+	steps []int64
 }
 
 func (p *node) Less(y interface{}) bool {
@@ -19,7 +18,7 @@ func (p *node) Less(y interface{}) bool {
 type SieveHeap struct {
 	prime int64
 	nodes map[int64]*node
-	heap  vector.Vector // of *node.
+	heap  nodeHeap
 }
 
 func (p *SieveHeap) addNode(next int64, step int64) {
@@ -29,7 +28,7 @@ func (p *SieveHeap) addNode(next int64, step int64) {
 		p.nodes[next] = n
 		heap.Push(&p.heap, n)
 	}
-	n.steps.Push(step)
+	n.steps = append(n.steps, step)
 }
 
 // Update the lowest keyed node in the heap.
@@ -38,10 +37,32 @@ func (p *SieveHeap) updateFirst() {
 	p.nodes[head.next] = nil, false
 
 	// Spread out the steps to all of the appropriate nodes.
-	for _, stepI := range head.steps {
-		step := stepI.(int64)
+	for _, step := range head.steps {
 		p.addNode(head.next+step, step)
 	}
+}
+
+type nodeHeap []*node
+
+func (p *nodeHeap) Len() int {
+	return len(*p)
+}
+
+func (p *nodeHeap) Less(i, j int) bool {
+	return (*p)[i].next < (*p)[j].next
+}
+
+func (p *nodeHeap) Pop() (result interface{}) {
+	result, *p = (*p)[len(*p)-1], (*p)[:len(*p)-1]
+	return
+}
+
+func (p *nodeHeap) Push(x interface{}) {
+	*p = append(*p, x.(*node))
+}
+
+func (p *nodeHeap) Swap(i, j int) {
+	(*p)[i], (*p)[j] = (*p)[j], (*p)[i]
 }
 
 func (p *SieveHeap) Next() (result int64) {
@@ -63,7 +84,7 @@ func (p *SieveHeap) Next() (result int64) {
 
 	default:
 		for {
-			peek := p.heap[0].(*node)
+			peek := p.heap[0]
 			cur := p.prime
 
 			// If the 'next' divisor is greater than our current
