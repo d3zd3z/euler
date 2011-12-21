@@ -1,0 +1,9 @@
+_obj/
+/bin/
+/pkg/
+*.6
+
+# Special pattern for problem executables.
+/src/pr*/pr[0-9]
+/src/pr*/pr[0-9][0-9]
+/src/pr*/pr[0-9][0-9][0-9]
