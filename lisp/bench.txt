@@ -1,0 +1,17 @@
+Some various benchmarks.
+
+Euler problem 10:
+sbcl:	      2.645	2.634	2.635
+ccl64:	      7.48	7.39	7.37
+ccl:	      7.998	7.960	8.064
+ecl:	      14.464	14.449	14.400
+abcl: 	      17.844	17.419	17.648
+clisp:	      21.03	21.46	21.17
+
+lispworks:    5.672	aborted personal edition
+
+For a curious comparison, an algorithmically similar Go solution
+go:   	      1.582	1.559	1.555
+
+I've tried to keep the algorithm and data structures as similar as
+possible between the Lisp and the Go solution.

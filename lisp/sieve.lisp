@@ -3,7 +3,8 @@
 
 (defpackage #:euler.sieve
   (:use #:cl #:iterate #:euler.heap)
-  (:export #:make-sieve #:sieve-next))
+  (:export #:make-sieve #:sieve-next #:nth-prime #:factorize
+	   #:reset-prime-sieve #:divisors))
 (in-package #:euler.sieve)
 
 (defstruct node
@@ -74,4 +75,54 @@ place."
 	(for n = (sieve-next p))
 	(while (< n limit))
 	(finally (return n))))
-	
+
+;;; A cached version of the sieve.  Keeps a single sieve state, and
+;;; fills in the array as values are requested.
+(defvar *prime-sieve*)
+(defvar *primes*)
+
+(defun reset-prime-sieve ()
+  (setf *prime-sieve* (make-sieve)
+	*primes* (make-array 0 :fill-pointer t :adjustable t)))
+
+(reset-prime-sieve)
+
+(defun nth-prime (n)
+  "Return the Nth prime number, counting 2 as prime zero."
+  (iter (while (<= (length *primes*) n))
+	(vector-push-extend (sieve-next *prime-sieve*) *primes*))
+  (aref *primes* n))
+
+(defun divides-out (n factor)
+  "Compute how many times FACTOR divides into N.  Returns two values,
+the count, and the result of (/ factor (expt N count))"
+  (iter (for (values num den) = (truncate n factor))
+	(while (zerop den))
+	(setf n num)
+	(counting t into count)
+	(finally (return (values count n)))))
+
+(defun factorize (n)
+  "Compute the prime factors of N, along with their powers.  Returns a
+list of pairs, with the car as the prime factor, and the cdr as the
+power."
+  (iter (while (> n 1))
+	(for i from 0)
+	(for p = (nth-prime i))
+	(for (values power next-n) = (divides-out n p))
+	(when (plusp power)
+	  (collect (cons p power))
+	  (setf n next-n))))
+
+(defun spread (factors)
+  (unless factors
+    (return-from spread '(1)))
+  (iter outer
+	(with (p . count) = (first factors))
+	(for res in (spread (rest factors)))
+	(iter (for x from 0 to count)
+	      (in outer (collect (* res (expt p x)))))))
+
+(defun divisors (n)
+  "Return the divisors of N."
+  (spread (factorize n)))
