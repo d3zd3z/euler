@@ -18,4 +18,4 @@
   (iter (with sieve = (make-sieve))
 	(for p = (sieve-next sieve))
 	(until (>= p 2000000))
-	(collect p)))
+	(sum p)))
