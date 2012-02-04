@@ -28,17 +28,31 @@
 ----------------------------------------------------------------------
 
 --  with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Containers.Vectors;
 with Euler; use Euler;
-with Prime_Sieve;
+
+with Heap_Sieve;
 
 procedure Pr012 is
+
+   Sieve : Heap_Sieve.T;
+
+   --  Build up this vector to easily find more primes.
+   package Natural_Vectors is new Ada.Containers.Vectors
+     (Index_Type   => Positive,
+      Element_Type => Natural);
+
+   Primes : Natural_Vectors.Vector;
+
+   function Nth_Prime (Index : Positive) return Natural;
+   --  Return the nth prime, starting with 1.
 
    function Divisor_Count (Number : Natural) return Natural;
 
    function Divisor_Count (Number : Natural) return Natural is
       Count : Natural := 1;
-      Sv : constant access Prime_Sieve.T := Prime_Sieve.Sieve (Number);
-      Prime : Natural := 2;
+      Prime_Index : Positive := Positive'First;
+      Prime : Natural := Nth_Prime (Prime_Index);
       Tmp : Natural := Number;
       Divide_Count : Natural;
    begin
@@ -52,7 +66,8 @@ procedure Pr012 is
          Count := Count * (Divide_Count + 1);
 
          if Tmp > 1 then
-            Prime := Sv.Next_Prime (Prime);
+            Prime_Index := Prime_Index + 1;
+            Prime := Nth_Prime (Prime_Index);
          end if;
 
       end loop;
@@ -60,12 +75,23 @@ procedure Pr012 is
       return Count;
    end Divisor_Count;
 
+
+   function Nth_Prime (Index : Positive) return Natural is
+      Prime : Natural;
+   begin
+      while Primes.Last_Index < Index loop
+         Sieve.Next (Prime);
+         Primes.Insert (Before   => Primes.Last_Index + 1,
+                        New_Item => Prime);
+      end loop;
+
+      return Primes.Element (Index);
+   end Nth_Prime;
+
    Number : Natural := 1;
    Step : Natural := 1;
 
 begin
-   Print_Result (Divisor_Count (28));
-
    loop
       if Divisor_Count (Number) > 500 then
          Print_Result (Number);
