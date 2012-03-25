@@ -1,0 +1,4 @@
+# <pr005.ml>: pkg_batteries, pkg_threads
+<*.ml> or <*.mli> : package(batteries)
+
+<*.native> or <*.byte>: package(batteries)
