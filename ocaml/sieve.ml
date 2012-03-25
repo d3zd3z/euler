@@ -1,19 +1,22 @@
-(**********************************************************************
- * Problem 3
- *
- * 02 November 2001
- *
- *
- * The prime factors of 13195 are 5, 7, 13 and 29.
- *
- * What is the largest prime factor of the number 600851475143 ?
- *
- **********************************************************************)
+(* Prime number sieve. *)
+
+(* This is an implementaiton of a functional sieve, derived from the
+   paper mentioned in
+   <http://programmingpraxis.com/2011/10/14/the-first-n-primes/>.
+   Instead of being lazy, we return the state each time, which makes
+   things a little more complex, but not much.  It still has the
+   characterist of generating the primes without bound.  The
+   performance at a given prime p is roughly the log of the number of
+   primes seen so far.  It performs about the same work as the normal
+   Sieve of Eratosthenes, but the work has a larger overhead.
+
+   The sieve will fail when reaching the sqrt of the numeric type
+   (there is an [n*n] in the code), and will generally start producing
+   incorrect results, or possibly not terminate.
+
+   The sieve is in a functor over a general numeric type. *)
 
 open Batteries_uni
-
-(* Start with a simple Int-based prime generator.  Extend this later
-   to a functor that can use other numeric types. *)
 
 module type SimpleNumeric = sig
   type t
