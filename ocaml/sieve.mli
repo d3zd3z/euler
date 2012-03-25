@@ -22,12 +22,26 @@ module Make(Num: SimpleNumeric): S with type elt = Num.t
 module IntSieve: S with type elt = int
 module Int64Sieve: S with type elt = int64
 
-(*
 (* A factory can generate prime numbers, remembering them from prior uses. *)
 module type FACTORY = sig
   type t
+  val isqrt : t -> t
   val primes_upto : t -> t Enum.t
+
+  type factor = { prime: t; power: int }
+  val factorize : t -> factor list
+  val divisor_count : t -> int
 end
 
-module MakeFactory(Num: SimpleNumeric): S with type elt = Num.t
-*)
+(* The factory needs a few more operations from numbers. *)
+module type RICH_NUMERIC = sig
+  include SimpleNumeric
+  val sub : t -> t -> t
+  val div : t -> t -> t
+  val modulo : t -> t -> t
+  val shift_left : t -> int -> t
+  val shift_right : t -> int -> t
+end
+
+module MakeFactory(Num: RICH_NUMERIC): FACTORY with type t = Num.t
+module IntFactory: FACTORY with type t = int

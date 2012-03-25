@@ -110,3 +110,89 @@ let testing_dump () =
     end in
   loop IntSieve.initial 1
 (* let _ = testing_dump () *)
+
+(* Factory. *)
+module type FACTORY = sig
+  type t
+  val isqrt : t -> t
+  val primes_upto : t -> t Enum.t
+  type factor = { prime: t; power: int }
+  val factorize : t -> factor list
+  val divisor_count : t -> int
+end
+
+module type RICH_NUMERIC = sig
+  include SimpleNumeric
+  val sub : t -> t -> t
+  val div : t -> t -> t
+  val modulo : t -> t -> t
+  val shift_left : t -> int -> t
+  val shift_right : t -> int -> t
+end
+
+module MakeFactory(Num : RICH_NUMERIC) : FACTORY with type t = Num.t = struct
+  type t = Num.t
+
+  let isqrt num =
+    let num = ref num in
+    let bit = ref Num.one in
+    while Num.compare (Num.shift_left !bit 2) !num < 0 do
+      bit := Num.shift_left !bit 2
+    done;
+    let result = ref Num.zero in
+    while Num.compare !bit Num.zero <> 0 do
+      if !num > Num.add !result !bit then begin
+	num := Num.sub !num (Num.add !result !bit);
+	result := Num.add (Num.shift_right !result 1) !bit
+      end else
+	result := Num.shift_right !result 1;
+      bit := Num.shift_right !bit 2
+    done;
+    !result
+
+  module S = Make(Num)
+  let primes = DynArray.create ()
+  let sieve = ref S.initial
+  let ensure_upto num =
+    while DynArray.empty primes || Num.compare (DynArray.last primes) num < 0 do
+      let (next, sieve') = S.next !sieve in
+      sieve := sieve';
+      DynArray.add primes next
+    done
+
+  (* Return an enumerator of the primes up to, but not including num. *)
+  let primes_upto num =
+    ensure_upto (isqrt num);
+    Enum.take_while (fun x -> x < num) (DynArray.enum primes)
+
+  (* This answer fits well within an 'int'. *)
+  type factor = { prime: t; power: int }
+
+(* Compute how many times [factor] divides into [n].  Returns the
+   count and the result of dividing [n] by the factor. *)
+  let rec divides_out n factor =
+    let rec loop count n =
+      if Num.compare (Num.modulo n factor) Num.zero = 0 then
+	loop (count + 1) (Num.div n factor)
+      else
+	(count, n) in
+    loop 0 n
+
+  let factorize num =
+    let each ((n, factors) as src) x =
+      let (count, n') = divides_out n x in
+      if count > 0 then (n', { prime=x; power=count } :: factors)
+      else src in
+    let (left, factors) = Enum.fold each (num, []) (primes_upto num) in
+    if Num.compare left Num.one = 0 then factors
+    else { prime=left; power=1 } :: factors
+
+  let divisor_count num =
+    List.fold_left (fun x { power } -> x * (power + 1)) 1 (factorize num)
+end
+
+module IntFactory = MakeFactory(struct
+  include Int
+  let shift_left = (lsl)
+  let shift_right = (asr)
+end)
