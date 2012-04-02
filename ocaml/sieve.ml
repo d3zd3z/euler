@@ -122,6 +122,7 @@ module type FACTORY = sig
   type factor = { prime: t; power: int }
   val factorize : t -> factor list
   val divisor_count : t -> int
+  val divisors : t -> t list
 end
 
 module type RICH_NUMERIC = sig
@@ -192,6 +193,21 @@ module MakeFactory(Num : RICH_NUMERIC) : FACTORY with type t = Num.t = struct
 
   let divisor_count num =
     List.fold_left (fun x { power } -> x * (power + 1)) 1 (factorize num)
+
+  (* Spread out the factors and powers to produce all of the divisors. *)
+  let rec spread = function
+    | [] -> [Num.one]
+    | (x::xs) ->
+	let rest = spread xs in
+	let rec loop power count result =
+	  if count > x.power then List.concat result
+	  else begin
+	    let nodes = List.map (fun n -> Num.mul n power) rest in
+	    loop (Num.mul power x.prime) (count + 1) (nodes :: result)
+	  end in
+	loop Num.one 0 []
+
+  let divisors num = spread (factorize num)
 end
 
 module IntFactory = MakeFactory(struct

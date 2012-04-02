@@ -31,6 +31,7 @@ module type FACTORY = sig
   type factor = { prime: t; power: int }
   val factorize : t -> factor list
   val divisor_count : t -> int
+  val divisors : t -> t list
 end
 
 (* The factory needs a few more operations from numbers. *)
