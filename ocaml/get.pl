@@ -15,7 +15,7 @@ open(I, "w3m -dump -cols 69 $URL|") or die;
 
 open(O, ">pr$prob3.ml") or die;
 print O <<EOF;
-(**********************************************************************
+(*
 EOF
 
 # Skip until we get the problem statement.
@@ -35,7 +35,7 @@ while (<I>) {
 	$last = $_;
 }
 print O <<EOF;
- **********************************************************************)
+ *)
 
 EOF
 close I or die "Problem getting euler page";
