@@ -119,6 +119,7 @@ module type FACTORY = sig
   type t
   val isqrt : t -> t
   val primes_upto : t -> t Enum.t
+  val is_prime : t -> bool
   type factor = { prime: t; power: int }
   val factorize : t -> factor list
   val divisor_count : t -> int
@@ -168,6 +169,20 @@ module MakeFactory(Num : RICH_NUMERIC) : FACTORY with type t = Num.t = struct
   let primes_upto num =
     ensure_upto (isqrt num);
     Enum.take_while (fun x -> x < num) (DynArray.enum primes)
+
+  let is_prime num =
+    ensure_upto num;
+    let rec bsearch low high =
+      if high < low then false
+      else begin
+	let mid = low + ((high - low) lsr 1) in
+	let mid_elt = DynArray.get primes mid in
+	match Num.compare mid_elt num with
+	  | x when x > 0 -> bsearch low (mid-1)
+	  | x when x < 0 -> bsearch (mid+1) high
+	  | _ -> true
+      end in
+    bsearch 0 (DynArray.length primes - 1)
 
   (* This answer fits well within an 'int'. *)
   type factor = { prime: t; power: int }
