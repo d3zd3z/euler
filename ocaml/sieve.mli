@@ -27,6 +27,7 @@ module type FACTORY = sig
   type t
   val isqrt : t -> t
   val primes_upto : t -> t Enum.t
+  val is_prime : t -> bool
 
   type factor = { prime: t; power: int }
   val factorize : t -> factor list
