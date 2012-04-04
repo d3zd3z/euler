@@ -7,4 +7,8 @@
 # <pr081.ml>: syntax(deriving-ocsigen)
 <pr081.*>: package(deriving-ocsigen)
 
+# Temp
+#<pr023.ml>: pp(camlp4o deriving-ocsigen/pa_deriving.cma)
+#<pr023.*>: package(deriving-ocsigen)
+
 <*.native> or <*.byte>: package(batteries)
