@@ -18,42 +18,10 @@
 
 open Printf
 
-let swap text a b =
-  let tmp = text.[a] in
-  text.[a] <- text.[b];
-  text.[b] <- tmp
-
-let reverse_substring text a b =
-  let rec loop a b =
-    if a < b then begin
-      swap text a b;
-      loop (a+1) (b-1)
-    end in
-  loop a b
-
-(* Modify the string, in place, to generate the next lexical
-   permutation. *)
-let next_permutation text =
-  let len = String.length text in
-  let k = ref (-1) in
-  for x = 0 to len-2 do
-    if text.[x] < text.[x+1] then
-      k := x
-  done;
-  if !k < 0 then raise Not_found;
-  let l = ref (-1) in
-  for x = !k+1 to len-1 do
-    if text.[!k] < text.[x] then
-      l := x
-  done;
-  swap text !k !l;
-  reverse_substring text (!k+1) (len-1);
-  text
-
 let euler24 () =
   let rec loop text count =
     if count = 1_000_000 then text
-    else loop (next_permutation text) (count+1) in
+    else loop (Euler.string_next_permutation text) (count+1) in
   loop (String.copy "0123456789") 1
 
 let () = printf "%s\n" (euler24 ())

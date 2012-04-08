@@ -2,13 +2,11 @@
 <*.ml> or <*.mli> : package(batteries)
 # <pr081.*>: package(deriving), pp(deriving)
 
-# The ocsigen one works, for some reason, syntax isn't working though.
-<pr081.ml>: pp(camlp4o deriving-ocsigen/pa_deriving.cma)
-# <pr081.ml>: syntax(deriving-ocsigen)
+<pr081.ml>: package(deriving-ocsigen.syntax), syntax(camlp4o)
 <pr081.*>: package(deriving-ocsigen)
 
 # Temp
-#<pr023.ml>: pp(camlp4o deriving-ocsigen/pa_deriving.cma)
+#<pr023.ml>: package(deriving-ocsigen.syntax), syntax(camlp4o)
 #<pr023.*>: package(deriving-ocsigen)
 
 <*.native> or <*.byte>: package(batteries)
