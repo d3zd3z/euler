@@ -19,3 +19,6 @@ module MakePermuter (Vec: VEC) (Cmp: Interfaces.OrderedType with type t = Vec.el
   : PERM with type t = Vec.t
 
 val string_next_permutation : string -> string
+
+val expt : int -> int -> int
+val reverse_number : ?base:int -> int -> int
