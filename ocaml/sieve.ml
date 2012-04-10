@@ -167,7 +167,7 @@ module MakeFactory(Num : RICH_NUMERIC) : FACTORY with type t = Num.t = struct
 
   (* Return an enumerator of the primes up to, but not including num. *)
   let primes_upto num =
-    ensure_upto (isqrt num);
+    ensure_upto num;
     Enum.take_while (fun x -> x < num) (DynArray.enum primes)
 
   let is_prime num =
@@ -230,3 +230,5 @@ module IntFactory = MakeFactory(struct
   let shift_left = (lsl)
   let shift_right = (asr)
 end)
+
+module Int64Factory = MakeFactory(Int64)

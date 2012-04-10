@@ -47,3 +47,4 @@ end
 
 module MakeFactory(Num: RICH_NUMERIC): FACTORY with type t = Num.t
 module IntFactory: FACTORY with type t = int
+module Int64Factory: FACTORY with type t = int64
