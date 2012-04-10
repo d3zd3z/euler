@@ -61,3 +61,19 @@ module StringPermuter = MakePermuter (struct
 end) (Char)
 
 let string_next_permutation = StringPermuter.next_permutation
+
+let expt base power =
+  let rec loop result base power =
+    if power = 0 then result else begin
+      let result = if (power land 1) <> 0
+	then result * base else result in
+      let base = base * base in
+      loop result base (power lsr 1)
+    end in
+  loop 1 base power
+
+let reverse_number ?(base=10) number =
+  let rec loop number result =
+    if number = 0 then result
+    else loop (number / base) (result * base + (number mod base)) in
+  loop number 0
