@@ -77,3 +77,125 @@ let reverse_number ?(base=10) number =
     if number = 0 then result
     else loop (number / base) (result * base + (number mod base)) in
   loop number 0
+
+module MillerRabin = struct
+  open Num
+
+  (* The Batteries Big_int module is completely worthless, because it
+     overrides all of the normal arithmetic operations.  Worse, they
+     don't even provide a legacy version of it, so our only hope is to
+     pull in the symbols desired.  Ick. *)
+  let and_big_int = Big_int.and_big_int
+  let or_big_int = Big_int.or_big_int
+  let mod_big_int = Big_int.mod_big_int
+  let big_int_of_int = Big_int.big_int_of_int
+  let shift_right_big_int = Big_int.shift_right_big_int
+  let shift_left_big_int = Big_int.shift_left_big_int
+  let compare_big_int = Big_int.compare_big_int
+
+  let zero = num_of_int 0
+  let one = num_of_int 1
+  let two = num_of_int 2
+  let three = num_of_int 3
+  let five = num_of_int 5
+  let seven = num_of_int 7
+
+  let num_and a b = match a with
+    | Int a -> (match b with
+	| Int b -> Int (a land b)
+	| Big_int b -> Big_int (and_big_int (big_int_of_int a) b)
+	| Ratio _ -> failwith "and of ratio")
+    | Big_int a -> (match b with
+	| Int b -> Big_int (and_big_int a (big_int_of_int b))
+	| Big_int b -> Big_int (and_big_int a b)
+	| Ratio _ -> failwith "and of ratio")
+    | Ratio _ -> failwith "and of ratio"
+
+  let num_shift_right num count = match num with
+    | Int a -> Int (a lsr count)
+    | Big_int a -> Big_int (shift_right_big_int a count)
+    | Ratio _ -> failwith "shift of ratio"
+
+  (* This is a little trickier, since it can overflow.  For
+     simplicitly, just always convert the result to a bit_int.  TODO:
+     keep the int value as an int if possible. *)
+  let num_shift_left num count = match num with
+    | Int a -> Big_int (shift_left_big_int (big_int_of_int a) count)
+    | Big_int a -> Big_int (shift_left_big_int a count)
+    | Ratio _ -> failwith "shift of ratio"
+
+  (* Compute ((base ** power) mod modulus) but more efficiently. *)
+  let exp_mod base power modulus =
+    let rec loop result base power =
+      if power =/ zero then result else begin
+	let result = if (num_and power one) <>/ zero
+	  then mod_num (result */ base) modulus
+	  else result in
+	let base = mod_num (base */ base) modulus in
+	loop result base (num_shift_right power 1)
+      end in
+    loop one base power
+
+  (* Given a number n, compute the largest 'd' such that 2^d * s = n. *)
+  let compute_s_d n =
+    let n = n -/ one in
+    let rec loop bit index =
+      if (num_and n bit) <>/ zero then (index, num_shift_right n index)
+      (* else loop (num_shift_left bit 1) (index + 1) in *)
+      else loop (num_shift_left bit 1) (index + 1) in
+    loop one 0
+
+  (* Generate a (not very good) random number between 0 and n-1 *)
+  let random n =
+    let n = big_int_of_num n in
+    let base = ref (big_int_of_int 0) in
+    while compare_big_int !base n < 0 do
+      let next = big_int_of_int (Random.bits ()) in
+      base := or_big_int (shift_left_big_int !base 30) next
+    done;
+    num_of_big_int (mod_big_int !base n)
+
+  (* Compute one round of Miller-Rabin.  Returns true if this number
+     might be prime, or false if it is definitely not. *)
+  let mr_round n s d =
+    let n_minus_one = n -/ one in
+    let a = (random (n -/ three)) +/ two in
+    let x = ref (exp_mod a d n) in
+    if !x =/ one || !x =/ n_minus_one then true
+    else begin
+      let rec loop s =
+	if s = 0 then false
+	else begin
+	  x := mod_num (!x */ !x) n;
+	  if !x =/ one then false
+	  else if !x =/ n_minus_one then true
+	  else loop (s-1)
+	end in
+      loop s
+    end
+
+     (* Miller-Rabin primality test.  If returns true, probability will
+	be (1/4)^k. *)
+  let is_prime ?(k=20) n =
+    let (s, d) = compute_s_d n in
+    let rec loop k =
+      if k = 0 then true
+      else begin
+	if mr_round n s d then loop (k-1)
+	else false
+      end in
+    loop k
+
+  let is_prime ?(k=20) n =
+    if n =/ two then true
+    else if n =/ three then true
+    else if n =/ five then true
+    else if n =/ seven then true
+    else if mod_num n two =/ zero then false
+    else if mod_num n three =/ zero then false
+    else if mod_num n five =/ zero then false
+    else if mod_num n two =/ zero then false
+    else is_prime ~k:k n
+
+  let is_prime_int ?(k=20) n = is_prime ~k:k (num_of_int n)
+end
