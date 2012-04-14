@@ -16,9 +16,20 @@ package main
 import "fmt"
 import "euler"
 
+import "log"
+import "os"
+import "runtime/pprof"
+
 const start int64 = 600851475143
 
 func main() {
+	f, err := os.Create("profile.out")
+	if err != nil {
+		log.Fatal("Cannot create profile")
+	}
+	pprof.StartCPUProfile(f)
+	defer pprof.StopCPUProfile()
+
 	var sieve euler.SieveHeap
 
 	num := start
