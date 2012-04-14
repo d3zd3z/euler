@@ -2,6 +2,7 @@ Some various benchmarks.
 
 Euler problem 10:
 sbcl:	      2.645	2.634	2.635
+alisp:	      6.32	6.432	6.072
 ccl64:	      7.48	7.39	7.37
 ccl:	      7.998	7.960	8.064
 ecl:	      14.464	14.449	14.400

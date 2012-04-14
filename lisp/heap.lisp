@@ -19,8 +19,7 @@
   (< a b))
 
 (defun swap (heap i j)
-  (setf (values (aref heap i) (aref heap j))
-	(values (aref heap j) (aref heap i))))
+  (rotatef (aref heap i) (aref heap j)))
 
 (defun down (heap i n)
   "Given a HEAP size N, move the Ith node down appropriately"

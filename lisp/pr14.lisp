@@ -55,3 +55,25 @@
 (defun euler-14 ()
   (iter (for i from 1 below 1000000)
 	(finding i maximizing (chain-length i))))
+
+;;; Try again with an array based cache.
+(defvar *cache2*)
+(defun reset-cache2 ()
+  (setf *cache2* (make-array 1001 :initial-element 0 :element-type '(unsigned-byte 64))))
+(reset-cache2)
+
+(defun chain-length2 (n)
+  "How long is the Collatz chain from N."
+  (when (>= n (length *cache2*))
+    ;; Don't cache large values.
+    (return-from chain-length2 (1+ (chain-length2 (next-seq n)))))
+  (let ((answer (aref *cache2* n)))
+    (if (plusp answer)
+	answer
+	(let ((len (if (= n 1) 1
+		       (1+ (chain-length2 (next-seq n))))))
+	  (setf (aref *cache2* n) len)))))
+
+(defun euler-14b ()
+  (iter (for i from 1 below 1000000)
+	(finding i maximizing (chain-length2 i))))
