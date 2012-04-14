@@ -2,8 +2,9 @@
 ;;; http://programmingpraxis.com/2011/10/14/the-first-n-primes/
 
 (defpackage #:euler.sieve
-  (:use #:cl #:iterate #:euler.heap)
+  (:use #:cl #:iterate #:euler.heap #:alexandria)
   (:export #:make-sieve #:sieve-next #:nth-prime #:factorize
+	   #:primes-upto #:primes-from-to #:primep
 	   #:reset-prime-sieve #:divisors))
 (in-package #:euler.sieve)
 
@@ -92,6 +93,45 @@ place."
   (iter (while (<= (length *primes*) n))
 	(vector-push-extend (sieve-next *prime-sieve*) *primes*))
   (aref *primes* n))
+
+;; Iterative to avoid problems with TCO going away for debugging.
+(defun binary-search (seq value &optional (low 0) (high (1- (length seq))))
+  (iter (when (< high low)
+	  (return nil))
+	(let* ((middle (floor (+ low high) 2))
+	       (middle-elt (aref seq middle)))
+	  (cond ((> middle-elt value)
+		 (setf high (1- middle)))
+		((< middle-elt value)
+		 (setf low (1+ middle)))
+		(t (return middle))))))
+
+(defun enough-primes (n)
+  "Make sure there is a prime that is >= N in *primes*."
+  (iter (while (or (emptyp *primes*)
+		   (> n (last-elt *primes*))))
+	(vector-push-extend (sieve-next *prime-sieve*) *primes*)))
+
+(defun primep (n)
+  "Returns a true value if N is prime (actual value is the index of
+this prime number, with 2 being zero."
+  (enough-primes n)
+  (binary-search *primes* n))
+
+(defun primes-upto (n)
+  "Return the primes not greater than N."
+  (iter (with sieve = (make-sieve))
+	(for p = (sieve-next sieve))
+	(while (<= p n))
+	(collect p)))
+
+(defun primes-from-to (a b)
+  "Returns primes >= B and <= B"
+  (iter (with sieve = (make-sieve))
+	(for p = (sieve-next sieve))
+	(while (<= p b))
+	(when (>= p a)
+	  (collect p))))
 
 (defun divides-out (n factor)
   "Compute how many times FACTOR divides into N.  Returns two values,
