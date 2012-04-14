@@ -2,7 +2,7 @@ all:
 	@echo "Please specify a target"
 	@false
 
-GNAT_FLAGS = -g -gnatwa -gnatyy -gnat12 -O2
+GNAT_FLAGS = -g -gnatwa -gnatyy -gnat12 -gnato -O2
 
 pr%: .force
 	gnatmake -s $(GNAT_FLAGS) $@

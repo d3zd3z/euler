@@ -75,7 +75,6 @@ procedure Pr012 is
       return Count;
    end Divisor_Count;
 
-
    function Nth_Prime (Index : Positive) return Natural is
       Prime : Natural;
    begin
