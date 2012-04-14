@@ -9,6 +9,7 @@
 (provide digit-power-sum)
 (provide next-permutation)
 (provide string-next-permutation)
+(provide reverse-number)
 
 (define (digit-sum number)
   (let loop ([number number]
@@ -26,6 +27,14 @@
         sum
         (let-values ([(n m) (quotient/remainder number 10)])
           (loop n (+ sum (expt m power)))))))
+
+;;; Reverse a number in the given base.
+(define (reverse-number number [base 10])
+  (let loop ([number number] [result 0])
+    (if (positive? number)
+        (let-values ([(n m) (quotient/remainder number base)])
+          (loop n (+ (* result base) m)))
+        result)))
 
 (define (spread factors)
   (cond [(null? factors) '(1)]

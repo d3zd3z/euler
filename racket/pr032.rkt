@@ -20,11 +20,11 @@
 (require "euler.rkt")
 (require racket/set)
 
-;;; Returns all groupings (as a set) that can be built out of this
+;;; Returns all groupings (as a list) that can be built out of this
 ;;; groups of digits.
 (define (make-groupings digits)
   (define len (string-length digits))
-  (for*/fold ([result (seteqv)])
+  (for*/fold ([result '()])
       ([i (in-range 1 (- len 2))]
        [j (in-range (add1 i) (sub1 len))])
     (define (piece a b)
@@ -33,14 +33,14 @@
     (define b (piece i j))
     (define c (piece j len))
     (if (= (* a b) c)
-        (set-add result c)
+        (cons c result)
         result)))
 
 (define (euler-32)
-  (define products (let loop ([result (seteqv)]
+  (define products (let loop ([result '()]
                               [digits (string-copy "123456789")])
                      (if digits
-                         (loop (set-union result (make-groupings digits))
+                         (loop (cons (make-groupings digits) result)
                                (string-next-permutation digits))
                          result)))
-  (foldl + 0 (set->list products)))
+  (foldl + 0 (remove-duplicates (flatten products))))
