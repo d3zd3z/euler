@@ -1,0 +1,27 @@
+// Problem 7
+// 
+// 28 December 2001
+// 
+// By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see
+// that the 6th prime is 13.
+// 
+// What is the 10 001st prime number?
+// 
+
+using Nemerle.IO;
+
+module Pr007 {
+
+    public Main () : void {
+    }
+}
+
+class Sieve {
+    mutable prime = 2;
+    mutable nodes : 
+
+    class node {
+        next : int;
+        steps : list[int];
+    }
+}

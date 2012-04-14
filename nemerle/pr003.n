@@ -1,0 +1,30 @@
+// Problem 3
+// 
+// 02 November 2001
+// 
+// The prime factors of 13195 are 5, 7, 13 and 29.
+// 
+// What is the largest prime factor of the number 600851475143 ?
+// 
+
+using Nemerle.IO;
+
+module Pr003 {
+
+    public Main () : void {
+        printf ("%ld\n", v1 ());
+    }
+
+    v1 () : long {
+        mutable number = 600851475143L;
+        mutable factor = 2L;
+        while (number > 1) {
+            if (number % factor == 0) {
+                number /= factor;
+            } else {
+                factor = if (factor == 2) 3 else factor + 2;
+            }
+        }
+        factor
+    }
+}
