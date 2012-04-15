@@ -78,6 +78,13 @@ let reverse_number ?(base=10) number =
     else loop (number / base) (result * base + (number mod base)) in
   loop number 0
 
+(* How many times can we divide by 10 and get zero. *)
+let number_of_digits number =
+  let rec loop count number =
+    if number = 0 then count
+    else loop (count+1) (number/10) in
+  loop 0 number
+
 module MillerRabin = struct
   open Num
 
