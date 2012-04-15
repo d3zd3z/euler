@@ -22,6 +22,7 @@ val string_next_permutation : string -> string
 
 val expt : int -> int -> int
 val reverse_number : ?base:int -> int -> int
+val number_of_digits : int -> int
 
 module MillerRabin : sig
   val is_prime : ?k:int -> Num.num -> bool
