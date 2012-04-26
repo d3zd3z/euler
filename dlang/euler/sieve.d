@@ -26,7 +26,7 @@ class Sieve {
 	return !composite[num];
     }
 
-package:
+private:
     bool[] composite;
     uint _limit;
 }
