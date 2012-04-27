@@ -11,13 +11,8 @@
 
 import std.bigint;
 import std.stdio;
+import euler.misc : digitSum;
 
 void main() {
-    auto num = BigInt(2) ^^ 1000;
-    auto sum = 0;
-    while (num > 0) {
-	sum += num % 10;
-	num /= 10;
-    }
-    writeln(sum);
+    writeln(digitSum(BigInt(2) ^^ 1000));
 }
