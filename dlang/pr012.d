@@ -32,7 +32,7 @@ import euler.sieve;
 
 void main() {
     auto triangle = 0;
-    AutoSieve sieve;
+    AutoSieve!uint sieve;
     for (uint i = 1; ; ++i) {
 	triangle += i;
 	if (sieve.divisorCount(triangle) > 500) {
