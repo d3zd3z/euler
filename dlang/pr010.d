@@ -15,7 +15,7 @@ import euler.sieve;
 // Fairly simple sieve
 
 void main() {
-    AutoSieve sieve;
+    AutoSieve!uint sieve;
     ulong sum = 0;
     foreach (x; 2 .. 2_000_000)
 	if (sieve.isPrime(x))
