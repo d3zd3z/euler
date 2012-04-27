@@ -12,17 +12,13 @@
  **********************************************************************/
 
 import std.stdio;
+import std.numeric;
 
 void main() {
     uint base = 2;
     foreach (n; 3 .. 21)
 	base = lcm(base, n);
     writeln(base);
-}
-
-uint gcd(uint a, uint b) {
-    if (b == 0) return a;
-    else return gcd(b, a % b);
 }
 
 uint lcm(uint a, uint b) {
