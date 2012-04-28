@@ -15,13 +15,16 @@
  * 648
  */
 
-import std.stdio;
 import std.bigint;
 import euler.misc : digitSum;
 
-void main() {
+uint euler20() {
     auto base = BigInt(1);
     foreach (i; 2 .. 101)
 	base *= i;
-    writeln(digitSum(base));
+    return digitSum(base);
+}
+
+unittest {
+    assert(euler20() == 648);
 }
