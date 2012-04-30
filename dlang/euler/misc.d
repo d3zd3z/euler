@@ -16,6 +16,7 @@ int digitSum(T)(T num) {
 
 // Modify the array in place, to generate the next lexical
 // permutation.  Returns null if given the last permutation.
+// TODO: This doesn't work with gdc.
 T[] nextPermutation(T)(T[] text) {
     const int length = cast(int)(text.length);
     int k = -1;
@@ -51,4 +52,19 @@ unittest {
     assert(equal(a, "210"));
     a = nextPermutation(a);
     assert(a is null);
+}
+
+// Reverse the digits in the given number for the given base.
+T reverseNumber(T)(T number, uint base = 10) {
+    T result = 0;
+    while (number > 0) {
+	result = result * base + number % base;
+	number /= base;
+    }
+    return result;
+}
+
+unittest {
+    assert(reverseNumber(1234567) == 7654321);
+    assert(reverseNumber(585, 2) == 585);
 }
