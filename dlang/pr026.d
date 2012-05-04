@@ -26,7 +26,6 @@
  */
 
 import std.bigint;
-import std.stdio;
 
 import euler.sieve;
 
