@@ -32,6 +32,11 @@ import std.range;
 
 import std.stdio;
 
+uint euler23() {
+    auto p = new Problem23();
+    return p.answer();
+}
+
 class Problem23 {
     uint[] abundants;
     uint limit;
@@ -80,7 +85,5 @@ class Problem23 {
 }
 
 unittest {
-    import std.stdio;
-    auto p = new Problem23();
-    assert(p.answer() == 4179871);
+    assert(euler23() == 4179871);
 }

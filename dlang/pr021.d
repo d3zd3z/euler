@@ -18,7 +18,6 @@
 
 import std.algorithm;
 import std.range;
-import std.stdio;
 
 import euler.sieve;
 

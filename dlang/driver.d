@@ -12,7 +12,7 @@ import std.format;
 import std.stdio;
 
 const uint[] solutions = [
-    20, /*21,*/ 22,
+    20, /*21,*/ 22, 23, 25,
     ];
 
 alias uint function() Test;
