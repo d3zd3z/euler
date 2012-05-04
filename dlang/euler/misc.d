@@ -68,3 +68,18 @@ unittest {
     assert(reverseNumber(1234567) == 7654321);
     assert(reverseNumber(585, 2) == 585);
 }
+
+// How many digits are in the given number.
+uint numberOfDigits(T)(T num) {
+    uint count = 0;
+    while (num > 0) {
+	++count;
+	num /= 10;
+    }
+    return count;
+}
+
+unittest {
+    assert(numberOfDigits(12345) == 5);
+    assert(numberOfDigits(100000) == 6);
+}
