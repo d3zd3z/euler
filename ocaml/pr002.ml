@@ -21,7 +21,7 @@ let pr2 () =
   let rec loop a b result =
     if a >= 4000000 then result
     else
-      let next = if a mod 2 == 0 then a else 0 in
+      let next = result + if a mod 2 == 0 then a else 0 in
       loop b (a + b) next in
   loop 1 1 0
 
