@@ -18,69 +18,47 @@ with Euler; use Euler;
 
 procedure Pr020 is
 
+   Base : constant := 10_000;
+
+   --  Represent the intermediate result in base 10,000.
    type Digit_Array is array (Positive range <>) of Natural;
 
-   Accumulator : Digit_Array (1 .. 160);
-   Temp : Digit_Array (1 .. 3);
+   --  Length is determined by trial and error.
+   Accumulator : Digit_Array (1 .. 40) := (1 => 1, others => 0);
 
-   procedure Set_Number (Number : out Digit_Array;
-                         Value  :     Natural);
+   procedure Multiply (By : in Natural);
 
-   procedure Add (Number : in out Digit_Array;
-                  Other  :        Digit_Array)
-     with Pre => Number'First = Other'First and
-     Number'Last = Other'Last;
-
-   procedure Multiply (Number : in out Digit_Array;
-                       By     : in     Digit_Array);
-
-   procedure Set_Number (Number : out Digit_Array;
-                         Value  :     Natural)
-   is
-      Temp : Natural := Value;
-   begin
-      for I in reverse Number'Range loop
-         Number (I) := Temp mod 10;
-         Temp := Temp / 10;
-      end loop;
-   end Set_Number;
-
-   procedure Add (Number : in out Digit_Array;
-                  Other  :        Digit_Array)
-   is
+   procedure Multiply (By : in Natural) is
       Temp : Natural;
       Carry : Natural := 0;
    begin
-      for I in reverse Number'Range loop
-         Temp := Number (I) + Other (I)
+      for I in Accumulator'Range loop
+         Temp := Accumulator (I) * By + Carry;
+         Accumulator (I) := Temp mod Base;
+         Carry := Temp / Base;
       end loop;
-   end Add;
-
-   procedure Multiply (Number : in out Digit_Array;
-                       By     : in     Digit_Array)
-   is
-      Result : Digit_Array (Number'First .. Number'Last) :=
-        (others => 0);
-      Temp : Natural;
-      Carry : Natural := 0;
-   begin
-      for I in reverse Number'Range loop
-         raise Program_Error;
-      end loop;
+      if Carry /= 0 then
+         raise Constraint_Error;
+      end if;
    end Multiply;
 
    Sum : Natural := 0;
+   Temp : Natural;
 
 begin
-   Set_Number (Accumulator, 1);
    for I in 2 .. 100 loop
-      Set_Number (Temp, I);
-      Multiply (Accumulator, Temp);
+      Multiply (I);
    end loop;
 
-   for I of Accumulator loop
-      Sum := Sum + I;
+   for I in Accumulator'Range loop
+      Temp := Accumulator (I);
+      while Temp /= 0 loop
+         Sum := Sum + Temp mod 10;
+         Temp := Temp / 10;
+      end loop;
    end loop;
+
    Print_Result (Sum);
+
 end Pr020;
 
