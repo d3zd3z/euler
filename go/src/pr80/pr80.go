@@ -19,8 +19,8 @@
 package main
 
 import (
-	"big"
 	"fmt"
+	"math/big"
 )
 
 // And, worse, this gives the wrong answer.
@@ -30,7 +30,7 @@ func main() {
 	sum := 0
 	for i := 1; i <= 100; i++ {
 		tmp := intSqrt(i)
-		if tmp * tmp != i {
+		if tmp*tmp != i {
 			sum += sumInts(isqrt(toBase100(i)))
 		}
 	}
@@ -41,7 +41,7 @@ func toBase100(num int) (result []int) {
 	tmp := make([]int, 0, 10)
 
 	for num > 0 {
-		tmp = append(tmp, num % 100)
+		tmp = append(tmp, num%100)
 		num /= 100
 	}
 	result = make([]int, 0, 100)
@@ -62,7 +62,7 @@ func intSqrt(num int) (result int) {
 	}
 
 	for bit != 0 {
-		if num >= result + bit {
+		if num >= result+bit {
 			num -= result + bit
 			result = (result >> 1) + bit
 		} else {

@@ -5,7 +5,7 @@ all:
 	@false
 
 pr%:
-	GOPATH=$(PWD) goinstall $@
+	GOPATH=$(PWD) go build $@
 
 clean:
 	rm -f bin/*
