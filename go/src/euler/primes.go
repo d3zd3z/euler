@@ -34,7 +34,7 @@ func (p *SieveHeap) addNode(next int64, step int64) {
 // Update the lowest keyed node in the heap.
 func (p *SieveHeap) updateFirst() {
 	head := heap.Pop(&p.heap).(*node)
-	p.nodes[head.next] = nil, false
+	delete(p.nodes, head.next)
 
 	// Spread out the steps to all of the appropriate nodes.
 	for _, step := range head.steps {

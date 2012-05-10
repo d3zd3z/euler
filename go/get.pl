@@ -9,10 +9,11 @@ die "Expecting an argument" unless $#ARGV == 0;
 die "Expecting a single integer" unless $ARGV[0] =~ /([1-9][0-9]*)/;
 
 my $problem = int($1);
+my $prob3 = sprintf("%03d", $problem);
 my $URL = "http://projecteuler.net/problem=$problem";
 open(I, "w3m -dump -cols 69 $URL|") or die;
 
-open(O, ">pr$problem.go") or die;
+open(O, ">pr$prob3.go") or die;
 print O "//////////////////////////////////////////////////////////////////////\n";
 
 # Skip until we get the problem statement.

@@ -71,7 +71,7 @@ func main() {
 func foldProduct(digits string) (result int) {
 	result = 1
 	for _, ch := range digits {
-		result *= ch - '0'
+		result *= int(ch) - '0'
 	}
 
 	return
