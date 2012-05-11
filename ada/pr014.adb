@@ -24,20 +24,22 @@
 --
 ----------------------------------------------------------------------
 
---  with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Text_IO; use Ada.Text_IO;
 with Euler; use Euler;
 
 procedure Pr014 is
 
-   type Long_Natural_Array is array (Long_Natural range <>) of Long_Natural;
-   Cache : Long_Natural_Array (1 .. 1000) := (others => 0);
+   type Big_Natural is range 0 .. (2**63 - 1);
 
-   function Next_Collatz (Number : Long_Natural) return Long_Natural
+   type Big_Natural_Array is array (Big_Natural range <>) of Big_Natural;
+   Cache : Big_Natural_Array (1 .. 1000) := (others => 0);
+
+   function Next_Collatz (Number : Big_Natural) return Big_Natural
      with Inline => True;
 
-   function Chain_Length (Number : Long_Natural) return Long_Natural;
+   function Chain_Length (Number : Big_Natural) return Big_Natural;
 
-   function Next_Collatz (Number : Long_Natural) return Long_Natural is
+   function Next_Collatz (Number : Big_Natural) return Big_Natural is
    begin
       if Number mod 2 = 0 then
          return Number / 2;
@@ -47,12 +49,12 @@ procedure Pr014 is
 
    exception
       when Constraint_Error =>
-         Print_Result (Number);
+         Put_Line (Big_Natural'Image (Number));
          raise Constraint_Error;
    end Next_Collatz;
 
-   function Chain_Length (Number : Long_Natural) return Long_Natural is
-      Result : Long_Natural;
+   function Chain_Length (Number : Big_Natural) return Big_Natural is
+      Result : Big_Natural;
    begin
       if Number in Cache'Range then
          Result := Cache (Number);
@@ -77,12 +79,12 @@ procedure Pr014 is
       end if;
    end Chain_Length;
 
-   Longest : Long_Natural := 0;
-   Longest_Length : Long_Natural := 0;
-   Temp : Long_Natural;
+   Longest : Big_Natural := 0;
+   Longest_Length : Big_Natural := 0;
+   Temp : Big_Natural;
 
 begin
-   for I in Long_Natural range 1 .. 1_000_000 loop
+   for I in Big_Natural range 1 .. 1_000_000 loop
       Temp := Chain_Length (I);
       if Temp > Longest_Length then
          Longest := I;
@@ -90,6 +92,6 @@ begin
       end if;
    end loop;
 
-   Print_Result (Longest);
+   Print_Result (Natural (Longest));
 end Pr014;
 
