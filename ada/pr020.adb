@@ -50,8 +50,16 @@ begin
       Multiply (I);
    end loop;
 
-   for I in Accumulator'Range loop
-      Temp := Accumulator (I);
+   --  for I in Accumulator'Range loop
+   --     Temp := Accumulator (I);
+   --     while Temp /= 0 loop
+   --        Sum := Sum + Temp mod 10;
+   --        Temp := Temp / 10;
+   --     end loop;
+   --  end loop;
+
+   for I of Accumulator loop
+      Temp := I;
       while Temp /= 0 loop
          Sum := Sum + Temp mod 10;
          Temp := Temp / 10;
