@@ -1,6 +1,6 @@
 --  Prime number sieve
 
-with Ada.Text_IO;
+--  with Ada.Text_IO;
 with Ada.Unchecked_Deallocation;
 
 package body Prime_Sieve is
@@ -71,11 +71,109 @@ package body Prime_Sieve is
             Size := Size * 2;
          end loop;
 
-         Ada.Text_IO.Put_Line ("sieve: allocate " & Size'Img);
+         --  Ada.Text_IO.Put_Line ("sieve: allocate " & Size'Img);
          Current := new T (Size);
       end if;
 
       return Current;
    end Sieve;
+
+   function Factorize (Number : Natural) return Factor_Vectors.Vector
+   is
+      Result : Factor_Vectors.Vector;
+      P : Natural := 2;
+      Count : Natural := 0;
+      Temp : Natural := Number;
+      S : access T;
+   begin
+      while Temp > 1 loop
+         if Temp mod P = 0 then
+            Temp := Temp / P;
+            Count := Count + 1;
+         else
+            if Count > 0 then
+               Result.Append (Factor'(Prime => P, Power => Count));
+               Count := 0;
+            end if;
+
+            --  This is a bit weird.  We want to have enough room, but not go
+            --  too far out.
+            S := Sieve (2 * P + 16);
+            P := Next_Prime (S.all, P);
+         end if;
+      end loop;
+
+      if Count > 0 then
+         Result.Append (Factor'(Prime => P, Power => Count));
+      end if;
+
+      return Result;
+   end Factorize;
+
+   function Spread (Factors : Factor_Vectors.Vector)
+      return Natural_Vectors.Vector;
+
+   function Divisors (Number : Natural) return Natural_Vectors.Vector
+   is
+   begin
+      return Spread (Factorize (Number));
+   end Divisors;
+
+   --  Ugh, the vectors seem to have copying value semantics, which I guess
+   --  fits with everything else in the cursed language, but is still
+   --  annoying.
+   function Spread (Factors : Factor_Vectors.Vector)
+      return Natural_Vectors.Vector
+   is
+      use type Ada.Containers.Count_Type;
+      Result : Natural_Vectors.Vector;
+      X : Factor;
+      Temp : Factor_Vectors.Vector := Factors;
+      Rest : Natural_Vectors.Vector;
+      Power : Natural;
+   begin
+      if Factors.Length = 0 then
+         Result.Append (1);
+         return Result;
+      end if;
+
+      X := Temp.First_Element;
+      Temp.Delete_First;
+      Rest := Spread (Temp);
+
+      Power := 1;
+      for I in 0 .. X.Power loop
+         declare
+            Children : Natural_Vectors.Vector;
+         begin
+            Children.Reserve_Capacity (Rest.Length);
+            for B of Rest loop
+               Children.Append (B * Power);
+            end loop;
+
+            Result.Append (Children);
+
+            --  Don't multiply after the last iteration, otherwise we risk
+            --  unnecessary overflow.
+            if I < X.Power then
+               Power := Power * X.Prime;
+            end if;
+         end;
+      end loop;
+
+      return Result;
+   end Spread;
+
+   function Proper_Divisor_Sum (Number : Natural) return Natural is
+      Divs : constant Natural_Vectors.Vector := Divisors (Number);
+      Sum : Natural := 0;
+   begin
+      for N of Divs loop
+         if N < Number then
+            Sum := Sum + N;
+         end if;
+      end loop;
+      return Sum;
+   end Proper_Divisor_Sum;
 
 end Prime_Sieve;
