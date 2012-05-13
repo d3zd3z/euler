@@ -20,7 +20,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Containers.Vectors;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
-with Euler; use Euler;
 
 procedure Pr022 is
 
@@ -120,6 +119,6 @@ begin
       end;
    end loop;
 
-   Print_Result (Total);
+   Put_Line (Natural'Image (Total));
 end Pr022;
 
