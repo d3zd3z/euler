@@ -10,7 +10,9 @@ die "Expecting a single integer" unless $ARGV[0] =~ /([1-9][0-9]*)/;
 
 my $problem = int($1);
 $problem = sprintf("%03d", $problem);
-my $URL = "http://projecteuler.net/problem=$problem";
+my $prob3 = $problem;
+# my $URL = "http://projecteuler.net/problem=$problem";
+my $URL = "../haskell/probs/problem-$prob3.html";
 open(I, "w3m -dump -cols 75 $URL|") or die;
 
 open(O, ">pr$problem.adb") or die;
