@@ -54,6 +54,12 @@ package body Prime_Sieve is
       return Next;
    end Next_Prime;
 
+   function Next_Prime (Index : Natural) return Natural is
+      Object : access T renames Sieve (Index);
+   begin
+      return Next_Prime (Object.all, Index);
+   end Next_Prime;
+
    --  The shared sieve.
    type T_Access is access T;
    procedure Free is new Ada.Unchecked_Deallocation (T, T_Access);
