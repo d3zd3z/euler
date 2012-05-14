@@ -12,6 +12,7 @@ package Prime_Sieve is
    function Is_Prime (Object : T; Index : Natural) return Boolean;
 
    function Next_Prime (Object : T; Index : Natural) return Natural;
+   function Next_Prime (Index : Natural) return Natural;
 
    function Sieve (Limit : Natural) return access T;
    --  Return a shared sieve capable of handling at least up to Limit.
