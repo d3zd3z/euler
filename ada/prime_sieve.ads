@@ -10,6 +10,7 @@ package Prime_Sieve is
    type T (Limit : Natural) is tagged limited private;
 
    function Is_Prime (Object : T; Index : Natural) return Boolean;
+   function Is_Prime (Index : Natural) return Boolean;
 
    function Next_Prime (Object : T; Index : Natural) return Natural;
    function Next_Prime (Index : Natural) return Natural;

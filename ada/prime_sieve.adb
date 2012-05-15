@@ -39,6 +39,12 @@ package body Prime_Sieve is
       return Object.Primes (Index);
    end Is_Prime;
 
+   function Is_Prime (Index : Natural) return Boolean is
+      Object : access T renames Sieve (Index);
+   begin
+      return Is_Prime (Object.all, Index);
+   end Is_Prime;
+
    function Next_Prime (Object : T; Index : Natural) return Natural is
       Next : Natural;
    begin
