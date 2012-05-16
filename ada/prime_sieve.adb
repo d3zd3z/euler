@@ -1,6 +1,6 @@
 --  Prime number sieve
 
---  with Ada.Text_IO;
+with Ada.Text_IO;
 with Ada.Unchecked_Deallocation;
 
 package body Prime_Sieve is
@@ -187,5 +187,16 @@ package body Prime_Sieve is
       end loop;
       return Sum;
    end Proper_Divisor_Sum;
+
+   procedure Dump_Factors (Factors : Factor_Vectors.Vector) is
+      use Ada.Text_IO;
+   begin
+      Put_Line ("Factors:");
+      for Fact of Factors loop
+         Put (Natural'Image (Fact.Prime));
+         Put ("**");
+         Put_Line (Natural'Image (Fact.Power));
+      end loop;
+   end Dump_Factors;
 
 end Prime_Sieve;
