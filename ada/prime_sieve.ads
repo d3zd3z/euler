@@ -28,6 +28,9 @@ package Prime_Sieve is
       (Index_Type   => Natural,
        Element_Type => Factor);
 
+   procedure Dump_Factors (Factors : Factor_Vectors.Vector);
+   --  Debugging utility to show a set of factors.
+
    package Natural_Vectors is new Ada.Containers.Vectors
       (Index_Type   => Natural,
        Element_Type => Natural);

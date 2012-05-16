@@ -13,7 +13,7 @@ $problem = sprintf("%03d", $problem);
 my $prob3 = $problem;
 # my $URL = "http://projecteuler.net/problem=$problem";
 my $URL = "../haskell/probs/problem-$prob3.html";
-open(I, "w3m -dump -cols 75 $URL|") or die;
+open(I, "w3m -dump -cols 70 $URL|") or die;
 
 open(O, ">pr$problem.adb") or die;
 
