@@ -25,4 +25,8 @@ package Euler is
    --  Done to True.  Otherwise, the Items will contain the next possible
    --  permutation, and Done will be set to False.
 
+   function Reverse_Number (Number : Natural; Base : Natural := 10)
+      return Natural;
+   --  Reverse the digits of Number, in the given Base.
+
 end Euler;
