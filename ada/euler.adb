@@ -70,4 +70,21 @@ package body Euler is
       Done := False;
    end Next_Permutation;
 
+   --------------------
+   -- Reverse_Number --
+   --------------------
+   function Reverse_Number (Number : Natural; Base : Natural := 10)
+      return Natural
+   is
+      N : Natural := Number;
+      Result : Natural := 0;
+   begin
+      while N > 0 loop
+         Result := Result * Base + N mod Base;
+         N := N / Base;
+      end loop;
+
+      return Result;
+   end Reverse_Number;
+
 end Euler;

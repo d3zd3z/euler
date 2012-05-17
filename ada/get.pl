@@ -28,8 +28,13 @@ EOF
 my $last = $_;
 while (<I>) {
 	last if /Project Euler Copyright/;
+	chomp;
 	if ($_ ne $last || !/^\s*\n/) {
-		print O  "--  $_";
+		if (length) {
+			print O  "--  $_\n";
+		} else {
+			print O  "--\n";
+		}
 	}
 	$last = $_;
 }
