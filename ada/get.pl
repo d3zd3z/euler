@@ -38,8 +38,8 @@ $upper =~ s/\b(\w)/\U$1/g;
 print O <<EOF;
 ----------------------------------------------------------------------
 
---  with Ada.Text_IO; use Ada.Text_IO;
-with Euler; use Euler;
+with Ada.Text_IO; use Ada.Text_IO;
+--  with Euler; use Euler;
 
 procedure Pr$upper is
 
