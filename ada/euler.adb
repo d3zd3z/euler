@@ -70,6 +70,21 @@ package body Euler is
       Done := False;
    end Next_Permutation;
 
+   ----------------------
+   -- Number_Of_Digits --
+   ----------------------
+   function Number_Of_Digits (Number : Natural) return Natural is
+      N : Natural := Number;
+      Count : Natural := 0;
+   begin
+      while N > 0 loop
+         Count := Count + 1;
+         N := N / 10;
+      end loop;
+
+      return Count;
+   end Number_Of_Digits;
+
    --------------------
    -- Reverse_Number --
    --------------------
