@@ -29,4 +29,7 @@ package Euler is
       return Natural;
    --  Reverse the digits of Number, in the given Base.
 
+   function Number_Of_Digits (Number : Natural) return Natural;
+   --  Returns the number of decimal digits in 'Number'.
+
 end Euler;
