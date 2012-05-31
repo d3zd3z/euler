@@ -25,7 +25,7 @@
 ----------------------------------------------------------------------
 
 with Ada.Text_IO; use Ada.Text_IO;
---  with Euler; use Euler;
+with Euler; use Euler;
 --  with Ada.Containers.Vectors;
 --  with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
@@ -33,7 +33,6 @@ procedure Pr042 is
 
    procedure Read_Words;
    function Is_Triangle (Number : Natural) return Boolean;
-   function ISqrt (Number : Natural) return Natural;
    procedure Process (Word : String);
 
    Count : Natural := 0;
@@ -48,32 +47,6 @@ procedure Pr042 is
    begin
       return (Root * Root) = Square;
    end Is_Triangle;
-
-   -----------
-   -- ISqrt --
-   -----------
-
-   function ISqrt (Number : Natural) return Natural is
-      Bit : Natural := 1;
-      Num : Natural := Number;
-      Result : Natural := 0;
-   begin
-      while (Bit * 4) <= Num loop
-         Bit := Bit * 4;
-      end loop;
-
-      while Bit /= 0 loop
-         if Num >= Result + Bit then
-            Num := Num - (Result + Bit);
-            Result := Result + 2 * Bit;
-         end if;
-
-         Result := Result / 2;
-         Bit := Bit / 4;
-      end loop;
-
-      return Result;
-   end ISqrt;
 
    procedure Process (Word : String) is
       Sum : Natural := 0;

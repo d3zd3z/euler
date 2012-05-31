@@ -20,6 +20,32 @@ package body Euler is
       Print (Value);
    end Print_Result;
 
+   -----------
+   -- ISqrt --
+   -----------
+
+   function ISqrt (Number : Natural) return Natural is
+      Bit : Natural := 1;
+      Num : Natural := Number;
+      Result : Natural := 0;
+   begin
+      while (Bit * 4) <= Num loop
+         Bit := Bit * 4;
+      end loop;
+
+      while Bit /= 0 loop
+         if Num >= Result + Bit then
+            Num := Num - (Result + Bit);
+            Result := Result + 2 * Bit;
+         end if;
+
+         Result := Result / 2;
+         Bit := Bit / 4;
+      end loop;
+
+      return Result;
+   end ISqrt;
+
    procedure Next_Permutation (
       Items : in out Element_Array;
       Done  : out Boolean)

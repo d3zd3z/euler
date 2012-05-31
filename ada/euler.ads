@@ -32,4 +32,7 @@ package Euler is
    function Number_Of_Digits (Number : Natural) return Natural;
    --  Returns the number of decimal digits in 'Number'.
 
+   function ISqrt (Number : Natural) return Natural;
+   --  Return the integer square root of 'Number'.
+
 end Euler;
