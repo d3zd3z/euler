@@ -42,11 +42,11 @@ $upper =~ s/\b(\w)/\U$1/g;
 print O <<EOF;
 !
 
-program pr$problem
+subroutine pr$problem
 
   implicit none
 
-end program pr$problem
+end subroutine pr$problem
 EOF
 close I or die "Problem getting euler page";
 close O or die;

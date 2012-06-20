@@ -2,6 +2,9 @@
 
 module primes
 
+  integer, dimension(:), allocatable, private :: all_primes
+  integer, private :: computed = 0
+
 contains
 
   subroutine primes_upto (n, result)
@@ -23,5 +26,26 @@ contains
 
     result = pack( (/ (i, i=2, n) /), primes)
   end subroutine primes_upto
+
+  function nth_prime (n)
+    ! Return the nth prime.
+
+    call compute (n)
+    nth_prime = all_primes(n)
+  end function nth_prime
+
+  subroutine compute(n)
+    ! Compute primes up to n.
+
+    if (computed == 0) then
+      computed = 10000
+      call primes_upto(computed, all_primes)
+    end if
+
+    do while (n > ubound(all_primes, 1))
+      computed = computed * 10
+      call primes_upto(computed, all_primes)
+    end do
+  end subroutine compute
 
 end module primes
