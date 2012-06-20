@@ -9,7 +9,7 @@
 ! numbers.
 ! 906609
 
-program pr004
+subroutine pr004
 
   implicit none
   integer :: a, b, c, largest
@@ -52,4 +52,4 @@ contains
 
   end function
 
-end program pr004
+end subroutine pr004

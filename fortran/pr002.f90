@@ -12,7 +12,7 @@
 ! not exceed four million, find the sum of the even-valued terms.
 ! 4613732
 
-program pr002
+subroutine pr002
 
   implicit none
 
@@ -32,4 +32,4 @@ program pr002
 
   print *, total
 
-end program pr002
+end subroutine pr002

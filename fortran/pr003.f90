@@ -9,7 +9,7 @@
 
 ! No reason to get complex with primes, yet.
 
-program pr003
+subroutine pr003
 
   implicit none
 
@@ -36,4 +36,4 @@ program pr003
 
   print *, step
 
-end program pr003
+end subroutine pr003

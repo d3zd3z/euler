@@ -8,7 +8,7 @@
 ! What is the 10 001st prime number?
 ! 104743
 
-program pr007
+subroutine pr007
 
   implicit none
 
@@ -67,4 +67,4 @@ contains
     end do
   end function get_size
 
-end program pr007
+end subroutine pr007

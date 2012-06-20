@@ -9,7 +9,7 @@
 ! of the numbers from 1 to 20?
 ! 232792560
 
-program pr005
+subroutine pr005
 
   implicit none
   integer :: result, i
@@ -62,4 +62,4 @@ contains
     end if
   end function
 
-end program pr005
+end subroutine pr005
