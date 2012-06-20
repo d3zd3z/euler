@@ -7,7 +7,7 @@ FFLAGS = -fcheck=all -Wall -O3 -g
 	$(FC) -c $(FFLAGS) $*.f90
 
 PROBLEMS = pr001.o pr002.o pr003.o pr004.o pr005.o pr006.o \
-	   pr007.o pr008.o pr009.o pr010.o
+	   pr007.o pr008.o pr009.o pr010.o pr011.o pr012.o
 
 MAIN = main.o problems.o primes.o
 
