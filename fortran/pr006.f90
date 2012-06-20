@@ -17,7 +17,7 @@
 ! hundred natural numbers and the square of the sum.
 ! 25164150
 
-program pr006
+subroutine pr006
 
   implicit none
   integer :: i, sumsq, sqsum
@@ -32,4 +32,4 @@ program pr006
 
   print *, sqsum - sumsq
 
-end program pr006
+end subroutine pr006

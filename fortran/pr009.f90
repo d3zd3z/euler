@@ -17,7 +17,7 @@
 ! This particular problem is small enough that we can easily just do a brute
 ! force search.
 
-program pr009
+subroutine pr009
 
   implicit none
 
@@ -30,4 +30,4 @@ program pr009
     end do
   end do
 
-end program pr009
+end subroutine pr009

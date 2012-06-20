@@ -2,6 +2,8 @@
 
 # Build a particularly named file, and run it.
 
-gfortran -fcheck=all -Wall -O3 -g "$1" && ./a.out
+file="$1"
+shift
+gfortran -fcheck=all -Wall -O3 -g "$file" && ./a.out "$@"
 
 rm a.out

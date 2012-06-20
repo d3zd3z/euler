@@ -7,7 +7,7 @@
 !
 ! 40824
 
-program pr008
+subroutine pr008
 
   implicit none
 
@@ -40,4 +40,4 @@ program pr008
 
   print *, maxval((/ (product(numbers(i:i+4)), i=1, 1000-4) /))
 
-end program pr008
+end subroutine pr008

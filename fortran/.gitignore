@@ -1,0 +1,9 @@
+# Various object
+*.o
+*.mod
+
+# The executable
+main
+
+# Generated sources
+problems.f90
