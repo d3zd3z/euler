@@ -7,7 +7,8 @@ FFLAGS = -fcheck=all -Wall -O3 -g
 	$(FC) -c $(FFLAGS) $*.f90
 
 PROBLEMS = pr001.o pr002.o pr003.o pr004.o pr005.o pr006.o \
-	   pr007.o pr008.o pr009.o pr010.o pr011.o pr012.o
+	   pr007.o pr008.o pr009.o pr010.o pr011.o pr012.o \
+	   pr013.o pr014.o pr015.o pr016.o pr017.o
 
 MAIN = main.o problems.o primes.o
 
@@ -27,7 +28,7 @@ pr010: pr010.o primes.o
 	$(FC) -o $@ pr010.o primes.o
 
 problems.f90: .force
-	python ./etc/generate.py $(PROBLEMS) > $@.tmp
+	python3 ./etc/generate.py $(PROBLEMS) > $@.tmp
 	./etc/move-if-change $@.tmp $@
 
 .force:
