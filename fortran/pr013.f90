@@ -13,7 +13,7 @@ subroutine pr013
 
   ! Hold the numbers as strings, but we really only care about the first 13
   ! characters of each string, which gives us enough precision.
-  integer, parameter :: long = selected_int_kind(19)
+  integer, parameter :: long = selected_int_kind(18)
   character(len=50), parameter, dimension(100) :: text = (/ &
     '37107287533902102798797998220837590246510135740250', &
     '46376937677490009712648124896970078050417018260538', &
