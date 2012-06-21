@@ -2,8 +2,15 @@
 
 module primes
 
-  integer, dimension(:), allocatable, private :: all_primes
-  integer, private :: computed = 0
+  implicit none
+  private
+
+  integer, dimension(:), allocatable :: all_primes
+  integer :: computed = 0
+
+  public :: primes_upto
+  public :: nth_prime
+  public :: compute
 
 contains
 
@@ -29,6 +36,9 @@ contains
 
   function nth_prime (n)
     ! Return the nth prime.
+    implicit none
+    integer, intent(in) :: n
+    integer :: nth_prime
 
     call compute (n)
     nth_prime = all_primes(n)
@@ -36,6 +46,8 @@ contains
 
   subroutine compute(n)
     ! Compute primes up to n.
+    implicit none
+    integer, intent(in) :: n
 
     if (computed == 0) then
       computed = 10000
