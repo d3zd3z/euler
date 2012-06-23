@@ -23,6 +23,7 @@ module primes
   public :: factorize
   public :: divisors
   public :: proper_div_sum
+  public :: is_prime_small
 
   private :: va_append, va_init, va_get
 
@@ -58,6 +59,8 @@ contains
     nth_prime = all_primes(n)
   end function nth_prime
 
+  !----------------------------------------------------------------------
+  ! Expand the sieve sufficiently to have at least 'n' primes.
   subroutine compute(n)
     ! Compute primes up to n.
     implicit none
@@ -73,6 +76,32 @@ contains
       call primes_upto(computed, all_primes)
     end do
   end subroutine compute
+
+  !----------------------------------------------------------------------
+  ! Expand the sieve to have at least determine if 'n' is prime.
+  subroutine compute_n(n)
+    implicit none
+    integer, intent(in) :: n
+
+    logical :: must_compute
+
+    must_compute = .false.
+
+    if (computed == 0) then
+      must_compute = .true.
+    else
+      if (n > computed) must_compute = .true.
+    end if
+
+    if (must_compute) then
+      if (computed == 0) computed = 10000
+
+      do while(computed < n)
+        computed = computed * 10
+      end do
+      call primes_upto(computed, all_primes)
+    end if
+  end subroutine compute_n
 
   subroutine factorize(n, factors)
     ! Compute the prime factors of the given number.
@@ -171,6 +200,34 @@ contains
     call divisors(n, divs)
     proper_div_sum = sum(divs) - n
   end function proper_div_sum
+
+  !----------------------------------------------------------------------
+  ! Determine if 'n' is a prime number.  Should mainly be used for smaller
+  ! numbers, since it will expand the sieve.
+  function is_prime_small(n)
+    implicit none
+    integer, intent(in) :: n
+    logical :: is_prime_small
+
+    integer :: high, low, mid
+
+    call compute_n(n)
+
+    low = 1
+    high = ubound(all_primes, 1)
+    do while(high >= low)
+      mid = (high - low) / 2 + low
+      if (all_primes(mid) < n) then
+        low = mid + 1
+      else if (all_primes(mid) > n) then
+        high = mid - 1
+      else
+        is_prime_small = .true.
+        return
+      end if
+    end do
+    is_prime_small = .false.
+  end function is_prime_small
 
   subroutine va_init(v)
     implicit none
