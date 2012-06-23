@@ -29,17 +29,6 @@ subroutine pr021
 
 contains
 
-  function proper_div_sum(n)
-    implicit none
-    integer, intent(in) :: n
-    integer :: proper_div_sum
-
-    integer, dimension(:), allocatable :: divs
-
-    call divisors(n, divs)
-    proper_div_sum = sum(divs) - n
-  end function proper_div_sum
-
   function is_amicable(a)
     implicit none
     integer, intent(in) :: a
