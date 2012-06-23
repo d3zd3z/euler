@@ -22,6 +22,7 @@ module primes
   public :: compute
   public :: factorize
   public :: divisors
+  public :: proper_div_sum
 
   private :: va_append, va_init, va_get
 
@@ -159,6 +160,17 @@ contains
     end do
 
   end subroutine spread_factors
+
+  function proper_div_sum(n)
+    implicit none
+    integer, intent(in) :: n
+    integer :: proper_div_sum
+
+    integer, dimension(:), allocatable :: divs
+
+    call divisors(n, divs)
+    proper_div_sum = sum(divs) - n
+  end function proper_div_sum
 
   subroutine va_init(v)
     implicit none
