@@ -11,6 +11,7 @@
 
 subroutine pr005
 
+  use primes
   implicit none
   integer :: result, i
 
@@ -22,31 +23,6 @@ subroutine pr005
   print *, result
 
 contains
-
-  function lcm (a, b)
-    implicit none
-    integer, intent(in) :: a, b
-    integer :: lcm
-
-    lcm = (a / gcd (a, b)) * b
-  end function
-
-  function gcd (a, b)
-    implicit none
-    integer, intent(in) :: a, b
-    integer gcd
-    integer aa, bb, tmp
-
-    aa = a
-    bb = b
-    do while (bb /= 0)
-      tmp = bb
-      bb = mod (aa, bb)
-      aa = tmp
-    end do
-
-    gcd = aa
-  end function
 
   ! gfortran doesn't appear to do tail recursion, so this is just for historical
   ! purposes.
