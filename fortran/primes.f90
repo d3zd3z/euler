@@ -24,6 +24,7 @@ module primes
   public :: divisors
   public :: proper_div_sum
   public :: is_prime_small
+  public :: lcm, gcd
 
   private :: va_append, va_init, va_get
 
@@ -228,6 +229,35 @@ contains
     end do
     is_prime_small = .false.
   end function is_prime_small
+
+  !------------------------------------------------------------
+  ! LCM
+  function lcm (a, b)
+    implicit none
+    integer, intent(in) :: a, b
+    integer :: lcm
+
+    lcm = (a / gcd (a, b)) * b
+  end function
+
+  !------------------------------------------------------------
+  ! GCD
+  function gcd (a, b)
+    implicit none
+    integer, intent(in) :: a, b
+    integer gcd
+    integer aa, bb, tmp
+
+    aa = a
+    bb = b
+    do while (bb /= 0)
+      tmp = bb
+      bb = mod (aa, bb)
+      aa = tmp
+    end do
+
+    gcd = aa
+  end function
 
   subroutine va_init(v)
     implicit none
