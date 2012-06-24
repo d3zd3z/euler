@@ -18,13 +18,13 @@
        01 b             pic 9(6) usage comp-5.
        01 c             pic 9(6) usage comp-5.
        01 temp          pic 9(6) usage comp-5.
-      *01 alt           pic 9(6) usage comp-5.
        01 largest       pic 9(6) usage comp-5 value 0.
 
        procedure division.
 
-           move 100 to a
-           perform outer-loop until a > 999
+           perform outer-loop
+                   varying a from 100 by 1
+                   until a > 999
 
            display largest
 
@@ -32,13 +32,13 @@
 
        outer-loop.
            move a to b
-           perform inner-loop until b > 999
-           add 1 to a.
+           perform inner-loop
+                   varying b from a by 1
+                   until b > 999.
 
        inner-loop.
            multiply a by b giving c
            call "reverse-digits" using by content c, by reference temp
-      *    perform faster-reverse
            if c = temp then
                   perform check-max
            end-if
@@ -46,14 +46,6 @@
 
        check-max.
            if c > largest then move c to largest end-if.
-
-      *faster-reverse.
-      *    move c to alt
-      *    move 0 to temp
-      *    perform until alt = 0
-      *            compute temp = temp * 10 + function mod (alt, 10)
-      *            divide alt by 10 giving alt
-      *    end-perform.
 
        program-id. reverse-digits.
 

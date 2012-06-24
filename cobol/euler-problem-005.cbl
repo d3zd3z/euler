@@ -26,8 +26,9 @@
 
            move 1 to accumulator
 
-           move 2 to counter
-           perform loop-body until counter > 20
+           perform loop-body
+                   varying counter from 2 by 1
+                   until counter > 20
 
            move accumulator to result
            display result
@@ -40,9 +41,7 @@
            move counter to b
            perform gcd
 
-           compute accumulator = accumulator / a * counter
-
-           add 1 to counter.
+           compute accumulator = accumulator / a * counter.
 
       * Compute a GCD of 'a' and 'b', leaving the result in 'b'.
        gcd.

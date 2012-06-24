@@ -17,13 +17,13 @@
        01 total                 pic 999999 value 0.
 
        procedure division.
-           perform until counter = 1000
+           perform varying counter from 1 by 1
+                           until counter = 1000
                    if (function mod (counter, 3) = 0)
                            or (function mod (counter, 5) = 0)
                    then
                            add counter to total
                    end-if
-                   add 1 to counter
            end-perform
            display total
 
