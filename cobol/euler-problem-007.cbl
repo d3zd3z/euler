@@ -12,27 +12,22 @@
 
        data division.
        working-storage section.
-       01 max-number constant as 150000.
-       01 prime-map.
-         02 primes        pic a
-           occurs max-number times
-           value 'Y'.
-       01 sqrt-value      pic 999999 comp-5.
-       01 p               pic 999999 comp-5.
-       01 q               pic 999999 comp-5.
-       01 tmp             pic 999999 comp-5.
+       01 max-prime-number constant as 110000.
+       copy prime-sieve-data.
        01 prime-counter   pic 999999 comp-5 value 0.
+       01 num             pic 9(6) comp-5.
 
        procedure division.
 
+       main.
            perform compute-primes
 
            move 4 to prime-counter
-           perform varying p from 9 by 2 until p > max-number
-             if primes (p) = 'Y' then
+           perform varying num from 9 by 2 until num > max-prime-number
+             if primes (num) = 'Y' then
                add 1 to prime-counter
                if prime-counter = 10001 then
-                 display p
+                 display num
                  exit perform
                end-if
              end-if
@@ -40,19 +35,4 @@
 
            stop run.
 
-       compute-primes.
-           move 'N' to primes (1)
-           move function sqrt (max-number) to sqrt-value
-           move 2 to p
-           perform mark-prime
-           perform mark-prime
-             varying p from 3 by 2 until p > sqrt-value.
-
-       mark-prime.
-           if primes (p) = 'Y' then
-             compute tmp = p + p
-             perform varying q from tmp by p until q > max-number
-               move 'N' to primes (q)
-             end-perform
-           end-if.
-
+       copy prime-sieve-procedure.
