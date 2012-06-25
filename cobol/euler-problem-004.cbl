@@ -16,8 +16,8 @@
        working-storage section.
        01 a             pic 9(6) usage comp-5.
        01 b             pic 9(6) usage comp-5.
-       01 c             pic 9(6) usage comp-5.
-       01 temp          pic 9(6) usage comp-5.
+       01 c             pic 9(6) usage display.
+       01 temp          pic 9(6) usage display.
        01 largest       pic 9(6) usage comp-5 value 0.
 
        procedure division.
@@ -47,24 +47,25 @@
        check-max.
            if c > largest then move c to largest end-if.
 
+      *----------------------------------------------------------------
+      * Reverse the digits of the number
        program-id. reverse-digits.
 
        data division.
        working-storage section.
+       01 offset        pic 9 usage comp-5.
 
        linkage section.
-       01 item          pic 9(6) usage comp-5.
-       01 result        pic 9(6) usage comp-5.
+       01 item          pic 9(6) usage display.
+       01 result        pic 9(6) usage display.
 
-       procedure division
-           using item, result.
+       procedure division using item, result.
 
-           move 0 to result
-           perform until item = 0
-                   compute result = result * 10 +
-                           function mod (item, 10)
-                   divide item by 10 giving item
+       main.
+           perform varying offset from 1 by 1 until offset > 6
+             move item (offset : 1) to result (7 - offset : 1)
            end-perform
-           exit program.
-
+           goback.
        end program reverse-digits.
+
+       end program euler-problem-004.
