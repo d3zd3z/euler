@@ -77,15 +77,20 @@
              value 0.
 
       * The table of directions.
-      * The separate sign is needed for portability.
-       01 direction-source pic x(16) values
-           "+1+1+1+0+1+1+1-1".
-       01 direction-values redefines direction-source.
-         02 direction occurs 4 times.
-           03 x-delta           pic s9 usage display
-               sign is leading separate character.
-           03 y-delta           pic s9 usage display
-               sign is leading separate character.
+       01 direction-table.
+         02 direction-source.
+           03 filler            pic s9 usage comp-5 value 1.
+           03 filler            pic s9 usage comp-5 value 1.
+           03 filler            pic s9 usage comp-5 value 1.
+           03 filler            pic s9 usage comp-5 value 0.
+           03 filler            pic s9 usage comp-5 value 1.
+           03 filler            pic s9 usage comp-5 value 1.
+           03 filler            pic s9 usage comp-5 value 1.
+           03 filler            pic s9 usage comp-5 value -1.
+         02 direction-values redefines direction-source.
+           03 direction occurs 4 times.
+             04 x-delta           pic s9 usage comp-5.
+             04 y-delta           pic s9 usage comp-5.
        01 first-thing pic s9 usage display.
        01 second-thing redefines first-thing pic x.
 
