@@ -10,5 +10,5 @@ die()
 
 problem=`printf "%03d" "$1"`
 
-cobc -O2 -m euler-problem-$problem.cbl || die Compile error
-cobcrun euler-problem-$problem
+cobc -Wall -O2 -m euler-problem-$problem.cbl || die Compile error
+time cobcrun euler-problem-$problem
