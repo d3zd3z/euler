@@ -10,7 +10,7 @@
 use std;
 
 fn main() {
-    let max = 0u;
+    let mut max = 0u;
     uint::range(100u, 1000u) { |a|
         uint::range(a, 1000u) { |b|
             let c = a * b;
@@ -19,7 +19,7 @@ fn main() {
             }
         }
     }
-    std::io::println(#fmt("%u", max));
+    io::println(#fmt("%u", max));
 }
 
 fn is_palindrome(n: uint) -> bool {
@@ -27,8 +27,8 @@ fn is_palindrome(n: uint) -> bool {
 }
 
 fn reverse_number(number: uint) -> uint {
-    let n = number;
-    let result = 0u;
+    let mut n = number;
+    let mut result = 0u;
     while n > 0u {
         result = result * 10u + n % 10u;
         n /= 10u;

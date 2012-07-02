@@ -10,10 +10,10 @@ use std;
 import std::bitv;
 
 fn main() {
-    let primes = sieve::make(775146u);
+    let mut primes = sieve::make(775146u);
 
-    let number = 600851475143u64;
-    let prime = 2u;
+    let mut number = 600851475143u64;
+    let mut prime = 2u;
 
     while number > 1u64 {
         let p = prime as u64;
@@ -26,5 +26,5 @@ fn main() {
         }
     }
 
-    std::io::println(#fmt("%u", prime));
+    io::println(#fmt("%u", prime));
 }

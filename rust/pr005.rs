@@ -11,12 +11,12 @@
 use std;
 
 fn main() {
-    let accum = 1u;
+    let mut accum = 1u;
 
     uint::range(2u, 20u) { |i|
         accum = lcm(accum, i);
     }
-    std::io::println(#fmt("%u", accum));
+    io::println(#fmt("%u", accum));
 }
 
 fn lcm(a: uint, b: uint) -> uint {
@@ -32,8 +32,8 @@ fn gcd(a: uint, b: uint) -> uint {
 */
 
 fn gcd(a: uint, b: uint) -> uint {
-    let ta = a;
-    let tb = b;
+    let mut ta = a;
+    let mut tb = b;
     while tb != 0u {
         let tmp = ta % tb;
         ta = tb;
