@@ -10,13 +10,10 @@
 // By considering the terms in the Fibonacci sequence whose values do not
 // exceed four million, find the sum of the even-valued terms.
 
-use std;
-import std::io;
-
 fn main() {
-    let total = 0;
-    let a = 1;
-    let b = 2;
+    let mut total = 0;
+    let mut a = 1;
+    let mut b = 2;
     while a < 4000000 {
         if a % 2 == 0 {
             total += a;

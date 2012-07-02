@@ -4,22 +4,22 @@ export t, make;
 export is_prime;
 export next_prime;
 
-import std::bitv;
+import bitv;
 
-type t = bitv::t;
+type t = bitv::bitv;
 
 fn make(limit: uint) -> t {
-    let result = bitv::create(limit + 1u, true);
+    let result = bitv::bitv(limit + 1u, true);
 
     bitv::set(result, 0u, false);
     bitv::set(result, 1u, false);
 
-    let pos = 2u;
+    let mut pos = 2u;
     while pos <= limit {
         if !bitv::get(result, pos) {
             pos += 2u;
         } else {
-            let n = pos + pos;
+            let mut n = pos + pos;
             while n <= limit {
                 bitv::set(result, n, false);
                 n += pos;
@@ -43,7 +43,7 @@ fn next_prime(&pv: t, n: uint) -> uint {
         ret 3u;
     }
 
-    let next = n + 2u;
+    let mut next = n + 2u;
     while !is_prime(pv, next) {
         next += 1u;
     }
