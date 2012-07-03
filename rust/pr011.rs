@@ -30,11 +30,13 @@
 // 
 // What is the greatest product of four adjacent numbers in any direction
 // (up, down, left, right, or diagonally) in the 20×20 grid?
+//
+// 70600674
 
 use std;
 
 fn main() {
-    let max = 0u;
+    let mut max = 0u;
     let deltas = [{dx: 0, dy: 1}, {dx: 1, dy: 0},
                   {dx: 1, dy: 1}, {dx: 1, dy: -1}];
     let src = source();
@@ -48,16 +50,16 @@ fn main() {
             }
         }
     }
-    std::io::println(#fmt("%u", max));
+    io::println(#fmt("%u", max));
 }
 
 type delta = {dx: int, dy: int};
 
-fn product(&ary: [[uint]], x: int, y: int, d: delta) -> uint {
-    let px = x;
-    let py = y;
-    let prod = 1u;
-    let count = 0u;
+fn product(ary: [[uint]], x: int, y: int, d: delta) -> uint {
+    let mut px = x;
+    let mut py = y;
+    let mut prod = 1u;
+    let mut count = 0u;
     while count < 4u {
         count += 1u;
         if px >= 20 || py >= 20 || px < 0 || py < 0 { prod = 0u; break; }
@@ -69,7 +71,7 @@ fn product(&ary: [[uint]], x: int, y: int, d: delta) -> uint {
 }
 
 fn source() -> [[uint]] {
-    let result: [[uint]] = [];
+    let mut result: [[uint]] = [];
 
     result += [[08u, 02u, 22u, 97u, 38u, 15u, 00u, 40u, 00u, 75u,
                 04u, 05u, 07u, 78u, 52u, 12u, 50u, 77u, 91u, 08u]];
