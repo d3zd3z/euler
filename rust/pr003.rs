@@ -10,7 +10,7 @@ use std;
 import std::bitv;
 
 fn main() {
-    let mut primes = sieve::make(775146u);
+    let mut primes = sieve::make();
 
     let mut number = 600851475143u64;
     let mut prime = 2u;

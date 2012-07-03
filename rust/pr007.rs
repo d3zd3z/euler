@@ -10,7 +10,7 @@
 // 104743
 
 fn main() {
-    let mut primes = sieve::make(110000u);
+    let mut primes = sieve::make();
     let mut prime = 2u;
     let mut count = 1;
 
