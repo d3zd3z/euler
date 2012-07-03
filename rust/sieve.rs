@@ -4,7 +4,8 @@ export t, make;
 export is_prime;
 export next_prime;
 
-import bitv;
+use std;
+import std::bitv;
 
 type t = bitv::bitv;
 
