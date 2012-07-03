@@ -11,7 +11,7 @@
 use std;
 
 fn main() {
-    let mut primes = sieve::make(2000200u);
+    let mut primes = sieve::make();
 
     let mut total = 0u;
     let mut p = 2u;

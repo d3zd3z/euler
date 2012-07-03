@@ -7,22 +7,33 @@ export next_prime;
 use std;
 import std::bitv;
 
-type t = bitv::bitv;
+const default_size: uint = 8192u;
 
-fn make(limit: uint) -> t {
-    let result = bitv::bitv(limit + 1u, true);
+type t = @{ mut vec: bitv::bitv, mut limit: uint };
 
-    bitv::set(result, 0u, false);
-    bitv::set(result, 1u, false);
+fn make() -> t {
+    let result = @{mut vec: bitv::bitv(default_size + 1u, true),
+        mut limit: default_size };
+
+    fill(result);
+
+    result
+}
+
+fn fill(pv: t) {
+    // Assumes the vector is initialized to true.
+    bitv::set(pv.vec, 0u, false);
+    bitv::set(pv.vec, 1u, false);
 
     let mut pos = 2u;
+    let limit = pv.limit;
     while pos <= limit {
-        if !bitv::get(result, pos) {
+        if !bitv::get(pv.vec, pos) {
             pos += 2u;
         } else {
             let mut n = pos + pos;
             while n <= limit {
-                bitv::set(result, n, false);
+                bitv::set(pv.vec, n, false);
                 n += pos;
             }
             if pos == 2u {
@@ -32,13 +43,24 @@ fn make(limit: uint) -> t {
             }
         }
     }
-
-    result
 }
 
-fn is_prime(&pv: t, n: uint) -> bool { bitv::get(pv, n) }
+fn is_prime(pv: t, n: uint) -> bool {
+    if n >= pv.limit {
+        let mut new_limit = pv.limit;
+        while new_limit < n {
+            new_limit *= 8u;
+        }
 
-fn next_prime(&pv: t, n: uint) -> uint {
+        pv.vec = bitv::bitv(new_limit + 1u, true);
+        pv.limit = new_limit;
+        fill(pv);
+    }
+
+    ret bitv::get(pv.vec, n);
+}
+
+fn next_prime(pv: t, n: uint) -> uint {
 
     if n == 2u {
         ret 3u;
