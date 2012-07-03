@@ -1,10 +1,10 @@
 // Problem 8
-// 
+//
 // 11 January 2002
-// 
+//
 // Find the greatest product of five consecutive digits in the 1000-digit
 // number.
-// 
+//
 // 73167176531330624919225119674426574742355349194934
 // 96983520312774506326239578318016984801869478851843
 // 85861560789112949495459501737958331952853208805511
@@ -25,6 +25,8 @@
 // 84580156166097919133875499200524063689912560717606
 // 05886116467109405077541002256983155200055935729725
 // 71636269561882670428252483600823257530420752963450
+//
+// 40824
 
 use std;
 
@@ -53,19 +55,24 @@ fn src() -> [u8] {
  }
 
 fn main() {
+    amain()
+}
+
+// Three solutions, written in slightly different styles.
+
+fn amain() {
     let source = src();
-    // Note that rust > 0.1 flips the argument order for vec::init_fn,
-    // which makes it a lot more convenient to use.
-    let groups = vec::init_fn({|pos|
+    let groups = vec::from_fn(vec::len(source) + 1u - 5u) {|pos|
         vec::slice(source, pos, pos + 5u)
-    }, vec::len(source) + 1u - 5u);
+    };
     let products = vec::map(groups) {|item|
         vec::foldl(1u, item) {|a, b| a * (b as uint - 48u) }
     };
     let result = vec::foldl(0u, products) {|item, max|
         if item > max { item } else { max }
     };
-    std::io::println(#fmt("%u", result))
+
+    io::println(#fmt("%u", result));
 }
 
 fn bmain() {
@@ -80,18 +87,18 @@ fn bmain() {
         if item > max { item } else { max }
     }
     let result = vec::foldl(0u, products, maxer);
-    std::io::println(#fmt("%u", result));
+    io::println(#fmt("%u", result));
 }
 
-fn amain() {
+fn cmain() {
     let source = src();
-    let max = 0u;
+    let mut max = 0u;
     let len = vec::len(source);
 
-    let pos = 0u;
+    let mut pos = 0u;
     while pos + 5u < len {
-        let i = 0u;
-        let tmp = 1u;
+        let mut i = 0u;
+        let mut tmp = 1u;
         while i < 5u {
             tmp *= source[pos+i] as uint - 48u;
             i += 1u;
@@ -101,15 +108,15 @@ fn amain() {
         }
         pos += 1u;
     }
-    std::io::println(#fmt("%u", max));
+    io::println(#fmt("%u", max));
 }
 
 // The above is very imperative.  Can we do better?
 
 fn groups(src: [u8]) -> [[u8]] {
-    let result = [];
+    let mut result = [];
 
-    let pos = 0u;
+    let mut pos = 0u;
     let len = vec::len(src);
     while pos + 5u < len {
         result += [vec::slice(src, pos, pos + 5u)];

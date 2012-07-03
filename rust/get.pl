@@ -9,7 +9,9 @@ die "Expecting an argument" unless $#ARGV == 0;
 die "Expecting a single integer" unless $ARGV[0] =~ /([1-9][0-9]*)/;
 
 my $problem = int($1);
-my $URL = "http://projecteuler.net/problem=$problem";
+$problem = sprintf("%03d", $problem);
+# my $URL = "http://projecteuler.net/problem=$problem";
+my $URL = "../haskell/probs/problem-$problem.html";
 open(I, "w3m -dump -cols 75 $URL|") or die;
 
 open(O, ">pr$problem.rs") or die;
@@ -22,8 +24,13 @@ print O "// $_";
 my $last = $_;
 while (<I>) {
 	last if /Project Euler Copyright/;
+	chomp;
 	if ($_ ne $last || !/^\s*\n/) {
-		print O  "// $_";
+		if (length) {
+			print O  "// $_\n";
+		} else {
+			print O  "//\n";
+		}
 	}
 	$last = $_;
 }
