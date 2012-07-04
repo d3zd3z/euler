@@ -105,6 +105,8 @@
 // 72107838435069186155435662884062257473692284509516
 // 20849603980134001723930671666823555245252804609722
 // 53503534226472524250874054075591789781264330331690
+//
+// 5537376230
 
 // We can use 64-bit numbers by just looking at the leading 13 digits
 // of each number, adding them, and then taking the first 10 digits of
@@ -114,11 +116,11 @@ use std;
 
 fn main() {
     let s1 = vec::map(source()) {|s|
-        u64::from_str(str::slice(s, 0u, 13u), 10u64)
+        option::get(u64::from_str(str::slice(s, 0u, 13u), 10u64))
     };
     let total = vec::foldl(0u64, s1) {|s, i| s + i};
     let answer = str::slice(u64::str(total), 0u, 10u);
-    std::io::println(answer);
+    io::println(answer);
 }
 
 fn source() -> [str] {
