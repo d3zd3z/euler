@@ -40,7 +40,7 @@ iface lengther {
 fn naive() {
     let mut max_len = 0u;
     let mut max = 0u;
-    uint::range(1u, 1_000_000u) {|x|
+    for uint::range(1u, 1_000_000u) |x| {
         let len = simple_chain_len(x);
         if len > max_len {
             max_len = len;
@@ -54,7 +54,7 @@ fn cached() {
     let mut max_len = 0u;
     let mut max = 0u;
     let cache = enum_cache();
-    uint::range(1u, 1_000_000u) {|x|
+    for uint::range(1u, 1_000_000u) |x| {
         let len = cache.chain_len(x);
         if len > max_len {
             max_len = len;
@@ -77,26 +77,26 @@ fn simple_chain_len(n: uint) -> uint {
 // A cached solution that maintains a cache of values.
 
 class enum_cache {
-    let cache: @[mut info];
+    let cache: ~[mut info];
     let size: uint;
 
     new() {
-        size = 1000u;
-        cache = @vec::to_mut(vec::from_elem(size, unknown));
+        self.size = 1000u;
+        self.cache = vec::to_mut(vec::from_elem(self.size, unknown));
     }
 
     fn chain_len(n: uint) -> uint {
-        if n < size {
-            alt cache[n] {
+        if n < self.size {
+            alt self.cache[n] {
                 unknown {
-                    let answer = chain2(n);
-                    cache[n] = known(answer);
+                    let answer = self.chain2(n);
+                    self.cache[n] = known(answer);
                     answer
                 }
                 known(x) { x }
             }
         } else {
-            chain2(n)
+            self.chain2(n)
         }
     }
 
@@ -104,9 +104,9 @@ class enum_cache {
         if n == 1u {
             1u
         } else if n & 1u == 0u {
-            1u + chain_len(n >> 1u)
+            1u + self.chain_len(n >> 1u)
         } else {
-            1u + chain_len(3u * n + 1u)
+            1u + self.chain_len(3u * n + 1u)
         }
     }
 }

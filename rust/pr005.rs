@@ -13,7 +13,7 @@ use std;
 fn main() {
     let mut accum = 1u;
 
-    uint::range(2u, 20u) { |i|
+    for uint::range(2, 20) |i| {
         accum = lcm(accum, i);
     }
     io::println(#fmt("%u", accum));
@@ -34,7 +34,7 @@ fn gcd(a: uint, b: uint) -> uint {
 fn gcd(a: uint, b: uint) -> uint {
     let mut ta = a;
     let mut tb = b;
-    while tb != 0u {
+    while tb != 0 {
         let tmp = ta % tb;
         ta = tb;
         tb = tmp;

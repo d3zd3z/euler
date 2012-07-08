@@ -11,8 +11,8 @@ use std;
 
 fn main() {
     let mut max = 0u;
-    uint::range(100u, 1000u) { |a|
-        uint::range(a, 1000u) { |b|
+    for uint::range(100u, 1000u) |a| {
+        for uint::range(a, 1000u) |b| {
             let c = a * b;
             if c > max && is_palindrome(c) {
                 max = c;

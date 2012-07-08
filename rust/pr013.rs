@@ -115,16 +115,16 @@
 use std;
 
 fn main() {
-    let s1 = vec::map(source()) {|s|
-        option::get(u64::from_str(str::slice(s, 0u, 13u), 10u64))
+    let s1 = do vec::map(source()) |s| {
+        option::get(u64::from_str(str::slice(s, 0u, 13u)))
     };
-    let total = vec::foldl(0u64, s1) {|s, i| s + i};
+    let total = do vec::foldl(0u64, s1) |s, i| {s + i};
     let answer = str::slice(u64::str(total), 0u, 10u);
     io::println(answer);
 }
 
-fn source() -> [str] {
-    [
+fn source() -> ~[str] {
+    ~[
         "37107287533902102798797998220837590246510135740250",
         "46376937677490009712648124896970078050417018260538",
         "74324986199524741059474233309513058123726617309629",

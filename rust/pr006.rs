@@ -20,7 +20,7 @@
 fn main() {
     let mut sum_sq = 0;
     let mut sum = 0;
-    int::range(1, 101) {|i|
+    for int::range(1, 101) |i| {
         sum += i;
         sum_sq += i * i;
     }

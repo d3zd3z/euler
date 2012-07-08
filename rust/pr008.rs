@@ -30,7 +30,7 @@
 
 use std;
 
-fn src() -> [u8] {
+fn src() -> ~[u8] {
     str::bytes("\
 73167176531330624919225119674426574742355349194934\
 96983520312774506326239578318016984801869478851843\
@@ -62,13 +62,13 @@ fn main() {
 
 fn amain() {
     let source = src();
-    let groups = vec::from_fn(vec::len(source) + 1u - 5u) {|pos|
+    let groups = do vec::from_fn(vec::len(source) + 1u - 5u) |pos| {
         vec::slice(source, pos, pos + 5u)
     };
-    let products = vec::map(groups) {|item|
-        vec::foldl(1u, item) {|a, b| a * (b as uint - 48u) }
+    let products = do vec::map(groups) |item| {
+        do vec::foldl(1u, item) |a, b| { a * (b as uint - 48u) }
     };
-    let result = vec::foldl(0u, products) {|item, max|
+    let result = do vec::foldl(0u, products) |item, max| {
         if item > max { item } else { max }
     };
 
@@ -78,7 +78,7 @@ fn amain() {
 fn bmain() {
     let source = src();
 
-    fn digit_product(&&src: [u8]) -> uint {
+    fn digit_product(&&src: ~[u8]) -> uint {
         fn mult(&&a: uint, &&b: u8) -> uint { a * (b as uint - 48u) }
         vec::foldl(1u, src, mult)
     }
@@ -113,13 +113,13 @@ fn cmain() {
 
 // The above is very imperative.  Can we do better?
 
-fn groups(src: [u8]) -> [[u8]] {
-    let mut result = [];
+fn groups(src: ~[u8]) -> ~[~[u8]] {
+    let mut result = ~[];
 
     let mut pos = 0u;
     let len = vec::len(src);
     while pos + 5u < len {
-        result += [vec::slice(src, pos, pos + 5u)];
+        result += ~[vec::slice(src, pos, pos + 5u)];
         pos += 1u;
     }
 
