@@ -13,16 +13,19 @@ fn main() {
     let mut primes = sieve::make();
 
     let mut number = 600851475143u64;
-    let mut prime = 2u;
+    let mut prime = 2;
 
-    while number > 1u64 {
+    while number > 1 {
         let p = prime as u64;
-        if number % p == 0u64 {
+        if number % p == 0 {
             number /= p;
         } else {
-            do {
-                prime += 1u;
-            } while !sieve::is_prime(primes, prime);
+            loop {
+                prime += 1;
+                if sieve::is_prime(primes, prime) {
+                    break;
+                }
+            }
         }
     }
 

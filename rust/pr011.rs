@@ -37,12 +37,12 @@ use std;
 
 fn main() {
     let mut max = 0u;
-    let deltas = [{dx: 0, dy: 1}, {dx: 1, dy: 0},
-                  {dx: 1, dy: 1}, {dx: 1, dy: -1}];
+    let deltas = ~[{dx: 0, dy: 1}, {dx: 1, dy: 0},
+                   {dx: 1, dy: 1}, {dx: 1, dy: -1}];
     let src = source();
-    int::range(0, 20) {|x|
-        int::range(0, 20) {|y|
-            for delta in deltas {
+    for int::range(0, 20) |x| {
+        for int::range(0, 20) |y| {
+            for vec::each(deltas) |delta| {
                 let prod = product(src, x, y, delta);
                 if prod > max {
                     max = prod;
@@ -55,7 +55,7 @@ fn main() {
 
 type delta = {dx: int, dy: int};
 
-fn product(ary: [[uint]], x: int, y: int, d: delta) -> uint {
+fn product(ary: ~[~[uint]], x: int, y: int, d: delta) -> uint {
     let mut px = x;
     let mut py = y;
     let mut prod = 1u;
@@ -70,48 +70,48 @@ fn product(ary: [[uint]], x: int, y: int, d: delta) -> uint {
     prod
 }
 
-fn source() -> [[uint]] {
-    let mut result: [[uint]] = [];
+fn source() -> ~[~[uint]] {
+    let mut result: ~[~[uint]] = ~[];
 
-    result += [[08u, 02u, 22u, 97u, 38u, 15u, 00u, 40u, 00u, 75u,
-                04u, 05u, 07u, 78u, 52u, 12u, 50u, 77u, 91u, 08u]];
-    result += [[49u, 49u, 99u, 40u, 17u, 81u, 18u, 57u, 60u, 87u,
-                17u, 40u, 98u, 43u, 69u, 48u, 04u, 56u, 62u, 00u]];
-    result += [[81u, 49u, 31u, 73u, 55u, 79u, 14u, 29u, 93u, 71u,
-                40u, 67u, 53u, 88u, 30u, 03u, 49u, 13u, 36u, 65u]];
-    result += [[52u, 70u, 95u, 23u, 04u, 60u, 11u, 42u, 69u, 24u,
-                68u, 56u, 01u, 32u, 56u, 71u, 37u, 02u, 36u, 91u]];
-    result += [[22u, 31u, 16u, 71u, 51u, 67u, 63u, 89u, 41u, 92u,
-                36u, 54u, 22u, 40u, 40u, 28u, 66u, 33u, 13u, 80u]];
-    result += [[24u, 47u, 32u, 60u, 99u, 03u, 45u, 02u, 44u, 75u,
-                33u, 53u, 78u, 36u, 84u, 20u, 35u, 17u, 12u, 50u]];
-    result += [[32u, 98u, 81u, 28u, 64u, 23u, 67u, 10u, 26u, 38u,
-                40u, 67u, 59u, 54u, 70u, 66u, 18u, 38u, 64u, 70u]];
-    result += [[67u, 26u, 20u, 68u, 02u, 62u, 12u, 20u, 95u, 63u,
-                94u, 39u, 63u, 08u, 40u, 91u, 66u, 49u, 94u, 21u]];
-    result += [[24u, 55u, 58u, 05u, 66u, 73u, 99u, 26u, 97u, 17u,
-                78u, 78u, 96u, 83u, 14u, 88u, 34u, 89u, 63u, 72u]];
-    result += [[21u, 36u, 23u, 09u, 75u, 00u, 76u, 44u, 20u, 45u,
-                35u, 14u, 00u, 61u, 33u, 97u, 34u, 31u, 33u, 95u]];
-    result += [[78u, 17u, 53u, 28u, 22u, 75u, 31u, 67u, 15u, 94u,
-                03u, 80u, 04u, 62u, 16u, 14u, 09u, 53u, 56u, 92u]];
-    result += [[16u, 39u, 05u, 42u, 96u, 35u, 31u, 47u, 55u, 58u,
-                88u, 24u, 00u, 17u, 54u, 24u, 36u, 29u, 85u, 57u]];
-    result += [[86u, 56u, 00u, 48u, 35u, 71u, 89u, 07u, 05u, 44u,
-                44u, 37u, 44u, 60u, 21u, 58u, 51u, 54u, 17u, 58u]];
-    result += [[19u, 80u, 81u, 68u, 05u, 94u, 47u, 69u, 28u, 73u,
-                92u, 13u, 86u, 52u, 17u, 77u, 04u, 89u, 55u, 40u]];
-    result += [[04u, 52u, 08u, 83u, 97u, 35u, 99u, 16u, 07u, 97u,
-                57u, 32u, 16u, 26u, 26u, 79u, 33u, 27u, 98u, 66u]];
-    result += [[88u, 36u, 68u, 87u, 57u, 62u, 20u, 72u, 03u, 46u,
-                33u, 67u, 46u, 55u, 12u, 32u, 63u, 93u, 53u, 69u]];
-    result += [[04u, 42u, 16u, 73u, 38u, 25u, 39u, 11u, 24u, 94u,
-                72u, 18u, 08u, 46u, 29u, 32u, 40u, 62u, 76u, 36u]];
-    result += [[20u, 69u, 36u, 41u, 72u, 30u, 23u, 88u, 34u, 62u,
-                99u, 69u, 82u, 67u, 59u, 85u, 74u, 04u, 36u, 16u]];
-    result += [[20u, 73u, 35u, 29u, 78u, 31u, 90u, 01u, 74u, 31u,
-                49u, 71u, 48u, 86u, 81u, 16u, 23u, 57u, 05u, 54u]];
-    result += [[01u, 70u, 54u, 71u, 83u, 51u, 54u, 69u, 16u, 92u,
-                33u, 48u, 61u, 43u, 52u, 01u, 89u, 19u, 67u, 48u]];
+    result += ~[~[08u, 02u, 22u, 97u, 38u, 15u, 00u, 40u, 00u, 75u,
+                  04u, 05u, 07u, 78u, 52u, 12u, 50u, 77u, 91u, 08u]];
+    result += ~[~[49u, 49u, 99u, 40u, 17u, 81u, 18u, 57u, 60u, 87u,
+                  17u, 40u, 98u, 43u, 69u, 48u, 04u, 56u, 62u, 00u]];
+    result += ~[~[81u, 49u, 31u, 73u, 55u, 79u, 14u, 29u, 93u, 71u,
+                  40u, 67u, 53u, 88u, 30u, 03u, 49u, 13u, 36u, 65u]];
+    result += ~[~[52u, 70u, 95u, 23u, 04u, 60u, 11u, 42u, 69u, 24u,
+                  68u, 56u, 01u, 32u, 56u, 71u, 37u, 02u, 36u, 91u]];
+    result += ~[~[22u, 31u, 16u, 71u, 51u, 67u, 63u, 89u, 41u, 92u,
+                  36u, 54u, 22u, 40u, 40u, 28u, 66u, 33u, 13u, 80u]];
+    result += ~[~[24u, 47u, 32u, 60u, 99u, 03u, 45u, 02u, 44u, 75u,
+                  33u, 53u, 78u, 36u, 84u, 20u, 35u, 17u, 12u, 50u]];
+    result += ~[~[32u, 98u, 81u, 28u, 64u, 23u, 67u, 10u, 26u, 38u,
+                  40u, 67u, 59u, 54u, 70u, 66u, 18u, 38u, 64u, 70u]];
+    result += ~[~[67u, 26u, 20u, 68u, 02u, 62u, 12u, 20u, 95u, 63u,
+                  94u, 39u, 63u, 08u, 40u, 91u, 66u, 49u, 94u, 21u]];
+    result += ~[~[24u, 55u, 58u, 05u, 66u, 73u, 99u, 26u, 97u, 17u,
+                  78u, 78u, 96u, 83u, 14u, 88u, 34u, 89u, 63u, 72u]];
+    result += ~[~[21u, 36u, 23u, 09u, 75u, 00u, 76u, 44u, 20u, 45u,
+                  35u, 14u, 00u, 61u, 33u, 97u, 34u, 31u, 33u, 95u]];
+    result += ~[~[78u, 17u, 53u, 28u, 22u, 75u, 31u, 67u, 15u, 94u,
+                  03u, 80u, 04u, 62u, 16u, 14u, 09u, 53u, 56u, 92u]];
+    result += ~[~[16u, 39u, 05u, 42u, 96u, 35u, 31u, 47u, 55u, 58u,
+                  88u, 24u, 00u, 17u, 54u, 24u, 36u, 29u, 85u, 57u]];
+    result += ~[~[86u, 56u, 00u, 48u, 35u, 71u, 89u, 07u, 05u, 44u,
+                  44u, 37u, 44u, 60u, 21u, 58u, 51u, 54u, 17u, 58u]];
+    result += ~[~[19u, 80u, 81u, 68u, 05u, 94u, 47u, 69u, 28u, 73u,
+                  92u, 13u, 86u, 52u, 17u, 77u, 04u, 89u, 55u, 40u]];
+    result += ~[~[04u, 52u, 08u, 83u, 97u, 35u, 99u, 16u, 07u, 97u,
+                  57u, 32u, 16u, 26u, 26u, 79u, 33u, 27u, 98u, 66u]];
+    result += ~[~[88u, 36u, 68u, 87u, 57u, 62u, 20u, 72u, 03u, 46u,
+                  33u, 67u, 46u, 55u, 12u, 32u, 63u, 93u, 53u, 69u]];
+    result += ~[~[04u, 42u, 16u, 73u, 38u, 25u, 39u, 11u, 24u, 94u,
+                  72u, 18u, 08u, 46u, 29u, 32u, 40u, 62u, 76u, 36u]];
+    result += ~[~[20u, 69u, 36u, 41u, 72u, 30u, 23u, 88u, 34u, 62u,
+                  99u, 69u, 82u, 67u, 59u, 85u, 74u, 04u, 36u, 16u]];
+    result += ~[~[20u, 73u, 35u, 29u, 78u, 31u, 90u, 01u, 74u, 31u,
+                  49u, 71u, 48u, 86u, 81u, 16u, 23u, 57u, 05u, 54u]];
+    result += ~[~[01u, 70u, 54u, 71u, 83u, 51u, 54u, 69u, 16u, 92u,
+                  33u, 48u, 61u, 43u, 52u, 01u, 89u, 19u, 67u, 48u]];
     result
 }

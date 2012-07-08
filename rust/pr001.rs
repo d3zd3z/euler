@@ -9,10 +9,10 @@
 
 fn main() {
     let mut total = 0;
-    int::range(1, 1000) {|i|
+    for uint::range(1, 1000) |i| {
         if (i % 3 == 0) || (i % 5 == 0) {
             total += i;
         }
     }
-    io::println(#fmt("%d", total));
+    io::println(#fmt("%u", total));
 }
