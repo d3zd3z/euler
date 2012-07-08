@@ -25,63 +25,59 @@
 // 837799
 
 fn main() {
-    // Looks like we can't make this generic yet.
-    // let l = @enum_cache() as lengther;
+    // let l : lengther = noncached as lengther;
+    let l : lengther = enum_cache() as lengther;
 
-    // naive();
-    cached();
+    // io::println(#fmt("size: %?", sys::size_of::<info>()));
+    // io::println(#fmt("size: %?", sys::size_of::<lengther>()));
+    // io::println(#fmt("size: %?", sys::size_of::<enum_cache>()));
+    // io::println(#fmt("size: %?", sys::size_of::<noncached>()));
+    compute_len(l);
 }
 
 iface lengther {
     fn chain_len(n: uint) -> uint;
 }
 
-// Simple solution that computes it by brute force.
-fn naive() {
-    let mut max_len = 0u;
-    let mut max = 0u;
-    for uint::range(1u, 1_000_000u) |x| {
-        let len = simple_chain_len(x);
-        if len > max_len {
-            max_len = len;
-            max = x;
-        }
+enum noncached { noncached }
+
+impl of lengther for noncached {
+    fn chain_len(n: uint) -> uint {
+        simple_chain_len(n)
     }
-    io::println(#fmt("chain %u, len %u", max, max_len));
 }
 
-fn cached() {
-    let mut max_len = 0u;
-    let mut max = 0u;
-    let cache = enum_cache();
-    for uint::range(1u, 1_000_000u) |x| {
-        let len = cache.chain_len(x);
+fn compute_len(l: lengther) {
+    let mut max_len = 0;
+    let mut max = 0;
+    for uint::range(1, 1_000_000) |x| {
+        let len = l.chain_len(x);
         if len > max_len {
             max_len = len;
             max = x;
         }
     }
-    io::println(#fmt("chain %u, len %u", max, max_len));
+    io::println(#fmt("chain %?, len %?", max, max_len));
 }
 
 fn simple_chain_len(n: uint) -> uint {
-    if n == 1u {
-        ret 1u
-    } else if n & 1u == 0u {
-        ret 1u + simple_chain_len(n >> 1u)
+    if n == 1 {
+        ret 1
+    } else if n & 1 == 0 {
+        ret 1 + simple_chain_len(n >> 1)
     } else {
-        ret 1u + simple_chain_len(3u * n + 1u)
+        ret 1 + simple_chain_len(3 * n + 1)
     }
 }
 
 // A cached solution that maintains a cache of values.
 
-class enum_cache {
+class enum_cache : lengther {
     let cache: ~[mut info];
     let size: uint;
 
     new() {
-        self.size = 1000u;
+        self.size = 1000;
         self.cache = vec::to_mut(vec::from_elem(self.size, unknown));
     }
 
@@ -101,12 +97,12 @@ class enum_cache {
     }
 
     fn chain2(n: uint) -> uint {
-        if n == 1u {
-            1u
-        } else if n & 1u == 0u {
-            1u + self.chain_len(n >> 1u)
+        if n == 1 {
+            1
+        } else if n & 1 == 0 {
+            1 + self.chain_len(n >> 1)
         } else {
-            1u + self.chain_len(3u * n + 1u)
+            1 + self.chain_len(3 * n + 1)
         }
     }
 }
