@@ -12,10 +12,10 @@
 
 fn main() {
     const size: uint = 302u;
-    let digits: [mut u8] = vec::to_mut(vec::from_elem(size, 0u8));
+    let digits: ~[mut u8] = vec::to_mut(vec::from_elem(size, 0u8));
     digits[0] = 1u8;
 
-    uint::range(0u, 1000u) {|_x|
+    for uint::range(0u, 1000u) |_x| {
         double(digits);
     }
     /*
@@ -25,16 +25,16 @@ fn main() {
     io::println("");
     */
 
-    let result = vec::foldl(0u, digits) {|accum, n|
+    let result = do vec::foldl(0u, digits) |accum, n| {
         accum + n as uint
     };
     io::println(#fmt("%u", result));
 }
 
-fn double(digits: [mut u8]) {
+fn double(digits: ~[mut u8]) {
     let mut carry = 0u8;
-    vec::iteri(digits) {|i, value|
-        let temp = value * 2u8 + carry;
+    for vec::eachi(digits) |i, digit| {
+        let temp = digit * 2u8 + carry;
         digits[i] = temp % 10u8;
         carry = temp / 10u8;
     }

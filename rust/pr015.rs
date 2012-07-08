@@ -15,16 +15,16 @@
 const steps: uint = 20u;
 
 fn main() {
-    let values: [mut u64] = vec::to_mut(vec::from_elem(steps + 1u, 1u64));
+    let values: ~[mut u64] = vec::to_mut(vec::from_elem(steps + 1u, 1u64));
 
-    uint::range(0u, steps) {|_x|
+    for uint::range(0u, steps) |_x| {
         bump(values);
     }
-    io::println(#fmt("%u", values[steps]));
+    io::println(#fmt("%?", values[steps]));
 }
 
-fn bump(values: [mut u64]) {
-    uint::range(0u, steps) { |i|
+fn bump(values: ~[mut u64]) {
+    for uint::range(0u, steps) |i| {
         values[i+1u] = values[i+1u] + values[i];
     }
 }
