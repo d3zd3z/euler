@@ -1,10 +1,12 @@
 module Main where
 
+import Primes (lazyPrimes)
+
 main :: IO ()
 main = print answer
    where
       num = 600851475143
-      allFactors = takeWhile (< (floor $ sqrt $ fromInteger num)) primes
+      allFactors = takeWhile (< (floor $ sqrt $ fromInteger num)) lazyPrimes
       answer = filter (\x -> num `mod` x == 0) allFactors
 
 primes :: [Integer]
