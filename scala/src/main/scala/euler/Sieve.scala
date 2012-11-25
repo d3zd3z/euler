@@ -1,5 +1,7 @@
 /* Prime number sieve. */
 
+package euler
+
 import scala.collection.mutable.BitSet
 import scala.collection.mutable.ListBuffer
 
