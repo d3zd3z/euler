@@ -23,6 +23,26 @@ import "runtime/pprof"
 const start int64 = 600851475143
 
 func main() {
+	var sieve euler.Sieve
+
+	num := start
+	var prime int = 2
+	for {
+		if num == int64(prime) {
+			fmt.Printf("%d\n", prime)
+			break
+		}
+
+		// Divide out the prime as many times as possible.
+		for num%int64(prime) == 0 {
+			num /= int64(prime)
+		}
+
+		prime = sieve.NextPrime(prime)
+	}
+}
+
+func omain() {
 	f, err := os.Create("profile.out")
 	if err != nil {
 		log.Fatal("Cannot create profile")
@@ -84,4 +104,3 @@ func isqrt(num int64) (result int64) {
 	}
 	return
 }
-
