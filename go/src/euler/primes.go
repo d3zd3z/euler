@@ -71,7 +71,7 @@ func (p *SieveHeap) Next() (result int64) {
 	}
 
 	switch p.prime {
-		// Manually feed the first three primes in.
+	// Manually feed the first three primes in.
 	case 0:
 		p.prime = 3
 		return 2

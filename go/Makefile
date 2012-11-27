@@ -4,8 +4,10 @@ all:
 	@echo "Please specify a target"
 	@false
 
-pr%:
+pr%: .force
 	GOPATH=$(PWD) go build $@
+
+.PHONY: .force
 
 clean:
 	rm -f bin/*
