@@ -10,7 +10,7 @@
 ;;; 104743
 
 (declare (uses sieve))
-;;; (import sieve)
+(import sieve)
 
 (define (euler-7)
   (let ((s (make-sieve)))
