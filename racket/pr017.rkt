@@ -15,15 +15,52 @@
 ;;; 20 letters. The use of "and" when writing out numbers is in compliance
 ;;; with British usage.
 ;;;
+;;; 21124
 
-(require (planet neil/numspell:1:2))
+(define ones '#("one" "two" "three" "four" "five" "six" "seven"
+		"eight" "nine" "ten" "eleven" "twelve" "thirteen"
+		"fourteen" "fifteen" "sixteen" "seventeen" "eighteen"
+		"nineteen"))
 
-;;; The numspell library doesn't use the "and" (it is American style,
-;;; although it supports the British style long numbers.
+(define tens '#("ten" "twenty" "thirty" "forty" "fifty" "sixty"
+		"seventy" "eighty" "ninety"))
 
-(define (needs-and? number)
-  (let-values ([(upper lower) (quotient/remainder (remainder number 1000) 100)])
-    (and (positive? upper) (positive? lower))))
+(define (number->english number)
+  (define work number)
+  (define add-space? #f)
+  (define words '())
+  (define (add word)
+    (when add-space?
+      (set! words (cons " " words)))
+    (set! words (cons word words))
+    (set! add-space? #t))
+
+  (when (> work 1000)
+    (raise "Number too large"))
+
+  (if (= work 1000)
+    "one thousand"
+
+    (begin
+      (when (>= work 100)
+	(add (vector-ref ones (- (quotient work 100) 1)))
+	(add "hundred")
+	(set! work (remainder work 100))
+	(when (positive? work)
+	  (add "and")))
+
+      (when (>= work 20)
+	(add (vector-ref tens (- (quotient work 10) 1)))
+	(set! work (remainder work 10))
+	(when (positive? work)
+	  (set! add-space? #f)
+	  (add "-")
+	  (set! add-space? #f)))
+
+      (when (positive? work)
+	(add (vector-ref ones (- work 1))))
+
+      (apply string-append (reverse words)))))
 
 (define (boolean->number b)
   (if b 1 0))
@@ -33,8 +70,7 @@
     (boolean->number (char-alphabetic? ch))))
 
 (define (letters-in-number number)
-  (+ (count-letters (number->english number))
-     (* (boolean->number (needs-and? number)) 3)))
+  (count-letters (number->english number)))
 
 (define (euler-17)
   (for/sum ([i (in-range 1 1001)])
