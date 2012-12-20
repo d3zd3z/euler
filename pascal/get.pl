@@ -20,7 +20,7 @@ open(O, ">pr$prob3.pas") or die;
 while (<I>) {
 	last if /^Problem /;
 }
-print O "program pr$prob3;\n\n(*\n";
+print O "(*\n";
 print O " * $_";
 my $last = $_;
 while (<I>) {
@@ -35,7 +35,9 @@ while (<I>) {
     $last = $_;
 }
 print O <<EOF;
-*)
+ *)
+
+program pr$prob3;
 
 begin
 end.
