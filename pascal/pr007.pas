@@ -18,11 +18,11 @@ program pr007;
 uses sieve;
 
 var
-  sv : SimpleSieve;
+  sv : TSieve;
   p, count : longint;
 
 begin
-  sv := SimpleSieve.create;
+  sv := TSieve.create;
   count := 1;
   p := 2;
   while count < 10001 do

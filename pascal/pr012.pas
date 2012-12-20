@@ -33,7 +33,7 @@ program pr012;
 uses sieve;
 
 var
-  sv : SimpleSieve;
+  sv : TSieve;
 
   function divisorCount(n : longint) : longint;
   var
@@ -62,7 +62,7 @@ var
   n : longint = 1;
   tri : longint = 1;
 begin
-  sv := SimpleSieve.create;
+  sv := TSieve.create;
 
   repeat
     if divisorCount(tri) > 500 then

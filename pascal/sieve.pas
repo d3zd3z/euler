@@ -7,7 +7,7 @@ unit sieve;
 interface
 
 type
-  SimpleSieve = class
+  TSieve = class
   private
     primes : packed array of boolean;
     procedure fill;
@@ -20,14 +20,14 @@ type
 
 implementation
 
-  constructor SimpleSieve.create;
+  constructor TSieve.create;
   begin
     { I don't know if this reliably initializes them. }
     SetLength(primes, 1024);
     fill
   end;
 
-  procedure SimpleSieve.newLength(need : longint);
+  procedure TSieve.newLength(need : longint);
   var
     cur : longint;
   begin
@@ -38,7 +38,7 @@ implementation
     fill
   end;
 
-  procedure SimpleSieve.fill;
+  procedure TSieve.fill;
   var
     i : longint;
     pos, n : longint;
@@ -71,7 +71,7 @@ implementation
       end;
   end;
 
-  function SimpleSieve.isPrime(n : longint) : boolean;
+  function TSieve.isPrime(n : longint) : boolean;
   begin
     if n >= length(primes) then
       newLength(n);
@@ -79,7 +79,7 @@ implementation
     isPrime := primes[n]
   end;
 
-  function SimpleSieve.nextPrime(n : longint) : longint;
+  function TSieve.nextPrime(n : longint) : longint;
   begin
     if n = 2 then
       nextPrime := 3
