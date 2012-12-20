@@ -25,12 +25,29 @@
  * 837799
  *)
 
+{ Important, the intermediate results are larger than a 32-bit signed. }
+
 { Two steps here.  Implement a simple solution.  Make general with an
   interface.  Use that to cache. }
 
+{$mode objfpc}
 program pr014;
 
-  function chainLen(n : longint) : longint;
+uses sysutils;
+
+type
+  baseint = int64;
+
+type
+  TLengther = interface
+    function chainLen(n : baseint) : longint;
+  end;
+
+  simpleLengther = class(TInterfacedObject, TLengther)
+    function chainLen(n : baseint) : longint;
+  end;
+
+  function simpleLengther.chainLen(n : baseint) : longint;
   begin
     if n = 1 then
       chainLen := 1
@@ -40,16 +57,63 @@ program pr014;
       chainLen := 1 + chainLen(3 * n + 1)
   end;
 
-  function compute : longint;
+type
+  cachedLengther = class(TInterfacedObject, TLengther)
+  private
+    cache : array of longint;
+    function chain2(n : baseint) : longint;
+  public
+    constructor create(size : baseint);
+    function chainLen(n : baseint) : longint;
+  end;
+
+  constructor cachedLengther.create(size : baseint);
   var
-    max : longint = 0;
+    i: longint;
+  begin
+    inherited create;
+    setlength(cache, size);
+    for i := 0 to size-1 do
+      cache[i] := -1;
+  end;
+
+  function cachedLengther.chainLen(n : baseint) : longint;
+  begin
+    if n < 0 then
+      raise exception.create('Negative chain scan');
+    if n < length(cache) then
+      begin
+	chainLen := cache[n];
+	if chainLen < 0 then
+	  begin
+	    chainLen := chain2(n);
+	    cache[n] := chainLen
+	  end;
+      end
+    else
+      chainLen := chain2(n)
+  end;
+
+  function cachedLengther.chain2(n : baseint) : longint;
+  begin
+    if n = 1 then
+      chain2 := 1
+    else if (n and 1) = 0 then
+      chain2 := 1 + chainLen(n >> 1)
+    else
+      chain2 := 1 + chainLen(3 * n + 1)
+  end;
+
+  function compute(lengther: Tlengther) : longint;
+  var
+    max : baseint = 0;
     i : longint;
-    len : longint;
+    len : baseint;
   begin
     compute := 0;
     for i := 1 to 999999 do
       begin
-	len := chainLen(i);
+	len := lengther.chainLen(i);
 	if len > max then
 	  begin
 	    max := len;
@@ -58,6 +122,10 @@ program pr014;
       end;
   end;
 
+var
+  lengther: TLengther;
 begin
-  writeln(compute)
+  { lengther := simpleLengther.create; }
+  lengther := cachedLengther.create(10000);
+  writeln(compute(lengther))
 end.
