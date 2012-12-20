@@ -39,15 +39,15 @@ type
   baseint = int64;
 
 type
-  TLengther = interface
+  ILengther = interface
     function chainLen(n : baseint) : longint;
   end;
 
-  simpleLengther = class(TInterfacedObject, TLengther)
+  TSimpleLengther = class(TInterfacedObject, ILengther)
     function chainLen(n : baseint) : longint;
   end;
 
-  function simpleLengther.chainLen(n : baseint) : longint;
+  function TSimpleLengther.chainLen(n : baseint) : longint;
   begin
     if n = 1 then
       chainLen := 1
@@ -58,7 +58,7 @@ type
   end;
 
 type
-  cachedLengther = class(TInterfacedObject, TLengther)
+  TCachedLengther = class(TInterfacedObject, ILengther)
   private
     cache : array of longint;
     function chain2(n : baseint) : longint;
@@ -67,7 +67,7 @@ type
     function chainLen(n : baseint) : longint;
   end;
 
-  constructor cachedLengther.create(size : baseint);
+  constructor TCachedLengther.create(size : baseint);
   var
     i: longint;
   begin
@@ -77,7 +77,7 @@ type
       cache[i] := -1;
   end;
 
-  function cachedLengther.chainLen(n : baseint) : longint;
+  function TCachedLengther.chainLen(n : baseint) : longint;
   begin
     if n < 0 then
       raise exception.create('Negative chain scan');
@@ -94,7 +94,7 @@ type
       chainLen := chain2(n)
   end;
 
-  function cachedLengther.chain2(n : baseint) : longint;
+  function TCachedLengther.chain2(n : baseint) : longint;
   begin
     if n = 1 then
       chain2 := 1
@@ -104,7 +104,7 @@ type
       chain2 := 1 + chainLen(3 * n + 1)
   end;
 
-  function compute(lengther: Tlengther) : longint;
+  function compute(lengther: ILengther) : longint;
   var
     max : baseint = 0;
     i : longint;
@@ -123,9 +123,9 @@ type
   end;
 
 var
-  lengther: TLengther;
+  lengther: ILengther;
 begin
-  { lengther := simpleLengther.create; }
-  lengther := cachedLengther.create(10000);
+  { lengther := TSimpleLengther.create; }
+  lengther := TCachedLengther.create(10000);
   writeln(compute(lengther))
 end.
