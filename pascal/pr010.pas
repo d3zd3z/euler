@@ -19,9 +19,9 @@ uses sieve;
 var
   answer : int64 = 0;
   p : longint = 2;
-  sv : SimpleSieve;
+  sv : TSieve;
 begin
-  sv := SimpleSieve.create;
+  sv := TSieve.create;
   while p < 2000000 do
     begin
       answer := answer + p;
