@@ -7,34 +7,16 @@ IMPORT RTArgs;
 IMPORT Scan;
 IMPORT Fmt;
 
-IMPORT Pr001;
-IMPORT Pr002;
-IMPORT Pr003;
-IMPORT Pr004;
-IMPORT Pr005;
+IMPORT FloatMode;
+IMPORT Lex;
+
+IMPORT Problems;
 
 EXCEPTION UsageError;
 
 VAR
   number : INTEGER;
   ran : BOOLEAN := FALSE;
-
-TYPE
-  Tproblem = RECORD
-    number : INTEGER;
-    run : PROCEDURE ();
-  END;
-
-  TproblemArray = ARRAY OF Tproblem;
-
-CONST
-  problems = TproblemArray {
-  Tproblem { number := 1, run := Pr001.Run },
-  Tproblem { number := 2, run := Pr002.Run },
-  Tproblem { number := 3, run := Pr003.Run },
-  Tproblem { number := 4, run := Pr004.Run },
-  Tproblem { number := 5, run := Pr005.Run }
-  };
 
 BEGIN
   TRY
@@ -44,10 +26,14 @@ BEGIN
 
     number := Scan.Int(RTArgs.GetArg (1));
 
-    FOR i := FIRST (problems) TO LAST (problems) DO
-      IF number = problems[i].number THEN
-        ran := TRUE;
-        problems[i].run ();
+    FOR i := 0 TO Problems.Count () - 1 DO
+      VAR
+        problem := Problems.Get (i);
+      BEGIN
+        IF number = problem.number THEN
+          ran := TRUE;
+          problem.run ();
+        END;
       END;
     END;
     IF NOT ran THEN
@@ -55,7 +41,11 @@ BEGIN
     END;
 
   EXCEPT
-  ELSE
-    IO.Put ("Error\n\nUsage: euler num\n");
+  | UsageError =>
+    IO.Put("Usage error\n\nUsage: euler num\n");
+  | Lex.Error, FloatMode.Trap =>
+    IO.Put("That doesn't seem to be anumber\n");
+  (* ELSE
+    IO.Put ("Error\n\nUsage: euler num\n"); *)
   END;
 END Main.

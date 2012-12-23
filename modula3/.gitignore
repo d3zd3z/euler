@@ -1,1 +1,6 @@
 AMD64_LINUX
+
+# Generated files
+Problems.m3
+m3makefile
+interface/
