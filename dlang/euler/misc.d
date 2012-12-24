@@ -83,3 +83,26 @@ unittest {
     assert(numberOfDigits(12345) == 5);
     assert(numberOfDigits(100000) == 6);
 }
+
+T isqrt(T)(T num) {
+    auto result = 0;
+    auto bit = 1;
+    while ((bit << 2) < num)
+	bit <<= 2;
+
+    while (bit != 0) {
+	if (num >= result + bit) {
+	    num -= result + bit;
+	    result = (result >> 1) + bit;
+	} else {
+	    result >>= 1;
+	}
+	bit >>= 2;
+    }
+
+    return result;
+}
+
+unittest {
+    assert(isqrt(123456789) == 11111);
+}
