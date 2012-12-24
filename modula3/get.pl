@@ -42,9 +42,9 @@ MODULE Pr$prob3;
 IMPORT Fmt;
 IMPORT IO;
 
-PROCEDURE Run () =
+PROCEDURE Run() =
   BEGIN
-    IO.Put (Fmt.Int (0) & "\\n");
+    IO.Put(Fmt.Int(0) & "\\n");
   END Run;
 
 BEGIN
