@@ -19,9 +19,10 @@
 (defn sqr [x] (* x x))
 
 (defn euler009 []
-  (for [a (range 1 1000)
-	b (range a 1000)
-	:let [c (- 1000 a b)]
-	:when (and (> c b)
-		   (= (+ (sqr a) (sqr b)) (sqr c)))]
-    (* a b c)))
+  (first
+   (for [a (range 1 1000)
+	 b (range a 1000)
+	 :let [c (- 1000 a b)]
+	 :when (and (> c b)
+		    (= (+ (sqr a) (sqr b)) (sqr c)))]
+     (* a b c))))

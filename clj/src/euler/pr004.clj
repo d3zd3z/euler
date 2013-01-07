@@ -9,24 +9,13 @@
 ;;;
 ;;; 906609
 
-(ns euler.pr004)
-
-(defn reverse-digits
-  [n]
-  (loop [n n
-	 result 0]
-    (if (zero? n) result
-	(recur (quot n 10)
-	       (+ (* result 10) (rem n 10))))))
-
-(defn palindrome?
-  [n]
-  (= n (reverse-digits n)))
+(ns euler.pr004
+  (:use euler.misc))
 
 (defn euler004
   []
   (reduce max (for [a (range 100 1000)
 		    b (range a 1000)
 		    :let [c (* a b)]
-		    :when (palindrome? c)]
+		    :when (palindrome-number? c)]
 		c)))

@@ -16,13 +16,13 @@
 
 ;;; Peek at the next composite, and if it is greater than 'n', return
 ;;; that n is prime.
-(defn ^:private st-prime?
+(defn- st-prime?
   [state n]
   (< n (first (first state))))
 
 ;;; Insert a new node into the state, returning the new state.  The
 ;;; 'step' is 2*p for the prime of concern.
-(defn ^:private st-insert
+(defn- st-insert
   [state comp step]
   (let [others (get state comp '())]
     (assoc state comp (cons step others))))
@@ -31,13 +31,13 @@
 ;;; adding the next composite and adding a step-value for it.  If this
 ;;; next composite is "fresh", just add the new value, otherwise,
 ;;; update the composite with another step value.
-(defn ^:private st-add-prime
+(defn- st-add-prime
   [state p]
   (st-insert state (* p p) (+ p p)))
 
 ;;; Once st-prime? returns true, eat the lowest composite number, and
 ;;; associate update the next composites based on the step values.
-(defn ^:private st-update
+(defn- st-update
   [state]
   (let [comp-pair (first state)
 	comp (first comp-pair)
@@ -59,17 +59,17 @@
 ;;; More traditional type of prime sieve.  But, using functional
 ;;; updates, just as a performance comparison.  It seems to be about 2x as fast.
 
-(defn ^:private empty-sieve [n]
+(defn- empty-sieve [n]
   (vec (list* false false (repeat (- n 2) true))))
 
 ;;; Mark the composites in the sieve
-(defn ^:private mark-composites [sieve p]
+(defn- mark-composites [sieve p]
   (reduce
    (fn [sieve n] (assoc sieve n false))
    sieve
    (range (+ p p) (count sieve) p)))
 
-(defn ^:private build-sieve [size]
+(defn- build-sieve [size]
   (loop [sieve (mark-composites (empty-sieve size) 2)
 	 p 3]
     (cond
@@ -81,13 +81,13 @@
   (atom (build-sieve 1024)))
 
 ;;; Version with transients.  This gives about a 2x speedup.
-(defn ^:private t-mark-composites [sieve p]
+(defn- t-mark-composites [sieve p]
   (reduce
    (fn [sieve n] (assoc! sieve n false))
    sieve
    (range (+ p p) (count sieve) p)))
 
-(defn ^:private t-build-sieve [size]
+(defn- t-build-sieve [size]
   (loop [sieve (t-mark-composites (transient (empty-sieve size)) 2)
 	 p 3]
     (cond
@@ -97,7 +97,7 @@
 
 ;;; Return the sieve, after updating it to make sure there is enough
 ;;; room to query 'n'.
-(defn ^:private sieve-enough [sieve n]
+(defn- sieve-enough [sieve n]
   (let [sv @sieve]
     (if (> (count sv) n)
       sv
@@ -119,10 +119,18 @@
     (if (prime? sieve n) n
 	(recur (+ n 2)))))
 
-(defn ^:private add-factor [result p count]
+(defn- add-factor [result p count]
   (if (pos? count)
     (conj result [p count])
     result))
+
+;;; Lazy prime generator based on a sieve.  Useful if code needs both
+;;; a sequence, and tests.
+(defn sieved-lazy-primes
+  ([sieve] (sieved-lazy-primes sieve 2))
+  ([sieve p]
+     (cons p
+	   (lazy-seq (sieved-lazy-primes sieve (next-prime sieve p))))))
 
 ;;; Compute the prime factors of n, with their powers.
 (defn factorize [sieve n]
@@ -140,3 +148,27 @@
 (defn divisor-count [sieve n]
   (reduce * (for [f (factorize sieve n)]
 	      (inc (second f)))))
+
+;;; Computing the divisors of the number.
+
+(defn- spread [factors]
+  (if (empty? factors)
+    [1]
+    (let [x (first factors)
+	  x-prime (first x)
+	  x-power (second x)
+	  others (spread (rest factors))]
+      (loop [result '()
+	     power 1
+	     i 0]
+	(if (> i x-power)
+	  result
+	  (recur (concat result (map #(* % power) others))
+		 (* power x-prime)
+		 (inc i)))))))
+
+(defn divisors [sieve n]
+  (sort (spread (factorize sieve n))))
+
+(defn proper-divisor-sum [sieve n]
+  (- (reduce + (divisors sieve n)) n))
