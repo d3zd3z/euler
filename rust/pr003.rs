@@ -6,11 +6,11 @@
 // 
 // What is the largest prime factor of the number 600851475143 ?
 
-use std;
-import std::bitv;
+// use std;
+use sieve::*;
 
 fn main() {
-    let mut primes = sieve::make();
+    let primes = Sieve();
 
     let mut number = 600851475143u64;
     let mut prime = 2;
@@ -22,7 +22,7 @@ fn main() {
         } else {
             loop {
                 prime += 1;
-                if sieve::is_prime(primes, prime) {
+                if primes.is_prime(prime) {
                     break;
                 }
             }

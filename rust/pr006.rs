@@ -24,5 +24,5 @@ fn main() {
         sum += i;
         sum_sq += i * i;
     }
-    io::println(#fmt("%d", sum * sum - sum_sq));
+    io::println(fmt!("%d", sum * sum - sum_sq));
 }

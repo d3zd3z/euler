@@ -22,5 +22,5 @@ fn main() {
         a = b;
         b = tmp;
     }
-    io::println(#fmt("%d", total));
+    io::println(fmt!("%d", total));
 }

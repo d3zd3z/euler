@@ -7,8 +7,6 @@
 // 
 // Find the largest palindrome made from the product of two 3-digit numbers.
 
-use std;
-
 fn main() {
     let mut max = 0u;
     for uint::range(100u, 1000u) |a| {

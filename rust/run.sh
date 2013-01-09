@@ -2,11 +2,15 @@
 
 # Run a rust problem.
 
-if [ -x /usr/local/rust/bin/rustc ]; then
-	RUST=/usr/local/rust/bin/rustc
+if false; then
+	if [ -x /usr/local/rust/bin/rustc ]; then
+		RUST=/usr/local/rust/bin/rustc
+	else
+		echo 'Unable to find dev rust build'
+		exit 1
+	fi
 else
-	echo 'Unable to find dev rust build'
-	exit 1
+	RUST=rustc
 fi
 
 base=$(printf "pr%03d" $1)
@@ -21,5 +25,5 @@ else
 	exit 1
 fi
 
-$RUST $src && ./$base
+$RUST -O $src && time ./$base
 rm ./$base

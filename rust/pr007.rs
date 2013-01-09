@@ -9,15 +9,17 @@
 //
 // 104743
 
+use sieve::*;
+
 fn main() {
-    let mut primes = sieve::make();
+    let primes = Sieve();
     let mut prime = 2u;
     let mut count = 1;
 
     while count < 10001 {
-        prime = sieve::next_prime(primes, prime);
+        prime = primes.next_prime(prime);
         count += 1;
     }
 
-    io::println(#fmt("%u", prime));
+    io::println(fmt!("%u", prime));
 }
