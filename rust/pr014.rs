@@ -25,29 +25,30 @@
 // 837799
 
 fn main() {
-    // let l : lengther = noncached as lengther;
-    let l : lengther = enum_cache() as lengther;
+    let l: Lengther = Noncached as Lengther;
+    // let l : Lengther = EnumCache() as Lengther;
 
-    // io::println(#fmt("size: %?", sys::size_of::<info>()));
-    // io::println(#fmt("size: %?", sys::size_of::<lengther>()));
-    // io::println(#fmt("size: %?", sys::size_of::<enum_cache>()));
-    // io::println(#fmt("size: %?", sys::size_of::<noncached>()));
+    // TODO: Use a macro to show this, with nice information.
+    io::println(fmt!("size: %?", sys::size_of::<Info>()));
+    io::println(fmt!("size: %?", sys::size_of::<Lengther>()));
+    io::println(fmt!("size: %?", sys::size_of::<EnumCache>()));
+    io::println(fmt!("size: %?", sys::size_of::<Noncached>()));
     compute_len(l);
 }
 
-iface lengther {
+trait Lengther {
     fn chain_len(n: uint) -> uint;
 }
 
-enum noncached { noncached }
+enum Noncached { Noncached }
 
-impl of lengther for noncached {
+impl Noncached: Lengther {
     fn chain_len(n: uint) -> uint {
         simple_chain_len(n)
     }
 }
 
-fn compute_len(l: lengther) {
+fn compute_len(l: Lengther) {
     let mut max_len = 0;
     let mut max = 0;
     for uint::range(1, 1_000_000) |x| {
@@ -57,19 +58,62 @@ fn compute_len(l: lengther) {
             max = x;
         }
     }
-    io::println(#fmt("chain %?, len %?", max, max_len));
+    io::println(fmt!("chain %?, len %?", max, max_len));
 }
 
 fn simple_chain_len(n: uint) -> uint {
     if n == 1 {
-        ret 1
+        return 1
     } else if n & 1 == 0 {
-        ret 1 + simple_chain_len(n >> 1)
+        return 1 + simple_chain_len(n >> 1)
     } else {
-        ret 1 + simple_chain_len(3 * n + 1)
+        return 1 + simple_chain_len(3 * n + 1)
     }
 }
 
+struct EnumCache {
+    size: uint,
+    cache: ~[mut Info]
+}
+
+fn EnumCache() -> EnumCache {
+    EnumCache { size: 1000,
+        cache: vec::to_mut(vec::from_elem(1000, Unknown)) }
+}
+
+impl EnumCache: Lengther {
+    fn chain_len(n: uint) -> uint {
+        if n < self.size {
+            match self.cache[n] {
+                Unknown => {
+                    let answer = self.chain2(n);
+                    self.cache[n] = Known(answer);
+                    answer
+                },
+                Known(x) => x
+            }
+        } else {
+            self.chain2(n)
+        }
+    }
+
+    fn chain2(n: uint) -> uint {
+        if n == 1 {
+            1
+        } else if n & 1 == 0 {
+            1 + self.chain_len(n >> 1)
+        } else {
+            1 + self.chain_len(3 * n + 1)
+        }
+    }
+}
+
+enum Info {
+    Unknown,
+    Known(uint)
+}
+
+/*
 // A cached solution that maintains a cache of values.
 
 class enum_cache : lengther {
@@ -111,3 +155,4 @@ enum info {
     unknown,
     known(uint)
 }
+*/

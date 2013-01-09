@@ -27,24 +27,25 @@
 //
 // 76576500
 
-import io::println;
+use io::println;
+use sieve::*;
 
 fn main() {
-    let primes = sieve::make();
+    let primes = Sieve();
 
     let mut n = 1u;
     let mut tri = 1u;
     loop {
-        if divisor_count(primes, tri) > 500u {
+        if divisor_count(&primes, tri) > 500u {
             break;
         }
         n += 1u;
         tri += n;
     }
-    println(#fmt("%u", tri));
+    println(fmt!("%u", tri));
 }
 
-fn divisor_count(sieve: sieve::t, n: uint) -> uint {
+fn divisor_count(sieve: &Sieve, n: uint) -> uint {
     let mut result = 1u;
     let mut tmp = n;
     let mut prime = 2u;
@@ -59,9 +60,9 @@ fn divisor_count(sieve: sieve::t, n: uint) -> uint {
         result *= divide_count + 1u;
 
         if tmp > 1u {
-            prime = sieve::next_prime(sieve, prime);
+            prime = sieve.next_prime(prime);
         }
     }
 
-    ret result;
+    return result
 }

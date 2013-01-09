@@ -19,25 +19,25 @@ fn main() {
         double(digits);
     }
     /*
-    uint::range(0u, size) {|i|
-        io::print(#fmt("%u", digits[size-i-1u] as uint));
+    for size.timesi() |i| {
+        io::println(fmt!("%u", digits[size-i-1u] as uint));
     }
     io::println("");
     */
 
     let result = do vec::foldl(0u, digits) |accum, n| {
-        accum + n as uint
+        accum + *n as uint
     };
-    io::println(#fmt("%u", result));
+    io::println(fmt!("%u", result));
 }
 
-fn double(digits: ~[mut u8]) {
+fn double(digits: &[mut u8]) {
     let mut carry = 0u8;
-    for vec::eachi(digits) |i, digit| {
-        let temp = digit * 2u8 + carry;
+    for digits.len().timesi() |i| {
+        let temp = digits[i] * 2u8 + carry;
         digits[i] = temp % 10u8;
         carry = temp / 10u8;
     }
 
-    if carry != 0u8 { fail "Numeric overflow"; }
+    if carry != 0u8 { fail ~"Numeric overflow"; }
 }

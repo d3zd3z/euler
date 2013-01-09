@@ -28,10 +28,8 @@
 //
 // 40824
 
-use std;
-
 fn src() -> ~[u8] {
-    str::bytes("\
+    str::to_bytes("\
 73167176531330624919225119674426574742355349194934\
 96983520312774506326239578318016984801869478851843\
 85861560789112949495459501737958331952853208805511\
@@ -59,69 +57,67 @@ fn main() {
 }
 
 // Three solutions, written in slightly different styles.
-
 fn amain() {
     let source = src();
-    let groups = do vec::from_fn(vec::len(source) + 1u - 5u) |pos| {
-        vec::slice(source, pos, pos + 5u)
+    let groups = do vec::from_fn(source.len() + 1 - 5) |pos| {
+        source.slice(pos, pos + 5)
     };
-    let products = do vec::map(groups) |item| {
-        do vec::foldl(1u, item) |a, b| { a * (b as uint - 48u) }
+    let products = do groups.map() |item| {
+        do item.foldl(1u) |a, b| { *a * (*b as uint - 48u) }
     };
-    let result = do vec::foldl(0u, products) |item, max| {
-        if item > max { item } else { max }
+    let result = do products.foldl(0u) |item, max| {
+        if *item > *max { *item } else { *max }
     };
 
-    io::println(#fmt("%u", result));
+    io::println(fmt!("%u", result));
 }
 
 fn bmain() {
     let source = src();
 
-    fn digit_product(&&src: ~[u8]) -> uint {
-        fn mult(&&a: uint, &&b: u8) -> uint { a * (b as uint - 48u) }
-        vec::foldl(1u, src, mult)
+    fn digit_product(src: &~[u8]) -> uint {
+        do src.foldl(1u) |a, b| { *a * (*b as uint - 48u) }
     }
-    let products = vec::map(groups(source), digit_product);
-    fn maxer(&&item: uint, &&max: uint) -> uint {
-        if item > max { item } else { max }
+    let products = groups(source).map(digit_product);
+    fn maxer(item: &uint, max: &uint) -> uint {
+        if *item > *max { *item } else { *max }
     }
-    let result = vec::foldl(0u, products, maxer);
-    io::println(#fmt("%u", result));
+    let result = products.foldl(0, maxer);
+
+    io::println(fmt!("%u", result));
+}
+
+fn groups(src: &[u8]) -> ~[~[u8]] {
+    let mut result = ~[];
+
+    let mut pos = 0u;
+    let len = src.len();
+    while pos + 5 < len {
+        result.push(src.slice(pos, pos + 5));
+        pos += 1;
+    }
+
+    result
 }
 
 fn cmain() {
     let source = src();
     let mut max = 0u;
-    let len = vec::len(source);
+    let len = source.len();
 
     let mut pos = 0u;
-    while pos + 5u < len {
+    while pos + 5 < len {
         let mut i = 0u;
         let mut tmp = 1u;
-        while i < 5u {
+        while i < 5 {
             tmp *= source[pos+i] as uint - 48u;
-            i += 1u;
+            i += 1;
         }
         if tmp > max {
             max = tmp;
         }
-        pos += 1u;
-    }
-    io::println(#fmt("%u", max));
-}
-
-// The above is very imperative.  Can we do better?
-
-fn groups(src: ~[u8]) -> ~[~[u8]] {
-    let mut result = ~[];
-
-    let mut pos = 0u;
-    let len = vec::len(src);
-    while pos + 5u < len {
-        result += ~[vec::slice(src, pos, pos + 5u)];
-        pos += 1u;
+        pos += 1;
     }
 
-    result
+    io::println(fmt!("%u", max));
 }

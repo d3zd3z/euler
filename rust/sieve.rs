@@ -1,74 +1,163 @@
 // A simple prime number sieve.
 
+/*
 export t, make;
 export is_prime;
 export next_prime;
+export factorize;
+export divisors;
+*/
 
-use std;
-import std::bitv;
+use std::bitv::*;
+use std::sort;
 
 const default_size: uint = 8192u;
 
-type t = @{ mut vec: bitv::bitv, mut limit: uint };
+pub struct Sieve {
+    mut vec: @Bitv, mut limit: uint
+}
 
-fn make() -> t {
-    let result = @{mut vec: bitv::bitv(default_size + 1u, true),
-        mut limit: default_size };
-
-    fill(result);
-
+pub fn Sieve() -> Sieve {
+    let result = Sieve { vec: @Bitv(default_size + 1, true),
+        limit: default_size };
+    result.fill();
     result
 }
 
-fn fill(pv: t) {
-    // Assumes the vector is initialized to true.
-    bitv::set(pv.vec, 0u, false);
-    bitv::set(pv.vec, 1u, false);
+priv impl Sieve {
+    fn fill() {
+        self.vec.set_all();
+        self.vec.set(0, false);
+        self.vec.set(1, false);
 
-    let mut pos = 2u;
-    let limit = pv.limit;
-    while pos <= limit {
-        if !bitv::get(pv.vec, pos) {
-            pos += 2u;
-        } else {
-            let mut n = pos + pos;
-            while n <= limit {
-                bitv::set(pv.vec, n, false);
-                n += pos;
-            }
-            if pos == 2u {
-                pos += 1u;
+        let mut pos = 2u;
+        let limit = self.limit;
+        while pos <= limit {
+            if !self.vec.get(pos) {
+                pos += 2;
             } else {
-                pos += 2u;
+                let mut n = pos + pos;
+                while n <= limit {
+                    self.vec.set(n, false);
+                    n += pos;
+                }
+                if pos == 2 {
+                    pos += 1;
+                } else {
+                    pos += 2;
+                }
             }
         }
     }
 }
 
-fn is_prime(pv: t, n: uint) -> bool {
-    if n >= pv.limit {
-        let mut new_limit = pv.limit;
-        while new_limit < n {
-            new_limit *= 8u;
+impl Sieve {
+    fn is_prime(n: uint) -> bool {
+        if n >= self.limit {
+            let mut new_limit = self.limit;
+            while new_limit < n {
+                new_limit *= 8;
+            }
+
+            self.vec = @Bitv(new_limit + 1, true);
+            self.limit = new_limit;
+            self.fill();
         }
 
-        pv.vec = bitv::bitv(new_limit + 1u, true);
-        pv.limit = new_limit;
-        fill(pv);
+        self.vec.get(n)
     }
 
-    ret bitv::get(pv.vec, n);
+    fn next_prime(n: uint) -> uint {
+        if n == 2 {
+            return 3;
+        }
+
+        let mut next = n + 2;
+        while !self.is_prime(next) {
+            next += 2;
+        }
+        next
+    }
+
+    fn factorize(n: uint) -> ~[Factor] {
+        let mut result = ~[];
+        let mut tmp = n;
+        let mut prime = 2;
+        let mut count = 0;
+
+        while tmp > 1 {
+            if tmp % prime == 0 {
+                tmp /= prime;
+                count += 1;
+            } else {
+                if count > 0 {
+                    result.push(Factor {prime: prime, power: count});
+                    count = 0;
+                }
+
+                if tmp > 1 {
+                    prime = self.next_prime(prime);
+                }
+            }
+        }
+
+        if count > 0 {
+            result.push(Factor {prime: prime, power: count});
+        }
+
+        result
+    }
+
+    fn divisors(n: uint) -> ~[uint] {
+        let factors = self.factorize(n);
+        let mut result = ~[];
+        spread(factors, &mut result);
+        sort::merge_sort(|a, b| { a < b }, result)
+    }
 }
 
-fn next_prime(pv: t, n: uint) -> uint {
+fn spread(factors: &[Factor], result: &mut ~[uint]) {
+    let len = factors.len();
+    if len == 0 {
+        result.push(1);
+    } else {
+        let mut rest = ~[];
+        let x = factors[0];
+        spread(factors.slice(1, len), &mut rest);
 
-    if n == 2u {
-        ret 3u;
+        let mut power = 1;
+        for (x.power + 1).timesi() |i| {
+            for rest.each() |elt| {
+                result.push(*elt * power);
+            }
+            if i < power {
+                power *= x.prime;
+            }
+        }
     }
+}
 
-    let mut next = n + 2u;
-    while !is_prime(pv, next) {
-        next += 1u;
+struct Factor {
+    prime: uint,
+    power: uint
+}
+
+// Comparison on Factor.
+impl Factor: cmp::Eq {
+    #[inline(always)]
+    pure fn eq(other: &Factor) -> bool {
+        self.prime == other.prime &&
+            self.power == other.power
     }
-    next
+    #[inline(always)]
+    pure fn ne(other: &Factor) -> bool {
+        !self.eq(other)
+    }
+}
+
+impl Factor: to_bytes::IterBytes {
+    pure fn iter_bytes(lsb: bool, f: to_bytes::Cb) {
+        self.prime.iter_bytes(lsb, f);
+        self.power.iter_bytes(lsb, f);
+    }
 }

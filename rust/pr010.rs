@@ -8,17 +8,17 @@
 //
 // 142913828922
 
-use std;
+use sieve::*;
 
 fn main() {
-    let mut primes = sieve::make();
+    let primes = Sieve();
 
     let mut total = 0u;
     let mut p = 2u;
     while p < 2_000_000u {
         total += p;
-        p = sieve::next_prime(primes, p);
+        p = primes.next_prime(p);
     }
 
-    io::println(#fmt("%u", total));
+    io::println(fmt!("%u", total));
 }

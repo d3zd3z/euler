@@ -20,10 +20,10 @@ fn main() {
     for uint::range(0u, steps) |_x| {
         bump(values);
     }
-    io::println(#fmt("%?", values[steps]));
+    io::println(fmt!("%?", values[steps]));
 }
 
-fn bump(values: ~[mut u64]) {
+fn bump(values: &[mut u64]) {
     for uint::range(0u, steps) |i| {
         values[i+1u] = values[i+1u] + values[i];
     }

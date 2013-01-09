@@ -14,5 +14,5 @@ fn main() {
             total += i;
         }
     }
-    io::println(#fmt("%u", total));
+    io::println(fmt!("%u", total));
 }

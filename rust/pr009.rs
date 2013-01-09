@@ -14,14 +14,12 @@
 //
 // 31875000
 
-use std;
-
 fn main() {
     for uint::range(1u, 1000u) |a| {
         for uint::range(a, 1000u) |b| {
             let c = 1000u - a - b;
             if c > b && a*a + b*b == c*c {
-                io::println(#fmt("%u", a*b*c))
+                io::println(fmt!("%u", a*b*c))
             }
         }
     }
