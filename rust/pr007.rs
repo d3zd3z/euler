@@ -9,6 +9,8 @@
 //
 // 104743
 
+extern mod std;
+mod sieve;
 use sieve::*;
 
 fn main() {

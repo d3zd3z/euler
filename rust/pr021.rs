@@ -16,6 +16,8 @@
 //
 // 31626
 
+extern mod std;
+mod sieve;
 use sieve::Sieve;
 
 fn main() {
@@ -27,7 +29,7 @@ fn main() {
             sum += i;
         }
     }
-    io::println(#fmt("%u", sum));
+    io::println(fmt!("%u", sum));
 }
 
 impl Sieve {

@@ -112,7 +112,7 @@ impl Sieve {
         let factors = self.factorize(n);
         let mut result = ~[];
         spread(factors, &mut result);
-        sort::merge_sort(|a, b| { a < b }, result)
+        do sort::merge_sort(result) |a, b| { *a <= *b }
     }
 }
 
@@ -126,7 +126,7 @@ fn spread(factors: &[Factor], result: &mut ~[uint]) {
         spread(factors.slice(1, len), &mut rest);
 
         let mut power = 1;
-        for (x.power + 1).timesi() |i| {
+        for uint::range(0, x.power + 1) |i| {
             for rest.each() |elt| {
                 result.push(*elt * power);
             }
@@ -145,18 +145,18 @@ struct Factor {
 // Comparison on Factor.
 impl Factor: cmp::Eq {
     #[inline(always)]
-    pure fn eq(other: &Factor) -> bool {
+    pure fn eq(&self, other: &Factor) -> bool {
         self.prime == other.prime &&
             self.power == other.power
     }
     #[inline(always)]
-    pure fn ne(other: &Factor) -> bool {
+    pure fn ne(&self, other: &Factor) -> bool {
         !self.eq(other)
     }
 }
 
 impl Factor: to_bytes::IterBytes {
-    pure fn iter_bytes(lsb: bool, f: to_bytes::Cb) {
+    pure fn iter_bytes(&self, lsb: bool, f: to_bytes::Cb) {
         self.prime.iter_bytes(lsb, f);
         self.power.iter_bytes(lsb, f);
     }

@@ -55,7 +55,7 @@ fn add(dest: &[mut u8], other: &[mut u8],
        overflowed: &mut bool)
 {
     let mut carry = 0u8;
-    for dest.len().timesi() |i| {
+    for uint::range(0, dest.len()) |i| {
         let temp = dest[i] + other[i] + carry;
         dest[i] = temp % 10;
         carry = temp / 10;

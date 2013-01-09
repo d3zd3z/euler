@@ -25,7 +25,7 @@ fn main() {
     let line = result::unwrap(lineresult);
     let names = decode_names(line);
     let pairs = names.map(|n| { @name_value(n) });
-    let pairs = sort::merge_sort(pair_le, pairs);
+    let pairs = sort::merge_sort(pairs, pair_le);
 
     let mut total = 0;
     for pairs.eachi |i, p| {

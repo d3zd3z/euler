@@ -33,7 +33,7 @@ fn main() {
 // Multiply the little-endian base 10_000 number in 'acc' by 'by'.
 fn multiply(acc: &[mut uint], by: uint) {
     let mut carry = 0u;
-    for acc.len().timesi() |i| {
+    for uint::range(0, acc.len()) |i| {
         let temp = acc[i] * by + carry;
         acc[i] = temp % base;
         carry = temp / base;

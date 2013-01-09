@@ -33,7 +33,7 @@ fn main() {
 
 fn double(digits: &[mut u8]) {
     let mut carry = 0u8;
-    for digits.len().timesi() |i| {
+    for uint::range(0, digits.len()) |i| {
         let temp = digits[i] * 2u8 + carry;
         digits[i] = temp % 10u8;
         carry = temp / 10u8;

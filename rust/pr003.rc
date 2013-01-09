@@ -1,6 +1,0 @@
-// This seems to be implied.
-// mod pr3;
-
-extern mod core;
-extern mod std;
-mod sieve;
