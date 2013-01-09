@@ -28,6 +28,8 @@
 // values of n, starting with n = 0.
 // -59231
 
+extern mod std;
+mod sieve;
 use sieve::Sieve;
 
 fn main() {

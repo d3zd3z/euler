@@ -28,11 +28,11 @@ fn main() {
 
     for uint::range(1, 1001) |i| {
         let text = conv.to_english(i);
-        // io::println(#fmt("%4u %s", i, text));
+        // io::println(fmt!("%4u %s", i, text));
         result += count_letters(text);
     }
 
-    io::println(#fmt("%u", result));
+    io::println(fmt!("%u", result));
 }
 
 fn count_letters(text: &str) -> uint {

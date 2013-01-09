@@ -15,6 +15,8 @@
 //
 // 2783915460
 
+// TODO: With rust 0.5, this produces the wrong result.
+
 fn main() {
     let base: ~[mut u8] = vec::to_mut(do vec::from_fn(10) |i| {i as u8});
     let mut done = false;

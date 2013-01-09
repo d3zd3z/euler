@@ -23,6 +23,8 @@
 //
 // 4179871
 
+extern mod std;
+mod sieve;
 use sieve::Sieve;
 
 // TODO: Change this to bitv for space.  Although, it's probably

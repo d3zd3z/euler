@@ -96,7 +96,9 @@ impl EnumCache: Lengther {
             self.chain2(n)
         }
     }
+}
 
+impl EnumCache {
     fn chain2(n: uint) -> uint {
         if n == 1 {
             1

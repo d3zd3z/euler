@@ -27,6 +27,8 @@
 //
 // 76576500
 
+extern mod std;
+mod sieve;
 use io::println;
 use sieve::*;
 
