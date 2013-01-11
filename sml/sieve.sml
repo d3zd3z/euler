@@ -7,6 +7,11 @@ sig
   val make : int -> t
   val is_prime : (t * int) -> bool
   val next_prime : (t * int) -> int
+  type factor = { prime : int,
+		  power : int }
+  val factorize : (t * int) -> factor list
+  val divisorCount : (t * int) -> int
+  val divisors : (t * int) -> int list
 end
 
 structure Sieve : SIEVE =
@@ -61,5 +66,45 @@ fun next_prime (sieve, p) =
       if is_prime (sieve, p) then p
       else next_prime (sieve, p)
     end
+
+type factor = { prime : int,
+		power : int }
+
+fun factorize (sieve, n) =
+    let fun addFactor (result, p, count) =
+	    if count > 0 then
+	      { prime = p, power = count } :: result
+	    else
+	      result
+	fun loop (result, n, p, count) =
+	    if n = 1 then addFactor (result, p, count)
+	    else
+	      if n mod p = 0 then
+		loop (result, n div p, p, count + 1)
+	      else
+		loop (addFactor (result, p, count),
+		      n, next_prime (sieve, p), 0)
+    in
+      loop ([], n, 2, 0)
+    end
+
+fun divisorCount (sieve, n) =
+    foldl (fn (elt, accum) => (#power elt + 1) * accum)
+	  1
+	  (factorize (sieve, n))
+
+fun spread ([]) = [1]
+  | spread ({prime = xPrime, power = xPower}::xs) =
+    let val others = spread xs
+	fun loop (result, pow, i) =
+	    if i > xPower then result
+	    else
+	      loop (result @ (map (fn x => x * pow) others), pow * xPrime, i + 1)
+    in
+      loop ([], 1, 0)
+    end
+
+fun divisors (sv, n) =
+    ListMergeSort.sort (op >) (spread (factorize (sv, n)))
 
 end
