@@ -29,6 +29,6 @@ contains
     logical :: divides
 
     divides = mod (a, 3) == 0 .or. mod (a, 5) == 0
-  end function
+  end function divides
 
 end subroutine pr001

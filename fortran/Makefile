@@ -11,7 +11,7 @@ PROBLEMS = pr001.o pr002.o pr003.o pr004.o pr005.o pr006.o \
 	   pr013.o pr014.o pr015.o pr016.o pr017.o pr018.o \
 	   pr019.o pr020.o pr021.o pr022.o pr023.o pr024.o \
 	   pr025.o pr026.o pr027.o pr028.o pr029.o pr030.o \
-	   pr031.o pr032.o pr033.o pr034.o
+	   pr031.o pr032.o pr033.o pr034.o pr035.o pr036.o
 
 MAIN = main.o problems.o primes.o permute.o
 
@@ -46,6 +46,7 @@ pr023.o: primes.mod
 pr026.o: primes.mod
 pr027.o: primes.mod
 pr029.o: primes.mod
+pr035.o: primes.mod
 
 pr024.o: permute.mod
 pr032.o: permute.mod
