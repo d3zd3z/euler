@@ -12,21 +12,29 @@
 ;;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require (planet soegaard/math:1:5/math))
-(require "sieve.rkt")
+(require (only-in
+	   (planet soegaard/math:1:5/math)
+	   nth-prime))
+(require "ssieve.rkt")
 
 ;; Ok, this is cheating a bit.
 (define (euler-7a)
   (nth-prime 10001))
 
+#|
 (define (euler-7b)
   (define sieve (make-sieve))
   (for ([i (in-range 10000)])
        (sieve-next sieve))
   (sieve-next sieve))
-
+|#
+(define (euler-7c)
+  (define sieve (make-sieve))
+  (do ([i 0 (add1 i)]
+       [p 2 (next-prime sieve p)])
+    ((= i 10000) p)))
 
 ;; For testing.
-(display (euler-7b))
+(display (euler-7c))
 (newline)
 
