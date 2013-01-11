@@ -31,7 +31,7 @@ import Data.Int (Int64)
 -- counts we've seen before.
 
 main :: IO ()
-main = print $ maximumBy (compare `on` snd) $ assocs counts
+main = print $ maximumBy (compare `on` snd) $ assocs counts2
 
 counts :: Array Int64 Int64
 counts = array (1,999999) [(i, count i i) | i <- [1..999999] ]
@@ -41,3 +41,17 @@ counts = array (1,999999) [(i, count i i) | i <- [1..999999] ]
          | i < n           = counts ! i
          | i `mod` 2 == 0  = 1 + (count n (i `div` 2))
          | otherwise       = 1 + (count n (i * 3 + 1))
+
+-- Slight improvement, memoize all of the values in the desired range,
+-- instead of just those strictly less than the current.
+-- Realistically, it's not all that much faster.
+counts2 :: Array Int64 Int64
+counts2 = array (1,999999) [(i, count i) | i <- [1..999999] ]
+   where
+      count 1 = 1
+      count i
+         | i `mod` 2 == 0 = 1 + next (i `div` 2)
+         | otherwise      = 1 + next (i * 3 + 1)
+      next i
+         | i <= 999999 = counts2 ! i
+         | otherwise   = count i

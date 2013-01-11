@@ -24,6 +24,7 @@
 module Main where
 
 import Data.List (group)
+import qualified Primes
 
 main :: IO ()
 main = print answer
@@ -44,7 +45,7 @@ factorCount = product . map ((1 +) . snd) . primeFactors
 primeFactors :: Int -> [(Int, Int)]
 primeFactors n = map (\x -> (head x, length x)) (group answer)
    where
-      answer = seek n primes
+      answer = seek n Primes.fprimes
       seek 1 _ = []
       seek x fs@(f:fr)
          | x `mod` f == 0   = f : seek (x `div` f) fs

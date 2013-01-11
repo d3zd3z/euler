@@ -32,6 +32,7 @@ import qualified Data.Map as Map
 import Data.Tuple (swap)
 import Data.Set (Set)
 import qualified Data.Set as Set
+import qualified Data.Array as A
 
 type Node = (Int, Int)
 data Edge = Edge { edgeWeight :: Int, edgeNext :: Node }
@@ -115,11 +116,56 @@ sample = [
   [630, 803, 746, 422, 111],
   [537, 699, 497, 121, 956],
   [805, 732, 524, 37, 331]]
---
--- split :: (a -> Bool) -> [a] -> [[a]]
--- split _ [] = []
--- split t s =
---   let (l, s') = break t s in
---   l : case s' of
---     [] -> []
---     (_:s'') -> split t s''
+
+buildArray :: [[Int]] -> A.Array (Int, Int) Int
+buildArray grid =
+   A.listArray ((1, 1), (height, width)) $ concat grid
+   where
+      height = length sample
+      width  = allValue $ map length sample
+
+-- Given a 'width' and 'height' of the 1-based array, map a node into
+-- a list of the 'next' nodes based on the problem description (down
+-- and right).  The empty list result indicates the end of the graph.
+nexts :: Int -> Int -> Node -> [Node]
+nexts width height (x, y)
+   | x == width && y == height  = []
+   | y == height                = [(x+1, y)]
+   | x == width                 = [(x, y+1)]
+   | otherwise                  = [(x+1, y), (x, y+1)]
+
+-- Assures that the list all contains the same value, and returns it.
+allValue :: Eq a => [a] -> a
+allValue [] = error "No value"
+allValue [x] = x
+allValue (a:b:rest) | a == b  = allValue (b:rest)
+allValue _ = error "Value mismatch"
+
+-- Dijkstra's algorithm, functionally.
+
+-- State?
+weight :: A.Array Node Int
+weight = buildArray sample
+
+next :: Node -> [Node]
+next = nexts width height
+   where
+      (_, (width, height)) = A.bounds weight
+
+distance :: Map Node Int
+distance = Map.singleton (1,1) (weight A.! (1,1))
+
+visited :: Set Node
+visited = Set.empty
+
+-- walk :: Node -> ()
+walk here =
+   (neighbors, ncosts)
+   where
+      neighbors = Set.toList $ Set.difference (Set.fromList $ next here) visited
+      ncosts = map costOf neighbors
+      myWeight  = distance Map.! here
+      costOf node = myWeight + weight A.! node
+
+data State = State {
+}
