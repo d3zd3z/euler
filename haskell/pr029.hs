@@ -18,7 +18,28 @@
 module Main where
 
 import Data.List (sort, group)
+import qualified Data.Set as Set
+import Data.Set (Set)
+
+import Primes
 
 main :: IO ()
 main = print answer
-   where answer = length $ group $ sort [ a^b | a <- [(2::Integer)..100], b <- [2..100] ]
+
+--  where answer = length $ group $ sort [ a^b | a <- [(2::Integer)..100], b <- [2..100] ]
+
+-- Although the above certainly works (and appears to still be quite
+-- fast), let's come up with one that can use regular Ints.  The key
+-- to this is to realize that although the numbers themselves will
+-- grow quite large, the factors are never all that large (largest is
+-- 97).  So, factor the numbers, and do the exponentiation and
+-- comparisons with the factorized representation.
+
+power :: [(Int, Int)] -> Int -> [(Int, Int)]
+power [] _ = []
+power ((x,y):xs) b = (x,y*b) : power xs b
+
+answer = Set.size $ Set.fromList all
+   where
+      all = [ power a b | a <- aFactored, b <- [2..100] ]
+      aFactored = map primeFactors [2..100]

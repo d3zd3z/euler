@@ -20,7 +20,23 @@ size = 20
 main :: IO ()
 -- main = print $ [ (x,answer (2*x) 0, freedom x x) | x <- [2..20] ]
 -- main = print $ [ (x, freedom x x) | x <- [2..15] ]
-main = print $ free ! (size,size)
+-- main = print $ free ! (size,size)
+main = print $ answer size
+
+--  Simplified version
+answer :: Int -> Integer
+answer n = last $ bumps n (fill n)
+
+fill :: Int -> [Integer]
+fill n = replicate (n+1) 1
+
+bump :: [Integer] -> [Integer]
+bump [] = []
+bump [a] = [a]
+bump (a:b:as) = a : bump (a+b : as)
+
+bumps :: Int -> [Integer] -> [Integer]
+bumps n = foldl1 (.) $ replicate n bump
 
 -- This solution assumes the grid is square.
 -- Still quite slow.

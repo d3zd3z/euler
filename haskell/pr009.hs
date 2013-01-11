@@ -9,6 +9,9 @@
 -- 1000.
 -- Find the product abc.
 
+main :: IO ()
+main = print trips
+
 trips = head [ a*b*c | a <- [1..997], b <- [a + 1 .. 997],
    let c = 1000-a-b,
    c > b,

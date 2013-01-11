@@ -7,11 +7,13 @@
 
 module Main where
 
+import qualified Primes
+
 main :: IO ()
 main = print answer
 
 answer :: Int
-answer = sum $ takeWhile (< 2000000) primes
+answer = sum $ takeWhile (< 2000000) Primes.lazyPrimes
 
 primes :: [Int]
 primes = 2 : 3 : [x | x <- [5..], isPrime x]
