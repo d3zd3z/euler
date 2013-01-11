@@ -20,52 +20,53 @@ program pr020;
 uses sysutils;
 
 const
-  base = 10000;
+   base = 10000;
 
 var
-  { Represent the number in base 10000. }
-  accumulator : array[1..40] of longint;
+   { Represent the number in base 10000. }
+   accumulator : array[1..40] of longint;
 
-  procedure init;
-  var
-    i : integer;
-  begin
-    accumulator[1] := 1;
-    for i := 2 to high(accumulator) do
+procedure init;
+var
+   i : integer;
+begin
+   accumulator[1] := 1;
+   for i := 2 to high(accumulator) do
       accumulator[i] := 0;
-  end;
+end;
 
-  procedure multiply(by : longint);
-  var
-    temp, i : longint;
-    carry : longint = 0;
-  begin
-    for i := low(accumulator) to high(accumulator) do begin
+procedure multiply(by : longint);
+var
+   temp, i : longint;
+   carry : longint = 0;
+begin
+   for i := low(accumulator) to high(accumulator) do
+   begin
       temp := accumulator[i] * by + carry;
       accumulator[i] := temp mod base;
       carry := temp div base;
-    end;
-    if carry <> 0 then
+   end;
+   if carry <> 0 then
       raise exception.create('Accumulator overflow');
-  end;
+end;
 
 var
-  sum : longint = 0;
-  temp, i : longint;
+   sum : longint = 0;
+   temp, i : longint;
 
 begin
-  init;
+   init;
 
-  for i := 2 to 100 do
-    multiply(i);
+   for i := 2 to 100 do
+      multiply(i);
 
-  for i in accumulator do begin
-    temp := i;
-    while temp <> 0 do begin
-      sum := sum + temp mod 10;
-      temp := temp div 10;
-    end;
-  end;
+   for i in accumulator do begin
+      temp := i;
+      while temp <> 0 do begin
+	 sum := sum + temp mod 10;
+	 temp := temp div 10;
+      end;
+   end;
 
-  writeln(sum);
+   writeln(sum);
 end.
