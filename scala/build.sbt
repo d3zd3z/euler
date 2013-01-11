@@ -2,8 +2,10 @@ name := "Euler"
 
 organization := "org.davidb"
 
-scalaVersion := "2.9.2"
+// scalaVersion := "2.9.2"
+// scalaVersion := "2.10.0-RC3"
 // scalaVersion := "2.10.0-M6"
+scalaVersion := "2.10.0"
 
 // For offline work.
 // offline := true
