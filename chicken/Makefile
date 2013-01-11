@@ -13,6 +13,8 @@ all:
 	csc -c $(CSC_SCM_FLAGS) $*.scm
 
 pr007:: sieve.o
+pr010:: sieve.o
+pr012:: sieve.o
 
 clean:
 	rm -f *.o
