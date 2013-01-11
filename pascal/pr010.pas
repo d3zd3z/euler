@@ -28,5 +28,11 @@ begin
       p := sv.nextPrime(p)
     end;
 
-  writeln(answer)
+  writeln(answer);
+  { p := 2;
+  while p < 2000000 do
+    begin
+      writeln(p);
+      p := sv.nextPrime(p);
+    end; }
 end.
