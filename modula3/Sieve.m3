@@ -13,6 +13,7 @@ REVEAL
     init := Init;
     isPrime := IsPrime;
     nextPrime := NextPrime;
+    divisorCount := DivisorCount;
   END;
 
 PROCEDURE Fill(self: T; size: INTEGER) =
@@ -86,6 +87,29 @@ PROCEDURE NextPrime(self: T; n : INTEGER) : INTEGER =
     END;
       
   END NextPrime;
+
+PROCEDURE DivisorCount(self: T; n : INTEGER) : INTEGER =
+  VAR
+    result := 1;
+    prime := 2;
+    dcount : INTEGER;
+  BEGIN
+    WHILE n > 1 DO
+      dcount := 0;
+      WHILE n MOD prime = 0 DO
+        n := n DIV prime;
+        dcount := dcount + 1;
+      END;
+
+      result := result * (dcount + 1);
+
+      IF n > 1 THEN
+        prime := self.nextPrime(prime);
+      END;
+    END;
+
+    RETURN result;
+  END DivisorCount;
 
 BEGIN
 END Sieve.
