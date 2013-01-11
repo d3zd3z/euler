@@ -33,7 +33,7 @@ func gcd(a, b int) int {
 		if b == 0 {
 			return a
 		}
-		a, b = b, a % b
+		a, b = b, a%b
 	}
 	panic("Unreached")
 }

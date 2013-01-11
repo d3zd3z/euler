@@ -28,7 +28,7 @@ func main() {
 	for a := 1; a < 998; a++ {
 		for b := a + 1; b < 988; b++ {
 			c := 1000 - a - b
-			if c>b && a*a + b*b == c*c {
+			if c > b && a*a+b*b == c*c {
 				fmt.Printf("%d\n", a*b*c)
 			}
 		}

@@ -28,7 +28,7 @@ func main() {
 	sumsq := 0
 	for i := 1; i <= 100; i++ {
 		sum += i
-		sumsq += i*i
+		sumsq += i * i
 	}
-	fmt.Printf("%d\n", sum*sum - sumsq)
+	fmt.Printf("%d\n", sum*sum-sumsq)
 }
