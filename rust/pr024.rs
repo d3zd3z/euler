@@ -20,7 +20,7 @@
 fn main() {
     let base: ~[mut u8] = vec::to_mut(do vec::from_fn(10) |i| {i as u8});
     let mut done = false;
-    for 999_999.times() || {
+    for (999_999u).times() || {
         next_permutation(base, &mut done);
         assert !done;
     }
