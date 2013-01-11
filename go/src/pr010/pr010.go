@@ -12,11 +12,20 @@
 package main
 
 import (
-	"fmt"
 	"euler"
+	"fmt"
 )
 
 func main() {
+	sum := int64(0)
+	var sieve euler.Sieve
+	for prime := 2; prime < 2000000; prime = sieve.NextPrime(prime) {
+		sum += int64(prime)
+	}
+	fmt.Printf("%d\n", sum)
+}
+
+func omain() {
 	sum := int64(0)
 	var sieve euler.SieveHeap
 	for {

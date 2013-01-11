@@ -4,15 +4,12 @@ all:
 	@echo "Please specify a target"
 	@false
 
+# GOFLAGS = -compiler gccgo -x -gccgoflags '-O3'
+
 pr%: .force
-	GOPATH=$(PWD) go build $@
+	GOPATH=$(PWD) go build $(GOFLAGS) $@
 
 .PHONY: .force
 
 clean:
-	rm -f bin/*
-	rm -f src/*/*.6
-	rm -rf src/*/_obj
-	rm -f src/*/pr[0-9]
-	rm -f src/*/pr[0-9][0-9]
-	rm -f src/*/pr[0-9][0-9][0-9]
+	rm -f pr[0-9][0-9][0-9]
