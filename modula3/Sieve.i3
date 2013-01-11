@@ -10,6 +10,7 @@ TYPE
 
     isPrime(n : INTEGER) : BOOLEAN;
     nextPrime(n : INTEGER) : INTEGER;
+    divisorCount(n : INTEGER) : INTEGER;
   END;
 
 END Sieve.
