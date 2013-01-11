@@ -20,7 +20,7 @@ procedure Pr005 is
 
    function Lcm (A, B : Natural) return Natural is
    begin
-      return (A * B) / Gcd (A, B);
+      return (A / Gcd (A, B)) * B;
    end Lcm;
 
    function Gcd (A, B : Natural) return Natural is
