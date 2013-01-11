@@ -71,6 +71,31 @@ class AutoSieve {
     result.result
   }
 
+  def divisors(number: Int) = spread(factorize(number)).sorted
+
+  private def spread(factors: List[Factor]): List[Int] = factors match {
+    case Nil => List(1)
+    case x::others => {
+      val rest = spread(others)
+
+      var power = 1
+      val result = new ListBuffer[Int]
+      for (i <- 0 to x.power) {
+        for (elt <- rest)
+          result += elt * power
+
+        if (i < power)
+          power *= x.prime
+      }
+      result.result
+    }
+  }
+
+  def divisorCount(number: Int): Int = {
+    val facts = factorize(number)
+    facts.foldLeft(1)((a, b) => a * (b.power + 1))
+  }
+
   private var sieve = new Sieve(1024)
   private def findLimit(num: Int): Int = {
     var size = 1024
