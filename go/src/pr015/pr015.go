@@ -17,11 +17,11 @@ package main
 
 import "fmt"
 
-const steps int = 20;
+const steps int = 20
 
 func main() {
-	values := make([]int64, steps + 1)
-	fill(values);
+	values := make([]int64, steps+1)
+	fill(values)
 
 	for i := 0; i < steps; i++ {
 		bump(values)

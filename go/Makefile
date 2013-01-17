@@ -7,7 +7,7 @@ all:
 # GOFLAGS = -compiler gccgo -x -gccgoflags '-O3'
 
 pr%: .force
-	GOPATH=$(PWD) go build $(GOFLAGS) $@
+	@GOPATH=$(PWD) go build $(GOFLAGS) $@
 
 .PHONY: .force
 
