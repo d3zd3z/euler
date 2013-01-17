@@ -68,7 +68,7 @@ func collatz(n int64) int {
 	if n%2 == 0 {
 		return 1 + collatz(n/2)
 	} else {
-		return 1 + collatz(n*3 + 1)
+		return 1 + collatz(n*3+1)
 	}
 	panic("Not reached")
 }
@@ -99,7 +99,7 @@ func (p *Cache) chainLen(n int64) int {
 		if n32%2 == 0 {
 			answer = 1 + p.chainLen(n/2)
 		} else {
-			answer = 1 + p.chainLen(n*3 + 1)
+			answer = 1 + p.chainLen(n*3+1)
 		}
 		p.values[n32] = answer
 		return answer
@@ -107,7 +107,7 @@ func (p *Cache) chainLen(n int64) int {
 		if n%2 == 0 {
 			return 1 + p.chainLen(n/2)
 		} else {
-			return 1 + p.chainLen(n*3 + 1)
+			return 1 + p.chainLen(n*3+1)
 		}
 	}
 	panic("Not reached")
