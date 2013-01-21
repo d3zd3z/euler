@@ -37,7 +37,31 @@ import Data.Ord (comparing)
 main :: IO ()
 main = do
   grid <- readGrid "matrix.txt"
-  print $ dijkstra nexts81 grid
+  putStrLn $ "81: " ++ show (solve81 grid)
+  putStrLn $ "82: " ++ show (solve82 grid)
+  putStrLn $ "83: " ++ show (solve83 grid)
+
+solve81 :: A.Array Node Int -> Int
+solve81 = solver nexts81 Map.empty
+
+solve82 :: A.Array Node Int -> Int
+solve82 = solver nexts82 $ Map.singleton (-1,-1) 0
+
+solve83 :: A.Array Node Int -> Int
+solve83 = solver nexts83 Map.empty
+
+-- Build a solver that takes a next-generating function, a mapping
+-- used to augment the node to weight map, and the array of the nodes
+-- themselves.
+solver :: (Int -> Int -> Node -> [Node]) ->
+          Map Node Int ->
+          A.Array Node Int ->
+          Int
+solver nexts augment grid = dijkstra next weights
+  where
+    (_, (height, width)) = A.bounds grid
+    next = nexts height width
+    weights = Map.union augment $ Map.fromList $ A.assocs grid
 
 type Node = (Int, Int)
 
@@ -54,6 +78,7 @@ simple = A.listArray ((1, 1), (height, width)) $ concat grid
       [537, 699, 497, 121, 956],
       [805, 732, 524, 37, 331]]
 
+-- Read the grid from the problem statement.
 readGrid :: String -> IO (A.Array Node Int)
 readGrid path = do
   rows <- lines <$> readFile path
@@ -62,6 +87,7 @@ readGrid path = do
   let width = allValue $ map length grid
   return $ A.listArray ((1, 1), (height, width)) $ concat grid
 
+-- Break a string of comma separated values into a list of subsequences.
 deComma :: String -> [String]
 deComma "" = []
 deComma s =
@@ -77,7 +103,9 @@ allValue [x] = x
 allValue (a:b:rest) | a == b  = allValue (b:rest)
 allValue _ = error "Value mismatch"
 
--- Next mapping for the simple (problem 81) puzzle.
+-- Next mapping for the simple (problem 81) puzzle.  Each node points
+-- to the node to the right and below, if that makes sense.  The lower
+-- right node has no neighbor, and is the exit.
 nexts81 :: Int -> Int -> Node -> [Node]
 nexts81 height width (y, x)
   | x == 0 && y == 0          = [(1, 1)]
@@ -86,17 +114,45 @@ nexts81 height width (y, x)
   | x == width                = [(y+1, x)]
   | otherwise                 = [(y, x+1), (y+1, x)]
 
--- Problem 82 is from any left cell to any right, moving up, down or right.
-
--- Solve the graph using Dijkstra's algorithm.
-dijkstra :: (Int -> Int -> Node -> [Node]) ->
-            A.Array Node Int ->
-            Int
-dijkstra nexts weights = solve sums0 Set.empty
+-- Problem 82 is from any left cell to any right, moving up, down or
+-- right.  Cell (0, 0) is the starting cell, which leds to any in the
+-- left column, and cell (-1, -1) is the faked right destination cell
+-- (with a weight of zero).
+nexts82 :: Int -> Int -> Node -> [Node]
+nexts82 height width (y, x)
+  | x == 0 && y == 0   = [(y, 1) | y <- [1..height]]
+  | x == -1 && y == -1 = []
+  | otherwise          = up ++ down ++ right
   where
-    next = nexts height width
-    (_, (height, width)) = A.bounds weights
-    sums0 = Map.fromList $ ((0, 0), 0) : [ (x, maxBound) | x <- A.indices weights ]
+    up    = if y > 1      then [(y-1, x)] else []
+    down  = if y < height then [(y+1, x)] else []
+    right = if x < width  then [(y, x+1)] else [(-1,-1)]
+
+-- Problem 83 is from the upper right, to the lower left moving up,
+-- down, left, or right.
+nexts83 :: Int -> Int -> Node -> [Node]
+nexts83 height width (y, x)
+  | x == 0 && y == 0          = [(1, 1)]
+  | x == width && y == width  = []
+  | otherwise                 = up ++ down ++ left ++ right
+  where
+    up    = if y > 1      then [(y-1, x)] else []
+    down  = if y < height then [(y+1, x)] else []
+    left  = if x > 1      then [(y, x-1)] else []
+    right = if x < width  then [(y, x+1)] else []
+
+-- The meat of all of this is this implementation of Dijkstra's
+-- algorithm.  Performance seems to be about half that of benchmarks
+-- with a mostly imperative solution in Scala.  Both would be improved
+-- by storing the sums in a priority queue, which would avoid the need
+-- for the sort.  However, the priority queue needs the ability to
+-- adjust the priority of nodes already in the queue (moving them).
+dijkstra :: (Node -> [Node]) ->
+            Map Node Int ->
+            Int
+dijkstra next weights = solve sums0 Set.empty
+  where
+    sums0 = Map.fromList $ ((0, 0), 0) : [ (x, maxBound) | x <- Map.keys weights ]
     solve sums seen = case allEdges of
       [] -> sum
       _  -> solve (Map.delete node newSums) (Set.insert node $ seen)
@@ -104,7 +160,7 @@ dijkstra nexts weights = solve sums0 Set.empty
         ((node, sum) : _) = sortBy (comparing snd) $ Map.toList sums
         allEdges = next node
         edges = filter (not . flip Set.member seen) allEdges
-        costs = map (weights A.!) edges
+        costs = map (weights Map.!) edges
         getSum node cost = (node, min oldSum newSum)
           where
             oldSum = sums Map.! node
