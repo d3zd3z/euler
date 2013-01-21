@@ -33,7 +33,6 @@ import qualified Data.Array as A
 import qualified Data.Map as Map
 import Data.Map (Map)
 import qualified Data.Set as Set
-import Data.Set (Set)
 
 import Data.List (sortBy)
 import Data.Ord (comparing)
@@ -124,7 +123,7 @@ nexts81 height width (y, x)
 -- (with a weight of zero).
 nexts82 :: Int -> Int -> Node -> [Node]
 nexts82 height width (y, x)
-  | x == 0 && y == 0   = [(y, 1) | y <- [1..height]]
+  | x == 0 && y == 0   = [(yy, 1) | yy <- [1..height]]
   | x == -1 && y == -1 = []
   | otherwise          = up ++ down ++ right
   where
@@ -158,16 +157,16 @@ dijkstra next weights = solve sums0 Set.empty
   where
     sums0 = Map.fromList $ ((0, 0), 0) : [ (x, maxBound) | x <- Map.keys weights ]
     solve sums seen = case allEdges of
-      [] -> sum
+      [] -> nodeSum
       _  -> solve (Map.delete node newSums) (Set.insert node $ seen)
       where
-        ((node, sum) : _) = sortBy (comparing snd) $ Map.toList sums
+        ((node, nodeSum) : _) = sortBy (comparing snd) $ Map.toList sums
         allEdges = next node
         edges = filter (not . flip Set.member seen) allEdges
         costs = map (weights Map.!) edges
-        getSum node cost = (node, min oldSum newSum)
+        getSum nd cost = (nd, min oldSum newSum)
           where
-            oldSum = sums Map.! node
-            newSum = sum + cost
+            oldSum = sums Map.! nd
+            newSum = nodeSum + cost
         sumUpdate = Map.fromList $ zipWith getSum edges costs
         newSums = Map.union sumUpdate sums
