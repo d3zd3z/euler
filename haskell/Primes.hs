@@ -15,7 +15,7 @@ divisors = spread . primeFactors
 
 spread :: [(Int, Int)] -> [Int]
 spread [] = [1]
-spread ((p,count):r) = 
+spread ((p,count):r) =
    [ res * p^x |
       res <- spread r,
       x <- [0..count] ]
