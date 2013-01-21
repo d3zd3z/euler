@@ -17,6 +17,10 @@
 -- Find the minimal path sum, in matrix.txt (right click and 'Save Link
 -- /Target As...'), a 31K text file containing a 80 by 80 matrix, from
 -- the top left to the bottom right by only moving right and down.
+--
+-- Problems 82 and 83 are based on the same matrix, but have different
+-- connectivity constraints through the data.  This program solves all
+-- 3 problems.
 ----------------------------------------------------------------------
 -- 81: 427337
 -- 82: 260324
