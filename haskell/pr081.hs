@@ -127,9 +127,9 @@ nexts82 height width (y, x)
   | x == -1 && y == -1 = []
   | otherwise          = up ++ down ++ right
   where
-    up    = if y > 1      then [(y-1, x)] else []
-    down  = if y < height then [(y+1, x)] else []
-    right = if x < width  then [(y, x+1)] else [(-1,-1)]
+    up    = [(y-1, x) | y > 1]
+    down  = [(y+1, x) | y < height]
+    right = [if x < width then (y, x+1) else (-1,-1)]
 
 -- Problem 83 is from the upper right, to the lower left moving up,
 -- down, left, or right.
@@ -139,10 +139,10 @@ nexts83 height width (y, x)
   | x == width && y == width  = []
   | otherwise                 = up ++ down ++ left ++ right
   where
-    up    = if y > 1      then [(y-1, x)] else []
-    down  = if y < height then [(y+1, x)] else []
-    left  = if x > 1      then [(y, x-1)] else []
-    right = if x < width  then [(y, x+1)] else []
+    up    = [(y-1, x) | y > 1]
+    down  = [(y+1, x) | y < height]
+    left  = [(y, x-1) | x > 1]
+    right = [(y, x+1) | x < width]
 
 -- The meat of all of this is this implementation of Dijkstra's
 -- algorithm.  Performance seems to be about half that of benchmarks
@@ -158,7 +158,7 @@ dijkstra next weights = solve sums0 Set.empty
     sums0 = Map.fromList $ ((0, 0), 0) : [ (x, maxBound) | x <- Map.keys weights ]
     solve sums seen = case allEdges of
       [] -> nodeSum
-      _  -> solve (Map.delete node newSums) (Set.insert node $ seen)
+      _  -> solve (Map.delete node newSums) (Set.insert node seen)
       where
         ((node, nodeSum) : _) = sortBy (comparing snd) $ Map.toList sums
         allEdges = next node
@@ -169,4 +169,4 @@ dijkstra next weights = solve sums0 Set.empty
             oldSum = sums Map.! nd
             newSum = nodeSum + cost
         sumUpdate = Map.fromList $ zipWith getSum edges costs
-        newSums = Map.union sumUpdate sums
+        newSums = sumUpdate `Map.union` sums
