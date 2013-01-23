@@ -12,6 +12,9 @@
  * 104743
  *)
 
+structure Pr007 =
+struct
+
 fun solve () =
     let
       val sieve = Sieve.make 1024
@@ -22,4 +25,5 @@ fun solve () =
       loop (2, 1)
     end
 
-val () = print (Int.toString (solve ()) ^ "\n")
+(* val () = print (Int.toString (solve ()) ^ "\n") *)
+end

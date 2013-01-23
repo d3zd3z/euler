@@ -41,6 +41,9 @@
  * 1074
  *)
 
+structure Pr018 =
+struct
+
 val triangle = rev [
   [75],
   [95, 64],
@@ -67,6 +70,8 @@ fun collapse (a::b::r) = collapse (combine (a, b) :: r)
   | collapse [[x]] = x
   | collapse _ = raise Fail "Invalid input"
 
-fun euler018 () = collapse triangle
+fun solve () = collapse triangle
 
-val () = print (Int.toString (euler018 ()) ^ "\n")
+(* val () = print (Int.toString (solve ()) ^ "\n") *)
+
+end

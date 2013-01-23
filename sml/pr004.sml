@@ -14,6 +14,9 @@
  * 906609
  *)
 
+structure Pr004 =
+struct
+
 fun reverse_digits n =
     let
       fun loop (n, result) =
@@ -45,4 +48,5 @@ fun solve () = let
 in loop (1, 0)
 end
 
-val () = print (Int.toString (solve ()) ^ "\n")
+(* val () = print (Int.toString (solve ()) ^ "\n") *)
+end

@@ -17,6 +17,9 @@
 
 (* The easy solution is to just use IntInf.int *)
 
+structure Pr020 =
+struct
+
 structure I = IntInf
 
 fun fact (n : I.int) =
@@ -33,6 +36,7 @@ fun digitSum (n : I.int) =
       loop (n, 0)
     end
 
-fun euler020 () = digitSum (fact 100)
+fun solve () = digitSum (fact 100)
 
-val () = print (I.toString (euler020 ()) ^ "\n")
+(* val () = print (I.toString (solve ()) ^ "\n") *)
+end

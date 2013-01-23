@@ -51,6 +51,9 @@ fun euler019 () =
     end
 *)
 
+structure Pr019 =
+struct
+
 (* This is a julian date conversion from wikipedia. *)
 fun jdate (year, month, day) =
     let val a = (14 - month) div 12
@@ -60,7 +63,7 @@ fun jdate (year, month, day) =
       day + ((153*m + 2) div 5) + 365*y + (y div 4) - (y div 100) + (y div 400) - 32045
     end
 
-fun euler019 () =
+fun solve () =
     let val allMonths = List.tabulate (12, fn x => x + 1)
 	val allYears = List.tabulate (100, fn x => x + 1901)
 	fun sunday (year, month) = (jdate (year, month, 1) mod 7) = 6
@@ -72,4 +75,5 @@ fun euler019 () =
       foldl ayear 0 allYears
     end
 
-val () = print (Int.toString (euler019 ()) ^ "\n")
+(* val () = print (Int.toString (solve ()) ^ "\n") *)
+end

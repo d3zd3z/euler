@@ -13,6 +13,9 @@
  * 232792560
  *)
 
+structure Pr005 =
+struct
+
 fun gcd (a, b) =
     if b = 0 then a
     else gcd (b, a mod b)
@@ -27,4 +30,5 @@ in
   List.foldl lcm 1 nums
 end
 
-val () = print (Int.toString (solve ()) ^ "\n")
+(* val () = print (Int.toString (solve ()) ^ "\n") *)
+end

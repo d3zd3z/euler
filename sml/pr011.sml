@@ -36,6 +36,9 @@
  * 70600674
  *)
 
+structure Pr011 =
+struct
+
 val grid = Array2.fromList [
       [08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08],
       [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 04, 56, 62, 00],
@@ -76,7 +79,7 @@ fun multiplyOut (row, col, (dy, dx)) =
       loop (1, 1, row, col)
     end
 
-fun euler11 () =
+fun solve () =
     let
       fun rowLoop (row, best) =
 	  if row > 19 then best
@@ -91,4 +94,5 @@ fun euler11 () =
       rowLoop (0, 0)
     end
 
-val () = print (Int.toString (euler11 ()) ^ "\n")
+(* val () = print (Int.toString (solve ()) ^ "\n") *)
+end

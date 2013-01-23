@@ -20,6 +20,9 @@
  * 21124
  *)
 
+structure Pr017 =
+struct
+
 fun countLetters text =
     let val len = String.size text
 	fun check (pos) = if Char.isAlpha (String.sub (text, pos)) then 1 else 0
@@ -66,7 +69,7 @@ fun textify n =
     else
       ""
 
-fun euler017 () =
+fun solve () =
     let fun loop (n, count) =
 	    if n > 1000 then count
 	    else
@@ -75,4 +78,5 @@ fun euler017 () =
       loop (1, 0)
     end
 
-val () = print (Int.toString (euler017 ()) ^ "\n")
+(* val () = print (Int.toString (solve ()) ^ "\n") *)
+end

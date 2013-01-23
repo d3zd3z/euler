@@ -12,6 +12,7 @@ sig
   val factorize : (t * int) -> factor list
   val divisorCount : (t * int) -> int
   val divisors : (t * int) -> int list
+  val properDivisorSum : (t * int) -> int
 end
 
 structure Sieve : SIEVE =
@@ -106,5 +107,12 @@ fun spread ([]) = [1]
 
 fun divisors (sv, n) =
     ListMergeSort.sort (op >) (spread (factorize (sv, n)))
+
+fun properDivisorSum (sv, n) =
+    let val divs = divisors (sv, n)
+	val sum = foldl (op +) 0 divs
+    in
+      sum - n
+    end
 
 end
