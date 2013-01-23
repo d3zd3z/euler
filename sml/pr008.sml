@@ -31,6 +31,9 @@
  * 40824
  *)
 
+structure Pr008 =
+struct
+
 val largeNumber =
     "73167176531330624919225119674426574742355349194934" ^
     "96983520312774506326239578318016984801869478851843" ^
@@ -67,7 +70,7 @@ fun digitProduct pos =
       loop (0, 1)
     end
 
-fun euler8 () =
+fun solve () =
     let
       val limit = String.size largeNumber - 5
       fun loop (offset, largest) =
@@ -82,4 +85,5 @@ fun euler8 () =
       loop (limit, ~1)
     end
 
-val () = print (Int.toString (euler8 ()) ^ "\n")
+(* val () = print (Int.toString (solve ()) ^ "\n") *)
+end

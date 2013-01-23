@@ -11,6 +11,9 @@
  * 1366
  *)
 
+structure Pr016 =
+struct
+
 fun digitSum (n : IntInf.int) =
     let fun loop (0, result) = result
 	  | loop (n, result) = loop (n div 10, result + (n mod 10))
@@ -26,6 +29,8 @@ fun expt (n : IntInf.int, power) =
       loop(1, power)
     end
 
-fun euler016 () = digitSum (expt (2, 1000))
+fun solve () = digitSum (expt (2, 1000))
 
-val () = print (IntInf.toString (euler016 ()) ^ "\n")
+(* val () = print (IntInf.toString (euler016 ()) ^ "\n") *)
+
+end

@@ -28,6 +28,9 @@
  * 837799
  *)
 
+structure Pr014 =
+struct
+
 (* structure Elt = Int *)
 structure Elt = Int64
 
@@ -63,7 +66,7 @@ fun cachedChainLength _ 1 = 1
 	  | SOME x => x
     end
 
-fun solve (lengther : Elt.int -> int) =
+fun solve' (lengther : Elt.int -> int) =
     let fun loop (largest, largestVal, n) =
 	    if n = 1000000 then
 	      largestVal
@@ -78,4 +81,8 @@ fun solve (lengther : Elt.int -> int) =
       loop (0, 0, 1)
     end
 
-val () = print (Elt.toString (solve (cachedChainLength (makeCache ()))) ^ "\n")
+fun solve () = solve' (cachedChainLength (makeCache ()))
+
+(* val () = print (Elt.toString (solve (cachedChainLength (makeCache ()))) ^ "\n") *)
+
+end

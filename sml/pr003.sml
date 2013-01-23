@@ -9,6 +9,9 @@
  * What is the largest prime factor of the number 600851475143 ?
  *)
 
+structure Pr003 =
+struct
+
 structure II = IntInf
 
 fun number text =
@@ -34,4 +37,6 @@ in
   loop (number "600851475143", II.fromInt 2)
 end
 
-val () = print (II.toString (solve ()) ^ "\n")
+(* val () = print (II.toString (solve ()) ^ "\n") *)
+
+end

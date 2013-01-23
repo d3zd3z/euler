@@ -14,7 +14,10 @@
  * not exceed four million, find the sum of the even-valued terms.
  *)
 
-fun pr2 () = let
+structure Pr002 =
+struct
+
+fun solve () = let
   fun loop (a, b, result) =
       if a >= 4000000 then result
       else
@@ -27,4 +30,5 @@ in
   loop (1, 1, 0)
 end;
 
-print (Int.toString (pr2 ()) ^ "\n");
+(* print (Int.toString (solve ()) ^ "\n"); *)
+end

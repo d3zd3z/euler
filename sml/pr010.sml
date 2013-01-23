@@ -14,9 +14,12 @@
 (* Note that the result is larger than a 32-bit number.  The primes
  * are not, though. *)
 
+structure Pr010 =
+struct
+
 structure L = LargeInt
 
-fun euler10 () =
+fun solve () =
     let
       val s = Sieve.make 2000100
       fun loop (p, sum) =
@@ -27,4 +30,5 @@ fun euler10 () =
       loop (2, Int.toLarge 0)
     end
 
-val () = print (L.toString (euler10 ()) ^ "\n")
+(* val () = print (L.toString (solve ()) ^ "\n") *)
+end

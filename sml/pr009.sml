@@ -18,7 +18,10 @@
  * 31875000
  *)
 
-fun euler9 () =
+structure Pr009 =
+struct
+
+fun solve () =
     let
       fun oloop a =
 	  let
@@ -39,4 +42,6 @@ fun euler9 () =
       oloop 1
     end
 
-val () = print (Int.toString (euler9 ()) ^ "\n")
+(* val () = print (Int.toString (solve ()) ^ "\n") *)
+
+end

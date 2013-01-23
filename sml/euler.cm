@@ -1,0 +1,35 @@
+Library
+	structure Euler
+is
+	euler.sml
+	pr001.sml
+	pr002.sml
+	pr003.sml
+	pr004.sml
+	pr005.sml
+	pr006.sml
+	pr007.sml
+	pr008.sml
+	pr009.sml
+	pr010.sml
+	pr011.sml
+	pr012.sml
+	pr013.sml
+	pr014.sml
+	pr015.sml
+	pr016.sml
+	pr017.sml
+	pr018.sml
+	pr019.sml
+	pr020.sml
+	pr021.sml
+	pr022.sml
+	pr023.sml
+	pr024.sml
+	pr025.sml
+	pr026.sml
+	pr027.sml
+
+	sieve.sml
+	$/basis.cm
+	$/smlnj-lib.cm

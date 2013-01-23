@@ -18,24 +18,20 @@
  * 31626
  *)
 
-fun properDivisorSum (sv, n) =
-    let val divs = Sieve.divisors (sv, n)
-	val sum = foldl (op +) 0 divs
-    in
-      sum - n
-    end
+structure Pr021 =
+struct
 
 fun isAmicable (sv, a) =
-    let val b = properDivisorSum (sv, a)
+    let val b = Sieve.properDivisorSum (sv, a)
     in
       if a = b orelse b = 0 then false
       else
-	let val c = properDivisorSum (sv, b) in
+	let val c = Sieve.properDivisorSum (sv, b) in
 	  a = c
 	end
     end
 
-fun euler021 () =
+fun solve () =
     let val sv = Sieve.make 1000
 	fun loop (10000, result) = result
 	  | loop (i, result) = loop (i+1, if isAmicable (sv, i) then result + i else result)
@@ -43,4 +39,5 @@ fun euler021 () =
       loop (1, 0)
     end
 
-val () = print (Int.toString (euler021 ()) ^ "\n")
+(* val () = print (Int.toString (solve ()) ^ "\n") *)
+end

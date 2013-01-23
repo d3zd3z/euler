@@ -21,7 +21,10 @@
  * 25164150
  *)
 
-fun solve count = let
+structure Pr006 =
+struct
+
+fun solve' count = let
   val nums = List.tabulate (count, fn x => x + 1)
   val sumsq = List.foldl (op +) 0 nums
   val sumsq = sumsq * sumsq
@@ -31,4 +34,7 @@ in
   sumsq - sq
 end
 
-val () = print (Int.toString (solve 100) ^ "\n")
+fun solve () = solve' 100
+
+(* val () = print (Int.toString (solve 100) ^ "\n") *)
+end

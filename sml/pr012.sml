@@ -29,7 +29,10 @@
  * 76576500
  *)
 
-fun euler012 () =
+structure Pr012 =
+struct
+
+fun solve () =
     let val sv = Sieve.make 1024
 	fun loop (n, triangle) =
 	    let val dcount = Sieve.divisorCount (sv, triangle) in
@@ -41,4 +44,5 @@ fun euler012 () =
       loop (1, 1)
     end
 
-val () = print (Int.toString (euler012 ()) ^ "\n")
+(* val () = print (Int.toString (solve ()) ^ "\n") *)
+end
