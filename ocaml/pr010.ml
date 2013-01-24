@@ -12,23 +12,16 @@
  *
  **********************************************************************)
 
-open Sieve
+open Batteries
 open Printf
 
 let pr10 () =
-  let rec loop s sum =
-    let (p, s') = Int64Sieve.next s in
-    if p >= 2000000L then sum else
-      loop s' (Int64.add sum p)
-  in loop Int64Sieve.initial 0L
-
-(* On 64 bit platforms, regular integers are large enough. *)
-let pr10b () =
-  let rec loop s sum =
-    let (p, s') = IntSieve.next s in
+  let sieve = Sieve.create () in
+  let rec loop p sum =
     if p >= 2000000 then sum else
-      loop s' (sum + p)
-  in loop IntSieve.initial 0
+      let open Int64 in
+      loop (Sieve.next_prime sieve p)
+	(sum + of_int p) in
+  loop 2 0L
 
-let _ = printf "%Ld\n" (pr10 ())
-(* let _ = printf "%d\n" (pr10b ()) *)
+let run () = printf "%Ld\n" (pr10 ())

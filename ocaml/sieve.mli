@@ -1,6 +1,6 @@
 (* Numeric sieve. *)
 
-open Batteries_uni
+(* open Batteries_uni *)
 
 module type SimpleNumeric = sig
   type t
@@ -26,7 +26,7 @@ module Int64Sieve: S with type elt = int64
 module type FACTORY = sig
   type t
   val isqrt : t -> t
-  val primes_upto : t -> t Enum.t
+  val primes_upto : t -> t BatEnum.t
   val is_prime : t -> bool
 
   type factor = { prime: t; power: int }
@@ -48,3 +48,14 @@ end
 module MakeFactory(Num: RICH_NUMERIC): FACTORY with type t = Num.t
 module IntFactory: FACTORY with type t = int
 module Int64Factory: FACTORY with type t = int64
+
+(* Top-level traditional sieve. *)
+type t
+val create : unit -> t
+val is_prime : t -> int -> bool
+val next_prime : t -> int -> int
+type factor = { prime : int; power : int }
+val factorize : t -> int -> factor list
+val divisor_count : t -> int -> int
+val divisors : t -> int -> int list
+val proper_divisor_sum : t -> int -> int

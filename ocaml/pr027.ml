@@ -31,12 +31,10 @@
 
 open Printf
 
-module I = Sieve.IntFactory
-
-let prime_length a b =
+let prime_length sieve a b =
   let rec loop n =
     let num = n*n + a*n + b in
-    if I.is_prime num then loop(n+1)
+    if num >= 2 && Sieve.is_prime sieve num then loop(n+1)
     else n in
   loop 0
 
@@ -45,11 +43,12 @@ let prime_length a b =
 (* Also, b must be prime, which would help slightly with
    performance. *)
 let euler27 () =
+  let sieve = Sieve.create () in
   let longest = ref 0 in
   let longest_val = ref (0, 0) in
   for a = -999 to 999 do
     for b = 2 to 999 do
-      let len = prime_length a b in
+      let len = prime_length sieve a b in
       if len > !longest then begin
 	longest := len;
 	longest_val := (a, b)
@@ -58,5 +57,5 @@ let euler27 () =
   done;
   match !longest_val with a, b -> a * b
 
-let () =
+let run () =
   printf "%d\n" (euler27 ())

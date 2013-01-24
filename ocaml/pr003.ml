@@ -34,4 +34,4 @@ let factors number =
 
 let pr3 () =
   Printf.printf "%Ld\n" (List.hd (factors 600851475143L))
-let _ = pr3 ()
+let run () = pr3 ()

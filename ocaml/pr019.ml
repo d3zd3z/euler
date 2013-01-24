@@ -41,4 +41,4 @@ let euler19 () =
   done;
   !count
 
-let () = printf "%d\n" (euler19 ())
+let run () = printf "%d\n" (euler19 ())

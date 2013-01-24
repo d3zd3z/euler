@@ -27,14 +27,15 @@
  * hundred divisors?
  **********************************************************************)
 
-open Batteries_uni
+open Batteries
 
 let euler12 () =
+  let sieve = Sieve.create () in
   let rec loop num x =
-    let count = Sieve.IntFactory.divisor_count num in
+    let count = Sieve.divisor_count sieve num in
     if count > 500 then num
     else loop (num + x) (x + 1) in
   loop 1 2
 
-let () =
+let run () =
   Printf.printf "%d\n" (euler12 ())

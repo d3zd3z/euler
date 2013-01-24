@@ -24,7 +24,7 @@
  * the sum of two abundant numbers.
  *)
 
-open Batteries_uni
+open Batteries
 open Printf
 
 (*
@@ -87,4 +87,4 @@ let sums limit =
 
 let euler23 () = sums 28123
 
-let () = printf "%d\n" (euler23 ())
+let run () = printf "%d\n" (euler23 ())

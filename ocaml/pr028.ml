@@ -30,4 +30,4 @@ let euler28 () =
     else loop (sum + ring_sum i) (i + 2) in
   (loop 0 3) + 1
 
-let () = printf "%d\n" (euler28 ())
+let run () = printf "%d\n" (euler28 ())

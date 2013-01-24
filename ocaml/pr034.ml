@@ -35,4 +35,4 @@ let euler34 () =
   chain 0 0;
   !total
 
-let () = printf "%d\n" (euler34 ())
+let run () = printf "%d\n" (euler34 ())

@@ -1,8 +1,10 @@
-all: euler.byte.otarget
-native: euler.native.otarget
+all: euler.byte
+native: euler.native
 
-euler.%.otarget:
+euler.%: FORCE
 	ocamlbuild $@
+
+.PHONY: FORCE
 
 clean:
 	ocamlbuild -clean

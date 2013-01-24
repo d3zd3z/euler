@@ -21,7 +21,7 @@ open Printf
 let euler24 () =
   let rec loop text count =
     if count = 1_000_000 then text
-    else loop (Euler.string_next_permutation text) (count+1) in
+    else loop (Misc.string_next_permutation text) (count+1) in
   loop (String.copy "0123456789") 1
 
-let () = printf "%s\n" (euler24 ())
+let run () = printf "%s\n" (euler24 ())

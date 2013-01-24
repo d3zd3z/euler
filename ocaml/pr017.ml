@@ -66,7 +66,7 @@ let count_letters str =
   done;
   !count
 
-let () =
+let run () =
   let total = ref 0 in
   for i = 1 to 1000 do
     total := !total + count_letters (textize i)

@@ -12,7 +12,7 @@
  * How many routes are there through a 20×20 grid?
  **********************************************************************)
 
-open Batteries_uni
+open Batteries
 open Printf
 
 (* Answer needs to be in an int64 so that the result fits. *)
@@ -63,8 +63,9 @@ module Func = struct
 end
 
 let euler15 () = routes 20
-let () = printf "%Ld\n" (euler15 ())
+(* let () = printf "%Ld\n" (euler15 ())
 let () = printf "%Ld\n" (Func.routes 20)
 
 let () = Bench.bench (fun () -> let _ = routes 20 in ())
-let () = Bench.bench (fun () -> let _ = Func.routes 20 in ())
+let () = Bench.bench (fun () -> let _ = Func.routes 20 in ()) *)
+let run () = printf "%Ld\n" (Func.routes 20)

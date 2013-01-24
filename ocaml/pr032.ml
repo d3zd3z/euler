@@ -19,7 +19,7 @@
  * to only include it once in your sum.
  *)
 
-open Batteries_uni
+open Batteries
 open Printf
 
 (* Return all groupings (as a list) that can be built out of this
@@ -43,9 +43,9 @@ let euler32 () =
   let products = ref [] in
   let rec loop text =
     products := (make_groupings text) :: !products;
-    loop (Euler.string_next_permutation text) in
+    loop (Misc.string_next_permutation text) in
   (try loop (String.copy "123456789")
    with Not_found -> ());
   List.sum (List.sort_unique Int.compare (List.concat !products))
 
-let () = printf "%d\n" (euler32 ())
+let run () = printf "%d\n" (euler32 ())
