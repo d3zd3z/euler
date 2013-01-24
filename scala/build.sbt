@@ -10,7 +10,7 @@ scalaVersion := "2.10.0"
 // For offline work.
 // offline := true
 
-scalacOptions ++= List("-deprecation", "-optimise")
+scalacOptions ++= List("-deprecation", "-optimise", "-target:jvm-1.7")
 
 // Put the classpath needed to run the application into a file
 // 'target/classpath.sh'.  The run script can source this to get a
