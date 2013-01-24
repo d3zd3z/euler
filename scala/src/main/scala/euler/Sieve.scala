@@ -96,6 +96,10 @@ class AutoSieve {
     facts.foldLeft(1)((a, b) => a * (b.power + 1))
   }
 
+  def properDivisorSum(number: Int): Int = {
+    divisors(number).foldLeft(0)(_+_) - number
+  }
+
   private var sieve = new Sieve(1024)
   private def findLimit(num: Int): Int = {
     var size = 1024

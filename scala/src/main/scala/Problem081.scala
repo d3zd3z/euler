@@ -21,7 +21,7 @@
 import scala.collection.mutable
 import scala.annotation.tailrec
 
-object Problem81 {
+object Problem081 {
 
   // Graph representation.  The vertices are numbered starting from 0
   // until vertexCount-1.
