@@ -34,4 +34,4 @@ let rec rways remaining = function
 let euler31 () =
   rways 200 coins
 
-let () = printf "%d\n" (euler31 ())
+let run () = printf "%d\n" (euler31 ())

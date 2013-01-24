@@ -1,6 +1,6 @@
 (* Utilities for project euler problems. *)
 
-open Batteries_uni
+open Batteries
 
 module type VEC = sig
   type elt

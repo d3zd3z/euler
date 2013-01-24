@@ -1,14 +1,15 @@
-# <pr005.ml>: pkg_batteries, pkg_threads
-<*.ml> or <*.mli> : package(batteries)
+#<pr005.ml>: pkg_batteries
+#<*.ml> or <*.mli> : package(batteries)
 # <pr081.*>: package(deriving), pp(deriving)
 
-<pr081.ml>: package(deriving-ocsigen.syntax), syntax(camlp4o)
-<pr081.*>: package(deriving-ocsigen)
+#<pr081.ml>: package(deriving-ocsigen.syntax), syntax(camlp4o)
+#<pr081.*>: package(deriving-ocsigen)
 
 # Temp
 #<pr023.ml>: package(deriving-ocsigen.syntax), syntax(camlp4o)
 #<pr023.*>: package(deriving-ocsigen)
 
+<*.ml> or <*.mli>: package(batteries)
 <*.ml> or <*.mli>: annot
 
 <*.native> or <*.byte>: package(batteries)

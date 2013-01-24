@@ -29,4 +29,4 @@ let sum_digits n =
     else loop (result + (int_of_num (mod_num n ten))) (quo_num n ten) in
   loop 0 n
 
-let () = printf "%d\n" (sum_digits (fact 100))
+let run () = printf "%d\n" (sum_digits (fact 100))

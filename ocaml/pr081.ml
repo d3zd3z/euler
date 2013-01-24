@@ -22,13 +22,13 @@
  * the top left to the bottom right by only moving right and down.
  *)
 
-open Batteries_uni
+open Batteries
 open Printf
 
-module IntMap = Map.IntMap
+module IntMap = Map.Make(Int)
 
 type node = int * int
-    deriving (Show)
+(*     deriving (Show) *)
 
 module Node = struct
   type t = node
@@ -42,7 +42,7 @@ module ES = Set.Make (Node)
 type edge = {
   weight : int;
   next: node }
-    deriving (Show)
+(*    deriving (Show) *)
 
 (* The map describing the graph. *)
 type edge_map = edge list EM.t
@@ -160,7 +160,7 @@ let get_finish graph =
     | [] -> failwith "No exists from graph"
     | _ -> failwith "Multiple exits from graph"
 
-let () =
+let run () =
   (* let edges = build_graph sample in *)
   let edges = build_graph (read_matrix "../haskell/matrix.txt") in
 

@@ -40,4 +40,4 @@ let euler25 () =
   let one = num_of_int 1 in
   fib one one 1
 
-let () = printf "%d\n" (euler25 ())
+let run () = printf "%d\n" (euler25 ())

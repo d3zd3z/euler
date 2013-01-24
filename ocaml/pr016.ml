@@ -20,4 +20,4 @@ let euler16 () =
     else sum_digits (quo_num n ten) (result +/ (mod_num n ten)) in
   int_of_num (sum_digits (num_of_int 2 **/ num_of_int 1000) zero)
 
-let () = printf "%d\n" (euler16 ())
+let run () = printf "%d\n" (euler16 ())

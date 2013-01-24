@@ -24,4 +24,4 @@ let pr5 () =
   let result = LL.fold_left lcm 1 nums in
   Printf.printf "%d\n" result
 
-let _ = pr5 ()
+let run () = pr5 ()

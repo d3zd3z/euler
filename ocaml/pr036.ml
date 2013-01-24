@@ -14,11 +14,11 @@
  * include leading zeros.)
  *)
 
-open Batteries_uni
+open Batteries
 open Printf
 
 let is_palindrome ?(base=10) number =
-  number = Euler.reverse_number ~base:base number
+  number = Misc.reverse_number ~base:base number
 
 let euler36 () =
   Enum.fold (fun sum number ->
@@ -27,4 +27,4 @@ let euler36 () =
     then sum+number
     else sum) 0 (1 --^ 1_000_000)
 
-let () = printf "%d\n" (euler36 ())
+let run () = printf "%d\n" (euler36 ())

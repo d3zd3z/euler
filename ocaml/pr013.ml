@@ -1,8 +1,8 @@
 (* Problem 13
- * 
+ *
  * 22 March 2002
- * 
- * 
+ *
+ *
  * Work out the first ten digits of the sum of the following
  * one-hundred 50-digit numbers.
  *)
@@ -116,4 +116,4 @@ let euler13 () =
     sum +/ num_of_string txt) (num_of_int 0) numbers in
   String.sub (string_of_num sum) 0 10
 
-let () = Printf.printf "%s\n" (euler13 ())
+let run () = Printf.printf "%s\n" (euler13 ())

@@ -15,21 +15,20 @@
  * Evaluate the sum of all the amicable numbers under 10000.
  *)
 
-open Batteries_uni
+open Batteries
 open Printf
 
-let divisor_sum num = List.sum (Sieve.IntFactory.divisors num) - num
-
-let is_amicable num =
-  let other = divisor_sum num in
-  other <> num && (divisor_sum other = num)
+let is_amicable sieve num =
+  let other = Sieve.proper_divisor_sum sieve num in
+  other <> num && (Sieve.proper_divisor_sum sieve other = num)
 
 let euler21 () =
+  let sieve = Sieve.create () in
   let total = ref 0 in
   for i = 2 to 9999 do
-    if is_amicable i then
+    if is_amicable sieve i then
       total := !total + i
   done;
   !total
 
-let () = printf "%d\n" (euler21 ())
+let run () = printf "%d\n" (euler21 ())

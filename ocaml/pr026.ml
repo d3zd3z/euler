@@ -25,8 +25,7 @@
  * recurring cycle in its decimal fraction part.
  *)
 
-open Batteries_uni
-open Num
+open Batteries
 open Printf
 
 (*
@@ -107,7 +106,7 @@ let ignore f arg =
   let _ = f arg in
   ()
 
-let () = printf "%d\n%!" (euler26b ())
+let run () = printf "%d\n%!" (euler26b ())
 (*
 let () = Bench.bench (ignore euler26)
 let () = Bench.bench (ignore euler26b)

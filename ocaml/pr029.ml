@@ -21,9 +21,10 @@
  * a ≤ 100 and 2 ≤ b ≤ 100?
  *)
 
-open Batteries_uni
+open Batteries
 open Printf
 open Num
+open Int
 
 module BS = Set.Make (struct type t = num let compare = compare_num end)
 
@@ -37,4 +38,4 @@ let euler29 () =
   done;
   BS.cardinal !s
 
-let () = printf "%d\n" (euler29 ())
+let run () = printf "%d\n" (euler29 ())

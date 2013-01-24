@@ -37,6 +37,4 @@ let euler_4 () =
       outer b (a + 1)
     end in
   outer 0 100
-let _ = Printf.printf "%d\n" (euler_4 ())
-  
-
+let run () = Printf.printf "%d\n" (euler_4 ())

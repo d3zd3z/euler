@@ -29,4 +29,4 @@ let pr9 () =
     in mid a
   in top 1
 
-let _ = Printf.printf "%d\n" (pr9 ())
+let run () = Printf.printf "%d\n" (pr9 ())

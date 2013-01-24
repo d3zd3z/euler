@@ -26,7 +26,7 @@
  * million.
  **********************************************************************)
 
-open Batteries_uni
+open Batteries
 open Printf
 
 let even n = (n land 1) = 0
@@ -61,8 +61,8 @@ let search chain_len =
 
 (* We can use a map to cache the results (note that this is slower) *)
 module Map_cache : CHAIN = struct
-  module IM = Map.IntMap
-  let known = ref IM.empty
+  module IM = IMap
+  let known = ref (IM.empty ~eq:(=))
   let rec chain_len = function
     | 1 -> 1
     | n ->
@@ -103,4 +103,4 @@ module Array_cache3 = Make_array_cache(struct let size = 1000 end)
 module Array_cache7 = Make_array_cache(struct let size = 100000 end)
 
 
-let () = printf "%d\n" (search Array_cache7.chain_len)
+let run () = printf "%d\n" (search Array_cache7.chain_len)

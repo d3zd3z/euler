@@ -17,7 +17,7 @@
  * What is the total of all the name scores in the file?
  *)
 
-open Batteries_uni
+open Batteries
 open Printf
 
 let get_names path =
@@ -38,11 +38,11 @@ let name_value name =
 
 let euler22 () =
   let names = get_names "../haskell/names.txt" in
-  let names = List.sort names in
+  let names = List.sort compare names in
   let values = List.map name_value names in
   let values = List.enum values in
   Enum.sum (Enum.mapi (fun index value -> (index + 1) * value) values)
 
-let () =
+let run () =
   let result = euler22 () in
   printf "%d\n" result

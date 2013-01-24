@@ -40,7 +40,7 @@
  *
  *)
 
-open Batteries_uni
+open Batteries
 open Printf
 
 let source = List.rev [
@@ -69,8 +69,8 @@ let rec reduce = function
   | [[x]] -> x
   | _ -> failwith "Incorrect problem format"
 
-let () =
-  printf "Problem 18: %d\n" (reduce source)
+let run () =
+  printf "%d\n" (reduce source)
 
 (* This also solves problem 67 *)
 let get_triangle path =
@@ -78,5 +78,5 @@ let get_triangle path =
   let each l = List.map int_of_string (String.nsplit l " ") in
   List.of_backwards (Enum.map each lines)
 
-let () =
-  printf "Problem 67: %d\n" (reduce (get_triangle "../haskell/triangle.txt"))
+let run67 () =
+  printf "%d\n" (reduce (get_triangle "../haskell/triangle.txt"))

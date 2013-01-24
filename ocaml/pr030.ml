@@ -19,7 +19,7 @@
  * fifth powers of their digits.
  *)
 
-open Batteries_uni
+open Batteries
 open Printf
 
 let expt base power =
@@ -62,4 +62,4 @@ let count_summable power =
 let euler30 () =
   count_summable 5
 
-let () = printf "%d\n" (euler30 ())
+let run () = printf "%d\n" (euler30 ())

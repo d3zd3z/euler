@@ -72,4 +72,4 @@ let pr8 () =
       largest in
   loop limit (-1)
 
-let _ = Printf.printf "%d\n" (pr8 ())
+let run () = Printf.printf "%d\n" (pr8 ())

@@ -41,4 +41,4 @@ let euler33 () =
   done;
   Big_int.int_of_big_int (Ratio.denominator_ratio (ratio_of_num !prod))
 
-let () = printf "%d\n" (euler33 ())
+let run () = printf "%d\n" (euler33 ())

@@ -25,4 +25,4 @@ let pr2 () =
       loop b (a + b) next in
   loop 1 1 0
 
-let _ = printf "%d\n" (pr2 ())
+let run () = printf "%d\n" (pr2 ())

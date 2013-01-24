@@ -19,3 +19,14 @@
  * hundred natural numbers and the square of the sum.
  **********************************************************************)
 
+let solve' count =
+  let nums = BatList.init count (function x -> x + 1) in
+  let sumsq = List.fold_left (+) 0 nums in
+  let sumsq = sumsq * sumsq in
+  let sq = List.map (function x -> x * x) nums in
+  let sq = List.fold_left (+) 0 sq in
+  sumsq - sq
+
+let solve () = solve' 100
+
+let run () = Printf.printf "%d\n" (solve ())

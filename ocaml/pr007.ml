@@ -17,4 +17,4 @@ let pr7 () =
     if count = 10001 then next else
       loop s' (count + 1) in
   Printf.printf "%Ld\n" (loop Sieve.Int64Sieve.initial 1)
-let _ = pr7 ()
+let run () = pr7 ()

@@ -23,7 +23,7 @@
  * where n > 1?
  *)
 
-open Batteries_uni
+open Batteries
 open Printf
 
 (* Is this number a full 9-element pandigital number. *)
@@ -47,9 +47,9 @@ let large_sum base =
     if digits >= 9 then result
     else begin
       let piece = base * i in
-      let piece_digits = Euler.number_of_digits piece in
+      let piece_digits = Misc.number_of_digits piece in
       loop (digits + piece_digits)
-	(result * Euler.expt 10 piece_digits + piece)
+	(result * Misc.expt 10 piece_digits + piece)
 	(i + 1)
     end in
   loop 0 0 1
@@ -61,4 +61,4 @@ let euler38 () =
     else largest
   ) 0 (1 --^ 10000)
 
-let () = printf "%d\n" (euler38 ())
+let run () = printf "%d\n" (euler38 ())

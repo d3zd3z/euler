@@ -16,7 +16,9 @@
 
    The sieve is in a functor over a general numeric type. *)
 
-open Batteries_uni
+(* open Batteries_uni *)
+(* module Enum = BatEnum *)
+open Batteries
 
 module type SimpleNumeric = sig
   type t
@@ -101,6 +103,19 @@ type node = {
   steps: int list
 }
 
+(* Sigh, this is not in the stdlib. *)
+module Int = struct
+  type t = int
+  let one = 1
+  let zero = 0
+  let mul = ( * )
+  let add = (+)
+  let compare = compare
+  let modulo = (mod)
+  let div = (/)
+  let sub = (-)
+end
+
 module IntSieve = Make(Int)
 module Int64Sieve = Make(Int64)
 
@@ -134,6 +149,25 @@ module type RICH_NUMERIC = sig
   val shift_left : t -> int -> t
   val shift_right : t -> int -> t
 end
+
+(*
+module DynArray = BatDynArray
+module XDynArray = struct
+  type 'a t = { mutable elts: 'a array; mutable used: int; place: 'a }
+  let create place = { elts = Array.make 1024 place; used = 0; place = place }
+  let empty ary = ary.used == 0
+  let last ary = ary.elts.(ary.used - 1)
+  let add ary elt =
+    if ary.used >= Array.length ary.elts then begin
+      let tmp = Array.make (Array.length ary.elts) ary.place in
+      ary.elts <- Array.append ary.elts tmp
+    end;
+    ary.elts.(ary.used) <- elt;
+    ary.used <- ary.used + 1
+  let get ary pos = ary.elts.(pos)
+  let length ary = ary.used
+end
+*)
 
 module MakeFactory(Num : RICH_NUMERIC) : FACTORY with type t = Num.t = struct
   type t = Num.t
@@ -202,7 +236,7 @@ module MakeFactory(Num : RICH_NUMERIC) : FACTORY with type t = Num.t = struct
       let (count, n') = divides_out n x in
       if count > 0 then (n', { prime=x; power=count } :: factors)
       else src in
-    let (left, factors) = Enum.fold each (num, []) (primes_upto num) in
+    let (left, factors) = BatEnum.fold each (num, []) (primes_upto num) in
     if Num.compare left Num.one = 0 then factors
     else { prime=left; power=1 } :: factors
 
@@ -231,4 +265,89 @@ module IntFactory = MakeFactory(struct
   let shift_right = (asr)
 end)
 
-module Int64Factory = MakeFactory(Int64)
+module Int64Factory = MakeFactory(struct
+  include Int64
+  let modulo = rem
+end)
+
+(* Simplistic variant that just uses int. *)
+type sieve = { primes: BitSet.t;
+	       length: int }
+type t = sieve ref
+
+let fill size =
+  let vec = BitSet.create_full size in
+  let p = ref 2 in
+  BitSet.unset vec 0;
+  BitSet.unset vec 1;
+  while !p < size do
+    let n = ref (!p + !p) in
+    while !n < size do
+      BitSet.unset vec !n;
+      n := !n + !p
+    done;
+    p := if !p = 2 then 3 else !p + 2;
+    while !p < size && not (BitSet.mem vec !p) do
+      p := !p + 2
+    done
+  done;
+  { primes = vec; length = size }
+
+let create () = ref (fill 1024)
+
+let rec new_size cur_size needed =
+  if cur_size <= needed then
+    new_size (cur_size * 8) needed
+  else
+    cur_size
+
+let ensure_space sieve n =
+  if !sieve.length <= n then begin
+    sieve := fill (new_size !sieve.length n)
+  end
+
+let is_prime sieve n =
+  ensure_space sieve n;
+  BitSet.mem !sieve.primes n
+
+(* TODO: This could be more efficient with next_set_bit from the bitset code. *)
+let rec next_prime sieve p =
+  let p = if p = 2 then 3 else p + 2 in
+  if is_prime sieve p then p
+  else next_prime sieve p
+
+type factor = { prime: int; power: int }
+
+let factorize sieve n =
+  let add result p count =
+    if count > 0 then
+      { prime = p; power = count } :: result
+    else
+      result in
+  let rec loop result n p count =
+    if n = 1 then add result p count
+    else if n mod p = 0 then
+      loop result (n / p) p (count + 1)
+    else
+      loop (add result p count) n
+	(next_prime sieve p) 0 in
+  loop [] n 2 0
+
+let divisor_count sieve n =
+  let factors = factorize sieve n in
+  List.fold_left (fun accum elt -> (elt.power + 1) * accum) 1 factors
+
+let rec spread =
+  function [] -> [1]
+    | ({prime; power} :: xs) ->
+      let others = spread xs in
+      let rec loop result pow i =
+	if i > power then result
+	else loop (result @ (List.map (fun x -> x * pow) others))
+	  (pow * prime) (i + 1) in
+      loop [] 1 0
+
+let divisors sieve n = List.sort compare (spread (factorize sieve n))
+
+let proper_divisor_sum sieve n =
+  List.fold_left (+) 0 (divisors sieve n) - n
