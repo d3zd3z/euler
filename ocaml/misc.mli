@@ -28,3 +28,5 @@ module MillerRabin : sig
   val is_prime : ?k:int -> Num.num -> bool
   val is_prime_int : ?k:int -> int -> bool
 end
+
+val isqrt : int -> int
