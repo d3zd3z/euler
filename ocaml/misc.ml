@@ -209,3 +209,48 @@ module MillerRabin = struct
 
   let is_prime_int ?(k=20) n = is_prime ~k:k (num_of_int n)
 end
+
+(* Translation of imperative solution. *)
+let isqrt num =
+  let num = ref num in
+  let bit = ref 1 in
+  while !bit lsl 2 <= !num do
+    bit := !bit lsl 2
+  done;
+  let result = ref 0 in
+  while !bit <> 0 do
+    let rb = !result + !bit in
+    let rlsr1 = !result lsr 1 in
+    if !num >= rb then begin
+      num := !num - rb;
+      result := rlsr1 + !bit
+    end else
+      result := rlsr1;
+    bit := !bit lsr 2
+  done;
+  !result
+
+(* Functional version.  Interestingly, ocaml doesn't generate quite as
+   good code for this version.  Even with the manual lifting of
+   "find_bit", the loop bodies still end up being called rather than
+   inlined. *)
+(*
+let isqrt2 num =
+  let rec find_bit num bit =
+    let bit2 = bit lsl 2 in
+    if bit <= num then
+      find_bit num bit2
+    else bit in
+  let rec loop result bit num =
+    if bit = 0 then result
+    else begin
+      let rb = result + bit in
+      let rlsr1 = result lsr 1 in
+      let bitlsr2 = bit lsr 2 in
+      if num >= rb then
+	loop (rlsr1 + bit) bitlsr2 (num - rb)
+      else
+	loop rlsr1 bitlsr2 num
+    end in
+  loop 0 (find_bit num 1) num
+*)
