@@ -98,11 +98,6 @@ module Make(Num: SimpleNumeric) = struct
 	next { prime = bump; nexts = update_first sieve.nexts peek }
 end
 
-type node = {
-  next: int;
-  steps: int list
-}
-
 (* Sigh, this is not in the stdlib. *)
 module Int = struct
   type t = int
@@ -119,6 +114,7 @@ end
 module IntSieve = Make(Int)
 module Int64Sieve = Make(Int64)
 
+(*
 let testing_dump () =
   let rec loop s count =
     if count < 100 then begin
@@ -127,6 +123,7 @@ let testing_dump () =
       loop s' (count + 1)
     end in
   loop IntSieve.initial 1
+*)
 (* let _ = testing_dump () *)
 
 (* Factory. *)
@@ -223,7 +220,7 @@ module MakeFactory(Num : RICH_NUMERIC) : FACTORY with type t = Num.t = struct
 
 (* Compute how many times [factor] divides into [n].  Returns the
    count and the result of dividing [n] by the factor. *)
-  let rec divides_out n factor =
+  let divides_out n factor =
     let rec loop count n =
       if Num.compare (Num.modulo n factor) Num.zero = 0 then
 	loop (count + 1) (Num.div n factor)
@@ -241,7 +238,7 @@ module MakeFactory(Num : RICH_NUMERIC) : FACTORY with type t = Num.t = struct
     else { prime=left; power=1 } :: factors
 
   let divisor_count num =
-    List.fold_left (fun x { power } -> x * (power + 1)) 1 (factorize num)
+    List.fold_left (fun x { power; _ } -> x * (power + 1)) 1 (factorize num)
 
   (* Spread out the factors and powers to produce all of the divisors. *)
   let rec spread = function

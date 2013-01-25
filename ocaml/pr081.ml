@@ -50,7 +50,7 @@ type edge_map = edge list EM.t
 (* Build up a matrix out of the contents of the given file. *)
 let read_matrix path =
   let lines = File.lines_of path in
-  let split_line line = Array.of_list (List.map int_of_string (String.nsplit line ",")) in
+  let split_line line = Array.of_list (List.map int_of_string (String.nsplit line ~by:",")) in
   Array.of_enum (Enum.map split_line lines)
 
 let sample = [|
@@ -166,4 +166,4 @@ let run () =
 
   (* Printf.printf "%s\n" (Show.show<(node * edge list) list> (List.of_enum (EM.enum edges))); *)
   let result = dijkstra edges (-1, -1) (get_finish edges) in
-  Printf.printf "%d\n" result
+  printf "%d\n" result

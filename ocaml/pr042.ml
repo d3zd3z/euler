@@ -32,7 +32,7 @@ let get_file_line path =
 
 let get_words () =
   let line = get_file_line "../haskell/words.txt" in
-  let names = String.nsplit line "," in
+  let names = String.nsplit line ~by:"," in
   List.map (String.strip ~chars:"\"") names
 
 let name_value name =

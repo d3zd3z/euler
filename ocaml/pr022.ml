@@ -23,7 +23,7 @@ open Printf
 let get_names path =
   match List.of_enum (File.lines_of path) with
     | [names] ->
-	let names = String.nsplit names "," in
+	let names = String.nsplit names ~by:"," in
 	List.map (String.strip ~chars:"\"") names
     | _ -> failwith "Unexpected names list"
 
