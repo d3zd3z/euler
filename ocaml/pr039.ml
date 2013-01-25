@@ -21,7 +21,7 @@ module IntMap = Map.Make(Int)
 
 let all_triples limit =
   let result = ref IntMap.empty in
-  let add triple p =
+  let add _triple p =
     result := IntMap.modify_def 0 p (fun x -> x + 1) !result in
   Triangle.generate_triples limit add;
   !result
@@ -32,5 +32,5 @@ let run () =
     if count > largest_count
     then (p, count)
     else (largest_p, largest_count) in
-  let (largest, count) = IntMap.fold update triples (0, 0) in
+  let (largest, _count) = IntMap.fold update triples (0, 0) in
   printf "%d\n" largest

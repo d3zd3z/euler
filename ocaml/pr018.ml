@@ -75,7 +75,7 @@ let run () =
 (* This also solves problem 67 *)
 let get_triangle path =
   let lines = File.lines_of path in
-  let each l = List.map int_of_string (String.nsplit l " ") in
+  let each l = List.map int_of_string (String.nsplit l ~by:" ") in
   List.of_backwards (Enum.map each lines)
 
 let run67 () =

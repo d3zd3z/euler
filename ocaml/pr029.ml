@@ -24,7 +24,7 @@
 open Batteries
 open Printf
 open Num
-open Int
+(* open Int *)
 
 module BS = Set.Make (struct type t = num let compare = compare_num end)
 

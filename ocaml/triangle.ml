@@ -1,7 +1,6 @@
 (* Triangle utilities. *)
 
 open Batteries
-open Printf
 
 type box = { p1 : int; p2 : int; q1 : int; q2 : int }
 
@@ -49,7 +48,7 @@ let generate_fibonacci_triples limit act =
   loop [initial_box]
 
 let generate_triples limit act =
-  let sub_generate triple size =
+  let sub_generate triple _size =
     let rec loop k =
       let k_triple = multiply_triple triple k in
       let k_size = circumference k_triple in

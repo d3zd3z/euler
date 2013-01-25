@@ -29,7 +29,7 @@ let bump vec =
 
 let routes n =
   let vec = base n in
-  for i = 1 to n do
+  for _i = 1 to n do
     bump vec
   done;
   vec.(n)
