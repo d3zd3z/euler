@@ -23,58 +23,50 @@
 --  134043
 ----------------------------------------------------------------------
 
-with Ada.Text_IO; use Ada.Text_IO;
-with Ada.Containers.Vectors;
+with Ada.Containers;
 with Prime_Sieve;
---  with Euler; use Euler;
+with Euler; use Euler;
 
 procedure Pr047 is
 
    procedure Solve (Size : Natural);
 
-   --------------------------------------------------------------------
-   --  All of this until the next banner to instantiate a vector of
-   --  the vectors.
-   --------------------------------------------------------------------
-   package Fv renames Prime_Sieve.Factor_Vectors;
+   procedure Solve (Size : Natural) is
+      Numbers : array (1 .. Size) of Natural;
+      Factors : array (1 .. Size) of Prime_Sieve.Factor_Vectors.Vector;
+      Pos : Natural := Size + 1;
+      Count : Natural;
 
-   function Fv_Equals (Left, Right : Fv.Vector)
-                      return Boolean;
-
-   package Factor_Vectors_Vectors is new Ada.Containers.Vectors
-     (Index_Type   => Natural,
-      Element_Type => Fv.Vector,
-      "="          => Fv_Equals);
-
-   package Fvv renames Factor_Vectors_Vectors;
-
-   function Fv_Equals (Left, Right : Fv.Vector)
-                      return Boolean
-   is
-      use type Ada.Containers.Count_Type;
-      use type Prime_Sieve.Factor;
+      subtype Count_Type is Ada.Containers.Count_Type;
+      use type Count_Type;
    begin
-      if Left.Length /= Right.Length then
-         return False;
-      end if;
-
-      for Index in 1 .. Left.Last_Index loop
-         if Left.Element (Index) /= Right.Element (Index) then
-            return False;
-         end if;
+      for I in 1 .. Size loop
+         Numbers (I) := I;
+         Factors (I) := Prime_Sieve.Factorize (I);
       end loop;
 
-      return True;
-   end Fv_Equals;
+      loop
+         --  Check if we are done.
+         Count := 0;
+         for I in Factors'Range loop
+            if Factors (I).Length = Count_Type (Size) then
+               Count := Count + 1;
+            end if;
+         end loop;
+         if Count = Size then
+            Print_Result (Numbers (1));
+            exit;
+         end if;
 
-   --------------------------------------------------------------------
-
-   procedure Solve (Size : Natural)
-   is
-   begin
-      null;
+         --  If not, advance the numbers along.
+         Numbers (1 .. Size - 1) := Numbers (2 .. Size);
+         Factors (1 .. Size - 1) := Factors (2 .. Size);
+         Numbers (Size) := Pos;
+         Factors (Size) := Prime_Sieve.Factorize (Pos);
+         Pos := Pos + 1;
+      end loop;
    end Solve;
 
 begin
-   null;
+   Solve (4);
 end Pr047;
