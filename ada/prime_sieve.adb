@@ -2,42 +2,89 @@
 
 with Ada.Text_IO;
 with Ada.Unchecked_Deallocation;
+with Ada.Finalization;
 
 package body Prime_Sieve is
 
-   procedure Initialize (Object : in out T) is
-      Prime : Natural := 2;
-      Next : Natural;
-   begin
-      --  Object.Primes := (others => True);
-      --  The above is simple, but causes a temporary to be built on the stack.
-      --  Moving the initializer into the record itself seems to fix it.
+   package Sieve_Object is
+      type Bit_Array is array (Positive range <>) of Boolean;
+      pragma Pack (Bit_Array);
 
-      Object.Primes (1) := False;
+      type T (Limit : Natural) is new Ada.Finalization.Limited_Controlled with
+         record
+            Primes : Bit_Array (1 .. Limit) := (others => True);
+         end record;
 
-      while Prime <= Object.Limit loop
-         if not Object.Primes (Prime) then
-            Prime := Prime + 2;
-         else
-            Next := Prime + Prime;
-            while Next < Object.Limit loop
-               Object.Primes (Next) := False;
-               Next := Next + Prime;
+      function Is_Prime (Object : T; Index : Natural) return Boolean;
+      function Sieve (Limit : Natural) return access T;
+
+      procedure Initialize (Object : in out T);
+   end Sieve_Object;
+
+   package body Sieve_Object is
+
+      procedure Initialize (Object : in out T) is
+         Prime : Natural := 2;
+         Next : Natural;
+      begin
+         --  Object.Primes := (others => True);
+         --  The above is simple, but causes a temporary to be built
+         --  on the stack.  Moving the initializer into the record
+         --  itself seems to fix it.
+
+         Object.Primes (1) := False;
+
+         while Prime <= Object.Limit loop
+            if not Object.Primes (Prime) then
+               Prime := Prime + 2;
+            else
+               Next := Prime + Prime;
+               while Next < Object.Limit loop
+                  Object.Primes (Next) := False;
+                  Next := Next + Prime;
+               end loop;
+
+               if Prime = 2 then
+                  Prime := 3;
+               else
+                  Prime := Prime + 2;
+               end if;
+            end if;
+         end loop;
+      end Initialize;
+
+      function Is_Prime (Object : T; Index : Natural) return Boolean is
+      begin
+         return Object.Primes (Index);
+      end Is_Prime;
+
+      --  The shared sieve.
+      type T_Access is access T;
+      procedure Free is new Ada.Unchecked_Deallocation (T, T_Access);
+
+      Current : T_Access := new T (1024);
+
+      function Sieve (Limit : Natural) return access T is
+         Size : Natural;
+      begin
+         if Limit > Current.Limit then
+            Size := Current.Limit;
+            Free (Current);
+
+            while Size <= Limit loop
+               Size := Size * 8;
             end loop;
 
-            if Prime = 2 then
-               Prime := 3;
-            else
-               Prime := Prime + 2;
-            end if;
+            --  Ada.Text_IO.Put_Line ("sieve: allocate " & Size'Img);
+            Current := new T (Size);
          end if;
-      end loop;
-   end Initialize;
 
-   function Is_Prime (Object : T; Index : Natural) return Boolean is
-   begin
-      return Object.Primes (Index);
-   end Is_Prime;
+         return Current;
+      end Sieve;
+
+   end Sieve_Object;
+
+   use Sieve_Object;
 
    function Is_Prime (Index : Natural) return Boolean is
       Object : access T renames Sieve (Index);
@@ -45,7 +92,7 @@ package body Prime_Sieve is
       return Is_Prime (Object.all, Index);
    end Is_Prime;
 
-   function Next_Prime (Object : T; Index : Natural) return Natural is
+   function Next_Prime (Index : Natural) return Natural is
       Next : Natural;
    begin
       if Index = 2 then
@@ -53,42 +100,12 @@ package body Prime_Sieve is
       end if;
 
       Next := Index + 2;
-      while not Is_Prime (Object, Next) loop
+      while not Is_Prime (Next) loop
          Next := Next + 2;
       end loop;
 
       return Next;
    end Next_Prime;
-
-   function Next_Prime (Index : Natural) return Natural is
-      Object : access T renames Sieve (Index);
-   begin
-      return Next_Prime (Object.all, Index);
-   end Next_Prime;
-
-   --  The shared sieve.
-   type T_Access is access T;
-   procedure Free is new Ada.Unchecked_Deallocation (T, T_Access);
-
-   Current : T_Access := new T (1024);
-
-   function Sieve (Limit : Natural) return access T is
-      Size : Natural;
-   begin
-      if Limit > Current.Limit then
-         Size := Current.Limit;
-         Free (Current);
-
-         while Size <= Limit loop
-            Size := Size * 2;
-         end loop;
-
-         --  Ada.Text_IO.Put_Line ("sieve: allocate " & Size'Img);
-         Current := new T (Size);
-      end if;
-
-      return Current;
-   end Sieve;
 
    function Factorize (Number : Natural) return Factor_Vectors.Vector
    is
@@ -96,7 +113,6 @@ package body Prime_Sieve is
       P : Natural := 2;
       Count : Natural := 0;
       Temp : Natural := Number;
-      S : access T;
    begin
       while Temp > 1 loop
          if Temp mod P = 0 then
@@ -108,10 +124,7 @@ package body Prime_Sieve is
                Count := 0;
             end if;
 
-            --  This is a bit weird.  We want to have enough room, but not go
-            --  too far out.
-            S := Sieve (2 * P + 16);
-            P := Next_Prime (S.all, P);
+            P := Next_Prime (P);
          end if;
       end loop;
 

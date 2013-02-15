@@ -15,15 +15,12 @@ with Prime_Sieve;
 
 procedure Pr007 is
 
-   Sieve : Prime_Sieve.T (200000);
-
    Prime : Natural := 2;
 
 begin
    for I in 1 .. 10_000 loop
-      Prime := Sieve.Next_Prime (Prime);
+      Prime := Prime_Sieve.Next_Prime (Prime);
    end loop;
 
    Put_Line (Natural'Image (Prime));
 end Pr007;
-
