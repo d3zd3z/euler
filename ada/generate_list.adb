@@ -71,7 +71,7 @@ begin
    Put_Line (";");
    New_Line;
    Put_Line ("   type Problem_Array is array (1 .. Problem_Count) " &
-               "of Problem;");
+               "of aliased Problem;");
    New_Line;
    Put_Line ("   Problems : constant Problem_Array;");
    New_Line;
