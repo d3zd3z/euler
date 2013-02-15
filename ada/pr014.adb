@@ -53,30 +53,43 @@ procedure Pr014 is
          raise Constraint_Error;
    end Next_Collatz;
 
+   --  function Chain_Length (Number : Big_Natural) return Big_Natural is
+   --     Result : Big_Natural;
+   --  begin
+   --     if Number in Cache'Range then
+   --        Result := Cache (Number);
+   --        if Result > 0 then
+   --           return Result;
+   --        end if;
+
+   --        if Number = 1 then
+   --           Result := 1;
+   --        else
+   --           Result := 1 + Chain_Length (Next_Collatz (Number));
+   --        end if;
+
+   --        Cache (Number) := Result;
+   --        return Result;
+   --     else
+   --        --  Don't cache large values.  The cache size is a tradeoff
+   --        --  of space/time.  It is fastest to cache everything,
+   --        --  though.  Note that we also depend on '1' being in the
+   --        --  range of the cache.
+   --        return 1 + Chain_Length (Next_Collatz (Number));
+   --     end if;
+   --  end Chain_Length;
+
+   --  Non-cached version.
    function Chain_Length (Number : Big_Natural) return Big_Natural is
-      Result : Big_Natural;
+      Result : Big_Natural := 1;
+      Temp : Big_Natural := Number;
    begin
-      if Number in Cache'Range then
-         Result := Cache (Number);
-         if Result > 0 then
-            return Result;
-         end if;
+      while Temp /= 1 loop
+         Result := Result + 1;
+         Temp := Next_Collatz (Temp);
+      end loop;
 
-         if Number = 1 then
-            Result := 1;
-         else
-            Result := 1 + Chain_Length (Next_Collatz (Number));
-         end if;
-
-         Cache (Number) := Result;
-         return Result;
-      else
-         --  Don't cache large values.  The cache size is a tradeoff
-         --  of space/time.  It is fastest to cache everything,
-         --  though.  Note that we also depend on '1' being in the
-         --  range of the cache.
-         return 1 + Chain_Length (Next_Collatz (Number));
-      end if;
+      return Result;
    end Chain_Length;
 
    Longest : Big_Natural := 0;
@@ -94,4 +107,3 @@ begin
 
    Print_Result (Natural (Longest));
 end Pr014;
-
