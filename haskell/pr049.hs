@@ -14,8 +14,7 @@ module Main where
 
 import Data.List
 import qualified Data.Set as Set
-import Data.Set (Set)
-import Nums
+import Nums (digits, primes, undigits)
 
 main :: IO ()
 main = do

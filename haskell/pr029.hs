@@ -17,9 +17,7 @@
 
 module Main where
 
-import Data.List (sort, group)
 import qualified Data.Set as Set
-import Data.Set (Set)
 
 import Primes
 
@@ -39,7 +37,8 @@ power :: [(Int, Int)] -> Int -> [(Int, Int)]
 power [] _ = []
 power ((x,y):xs) b = (x,y*b) : power xs b
 
-answer = Set.size $ Set.fromList all
+answer :: Int
+answer = Set.size $ Set.fromList allNums
    where
-      all = [ power a b | a <- aFactored, b <- [2..100] ]
+      allNums = [ power a b | a <- aFactored, b <- [2..100] ]
       aFactored = map primeFactors [2..100]

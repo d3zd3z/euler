@@ -10,4 +10,4 @@ module Main where
 import Data.List (foldl1')
 
 main :: IO ()
-main = print $ foldl1' lcm [1..20]
+main = print $ foldl1' lcm [1 :: Int .. 20]

@@ -15,8 +15,7 @@
 module Main where
 
 import Primes
-import Data.IntSet (IntSet)
-import Data.List (tails, inits, sort)
+import Data.List (tails, sort)
 import qualified Data.IntSet as IntSet
 
 main :: IO ()
@@ -40,9 +39,9 @@ fastCheck = flip IntSet.member $ IntSet.fromList nums
 -- subsequences that produce a prime, returning the count, and the
 -- prime itself.  Should be called as 'primeSum 0 0 items'.
 primeSum :: Int -> Int -> [Int] -> [(Int, Int)]
-primeSum count sum [] = []
-primeSum count sum (a:as)
-   | sum+a >= limit      = []
-   | fastCheck (sum+a)  = (count+1, sum+a) : next
+primeSum _count _sum [] = []
+primeSum count asum (a:as)
+   | asum+a >= limit      = []
+   | fastCheck (asum+a)  = (count+1, asum+a) : next
    | otherwise = next
-      where next = primeSum (count+1) (sum+a) as
+      where next = primeSum (count+1) (asum+a) as
