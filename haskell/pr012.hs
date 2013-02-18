@@ -37,7 +37,7 @@ main = print answer
 triangles :: [Int]
 triangles = gen 0 1
    where
-      gen last n = last+n : gen (last+n) (n+1)
+      gen prior n = prior+n : gen (prior+n) (n+1)
 
 factorCount :: Int -> Int
 factorCount = product . map ((1 +) . snd) . primeFactors
@@ -47,6 +47,7 @@ primeFactors n = map (\x -> (head x, length x)) (group answer)
    where
       answer = seek n Primes.fprimes
       seek 1 _ = []
+      seek _ [] = undefined
       seek x fs@(f:fr)
          | x `mod` f == 0   = f : seek (x `div` f) fs
          | f > x            = error "Factoring coding error"
@@ -58,4 +59,4 @@ primes = 2 : 3 : [x | x <- [5..], isPrime x]
 isPrime :: Int -> Bool
 isPrime n = filter (\x -> n `mod` x == 0) factors == []
    where
-      factors = takeWhile (<= (floor $ sqrt $ fromIntegral n)) primes
+      factors = takeWhile (<= (floor (sqrt $ fromIntegral n :: Double))) primes

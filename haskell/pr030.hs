@@ -24,6 +24,7 @@ main = print answer
 
 -- If we look at n*9^5, we can quickly see that there cannot be a
 -- 7-digit number that works.  So, only need to compute up to n=6.
+answer :: Int
 answer = sum [ x | x <- [2..354294], sumPower 5 x == x ]
 
 sumPower :: Int -> Int -> Int

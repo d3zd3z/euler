@@ -29,7 +29,7 @@ sqrt2 :: Int -> Ratio Integer
 sqrt2 n = 1 + 1 / (sqrt2' n)
 
 sqrt2' :: Int -> Ratio Integer
-sqrt2' 0 = 2 
+sqrt2' 0 = 2
 sqrt2' n = 2 + 1 / (sqrt2' (n-1))
 
 qualified :: Ratio Integer -> Bool

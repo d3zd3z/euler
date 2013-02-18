@@ -10,4 +10,4 @@ main :: IO ()
 main = print answer
 
 answer :: Int
-answer = sum . map digitToInt . show . product $ [2..100]
+answer = sum . map digitToInt . show . product $ [2 :: Integer .. 100]

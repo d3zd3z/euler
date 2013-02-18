@@ -24,7 +24,6 @@
 module Main where
 
 import Nums
-import Data.List
 
 diagonals :: [Int]
 diagonals = 1 : step 1 increments where
@@ -37,11 +36,14 @@ ratios = (1, 0) : ns 1 0 (drop 1 diagonals) where
    ns total prime (a:as) =
       let ratio@(t2, p2) = (total+1, if isPrime a then prime+1 else prime) in
       ratio : ns t2 p2 as
+   ns _ _ [] = undefined
 
 -- Take only the groups that are actually complete squares.
 takeBlocks :: [a] -> [a]
 takeBlocks (a:as) = a : takeMore as where
    takeMore (_:_:_:x:xs) = x : takeMore xs
+   takeMore _ = undefined
+takeBlocks [] = undefined
 
 solution :: Int
 solution =

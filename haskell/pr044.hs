@@ -16,10 +16,7 @@
 
 module Main where
 
-import Nums
-import Data.List
 import qualified Data.IntSet as IntSet
-import Data.IntSet (IntSet)
 
 main :: IO ()
 main = putStrLn $ show solve

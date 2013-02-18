@@ -10,4 +10,5 @@ module Main where
 main :: IO ()
 main = print answer
 
-answer = (sum [ x^x | x <- [1..1000]]) `mod` 10^10
+answer :: Integer
+answer = (sum [ x^x | x <- [1..1000]]) `mod` 10^(10::Int)

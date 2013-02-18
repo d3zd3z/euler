@@ -25,6 +25,7 @@ primeFactors n = map (\x -> (head x, length x)) (group answer)
    where
       answer = seek n primes
       seek 1 _ = []
+      seek _ [] = undefined
       seek x fs@(f:fr)
          | x `mod` f == 0   = f : seek (x `div` f) fs
          | f > x            = error "Factoring coding error"
@@ -36,13 +37,14 @@ primes = 2 : 3 : [x | x <- [5,7..], isPrime x]
 isPrime :: Int -> Bool
 isPrime n = n > 1 && filter (\x -> n `mod` x == 0) factors == []
    where
-      factors = takeWhile (<= (floor $ sqrt $ fromIntegral n)) primes
+      factors = takeWhile (<= (floor (sqrt $ fromIntegral n :: Double))) primes
 
 -- Horrible solution, but interesting in it's simplicity.
 primes2 :: [Int]
 primes2 = sieve [2..]
    where
       sieve (p:x) = p : sieve [ n | n <- x, n `mod` p > 0 ]
+      sieve [] = undefined
 
 -- This is slightly better, but doesn't have an easy isPrime
 -- associated with it (at least that isn't linear).
@@ -95,20 +97,20 @@ initial :: Sieve
 initial = Sieve { sievePrime = 2, sieveNexts = Map.empty }
 
 -- Return the next prime number, and a new sieve redy to generate more.
-next :: Sieve -> (Integer, Sieve)
-next (Sieve { sievePrime=2 }) = (2, Sieve { sievePrime = 3, sieveNexts = Map.empty })
-next (Sieve { sievePrime=3 }) =
+nextPrime :: Sieve -> (Integer, Sieve)
+nextPrime (Sieve { sievePrime=2 }) = (2, Sieve { sievePrime = 3, sieveNexts = Map.empty })
+nextPrime (Sieve { sievePrime=3 }) =
   let nexts = addNode Map.empty (3*3) (3+3) in
   (3, Sieve { sievePrime = 5, sieveNexts = nexts })
-next (Sieve { sievePrime = cur, sieveNexts = nexts }) =
+nextPrime (Sieve { sievePrime = cur, sieveNexts = nexts }) =
   let bump = cur + 2 in
   let (peekNext, peek) = Map.findMin nexts in
   if cur < peekNext then
     (cur, Sieve { sievePrime = bump,
                   sieveNexts = addNode nexts (cur*cur) (cur+cur) })
   else
-    next (Sieve { sievePrime = bump,
-                  sieveNexts = updateFirst nexts peek })
+    nextPrime (Sieve { sievePrime = bump,
+                       sieveNexts = updateFirst nexts peek })
 
 -- Given 'nexts' return a new nexts map containing the given 'next'
 -- and 'step' value.  If the 'next' is not present, it will be added,
@@ -126,5 +128,5 @@ updateFirst nexts node =
   foldl' update base (nodeSteps node)
   where base = Map.delete next nexts
         update :: NextMap -> Integer -> NextMap
-        update map step = addNode map (next + step) step
+        update m step = addNode m (next + step) step
         next = nodeNext node

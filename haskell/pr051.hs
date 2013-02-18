@@ -18,7 +18,6 @@ module Main where
 
 import Nums
 import qualified Data.IntSet as IntSet
-import Data.IntSet (IntSet)
 
 main :: IO ()
 main = putStrLn $ show $ case solve 1000000 of
@@ -38,6 +37,7 @@ subst :: Int -> Int -> Int -> Int
 subst from to =
    undigits . map (\x -> if x == from then to else x) . digits
 
+solve :: Int -> [(Int, [Int])]
 solve limit =
    let myPrimes = takeWhile (< limit) primes in
    let pset = IntSet.fromList $ myPrimes in

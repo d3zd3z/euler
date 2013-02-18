@@ -27,7 +27,7 @@ main = do
 triangles :: [Int]
 triangles = gen 0 1
    where
-      gen last n = last+n : gen (last+n) (n+1)
+      gen alast n = alast+n : gen (alast+n) (n+1)
 
 isTriangle :: Int -> Bool
 isTriangle num = t triangles
@@ -43,8 +43,8 @@ wordValue = sum . map ((subtract 64) . ord)
 
 wordList :: IO [String]
 wordList = do
-   all <- readFile "words.txt"
-   return . split (== ',') . filter (/= '\"') $ all
+   allWords <- readFile "words.txt"
+   return . split (== ',') . filter (/= '\"') $ allWords
 
 split :: (a -> Bool) -> [a] -> [[a]]
 split _ [] = []

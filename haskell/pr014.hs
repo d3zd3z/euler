@@ -31,7 +31,8 @@ import Data.Int (Int64)
 -- counts we've seen before.
 
 main :: IO ()
-main = print $ maximumBy (compare `on` snd) $ assocs counts2
+--  main = print $ maximumBy (compare `on` snd) $ assocs counts
+main = print $ maximumBy (compare `on` snd) $ counts3
 
 counts :: Array Int64 Int64
 counts = array (1,999999) [(i, count i i) | i <- [1..999999] ]
@@ -55,3 +56,12 @@ counts2 = array (1,999999) [(i, count i) | i <- [1..999999] ]
       next i
          | i <= 999999 = counts2 ! i
          | otherwise   = count i
+
+-- Naive solution, for performance comparison with other languages.
+counts3 :: [(Int64, Int64)]
+counts3 = [(i, count i) | i <- [1..999999] ]
+  where
+    count 1 = 1
+    count i
+      | i `mod` 2 == 0 = 1 + count (i `div` 2)
+      | otherwise      = 1 + count (i * 3 + 1)

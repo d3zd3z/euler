@@ -25,16 +25,16 @@ data Dir = R | D | L | U
    deriving Show
 
 diagSum :: Int -> Int
-diagSum span = down + up - 1
+diagSum aspan = down + up - 1
    where
-      ary = spiral span
-      down = sum [ ary ! (x,x) | x <- [-span .. span] ]
-      up = sum [ ary ! (x,-x) | x <- [-span .. span] ]
+      ary = spiral aspan
+      down = sum [ ary ! (x,x) | x <- [-aspan .. aspan] ]
+      up = sum [ ary ! (x,-x) | x <- [-aspan .. aspan] ]
 
 -- Construct a spiral in a grid 2*n+1 across with indices from
 -- (-n,-n) to (n,n).
 spiral :: Int -> Array (Int,Int) Int
-spiral size = array ((-size, -size), (size, size)) $ take ((2*size+1) ^ 2) moves
+spiral size = array ((-size, -size), (size, size)) $ take ((2*size+1) ^ (2::Int)) moves
 
 moves :: [((Int,Int), Int)]
 moves = moves' (0,0) spans dirs 1
@@ -44,6 +44,8 @@ moves = moves' (0,0) spans dirs 1
 moves' :: (Int,Int) -> [Int] -> [Dir] -> Int -> [((Int,Int), Int)]
 moves' pos (0:ns) (_:ds) num = moves' pos ns ds num
 moves' pos (n:ns) (d:ds) num = (pos, num) : (moves' (move pos d) (n-1:ns) (d:ds) $! (num+1))
+moves' _ [] _ _ = undefined
+moves' _ _ [] _ = undefined
 
 move :: (Int,Int) -> Dir -> (Int,Int)
 move (x,y) R = (x+1,y)

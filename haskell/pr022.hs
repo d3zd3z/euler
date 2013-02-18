@@ -19,8 +19,8 @@ import Data.Char (ord)
 
 main :: IO ()
 main = do
-   all <- names
-   print $ answer all
+   allNames <- names
+   print $ answer allNames
 
 answer :: [String] -> Int
 answer = sum . zipWith (*) [1..] . map nameValue
@@ -30,8 +30,8 @@ nameValue = sum . map (\x -> ord x - ord 'A' + 1)
 
 names :: IO [String]
 names = do
-   all <- readFile "names.txt"
-   return . sort . split (== ',') . filter (/= '\"') $ all
+   allNames <- readFile "names.txt"
+   return . sort . split (== ',') . filter (/= '\"') $ allNames
 
 split :: (a -> Bool) -> [a] -> [[a]]
 split _ [] = []

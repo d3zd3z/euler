@@ -9,7 +9,6 @@
 
 module Main where
 
-import Data.Char (digitToInt)
 import Data.Array
 
 main :: IO ()
@@ -35,7 +34,7 @@ digits x cs
    | x < 10 = x : cs
    | otherwise =
       case x `mod` 10 of
-	 c -> digits (x `div` 10) (c : cs)
+        c -> digits (x `div` 10) (c : cs)
 
 fact :: Int -> Int
 fact = (!) (listArray (0 :: Int, 9) [ product [2..n] | n <- [0..9] ])

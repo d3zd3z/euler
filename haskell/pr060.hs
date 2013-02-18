@@ -77,9 +77,9 @@ pairs limit =
 
 -- Solve :: IntMap IntSet -> Int -> [
 expand :: IntMap IntSet -> [([Int], IntSet)] -> [([Int], IntSet)]
-expand mapping pairs =
+expand mapping apairs =
    [ ((onum:nums), combined) |
-      (nums, numsSet) <- pairs,
+      (nums, numsSet) <- apairs,
       onum <- IntSet.toList numsSet,
       let onumSet = IntMap.findWithDefault IntSet.empty onum mapping,
       let combined = IntSet.intersection numsSet onumSet,
@@ -92,8 +92,8 @@ solve :: Int -> [[Int]]
 solve limit =
    let p = pairs limit in
    let initP = map (Control.Arrow.first (:[])) $ IntMap.toList p in
-   let exp = expand p $ expand p $ expand p $ initP in
-   map extract $ filter (\ (_, s) -> IntSet.size s == 1) exp
+   let expanded = expand p $ expand p $ expand p $ initP in
+   map extract $ filter (\ (_, s) -> IntSet.size s == 1) expanded
 
 main :: IO ()
 main = print $ minimum $ map sum $ solve 10000
