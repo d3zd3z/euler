@@ -1,21 +1,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 4
-;; 
+;;
 ;; 16 November 2001
-;; 
+;;
 ;; A palindromic number reads the same both ways. The largest
 ;; palindrome made from the product of two 2-digit numbers is 9009 = 91
 ;; × 99.
-;; 
+;;
 ;; Find the largest palindrome made from the product of two 3-digit
 ;; numbers.
-;; 
+;;
+;; 906609
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defpackage #:pr4
+(defpackage #:pr004
   (:use #:cl #:iterate)
   (:export #:euler-4))
-(in-package #:pr4)
+(in-package #:pr004)
 
 (defun reverse-number (number)
   "Reverse the digits of the positive number"
@@ -37,4 +38,4 @@
 	(iter (for b from a to 999)
 	      (for prod = (* a b))
 	      (when (palindromep prod)
-		(in outer (finding (list a b prod) maximizing prod))))))
+		(in outer (finding (list prod a b) maximizing prod))))))
