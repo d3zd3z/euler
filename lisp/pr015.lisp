@@ -1,19 +1,20 @@
 ;;; Problem 15
-;;; 
+;;;
 ;;; 19 April 2002
-;;; 
+;;;
 ;;; Starting in the top left corner of a 2×2 grid, there are 6 routes (without
 ;;; backtracking) to the bottom right corner.
-;;; 
+;;;
 ;;; [p_015]
-;;; 
+;;;
 ;;; How many routes are there through a 20×20 grid?
-;;; 
+;;;
+;;; 137846528820
 
-(defpackage #:pr15
+(defpackage #:pr015
   (:use #:cl #:iterate)
   (:export #:euler-15))
-(in-package #:pr15)
+(in-package #:pr015)
 
 (defun base (n)
   (iter (repeat (1+ n))
