@@ -31,7 +31,7 @@
   (:export #:euler-12))
 (in-package #:pr012)
 
-(defun divisors (n)
+(defun num-divisors (n)
   "Return the number of divisors of N."
   (iter (for p in (factorize n))
 	(multiply (1+ (cdr p)))))
@@ -39,5 +39,5 @@
 (defun euler-12 ()
   (iter (for i from 1)
 	(for triangle first 1 then (+ triangle i))
-	(when (> (divisors triangle) 500)
+	(when (> (num-divisors triangle) 500)
 	  (return-from euler-12 triangle))))
