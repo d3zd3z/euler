@@ -2,7 +2,7 @@
 
 (defpackage #:euler
   (:use #:cl #:iterate)
-  (:export #:sum-digits #:sum-digits-power #:factorial 
+  (:export #:sum-digits #:sum-digits-power #:factorial
 	   #:reverse-number))
 (in-package #:euler)
 
