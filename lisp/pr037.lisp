@@ -1,22 +1,23 @@
 ;;; Problem 37
-;;; 
+;;;
 ;;; 14 February 2003
-;;; 
+;;;
 ;;; The number 3797 has an interesting property. Being prime itself, it is
 ;;; possible to continuously remove digits from left to right, and remain
 ;;; prime at each stage: 3797, 797, 97, and 7. Similarly we can work from
 ;;; right to left: 3797, 379, 37, and 3.
-;;; 
+;;;
 ;;; Find the sum of the only eleven primes that are both truncatable from left
 ;;; to right and right to left.
-;;; 
+;;;
 ;;; NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
-;;; 
+;;;
+;;; 748317
 
-(defpackage #:pr37
+(defpackage #:pr037
   (:use #:cl #:mr-prime #:iterate #:euler)
   (:export #:euler-37))
-(in-package #:pr37)
+(in-package #:pr037)
 
 (defun add-primes (numbers)
   (iter outer
