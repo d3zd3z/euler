@@ -65,7 +65,7 @@ ways' n k = do
       ways newN (min newN i)
    return $! foldl' modPlus 0 items
 
--- solveS :: Cached Int
+solveS :: Cached (Int, Int)
 solveS = do
    counts <- forM [1 .. ] $ \i -> do
       c <- ways i i
@@ -74,6 +74,7 @@ solveS = do
       Just x -> return x
       Nothing -> error "No answer"
 
+solve1 :: (Int, Int)
 solve1 = evalState solveS Map.empty
 
 fact :: Int -> Integer
@@ -96,4 +97,4 @@ solve2 :: Int
 solve2 = length $ takeWhile (\x -> x `mod` 1000000 /= 0) bells
 
 main :: IO ()
-main = print solve2
+main = print solve1

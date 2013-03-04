@@ -92,7 +92,7 @@ import System.Random
 data State = State {
   stGen         :: StdGen,
   stCounts      :: IntMap Integer,
-  stCurrent     :: Int, 
+  stCurrent     :: Int,
   stDoubleCount :: Int }
            deriving Show
 
@@ -101,17 +101,17 @@ start = do
   gen <- newStdGen
   return $ State { stGen = gen,
                    stCounts = IntMap.fromList [(i, 0) | i <- [0..39]],
-                   stCurrent = 0, 
+                   stCurrent = 0,
                    stDoubleCount = 0 }
 
 move :: State -> State
-move (State { stGen = gen, 
+move (State { stGen = gen,
               stCounts = counts,
-              stCurrent = current, 
+              stCurrent = current,
               stDoubleCount = doubleCount })
   = State { stGen = gen',
             stCounts = newCounts,
-            stCurrent = next, 
+            stCurrent = next,
             stDoubleCount = newDoubleCount }
   where
     (roll, isDouble, gen2) = roll gen

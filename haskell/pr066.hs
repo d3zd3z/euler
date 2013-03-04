@@ -32,6 +32,7 @@
 
 module Main where
 
+import Nums (isqrt)
 import Data.Ord
 import Data.List
 import Data.Ratio
@@ -40,11 +41,8 @@ import Data.Ratio
 -- the continued fraction expansion of sqrt(D) that satisfies the
 -- equation.
 
-isqrt :: Integer -> Integer
-isqrt = floor . sqrt . fromIntegral
-
 isSqr :: Integer -> Bool
-isSqr n = let q = isqrt n in q^2 == n
+isSqr n = let q = isqrt n in q^(2::Int) == n
 
 -- Generate the continued fraction rep of the sqrt.
 sqrtSeries :: Integer -> [Integer]
@@ -54,7 +52,7 @@ sqrtSeries s =
       a0 = isqrt s
       step m d a =
          let m' = d*a - m in
-         let d' = (s - (m' ^ 2)) `div` d in
+         let d' = (s - (m' ^ (2::Int))) `div` d in
          let a' = (a0 + m') `div` d' in
          a : step m' d' a'
 
@@ -62,13 +60,14 @@ sqrtSeries s =
 resolve :: [Integer] -> Ratio Integer
 resolve [a] = a%1
 resolve (a:as) = a%1 + 1/(resolve as)
+resolve [] = undefined
 
 -- Does the given ratio (x%y) solve the Pell equation for a given d.
 isPell :: Integer -> Ratio Integer -> Bool
 isPell d rat =
    let x = numerator rat in
    let y = denominator rat in
-   x^2 - d*y^2 == 1
+   x^(2::Int) - d*y^(2::Int) == 1
 
 findX :: Integer -> Integer
 findX d =
@@ -78,6 +77,7 @@ findX d =
       Nothing -> error "Ran off unbounded list"
 
 -- solve :: Integer
+solve :: (Integer, Integer)
 solve = maximumBy (comparing snd) [ (i, findX i) | i <- [2..1000], not (isSqr i) ]
 
 main :: IO ()

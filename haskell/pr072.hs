@@ -63,8 +63,8 @@ combineFactors nums =
 
 decluster :: [(Int, Int)] -> (Int, [Int])
 decluster [] = error "Empty group"
-decluster all@((n, _):_) =
-   (n, map snd all)
+decluster xs@((n, _):_) =
+   (n, map snd xs)
 
 totientize :: (Int, [Int]) -> Int
 totientize (n, factors) =

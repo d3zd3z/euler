@@ -10,12 +10,15 @@
 
 module Main where
 
+import Nums (isqrt)
+
 main :: IO ()
-main = print $ maximum $ zip (map (length . solutions) [1..1000]) [1..]
+main = print $ maximum $ zip (map (length . solutions) [1..1000]) [1::Int ..]
 
 solutions :: Int -> [(Int, Int, Int)]
 
 -- Brute force, not very good.  Takes over a minute.
+solutions' :: Int -> [(Int, Int, Int)]
 solutions' p = [ (a,b,c) |
    a <- [1..p],
    b <- [a+1 .. p],
@@ -26,13 +29,10 @@ solutions' p = [ (a,b,c) |
 -- Solution using better math.  b=(p^2-2pa)/(2(p-a))
 solutions p = [ (a,b,c) |
    a <- [1..p],
-   let num = p^2 - 2*p*a,
+   let num = p^(2::Int) - 2*p*a,
    let denom = 2*(p-a),
    denom > 0,
    num `mod` denom == 0,
    let b = num `div` denom,
    b > a,  -- Unique solutions
    let c = isqrt (a*a + b*b) ]
-
-isqrt :: Int -> Int
-isqrt = floor . sqrt . fromIntegral

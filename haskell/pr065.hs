@@ -3,7 +3,6 @@
 module Main where
 
 import Data.Ratio
-import Data.List
 import Nums
 
 -- Resolve a partial fraction
@@ -19,6 +18,7 @@ resolve xs = 1 / resolve' xs
 resolve :: [Integer] -> Ratio Integer
 resolve [a] = a%1
 resolve (a:as) = a%1 + 1/(resolve as)
+resolve [] = undefined
 
 {-
 efrac :: [Int]

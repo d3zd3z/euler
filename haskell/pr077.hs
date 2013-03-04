@@ -21,7 +21,6 @@
 module Main where
 
 import Nums
-import Data.List
 
 -- Code assumes that the primes are in increasing order.
 sumCount :: Int -> [Int] -> Int

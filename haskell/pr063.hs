@@ -7,3 +7,19 @@
 --
 -- Answer: 49
 ----------------------------------------------------------------------
+
+module Main where
+
+main :: IO ()
+main = putStrLn $ show solve
+
+-- There's some math in the discussion about where this stops being
+-- possible, but just stopping after a while does produce the correct
+-- answer.
+solve :: Int
+solve = length $ concatMap numPowers [1..25]
+
+numPowers :: Int -> [Integer]
+numPowers n = dropWhile (< 10^(n-1)) $
+              takeWhile (< 10^n) $
+              [ x^n | x <- [1..] ]

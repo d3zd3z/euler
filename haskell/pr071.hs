@@ -25,8 +25,8 @@
 module Main where
 
 import Data.Ratio
-import Data.List
 
+solve :: Ratio Int
 solve =
    maximum $ [ x |
       m <- [2 .. 1000000],

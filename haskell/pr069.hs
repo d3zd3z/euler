@@ -38,11 +38,8 @@
 
 module Main where
 
-import Control.Exception (assert)
 import Data.List
-import Data.Ord
-import Data.Ratio
-import Nums 
+import Nums
 
 {-
 -- This is a bit easier to do with ratios.
