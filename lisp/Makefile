@@ -5,4 +5,4 @@ all:
 
 clean:
 	@echo Cleaning
-	rm -f *.fas *.fasl *.lib *.abcl
+	rm -f *.fas *.fasl *.lib *.abcl *.lx64fsl
