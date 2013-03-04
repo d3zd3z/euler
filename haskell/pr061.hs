@@ -27,3 +27,49 @@
 -- different number in the set.
 ----------------------------------------------------------------------
 -- 28684
+
+module Main where
+
+import Data.List (permutations)
+import Data.Maybe (catMaybes)
+
+main :: IO ()
+main = putStrLn $ show solve
+
+solve :: Int
+solve = sum $ head $ catMaybes $ map pairReduce $ permutations $ getSets 1000 9999
+
+-- Given a [low..high] range, return lists for each of the types of
+-- numbers that fall in that range.
+getSets :: Int -> Int -> [[Int]]
+getSets low high = map single [triangles, squares, pentagonals,
+                               hexagonals, heptagonals, octagonals]
+  where
+    single fn = takeWhile (<=high) $
+                dropWhile (<low) [ fn x | x <- [1..] ]
+    triangles n   = n * (n + 1) `div` 2
+    squares n     = n * n
+    pentagonals n = n * (3 * n - 1) `div` 2
+    hexagonals n  = n * (2 * n - 1)
+    heptagonals n = n * (5 * n - 3) `div` 2
+    octagonals n  = n * (3 * n - 2)
+
+-- Return the subset of the second set that is reachable by the above rules.
+subset :: [Int] -> [Int] -> [Int]
+subset a b = filter reachable b
+  where
+    reachable bb = any (\aa -> aa `mod` 100 == bb `div` 100) a
+
+pairFold :: (a -> a -> a) -> [a] -> [a]
+pairFold op (a : b : rest) =
+  let ab = op a b in
+  ab : pairFold op (ab:rest)
+pairFold _ x = x
+
+pairReduce :: [[Int]] -> Maybe [Int]
+pairReduce items = check $ pairFold subset $ cycle items
+  where
+    check ([a]:[b]:[c]:[d]:[e]:[f]:[_]:_) = Just [a,b,c,d,e,f]
+    check ([]:_) = Nothing
+    check (_:xs) = check xs
+    check [] = undefined

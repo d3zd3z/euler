@@ -29,19 +29,6 @@ module Main where
 
 import Data.List
 
--- The performance of these is a wash.
--- And it doesn't matter any way, since there is a nice generator for
--- the triples.
-isqrt :: Int -> Int
-isqrt = floor . sqrt . fromIntegral
-
-myisqrt :: Int -> Int
-myisqrt n = scan n where
-   scan x =
-      let x2 = (x + n `div` x) `div` 2 in
-      if x == x2 then x
-         else scan x2
-
 data Box = Box !Int !Int !Int !Int
    deriving (Show)
 
@@ -49,7 +36,7 @@ startBox :: Box
 startBox = Box 1 1 2 3
 
 children :: Box -> [Box]
-children (Box p1 p2 q1 q2) =
+children (Box _p1 p2 _q1 q2) =
    let x = p2 in
    let y = q2 in
    [Box (y - x) x y (y * 2 - x),

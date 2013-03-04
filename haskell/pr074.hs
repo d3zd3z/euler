@@ -90,9 +90,9 @@ chainLen items = (len, mu) where
 
    len = walk 1 1 items (tail items)
    mu = getMu 0 items (drop len items)
-   getMu mu tortise hare
-      | headEq tortise hare = mu
-      | otherwise = getMu (mu+1) (tail tortise) (tail hare)
+   getMu mu' tortise hare
+      | headEq tortise hare = mu'
+      | otherwise = getMu (mu'+1) (tail tortise) (tail hare)
 
    headEq (a:_) (b:_) = a == b
    headEq _ _ = error "List ending"
