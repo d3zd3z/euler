@@ -11,10 +11,9 @@
 
 extern mod std;
 mod sieve;
-use sieve::*;
 
 fn main() {
-    let primes = Sieve();
+    let mut primes = sieve::Sieve::new();
     let mut prime = 2u;
     let mut count = 1;
 

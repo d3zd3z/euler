@@ -1,31 +1,26 @@
 // A simple prime number sieve.
 
-/*
-export t, make;
-export is_prime;
-export next_prime;
-export factorize;
-export divisors;
-*/
-
+extern mod std;
 use std::bitv::*;
-use std::sort;
+// use std::sort;
 
-const default_size: uint = 8192u;
+static default_size: uint = 8192u;
 
 pub struct Sieve {
-    mut vec: @Bitv, mut limit: uint
+    vec: Bitv, limit: uint
 }
 
-pub fn Sieve() -> Sieve {
-    let result = Sieve { vec: @Bitv(default_size + 1, true),
-        limit: default_size };
-    result.fill();
-    result
+pub impl Sieve {
+    fn new() -> Sieve {
+        let mut result = Sieve { vec: Bitv::new(default_size + 1, true),
+            limit: default_size };
+        result.fill();
+        result
+    }
 }
 
 priv impl Sieve {
-    fn fill() {
+    fn fill(&mut self) {
         self.vec.set_all();
         self.vec.set(0, false);
         self.vec.set(1, false);
@@ -52,21 +47,53 @@ priv impl Sieve {
 }
 
 impl Sieve {
-    fn is_prime(n: uint) -> bool {
+    fn is_prime(&mut self, n: uint) -> bool {
         if n >= self.limit {
             let mut new_limit = self.limit;
             while new_limit < n {
                 new_limit *= 8;
             }
 
-            self.vec = @Bitv(new_limit + 1, true);
+            self.vec = Bitv::new(new_limit + 1, true);
             self.limit = new_limit;
             self.fill();
         }
 
         self.vec.get(n)
     }
+}
 
+#[test]
+fn test_basic() {
+    let mut sieve = Sieve::new();
+    assert!(sieve.is_prime(2));
+    assert!(sieve.is_prime(3));
+    assert!(sieve.is_prime(5));
+    assert!(sieve.is_prime(65537));
+}
+
+pub impl Sieve {
+    fn next_prime(&mut self, n: uint) -> uint {
+        if n == 2 {
+            return 3;
+        }
+
+        let mut next = n + 2;
+        while ! self.is_prime(next) {
+            next += 2;
+        }
+        next
+    }
+}
+
+#[test]
+fn test_next() {
+    let mut sieve = Sieve::new();
+    assert!(sieve.next_prime(2) == 3);
+}
+
+/*
+impl Sieve {
     fn next_prime(n: uint) -> uint {
         if n == 2 {
             return 3;
@@ -161,3 +188,4 @@ impl Factor: to_bytes::IterBytes {
         self.power.iter_bytes(lsb, f);
     }
 }
+*/
