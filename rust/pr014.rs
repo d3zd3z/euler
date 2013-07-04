@@ -25,30 +25,25 @@
 // 837799
 
 fn main() {
-    let l: Lengther = Noncached as Lengther;
+    let mut base = @Noncached;
+    let mut l = base as @Lengther;
     // let l : Lengther = EnumCache() as Lengther;
 
     // TODO: Use a macro to show this, with nice information.
-    io::println(fmt!("size: %?", sys::size_of::<Info>()));
-    io::println(fmt!("size: %?", sys::size_of::<Lengther>()));
-    io::println(fmt!("size: %?", sys::size_of::<EnumCache>()));
-    io::println(fmt!("size: %?", sys::size_of::<Noncached>()));
+    /*
+    println(fmt!("size: %?", sys::size_of::<Lengther>()));
+    println(fmt!("size: %?", sys::size_of::<Lengther>()));
+    println(fmt!("size: %?", sys::size_of::<EnumCache>()));
+    println(fmt!("size: %?", sys::size_of::<Noncached>()));
+    */
     compute_len(l);
 }
 
 trait Lengther {
-    fn chain_len(n: uint) -> uint;
+    fn chain_len(@self, n: uint) -> uint;
 }
 
-enum Noncached { Noncached }
-
-impl Noncached: Lengther {
-    fn chain_len(n: uint) -> uint {
-        simple_chain_len(n)
-    }
-}
-
-fn compute_len(l: Lengther) {
+fn compute_len(l: @Lengther) {
     let mut max_len = 0;
     let mut max = 0;
     for uint::range(1, 1_000_000) |x| {
@@ -58,18 +53,73 @@ fn compute_len(l: Lengther) {
             max = x;
         }
     }
-    io::println(fmt!("chain %?, len %?", max, max_len));
+    println(fmt!("chain %?, len %?", max, max_len));
 }
 
-fn simple_chain_len(n: uint) -> uint {
-    if n == 1 {
-        return 1
-    } else if n & 1 == 0 {
-        return 1 + simple_chain_len(n >> 1)
-    } else {
-        return 1 + simple_chain_len(3 * n + 1)
+struct Noncached;
+
+impl Lengther for Noncached {
+    fn chain_len(@self, n: uint) -> uint {
+        if n == 1 {
+            1
+        } else if n & 1 == 0 {
+            1 + self.chain_len(n >> 1)
+        } else {
+            1 + self.chain_len(3 * n + 1)
+        }
     }
 }
+
+/* Cached version, attempting to speed things up. */
+struct EnumCache {
+    size: uint,
+    cache: ~[Info]
+}
+
+enum Info {
+    Unknown,
+    Known(uint)
+}
+
+impl EnumCache {
+    fn new() -> EnumCache {
+        EnumCache { size: 1000,
+            cache: vec::from_elem(1000, Unknown) }
+    }
+}
+
+impl Lengther for EnumCache {
+    fn chain_len(@self, n: uint) -> uint {
+        if n < self.size {
+            match self.cache[n] {
+                Unknown => {
+                    let mut mself = self;
+                    let answer = self.chain2(n);
+                    let cache = mself.cache;
+                    cache[n] = Known(answer);
+                    answer
+                }
+                Known(x) => x
+            }
+        } else {
+            self.chain2(n)
+        }
+    }
+}
+
+impl EnumCache {
+    fn chain2(@self, n: uint) -> uint {
+        if n == 1 {
+            1
+        } else if n & 1 == 0 {
+            1 + self.chain_len(n >> 1)
+        } else {
+            1 + self.chain_len(3 * n + 1)
+        }
+    }
+}
+
+/*
 
 struct EnumCache {
     size: uint,
@@ -114,6 +164,7 @@ enum Info {
     Unknown,
     Known(uint)
 }
+*/
 
 /*
 // A cached solution that maintains a cache of values.

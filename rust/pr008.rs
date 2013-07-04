@@ -65,11 +65,9 @@ fn amain() {
     let products = do groups.map() |item| {
         do item.foldl(1u) |a, b| { *a * (*b as uint - 48u) }
     };
-    let result = do products.foldl(0u) |item, max| {
-        if *item > *max { *item } else { *max }
-    };
+    let result = products.max();
 
-    io::println(fmt!("%u", result));
+    println(fmt!("%u", result));
 }
 
 fn bmain() {
@@ -79,12 +77,8 @@ fn bmain() {
         do src.foldl(1u) |a, b| { *a * (*b as uint - 48u) }
     }
     let products = groups(source).map(digit_product);
-    fn maxer(item: &uint, max: &uint) -> uint {
-        if *item > *max { *item } else { *max }
-    }
-    let result = products.foldl(0, maxer);
-
-    io::println(fmt!("%u", result));
+    let result = products.max();
+    println(fmt!("%?", result));
 }
 
 fn groups(src: &[u8]) -> ~[~[u8]] {
@@ -93,10 +87,9 @@ fn groups(src: &[u8]) -> ~[~[u8]] {
     let mut pos = 0u;
     let len = src.len();
     while pos + 5 < len {
-        result.push(src.slice(pos, pos + 5));
+        result.push(vec::from_slice(src.slice(pos, pos + 5)));
         pos += 1;
     }
-
     result
 }
 
@@ -119,5 +112,5 @@ fn cmain() {
         pos += 1;
     }
 
-    io::println(fmt!("%u", max));
+    println(fmt!("%u", max));
 }

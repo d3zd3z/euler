@@ -35,8 +35,8 @@
 
 fn main() {
     let mut max = 0u;
-    let deltas = ~[{dx: 0, dy: 1}, {dx: 1, dy: 0},
-                   {dx: 1, dy: 1}, {dx: 1, dy: -1}];
+    let deltas = ~[Delta {dx: 0, dy: 1}, Delta {dx: 1, dy: 0},
+                   Delta {dx: 1, dy: 1}, Delta {dx: 1, dy: -1}];
     let src = source();
     for int::range(0, 20) |x| {
         for int::range(0, 20) |y| {
@@ -51,9 +51,9 @@ fn main() {
     io::println(fmt!("%u", max));
 }
 
-type delta = {dx: int, dy: int};
+struct Delta {dx: int, dy: int}
 
-fn product(ary: &[~[uint]], x: int, y: int, d: &delta) -> uint {
+fn product(ary: &[~[uint]], x: int, y: int, d: &Delta) -> uint {
     let mut px = x;
     let mut py = y;
     let mut prod = 1u;

@@ -112,15 +112,13 @@
 // of each number, adding them, and then taking the first 10 digits of
 // the result.  The error should be beyond the first 10 digits.
 
-use io::println;
-
 fn main() {
     let s1 = do source().map() |s| {
         u64::from_str(s.slice(0, 13)).get()
     };
     let total = do s1.foldl(0u64) |s, i| {*s + *i};
-    let answer = u64::str(total).slice(0, 10);
-    io::println(answer);
+    let full_answer = u64::to_str(total);
+    println(full_answer.slice(0, 10));
 }
 
 fn source() -> ~[~str] {

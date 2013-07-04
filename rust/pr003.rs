@@ -5,13 +5,14 @@
 // The prime factors of 13195 are 5, 7, 13 and 29.
 //
 // What is the largest prime factor of the number 600851475143 ?
+//
+// 6857
 
 extern mod std;
 mod sieve;
-use sieve::*;
 
 fn main() {
-    let primes = Sieve();
+    let mut sieve = sieve::Sieve::new();
 
     let mut number = 600851475143u64;
     let mut prime = 2;
@@ -21,12 +22,7 @@ fn main() {
         if number % p == 0 {
             number /= p;
         } else {
-            loop {
-                prime += 1;
-                if primes.is_prime(prime) {
-                    break;
-                }
-            }
+            prime = sieve.next_prime(prime);
         }
     }
 
