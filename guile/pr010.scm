@@ -1,4 +1,4 @@
-#! /usr/local/bin/guile -s
+#! /usr/bin/guile -s
 !#
 
 ;;; Problem 10
