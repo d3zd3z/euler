@@ -10,7 +10,7 @@ import sys
 def generate(problem, contents):
     name = 'pr{0:03}.scm'.format(problem)
     with open(name, 'x') as f:
-        print('#! /usr/local/bin/guile -s\n!#\n', file=f)
+        print('#! /usr/bin/guile -s\n!#\n', file=f)
         for line in contents:
             if len(line) > 0:
                 print(";;;", line.decode(), file=f)
