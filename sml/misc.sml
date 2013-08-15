@@ -2,27 +2,66 @@
 
 (* A general permuter. *)
 
-(* First write specifically for strings, and then make into a functor. *)
+(* A vector useful for permutation. *)
+signature PERM_VECTOR =
+sig
+  type vector
+  type elem
+
+  val length : vector -> int
+  val sub : vector * int -> elem
+end
+
+(* An array, used internally to manipulate this. *)
+signature PERM_ARRAY =
+sig
+  eqtype array
+  type elem
+  type vector
+
+  val array : int * elem -> array
+  val length : array -> int
+  val sub : array * int -> elem
+  val tabulate : int * (int -> elem) -> array
+  val update : array * int * elem -> unit
+  val vector : array -> vector
+end
+
+signature PERM_KIND =
+sig
+  type elem
+  structure A : PERM_ARRAY
+  structure V : PERM_VECTOR
+  val lt : elem * elem -> bool
+  sharing type elem = A.elem
+  sharing type elem = V.elem
+  sharing type A.vector = V.vector
+end
 
 signature PERMUTE =
 sig
   type state
-  val init : string -> state
-  val get : state -> string
+  type vector
+  val init : vector -> state
+  val get : state -> vector
   val next : state -> bool
 
-  val forall : (string -> unit) -> string -> unit
+  val forall : (vector -> unit) -> vector -> unit
 end
 
-structure StringPermuter : PERMUTE = struct
+(* structure StringPermuter : PERMUTE = struct *)
+functor PermuterFn (Arg : PERM_KIND) :> PERMUTE
+  where type vector = Arg.V.vector =
+struct
 
-  structure A = CharArray
+  open Arg
 
   type state = A.array
+  type vector = V.vector
 
   fun init text =
-    A.tabulate (String.size text,
-      fn x => CharVector.sub (text, x))
+    A.tabulate (V.length text,
+      fn x => V.sub (text, x))
 
   fun get st =
     A.vector st
@@ -51,7 +90,7 @@ structure StringPermuter : PERMUTE = struct
     fun kloop x =
       if x = len-1 then ()
       else let in
-        if A.sub (st, x) < A.sub (st, x+1) then
+        if lt (A.sub (st, x), A.sub (st, x+1)) then
           k := x
         else ();
         kloop (x+1)
@@ -59,7 +98,7 @@ structure StringPermuter : PERMUTE = struct
     fun lloop x =
       if x = len then ()
       else let in
-        if A.sub (st, !k) < A.sub (st, x) then
+        if lt (A.sub (st, !k), A.sub (st, x)) then
           l := x
         else ();
         lloop (x+1)
@@ -86,3 +125,13 @@ structure StringPermuter : PERMUTE = struct
   end
 
 end
+
+structure StringKind : PERM_KIND =
+struct
+  type elem = char
+  structure A = CharArray
+  structure V = CharVector
+  val lt = Char.<
+end
+
+structure StringPermuter = PermuterFn (StringKind)
