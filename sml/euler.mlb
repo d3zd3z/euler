@@ -1,6 +1,7 @@
 $(SML_LIB)/basis/basis.mlb
 $(SML_LIB)/smlnj-lib/Util/smlnj-lib.mlb
 sieve.sml
+misc.sml
 pr001.sml
 pr002.sml
 pr003.sml
@@ -28,5 +29,10 @@ pr024.sml
 pr025.sml
 pr026.sml
 pr027.sml
+pr028.sml
+pr029.sml
+pr030.sml
+pr031.sml
+pr032.sml
 euler.sml
 mlton-main.sml

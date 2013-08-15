@@ -33,7 +33,12 @@ val problems = [(1, runInt Pr001.solve),
 		(24,        Pr024.solve),
 		(25, runInt Pr025.solve),
 		(26, runInt Pr026.solve),
-		(27, runInt Pr027.solve)]
+		(27, runInt Pr027.solve),
+		(28, runInt Pr028.solve),
+		(29, runInt Pr029.solve),
+		(30, runInt Pr030.solve),
+		(31, runInt Pr031.solve),
+		(32, runInt Pr032.solve)]
 
 fun flush () = TextIO.flushOut TextIO.stdOut
 
