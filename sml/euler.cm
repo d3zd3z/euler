@@ -29,7 +29,13 @@ is
 	pr025.sml
 	pr026.sml
 	pr027.sml
+	pr028.sml
+	pr029.sml
+	pr030.sml
+	pr031.sml
+	pr032.sml
 
 	sieve.sml
+	misc.sml
 	$/basis.cm
 	$/smlnj-lib.cm
