@@ -3,6 +3,9 @@
 signature MISC =
 sig
   val expt : int * int -> int
+
+  val reverseDigits : int * int -> int
+  val isPalindrome : int * int -> int
 end
 
 structure Misc =
@@ -25,6 +28,19 @@ struct
     in
       loop (1, base, power)
     end
+
+  fun reverseDigits (n, base) =
+    let
+      fun loop (n, result) =
+        if n > 0 then
+          loop (n div base, result * base + n mod base)
+        else
+          result
+    in loop (n, 0)
+    end
+
+  fun isPalindrome (n, base) = n = reverseDigits (n, base)
+
 end
 
 (* A general permuter. *)
