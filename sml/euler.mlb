@@ -3,6 +3,7 @@ $(SML_LIB)/smlnj-lib/Util/smlnj-lib.mlb
 timing.sml
 sieve.sml
 misc.sml
+triangle.sml
 pr001.sml
 pr002.sml
 pr003.sml
@@ -38,6 +39,10 @@ pr032.sml
 pr033.sml
 pr034.sml
 pr035.sml
+pr036.sml
+pr037.sml
+pr038.sml
+pr039.sml
 
 pr087.sml
 euler.sml

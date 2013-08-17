@@ -39,10 +39,15 @@ is
 	pr033.sml
 	pr034.sml
 	pr035.sml
+	pr036.sml
+	pr037.sml
+	pr038.sml
+	pr039.sml
 
 	pr087.sml
 
 	sieve.sml
 	misc.sml
+	triangle.sml
 	$/basis.cm
 	$/smlnj-lib.cm
