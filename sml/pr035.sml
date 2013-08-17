@@ -52,8 +52,8 @@ structure Pr035 = struct
       fun loop (count, prime) =
         if prime > limit then count else
           let
-            val prime' = Sieve.next_prime (sieve, prime)
-            fun isPrime x = Sieve.is_prime (sieve, x)
+            val prime' = Sieve.nextPrime (sieve, prime)
+            fun isPrime x = Sieve.isPrime (sieve, x)
           in
             if List.all isPrime (numberRotations prime) then
               loop (count+1, prime')

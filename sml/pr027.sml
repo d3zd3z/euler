@@ -37,7 +37,7 @@ struct
 fun countPrimes (sieve, a, b) =
     let fun loop n =
 	    let val p = n*n + a*n + b in
-	      if p < 2 orelse not (Sieve.is_prime (sieve, p)) then n
+	      if p < 2 orelse not (Sieve.isPrime (sieve, p)) then n
 	      else loop (n + 1)
 	    end
     in loop 0 end

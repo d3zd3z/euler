@@ -20,7 +20,7 @@ fun solve () =
       val sieve = Sieve.make 1024
       fun loop (n, count) =
 	  if count = 10001 then n
-	  else loop (Sieve.next_prime (sieve, n), count + 1)
+	  else loop (Sieve.nextPrime (sieve, n), count + 1)
     in
       loop (2, 1)
     end

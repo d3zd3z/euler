@@ -29,7 +29,7 @@ struct
     val sieve = Sieve.make n
     fun loop (i, accum) =
       if i >= n then rev accum
-      else loop (Sieve.next_prime (sieve, i), i :: accum)
+      else loop (Sieve.nextPrime (sieve, i), i :: accum)
   in
     loop (2, [])
   end

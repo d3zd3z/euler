@@ -24,7 +24,7 @@ fun solve () =
       val s = Sieve.make 2000100
       fun loop (p, sum) =
 	  if p >= 2000000 then sum
-	  else loop (Sieve.next_prime (s, p),
+	  else loop (Sieve.nextPrime (s, p),
 		     sum + Int.toLarge p)
     in
       loop (2, Int.toLarge 0)

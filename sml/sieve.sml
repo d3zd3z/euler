@@ -5,8 +5,8 @@ signature SIEVE =
 sig
   type t
   val make : int -> t
-  val is_prime : (t * int) -> bool
-  val next_prime : (t * int) -> int
+  val isPrime : (t * int) -> bool
+  val nextPrime : (t * int) -> int
   type factor = { prime : int,
 		  power : int }
   val factorize : (t * int) -> factor list
@@ -55,17 +55,17 @@ fun new_size (cur_size, needed) =
     else
       cur_size
 
-fun is_prime (sieve, n) =
+fun isPrime (sieve, n) =
     (if Array.length (!sieve) <= n then
        sieve := raw_make (new_size (Array.length (!sieve), n))
      else ();
      Array.sub (!sieve, n))
 
-fun next_prime (sieve, p) =
+fun nextPrime (sieve, p) =
     let val p = if p = 2 then 3 else p + 2
     in
-      if is_prime (sieve, p) then p
-      else next_prime (sieve, p)
+      if isPrime (sieve, p) then p
+      else nextPrime (sieve, p)
     end
 
 type factor = { prime : int,
@@ -84,7 +84,7 @@ fun factorize (sieve, n) =
 		loop (result, n div p, p, count + 1)
 	      else
 		loop (addFactor (result, p, count),
-		      n, next_prime (sieve, p), 0)
+		      n, nextPrime (sieve, p), 0)
     in
       loop ([], n, 2, 0)
     end
