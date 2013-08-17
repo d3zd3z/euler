@@ -38,14 +38,24 @@ val problems = [(1, runInt Pr001.solve),
 		(29, runInt Pr029.solve),
 		(30, runInt Pr030.solve),
 		(31, runInt Pr031.solve),
-		(32, runInt Pr032.solve)]
+		(32, runInt Pr032.solve),
+		(33, runInt Pr033.solve),
+
+		(87, runInt Pr087.solve)]
 
 fun flush () = TextIO.flushOut TextIO.stdOut
 
+(* Determined if we want timing or not. *)
+val doTiming = ref false
+
 fun run (num, thunk) =
-    (print (Int.toString num ^ ": ");
-     flush ();
-     print (thunk () ^ "\n"))
+let
+  val time = if !doTiming then Timing.time else Timing.notime
+in
+  (print (Int.toString num ^ ": ");
+  flush ();
+  print (time thunk () ^ "\n"))
+end
 
 fun runOne n =
     let fun scan [] = raise Fail "Unknown problem"
@@ -58,7 +68,9 @@ fun runOne n =
 
 fun runAll () = List.app run problems
 
-fun main (_, ["all"]) = (runAll (); 0)
+fun main (n, "-timing"::rest) =
+      (doTiming := true; main (n, rest))
+  | main (_, ["all"]) = (runAll (); 0)
   | main (n, arg::rest) = (case Int.fromString arg
 			    of SOME n => runOne n
 			     | NONE => raise Fail "Invalid problem number";
