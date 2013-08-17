@@ -17,18 +17,6 @@
 structure Pr004 =
 struct
 
-fun reverse_digits n =
-    let
-      fun loop (n, result) =
-	  if n > 0 then
-	    loop (n div 10, result * 10 + n mod 10)
-	  else
-	    result
-    in loop (n, 0)
-    end
-
-fun is_palindrome n = n = reverse_digits n
-
 fun solve () = let
   fun loop (a, largest) = let
     fun iloop (b, largest) =
@@ -36,7 +24,7 @@ fun solve () = let
 	else let
 	  val tmp = a * b
 	in
-	  if tmp > largest andalso is_palindrome tmp then
+	  if tmp > largest andalso Misc.isPalindrome (tmp, 10) then
 	    iloop (b+1, tmp)
 	  else
 	    iloop (b+1, largest)
