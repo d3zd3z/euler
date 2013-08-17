@@ -48,7 +48,7 @@ fun solve () =
 	    if d >= 1000 then index
 	    else
 	      let val length = dlog d
-		  val next_d = Sieve.next_prime (sieve, d)
+		  val next_d = Sieve.nextPrime (sieve, d)
 	      in
 		if length > longest then
 		  loop (d, length, next_d)
