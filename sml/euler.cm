@@ -1,7 +1,9 @@
 Library
 	structure Euler
 is
+	timing.sml
 	euler.sml
+
 	pr001.sml
 	pr002.sml
 	pr003.sml
@@ -34,6 +36,9 @@ is
 	pr030.sml
 	pr031.sml
 	pr032.sml
+	pr033.sml
+
+	pr087.sml
 
 	sieve.sml
 	misc.sml
