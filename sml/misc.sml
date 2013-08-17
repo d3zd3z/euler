@@ -3,12 +3,15 @@
 signature MISC =
 sig
   val expt : int * int -> int
+  val largeExpt : IntInf.int * IntInf.int -> IntInf.int
 
   val reverseDigits : int * int -> int
-  val isPalindrome : int * int -> int
+  val isPalindrome : int * int -> bool
+  val numberOfDigits : int -> int
+  val largeNumberOfDigits : IntInf.int -> int
 end
 
-structure Misc =
+structure Misc : MISC =
 struct
   (* A simple integer exponentiation. *)
   fun expt (base, power) =
@@ -29,6 +32,29 @@ struct
       loop (1, base, power)
     end
 
+  local
+    val zero = IntInf.fromInt 0
+    val one = IntInf.fromInt 1
+  in
+    fun largeExpt (base, power) =
+      let
+        fun loop (result, base, power) =
+          if power = zero then result else
+            let
+              val result =
+                if IntInf.andb (power, one) <> zero then
+                  result * base
+                else
+                  result
+              val base = base * base
+            in
+              loop (result, base, IntInf.~>> (power, 0w1))
+            end
+      in
+        loop (one, base, power)
+      end
+  end
+
   fun reverseDigits (n, base) =
     let
       fun loop (n, result) =
@@ -40,6 +66,29 @@ struct
     end
 
   fun isPalindrome (n, base) = n = reverseDigits (n, base)
+
+  (* How many digits are in this number? *)
+  fun numberOfDigits num =
+    let
+      fun loop (count, 0) = count
+        | loop (count, n) = loop (count+1, n div 10)
+    in
+      loop (0, num)
+    end
+
+  local
+    val zero = IntInf.fromInt 0
+    val ten = IntInf.fromInt 10
+  in
+    fun largeNumberOfDigits num =
+      let
+        fun loop (count, n) =
+          if n = zero then count else
+            loop (count+1, IntInf.div (n, ten))
+      in
+        loop (0, num)
+      end
+  end
 
 end
 

@@ -17,19 +17,10 @@
 
 structure Pr035 = struct
 
-  (* How many digits are in this number? *)
-  fun numberOfDigits num =
-    let
-      fun loop (count, 0) = count
-        | loop (count, n) = loop (count+1, n div 10)
-    in
-      loop (0, num)
-    end
-
   (* Returns all of the rotations of a number, not including the original. *)
   fun numberRotations num =
     let
-      val len = numberOfDigits num
+      val len = Misc.numberOfDigits num
       val highestOne = Misc.expt (10, len-1)
       fun loop (right, left, accum, n, result) =
         if left >= highestOne then result else
