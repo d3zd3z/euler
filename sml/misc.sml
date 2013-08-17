@@ -1,5 +1,32 @@
 (* Miscellaneous utilities. *)
 
+signature MISC =
+sig
+  val expt : int * int -> int
+end
+
+structure Misc =
+struct
+  (* A simple integer exponentiation. *)
+  fun expt (base, power) =
+    let
+      fun loop (result, base, power) =
+        if power = 0 then result else
+          let
+            val result =
+              if power mod 2 <> 0 then
+                result * base
+              else
+                result
+            val base = base * base
+          in
+            loop (result, base, power div 2)
+          end
+    in
+      loop (1, base, power)
+    end
+end
+
 (* A general permuter. *)
 
 (* A vector useful for permutation. *)

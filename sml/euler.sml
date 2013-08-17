@@ -40,6 +40,8 @@ val problems = [(1, runInt Pr001.solve),
 		(31, runInt Pr031.solve),
 		(32, runInt Pr032.solve),
 		(33, runInt Pr033.solve),
+		(34, runInt Pr034.solve),
+		(35, runInt Pr035.solve),
 
 		(87, runInt Pr087.solve)]
 
