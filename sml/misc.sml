@@ -5,10 +5,22 @@ sig
   val expt : int * int -> int
   val largeExpt : IntInf.int * IntInf.int -> IntInf.int
 
+  val isqrt : int -> int
+
   val reverseDigits : int * int -> int
   val isPalindrome : int * int -> bool
   val numberOfDigits : int -> int
   val largeNumberOfDigits : IntInf.int -> int
+
+  val digitsOf : int -> int list
+
+  (* Read the file, containing a list of quoted, comma separated words. and
+   * return those words. *)
+  val readWords : string -> string list
+
+  (* Convert a name into it's numeric value by adding the characters as numbers,
+   * with A=1, B=2, etc. *)
+  val nameValue : string -> int
 end
 
 structure Misc : MISC =
@@ -32,28 +44,51 @@ struct
       loop (1, base, power)
     end
 
-  local
-    val zero = IntInf.fromInt 0
-    val one = IntInf.fromInt 1
-  in
-    fun largeExpt (base, power) =
-      let
-        fun loop (result, base, power) =
-          if power = zero then result else
-            let
-              val result =
-                if IntInf.andb (power, one) <> zero then
-                  result * base
-                else
-                  result
-              val base = base * base
-            in
-              loop (result, base, IntInf.~>> (power, 0w1))
-            end
-      in
-        loop (one, base, power)
-      end
-  end
+  fun largeExpt (base, power) : IntInf.int =
+    let
+      fun loop (result, base, power) =
+        if power = 0 then result else
+          let
+            val result =
+              if IntInf.andb (power, 1) <> 0 then
+                result * base
+              else
+                result
+            val base = base * base
+          in
+            loop (result, base, IntInf.~>> (power, 0w1))
+          end
+    in
+      loop (1, base, power)
+    end
+
+  fun isqrt num =
+    let
+      val num = Word.fromInt num
+      fun findBit (num, bit) =
+        let
+          val bit2 = Word.<< (bit, 0w2)
+        in
+          if bit <= num then
+            findBit (num, bit2)
+          else bit
+        end
+      fun loop (result, bit, num) =
+        if bit = 0w0 then Word.toInt result
+        else
+          let
+            val rb = result + bit
+            val rlsr1 = Word.>> (result, 0w1)
+            val bitlsr2 = Word.>> (bit, 0w2)
+          in
+            if num >= rb then
+              loop (rlsr1 + bit, bitlsr2, num - rb)
+            else
+              loop (rlsr1, bitlsr2, num)
+          end
+    in
+      loop (0w0, findBit (num, 0w1), num)
+    end
 
   fun reverseDigits (n, base) =
     let
@@ -76,19 +111,65 @@ struct
       loop (0, num)
     end
 
-  local
-    val zero = IntInf.fromInt 0
-    val ten = IntInf.fromInt 10
-  in
-    fun largeNumberOfDigits num =
-      let
-        fun loop (count, n) =
-          if n = zero then count else
-            loop (count+1, IntInf.div (n, ten))
-      in
-        loop (0, num)
-      end
-  end
+  fun largeNumberOfDigits num =
+    let
+      fun loop (count, n) =
+        if n = 0 then count else
+          loop (count+1, IntInf.div (n, 10))
+    in
+      loop (0, num)
+    end
+
+  (* What are the digits of the given number, as a list *)
+  fun digitsOf digits =
+    let
+      fun loop (0, accum) = accum
+        | loop (n, accum) = loop (n div 10, n mod 10 :: accum)
+    in
+      loop (digits, [])
+    end
+
+  fun finally (first, cleanup) =
+    first () before cleanup ()
+    handle e => (cleanup (); raise e)
+
+  fun readWords path =
+    let
+      val strm = TextIO.openIn path
+      fun openQuot result =
+        case TextIO.input1 strm of
+             NONE => raise Fail "Empty input"
+           | SOME #"\"" => name (result, [])
+           | SOME x => raise Fail "Illegal character"
+      and name (result, buf) =
+        case TextIO.input1 strm of
+             NONE => raise Fail "unexpected EOF"
+           | SOME #"\"" => comma (String.implode (rev buf) :: result)
+           | SOME ch =>
+               if Char.isUpper ch then
+                 name (result, ch :: buf)
+               else
+                 raise Fail "Invalid character"
+      and comma result =
+        case TextIO.input1 strm of
+             NONE => rev result
+           | SOME #"," => openQuot result
+           | SOME x => raise Fail "Illegal character"
+    in
+      finally (fn () => openQuot [], fn () => TextIO.closeIn strm)
+    end
+
+  fun nameValue name =
+    let
+      val len = size name
+      fun loop (pos, sum) =
+        if pos = len then
+          sum
+        else
+          loop (pos+1, sum + Char.ord (String.sub (name, pos)) - Char.ord #"A" + 1)
+    in
+      loop (0, 0)
+    end
 
 end
 

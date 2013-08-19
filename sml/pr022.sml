@@ -26,45 +26,11 @@ fun finally (first, cleanup) =
     first () before cleanup ()
     handle e => (cleanup (); raise e)
 
-fun readNames () =
-    let val strm = TextIO.openIn "../haskell/names.txt"
-	fun openQuot result = case TextIO.input1 strm
-			       of NONE => raise Fail "Empty input"
-				| SOME(#"\"") => name (result, [])
-				| SOME(x) => raise Fail "Illegal character"
-	and name (result, buf) =
-	    case TextIO.input1 strm
-	     of NONE => raise Fail "Unexpected EOF"
-	      | SOME(#"\"") => comma (String.implode (rev buf) :: result)
-	      | SOME(ch) => if Char.isUpper ch then
-			      name (result, (ch :: buf))
-			    else
-			      raise Fail "Invalid character"
-	and comma result =
-	    case TextIO.input1 strm
-	     of NONE => result
-	      | SOME(#",") => openQuot result
-	      | SOME(x) => raise Fail "Illegal character"
-    in
-      finally (fn () => openQuot [], fn () => TextIO.closeIn strm)
-    end
-
-fun nameValue name =
-    let val len = size name
-	fun loop (pos, sum) =
-	    if pos = len then
-	      sum
-	    else
-	      loop (pos+1, sum + Char.ord (String.sub (name, pos)) - Char.ord #"A" + 1)
-    in
-      loop (0, 0)
-    end
-
 fun solve () =
-    let val names = readNames ()
+    let val names = Misc.readWords "../haskell/names.txt"
 	val names = ListMergeSort.sort (op >) names
 	fun loop ([], total, _) = total
-	  | loop (n::ns, total, pos) = loop(ns, total + pos * (nameValue n), pos + 1)
+	  | loop (n::ns, total, pos) = loop(ns, total + pos * (Misc.nameValue n), pos + 1)
     in
       loop (names, 0, 1)
     end
