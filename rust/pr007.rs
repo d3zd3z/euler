@@ -9,11 +9,12 @@
 //
 // 104743
 
-extern mod std;
+extern mod extra;
 mod sieve;
 
 fn main() {
-    let mut primes = sieve::Sieve::new();
+    use sieve::Sieve;
+    let mut primes = Sieve::new();
     let mut prime = 2u;
     let mut count = 1;
 
@@ -22,5 +23,5 @@ fn main() {
         count += 1;
     }
 
-    io::println(fmt!("%u", prime));
+    println(fmt!("%u", prime));
 }

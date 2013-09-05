@@ -8,7 +8,7 @@
 //
 // 6857
 
-extern mod std;
+extern mod extra;
 mod sieve;
 
 fn main() {
@@ -26,5 +26,5 @@ fn main() {
         }
     }
 
-    io::println(fmt!("%u", prime));
+    println(fmt!("%u", prime));
 }

@@ -33,6 +33,8 @@
 //
 // 70600674
 
+use std::int;
+
 fn main() {
     let mut max = 0u;
     let deltas = ~[Delta {dx: 0, dy: 1}, Delta {dx: 1, dy: 0},
@@ -40,7 +42,7 @@ fn main() {
     let src = source();
     for int::range(0, 20) |x| {
         for int::range(0, 20) |y| {
-            for vec::each(deltas) |delta| {
+            for deltas.iter().advance |delta| {
                 let prod = product(src, x, y, delta);
                 if prod > max {
                     max = prod;
@@ -48,7 +50,7 @@ fn main() {
             }
         }
     }
-    io::println(fmt!("%u", max));
+    println(fmt!("%u", max));
 }
 
 struct Delta {dx: int, dy: int}

@@ -17,8 +17,11 @@
 //
 // 871198282
 
-extern mod std;
-use std::sort;
+extern mod extra;
+use extra::sort;
+use std::io;
+use std::result;
+use std::str;
 
 fn main() {
     let lineresult = io::read_whole_file_str(&Path("../haskell/names.txt"));
@@ -29,13 +32,13 @@ fn main() {
 
     let mut total = 0;
     for pairs.eachi |i, p| {
-        // io::println(fmt!("%5u %10s %u", i+1, p.name, p.value));
+        // println(fmt!("%5u %10s %u", i+1, p.name, p.value));
         total += p.value * (i + 1);
     }
-    io::println(fmt!("%u", total));
+    println(fmt!("%u", total));
 
-    // io::println(fmt!("len = %u", line.len()));
-    // io::println(fmt!("len2 = %u", names.len()));
+    // println(fmt!("len = %u", line.len()));
+    // println(fmt!("len2 = %u", names.len()));
 }
 
 struct NamePair {
@@ -43,7 +46,7 @@ struct NamePair {
     value: uint
 }
 
-pure fn pair_le(a: &@NamePair, b: &@NamePair) -> bool {
+fn pair_le(a: &@NamePair, b: &@NamePair) -> bool {
     a.name <= b.name
 }
 

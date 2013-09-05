@@ -8,7 +8,7 @@
 //
 // 142913828922
 
-extern mod std;
+extern mod extra;
 mod sieve;
 
 fn main() {
@@ -21,5 +21,5 @@ fn main() {
         p = primes.next_prime(p);
     }
 
-    io::println(fmt!("%u", total));
+    println(fmt!("%u", total));
 }

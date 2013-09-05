@@ -27,7 +27,7 @@
 //
 // 76576500
 
-extern mod std;
+extern mod extra;
 mod sieve;
 
 fn main() {

@@ -39,9 +39,12 @@
 // 1074
 // 67: 7273
 
+use std::cmp;
+use std::uint;
+
 fn main() {
     let numbers = get_source();
-    let size = vec::len(numbers);
+    let size = numbers.len();
 
     let mut work = copy numbers[size-1];
     let mut pos = size - 2;
@@ -51,7 +54,7 @@ fn main() {
         if pos == 0 { break; }
         pos -= 1;
     }
-    io::println(fmt!("%u", work[0]));
+    println(fmt!("%u", work[0]));
 }
 
 fn get_triangle() {
@@ -59,10 +62,13 @@ fn get_triangle() {
 }
 
 fn combine(a: &[uint], b: &[uint]) -> ~[uint] {
-    assert a.len() == b.len() + 1;
-    do b.mapi() |i, elt| {
-        *elt + uint::max(a[i], a[i+1])
+    assert!(a.len() == b.len() + 1);
+
+    let mut result = ~[];
+    for uint::range(0, b.len()) |i| {
+        result.push(b[i] + cmp::max(a[i], a[i+1]))
     }
+    result
 }
 
 fn get_source() -> ~[~[uint]] {

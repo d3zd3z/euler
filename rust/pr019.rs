@@ -21,6 +21,8 @@
 //
 // 171
 
+use std::uint;
+
 fn main() {
     let mut count = 0;
     for uint::range(1901, 2001) |year| {
@@ -30,7 +32,7 @@ fn main() {
             }
         }
     }
-    io::println(fmt!("%?", count));
+    println(fmt!("%?", count));
 }
 
 // Convert to a julian date <http://en.wikipedia.org/wiki/Julian_day>
