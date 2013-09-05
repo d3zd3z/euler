@@ -24,10 +24,12 @@
 //
 // 837799
 
+use std::uint;
+use std::vec;
+
 fn main() {
-    let mut base = @Noncached;
-    let mut l = base as @Lengther;
-    // let l : Lengther = EnumCache() as Lengther;
+    // let mut l = ~Noncached;
+    let mut l = ~EnumCache::new();
 
     // TODO: Use a macro to show this, with nice information.
     /*
@@ -40,10 +42,10 @@ fn main() {
 }
 
 trait Lengther {
-    fn chain_len(@self, n: uint) -> uint;
+    fn chain_len(&mut self, n: uint) -> uint;
 }
 
-fn compute_len(l: @Lengther) {
+fn compute_len<T: Lengther>(l: &mut T) {
     let mut max_len = 0;
     let mut max = 0;
     for uint::range(1, 1_000_000) |x| {
@@ -59,7 +61,7 @@ fn compute_len(l: @Lengther) {
 struct Noncached;
 
 impl Lengther for Noncached {
-    fn chain_len(@self, n: uint) -> uint {
+    fn chain_len(&mut self, n: uint) -> uint {
         if n == 1 {
             1
         } else if n & 1 == 0 {
@@ -83,20 +85,19 @@ enum Info {
 
 impl EnumCache {
     fn new() -> EnumCache {
-        EnumCache { size: 1000,
-            cache: vec::from_elem(1000, Unknown) }
+        let size = 100000;
+        EnumCache { size: size,
+            cache: vec::from_elem(size, Unknown) }
     }
 }
 
 impl Lengther for EnumCache {
-    fn chain_len(@self, n: uint) -> uint {
+    fn chain_len(&mut self, n: uint) -> uint {
         if n < self.size {
             match self.cache[n] {
                 Unknown => {
-                    let mut mself = self;
                     let answer = self.chain2(n);
-                    let cache = mself.cache;
-                    cache[n] = Known(answer);
+                    self.cache[n] = Known(answer);
                     answer
                 }
                 Known(x) => x
@@ -108,7 +109,7 @@ impl Lengther for EnumCache {
 }
 
 impl EnumCache {
-    fn chain2(@self, n: uint) -> uint {
+    fn chain2(&mut self, n: uint) -> uint {
         if n == 1 {
             1
         } else if n & 1 == 0 {

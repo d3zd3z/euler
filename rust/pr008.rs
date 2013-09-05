@@ -28,8 +28,10 @@
 //
 // 40824
 
+use std::vec;
+
 fn src() -> ~[u8] {
-    str::to_bytes("\
+    ("\
 73167176531330624919225119674426574742355349194934\
 96983520312774506326239578318016984801869478851843\
 85861560789112949495459501737958331952853208805511\
@@ -50,6 +52,7 @@ fn src() -> ~[u8] {
 84580156166097919133875499200524063689912560717606\
 05886116467109405077541002256983155200055935729725\
 71636269561882670428252483600823257530420752963450")
+    .as_bytes().to_owned()
  }
 
 fn main() {
@@ -60,13 +63,14 @@ fn main() {
 fn amain() {
     let source = src();
     let groups = do vec::from_fn(source.len() + 1 - 5) |pos| {
-        source.slice(pos, pos + 5)
+        source.slice(pos, pos + 5).to_owned()
     };
     let products = do groups.map() |item| {
-        do item.foldl(1u) |a, b| { *a * (*b as uint - 48u) }
+        do item.iter().fold(1u) |a, b| {
+            a * (*b as uint - 48u)
+        }
     };
-    let result = products.max();
-
+    let result = *products.iter().max().unwrap();
     println(fmt!("%u", result));
 }
 
@@ -74,10 +78,11 @@ fn bmain() {
     let source = src();
 
     fn digit_product(src: &~[u8]) -> uint {
-        do src.foldl(1u) |a, b| { *a * (*b as uint - 48u) }
+        do src.iter().fold(1u) |a, b| { a * (*b as uint - 48u) }
     }
     let products = groups(source).map(digit_product);
-    let result = products.max();
+
+    let result = *products.iter().max().unwrap();
     println(fmt!("%?", result));
 }
 
@@ -87,7 +92,7 @@ fn groups(src: &[u8]) -> ~[~[u8]] {
     let mut pos = 0u;
     let len = src.len();
     while pos + 5 < len {
-        result.push(vec::from_slice(src.slice(pos, pos + 5)));
+        result.push(src.slice(pos, pos + 5).to_owned());
         pos += 1;
     }
     result

@@ -17,27 +17,29 @@
 //
 // 21124
 
+use std::uint;
+use std::char;
 // use std;
 // import std::rope;
 
 // TODO: Try with ropes.
 
 fn main() {
-    let conv = Converter();
+    let mut conv = Converter::new();
     let mut result = 0;
 
     for uint::range(1, 1001) |i| {
         let text = conv.to_english(i);
-        // io::println(fmt!("%4u %s", i, text));
+        // println(fmt!("%4u '%s'", i, text));
         result += count_letters(text);
     }
 
-    io::println(fmt!("%u", result));
+    println(fmt!("%u", result));
 }
 
 fn count_letters(text: &str) -> uint {
     let mut count = 0;
-    for str::each_char(text) |ch| {
+    for text.iter().advance |ch| {
         if char::is_alphabetic(ch) {
             count += 1;
         }
@@ -48,31 +50,33 @@ fn count_letters(text: &str) -> uint {
 struct Converter {
     ones: ~[~str],
     tens: ~[~str],
-    mut buffer: ~str,
-    mut add_space: bool
+    buffer: ~str,
+    add_space: bool
 }
 
-fn Converter() -> ~Converter {
-    ~Converter {
-        ones: make_ones(),
-        tens: make_tens(),
-        add_space: false,
-        buffer: ~""
+impl Converter {
+    pub fn new() -> ~Converter {
+        ~Converter {
+            ones: make_ones(),
+            tens: make_tens(),
+            add_space: false,
+            buffer: ~""
+        }
     }
 }
 
 impl Converter {
-    fn to_english(n: uint) -> ~str {
+    fn to_english(&mut self, n: uint) -> ~str {
         self.add_space = false;
         self.buffer = ~"";
         let mut work = n;
 
-        if work > 1000 { fail ~"Number too large" }
+        if work > 1000 { fail!("Number too large") }
 
         if work == 1000 { return ~"one thousand" }
 
         if work >= 100 {
-            self.add(self.ones[work/100 - 1]);
+            self.add_ones(work/100);
             self.add("hundred");
 
             work %= 100;
@@ -82,7 +86,7 @@ impl Converter {
         }
 
         if work >= 20 {
-            self.add(self.tens[work/10 - 1]);
+            self.add_tens(work/10);
             work %= 10;
 
             if work > 0 {
@@ -93,39 +97,31 @@ impl Converter {
         }
 
         if work >= 1 {
-            self.add(self.ones[work-1]);
+            self.add_ones(work);
         }
-
         let result = copy self.buffer;
         self.buffer = ~"";
-        return result;
+        result
     }
 
-    fn add(text: &str) {
+    fn add_ones(&mut self, n: uint) {
+        let piece = self.ones[n - 1].clone();
+        self.add(piece);
+    }
+
+    fn add_tens(&mut self, n: uint) {
+        let piece = self.tens[n - 1].clone();
+        self.add(piece);
+    }
+
+    fn add(&mut self, text: &str) {
         if self.add_space {
-            self.buffer += " ";
+            self.buffer = self.buffer.append(" ");
         }
-        self.buffer += text;
+        self.buffer = self.buffer.append(text);
         self.add_space = true;
     }
 }
-
-/*
-class converter {
-    let ones: ~[str];
-    let tens: ~[str];
-    let mut buffer: str;
-    let mut add_space: bool;
-
-    new() {
-        self.ones = make_ones();
-        self.tens = make_tens();
-        self.add_space = false;
-        self.buffer = "";
-    }
-
-}
-*/
 
 fn make_ones() -> ~[~str] {
     ~[~"one", ~"two", ~"three", ~"four", ~"five", ~"six", ~"seven",

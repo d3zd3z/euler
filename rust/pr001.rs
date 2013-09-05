@@ -7,6 +7,8 @@
 // 
 // Find the sum of all the multiples of 3 or 5 below 1000.
 
+use std::uint;
+
 fn main() {
     let mut total = 0;
     for uint::range(1, 1000) |i| {
@@ -14,5 +16,5 @@ fn main() {
             total += i;
         }
     }
-    io::println(fmt!("%u", total));
+    println(fmt!("%u", total));
 }

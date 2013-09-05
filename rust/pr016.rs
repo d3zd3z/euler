@@ -10,34 +10,31 @@
 //
 // 1366
 
+use std::vec;
+use std::uint;
+
 fn main() {
-    const size: uint = 302u;
-    let digits: ~[mut u8] = vec::to_mut(vec::from_elem(size, 0u8));
+    static size: uint = 302;
+    let mut digits = vec::from_elem(size, 0u8);
     digits[0] = 1u8;
 
     for uint::range(0u, 1000u) |_x| {
         double(digits);
     }
-    /*
-    for size.timesi() |i| {
-        io::println(fmt!("%u", digits[size-i-1u] as uint));
-    }
-    io::println("");
-    */
 
-    let result = do vec::foldl(0u, digits) |accum, n| {
+    let result = do digits.iter().fold(0u) |accum, n| {
         accum + *n as uint
     };
-    io::println(fmt!("%u", result));
+    println(fmt!("%u", result));
 }
 
-fn double(digits: &[mut u8]) {
-    let mut carry = 0u8;
+fn double(digits: &mut [u8]) {
+    let mut carry = 0;
     for uint::range(0, digits.len()) |i| {
-        let temp = digits[i] * 2u8 + carry;
-        digits[i] = temp % 10u8;
-        carry = temp / 10u8;
+        let temp = digits[i] * 2 + carry;
+        digits[i] = temp % 10;
+        carry = temp / 10;
     }
 
-    if carry != 0u8 { fail ~"Numeric overflow"; }
+    if carry != 0 { fail!("Numeric overflow"); }
 }

@@ -16,12 +16,12 @@
 //
 // 31626
 
-extern mod std;
+extern mod extra;
+use std::uint;
 mod sieve;
-use sieve::Sieve;
 
 fn main() {
-    let pv = Sieve();
+    let mut pv = sieve::Sieve::new();
 
     let mut sum = 0;
     for uint::range(1, 10_000) |i| {
@@ -29,20 +29,20 @@ fn main() {
             sum += i;
         }
     }
-    io::println(fmt!("%u", sum));
+    println(fmt!("%u", sum));
 }
 
-impl Sieve {
-    fn is_amicable(a: uint) -> bool {
+impl sieve::Sieve {
+    fn is_amicable(&mut self, a: uint) -> bool {
         let b = self.proper_div_sum(a);
         if a == b || b == 0 { return false }
         let c = self.proper_div_sum(b);
         a == c
     }
 
-    fn proper_div_sum(a: uint) -> uint {
+    fn proper_div_sum(&mut self, a: uint) -> uint {
         let divs = self.divisors(a);
-        let sum = divs.foldl(0, |tot, x| { *tot + *x });
+        let sum = divs.iter().fold(0, |tot, x| { tot + *x });
         sum - a
     }
 }

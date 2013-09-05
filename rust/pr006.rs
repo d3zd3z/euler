@@ -17,6 +17,8 @@
 // hundred natural numbers and the square of the sum.
 // 25164150
 
+use std::int;
+
 fn main() {
     let mut sum_sq = 0;
     let mut sum = 0;
@@ -24,5 +26,5 @@ fn main() {
         sum += i;
         sum_sq += i * i;
     }
-    io::println(fmt!("%d", sum * sum - sum_sq));
+    println(fmt!("%d", sum * sum - sum_sq));
 }

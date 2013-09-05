@@ -8,13 +8,15 @@
 // What is the smallest positive number that is evenly divisible by all of
 // the numbers from 1 to 20?
 
+use std::uint;
+
 fn main() {
     let mut accum = 1u;
 
     for uint::range(2, 20) |i| {
         accum = lcm(accum, i);
     }
-    io::println(fmt!("%u", accum));
+    println(fmt!("%u", accum));
 }
 
 fn lcm(a: uint, b: uint) -> uint {
