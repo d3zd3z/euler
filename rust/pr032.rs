@@ -40,29 +40,20 @@ fn main() {
 }
 
 fn make_groupings(digits: &[u8], result: &mut HashSet<uint>) {
-    // Internal functions in Rust do not capture their environment.
-    // Lambda expressions do, and it might seem that this could just
-    // be:
-    //   let piece = |a, b| { ... }
-    // However, that then fails with "value may contain borrowed
-    // pointers."  So, apparently, it doesn't care that 'piece' never
-    // escapes, and so the pointer is still valid.
-    // Certainly interactions between the various pointer types, and
-    // typical lambda-calculus stuff.
-    fn piece(digits: &[u8], a: uint, b: uint) -> uint {
+    let piece = |a: uint, b: uint| {
         let mut result = 0;
         for x in range(a, b) {
             result = result * 10 + (digits[x] as uint);
         }
         result
-    }
+    };
 
     let len = digits.len();
     for i in range(1, len-2) {
         for j in range(i+1, len-1) {
-            let a = piece(digits, 0, i);
-            let b = piece(digits, i, j);
-            let c = piece(digits, j, len);
+            let a = piece(0, i);
+            let b = piece(i, j);
+            let c = piece(j, len);
             if a*b == c {
                 result.insert(c);
             }
