@@ -17,20 +17,22 @@
 
 // TODO: With rust 0.5, this produces the wrong result.
 
+use std::vec;
+
 mod permute;
 
 fn main() {
-    let base: ~[mut u8] = vec::to_mut(do vec::from_fn(10) |i| {i as u8});
+    let mut base = do vec::from_fn(10) |i| {i as u8};
     let mut done = false;
-    for 999_999u.times() || {
+    do 999_999.times() {
         permute::next_permutation(base, &mut done);
-        assert !done;
+        assert!(!done);
     }
-    show(vec::from_mut(base));
+    show(base);
 }
 
 fn show(digits: &[u8]) {
     let mut result = ~"";
-    for digits.each() |x| { result += u8::str(*x); }
-    io::println(result);
+    for x in digits.iter() { result.push_str(x.to_str()); }
+    println(result);
 }

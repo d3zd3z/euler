@@ -24,7 +24,6 @@
 //
 // 837799
 
-use std::uint;
 use std::vec;
 
 fn main() {
@@ -48,7 +47,7 @@ trait Lengther {
 fn compute_len<T: Lengther>(l: &mut T) {
     let mut max_len = 0;
     let mut max = 0;
-    for uint::range(1, 1_000_000) |x| {
+    for x in range(1u, 1_000_000) {
         let len = l.chain_len(x);
         if len > max_len {
             max_len = len;
@@ -78,6 +77,7 @@ struct EnumCache {
     cache: ~[Info]
 }
 
+#[deriving(Clone, Eq)]
 enum Info {
     Unknown,
     Known(uint)

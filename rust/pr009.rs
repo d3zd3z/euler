@@ -14,11 +14,9 @@
 //
 // 31875000
 
-use std::uint;
-
 fn main() {
-    for uint::range(1u, 1000u) |a| {
-        for uint::range(a, 1000u) |b| {
+    for a in range(1u, 1000) {
+        for b in range(a, 1000) {
             let c = 1000u - a - b;
             if c > b && a*a + b*b == c*c {
                 println(fmt!("%u", a*b*c))

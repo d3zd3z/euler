@@ -13,21 +13,20 @@
 // 137846528820
 
 use std::vec;
-use std::uint;
 
 static steps: uint = 20u;
 
 fn main() {
     let mut values = vec::from_elem(steps + 1u, 1u64);
 
-    for uint::range(0u, steps) |_x| {
+    for _ in range(0u, steps) {
         bump(values);
     }
-    println(fmt!("%?", values[steps]));
+    println(format!("{}", values[steps]));
 }
 
 fn bump(values: &mut [u64]) {
-    for uint::range(0u, steps) |i| {
+    for i in range(0u, steps) {
         values[i+1u] = values[i+1u] + values[i];
     }
 }

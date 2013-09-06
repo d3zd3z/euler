@@ -28,18 +28,17 @@
 // values of n, starting with n = 0.
 // -59231
 
-extern mod std;
+extern mod extra;
 mod sieve;
-use sieve::Sieve;
 
 fn main() {
-    let s = Sieve();
+    let mut s = sieve::Sieve::new();
 
     let mut max = 0;
     let mut max_product: int = 0;
 
-    for int::range(-999, 1000) |a| {
-        for int::range(-999, 1000) |b| {
+    for a in range(-999, 1000) {
+        for b in range(-999, 1000) {
             let count = s.prime_count(a, b);
             if count > max {
                 max = count;
@@ -47,11 +46,11 @@ fn main() {
             }
         }
     }
-    io::println(fmt!("%d", max_product));
+    println(format!("{}", max_product));
 }
 
-impl Sieve {
-    fn prime_count(a: int, b: int) -> uint {
+impl sieve::Sieve {
+    fn prime_count(&mut self, a: int, b: int) -> uint {
         let mut n = 0;
         loop {
             let p = n*n + a*n + b;

@@ -11,14 +11,13 @@
 // 1366
 
 use std::vec;
-use std::uint;
 
 fn main() {
     static size: uint = 302;
     let mut digits = vec::from_elem(size, 0u8);
     digits[0] = 1u8;
-
-    for uint::range(0u, 1000u) |_x| {
+ 
+    for _x in range(0u, 1000) {
         double(digits);
     }
 
@@ -30,7 +29,7 @@ fn main() {
 
 fn double(digits: &mut [u8]) {
     let mut carry = 0;
-    for uint::range(0, digits.len()) |i| {
+    for i in range(0u, digits.len()) {
         let temp = digits[i] * 2 + carry;
         digits[i] = temp % 10;
         carry = temp / 10;

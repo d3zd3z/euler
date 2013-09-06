@@ -28,11 +28,13 @@
 //
 // 4782
 
-const digits: uint = 999;
+use std::vec;
+
+static digits: uint = 999;
 
 fn main() {
-    let a = vec::to_mut(vec::from_elem(digits, 0_u8));
-    let b = vec::to_mut(vec::from_elem(digits, 0_u8));
+    let mut a = vec::from_elem(digits, 0u8);
+    let mut b = vec::from_elem(digits, 0u8);
 
     a[0] = 1;
     b[0] = 1;
@@ -48,14 +50,14 @@ fn main() {
         if overflowed { break; }
         count += 1;
     }
-    io::println(fmt!("%u", count));
+    println(format!("{}", count));
 }
 
-fn add(dest: &[mut u8], other: &[mut u8],
+fn add(dest: &mut [u8], other: &mut [u8],
        overflowed: &mut bool)
 {
     let mut carry = 0u8;
-    for uint::range(0, dest.len()) |i| {
+    for i in range(0, dest.len()) {
         let temp = dest[i] + other[i] + carry;
         dest[i] = temp % 10;
         carry = temp / 10;

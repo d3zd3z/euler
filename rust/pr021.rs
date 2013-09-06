@@ -17,14 +17,13 @@
 // 31626
 
 extern mod extra;
-use std::uint;
 mod sieve;
 
 fn main() {
     let mut pv = sieve::Sieve::new();
 
     let mut sum = 0;
-    for uint::range(1, 10_000) |i| {
+    for i in range(1u, 10_000) {
         if pv.is_amicable(i) {
             sum += i;
         }

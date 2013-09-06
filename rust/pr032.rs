@@ -18,29 +18,28 @@
 //
 // 45228
 
-extern mod std;
-use std::map;
-use std::map::Set;
+use std::hashmap::HashSet;
+
 mod permute;
 
 fn main() {
-    let mut base = [mut 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let mut base = [1u8, 2, 3, 4, 5, 6, 7, 8, 9];
     let mut done = false;
 
-    let mut results = map::HashMap();
+    let mut results = HashSet::new();
     loop {
-        make_groupings(base, results);
+        make_groupings(base, &mut results);
 
         permute::next_permutation(base, &mut done);
         if done { break; }
     }
 
     let mut total = 0;
-    for results.each_key() |k| { total += k; }
-    io::println(fmt!("%u", total));
+    for k in results.iter() { total += *k; }
+    println(format!("{}", total));
 }
 
-fn make_groupings(digits: &[u8], result: Set<uint>) {
+fn make_groupings(digits: &[u8], result: &mut HashSet<uint>) {
     // Internal functions in Rust do not capture their environment.
     // Lambda expressions do, and it might seem that this could just
     // be:
@@ -52,20 +51,20 @@ fn make_groupings(digits: &[u8], result: Set<uint>) {
     // typical lambda-calculus stuff.
     fn piece(digits: &[u8], a: uint, b: uint) -> uint {
         let mut result = 0;
-        for uint::range(a, b) |x| {
+        for x in range(a, b) {
             result = result * 10 + (digits[x] as uint);
         }
         result
     }
 
-    let len = vec::len(digits);
-    for uint::range(1, len-2) |i| {
-        for uint::range(i+1, len-1) |j| {
+    let len = digits.len();
+    for i in range(1, len-2) {
+        for j in range(i+1, len-1) {
             let a = piece(digits, 0, i);
             let b = piece(digits, i, j);
             let c = piece(digits, j, len);
             if a*b == c {
-                map::set_add(result, c);
+                result.insert(c);
             }
         }
     }

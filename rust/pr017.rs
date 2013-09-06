@@ -17,10 +17,7 @@
 //
 // 21124
 
-use std::uint;
 use std::char;
-// use std;
-// import std::rope;
 
 // TODO: Try with ropes.
 
@@ -28,7 +25,7 @@ fn main() {
     let mut conv = Converter::new();
     let mut result = 0;
 
-    for uint::range(1, 1001) |i| {
+    for i in range(1u, 1001) {
         let text = conv.to_english(i);
         // println(fmt!("%4u '%s'", i, text));
         result += count_letters(text);
@@ -39,7 +36,7 @@ fn main() {
 
 fn count_letters(text: &str) -> uint {
     let mut count = 0;
-    for text.iter().advance |ch| {
+    for ch in text.iter() {
         if char::is_alphabetic(ch) {
             count += 1;
         }
@@ -99,7 +96,8 @@ impl Converter {
         if work >= 1 {
             self.add_ones(work);
         }
-        let result = copy self.buffer;
+        // let result = copy self.buffer;
+        let result = self.buffer.clone();
         self.buffer = ~"";
         result
     }
@@ -116,9 +114,9 @@ impl Converter {
 
     fn add(&mut self, text: &str) {
         if self.add_space {
-            self.buffer = self.buffer.append(" ");
+            self.buffer.push_char(' ');
         }
-        self.buffer = self.buffer.append(text);
+        self.buffer.push_str(text);
         self.add_space = true;
     }
 }

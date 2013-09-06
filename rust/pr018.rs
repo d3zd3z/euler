@@ -40,13 +40,12 @@
 // 67: 7273
 
 use std::cmp;
-use std::uint;
 
 fn main() {
     let numbers = get_source();
     let size = numbers.len();
 
-    let mut work = copy numbers[size-1];
+    let mut work = numbers[size-1].clone();
     let mut pos = size - 2;
     loop {
         work = combine(work, numbers[pos]);
@@ -65,7 +64,7 @@ fn combine(a: &[uint], b: &[uint]) -> ~[uint] {
     assert!(a.len() == b.len() + 1);
 
     let mut result = ~[];
-    for uint::range(0, b.len()) |i| {
+    for i in range(0u, b.len()) {
         result.push(b[i] + cmp::max(a[i], a[i+1]))
     }
     result

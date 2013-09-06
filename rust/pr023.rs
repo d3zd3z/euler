@@ -23,20 +23,21 @@
 //
 // 4179871
 
-extern mod std;
+extern mod extra;
+use std::vec;
+
 mod sieve;
-use sieve::Sieve;
 
 // TODO: Change this to bitv for space.  Although, it's probably
 // slower.
 
 fn main() {
-    let pv = Sieve();
+    let mut pv = sieve::Sieve::new();
 
     let abundants = do vec::from_fn(28124) |i| { pv.is_abundant(i) };
-    let paired = vec::to_mut(vec::from_elem(28124, false));
-    for uint::range(12, 28124) |i| {
-        for uint::range(i, 28124) |j| {
+    let mut paired = vec::from_elem(28124, false);
+    for i in range(12u, 28124) {
+        for j in range(i, 28124) {
             if i + j < 28124 && abundants[i] && abundants[j] {
                 paired[i+j] = true
             }
@@ -44,22 +45,22 @@ fn main() {
     }
 
     let mut total = 0;
-    for uint::range(1, 28124) |i| {
+    for i in range(1u, 28124) {
         if !paired[i] {
             total += i
         }
     }
-    io::println(fmt!("%u", total));
+    println(format!("{}", total));
 }
 
-impl Sieve {
-    fn is_abundant(a: uint) -> bool {
+impl sieve::Sieve {
+    fn is_abundant(&mut self, a: uint) -> bool {
         self.proper_div_sum(a) > a
     }
 
-    fn proper_div_sum(a: uint) -> uint {
+    fn proper_div_sum(&mut self, a: uint) -> uint {
         let divs = self.divisors(a);
-        let sum = divs.foldl(0, |tot, x| { *tot + *x });
+        let sum = divs.iter().fold(0, |tot, x| { tot + *x });
         sum - a
     }
 }
