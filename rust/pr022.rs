@@ -20,22 +20,21 @@
 extern mod extra;
 use extra::sort;
 use std::io;
-use std::result;
-use std::str;
 
 fn main() {
     let lineresult = io::read_whole_file_str(&Path("../haskell/names.txt"));
-    let line = result::unwrap(lineresult);
+    let line = lineresult.unwrap();
     let names = decode_names(line);
     let pairs = names.map(|n| { @name_value(n) });
     let pairs = sort::merge_sort(pairs, pair_le);
 
     let mut total = 0;
-    for pairs.eachi |i, p| {
-        // println(fmt!("%5u %10s %u", i+1, p.name, p.value));
-        total += p.value * (i + 1);
+    // for pairs.eachi |i, p| {
+    // Not sure how this is supposed to be done in rust now.
+    for i in range(0, pairs.len()) {
+        total += pairs[i].value * (i + 1);
     }
-    println(fmt!("%u", total));
+    println(format!("{}", total));
 
     // println(fmt!("len = %u", line.len()));
     // println(fmt!("len2 = %u", names.len()));
@@ -54,28 +53,28 @@ fn decode_names(line: &str) -> ~[~str] {
     let mut result = ~[];
     let mut name = ~"";
 
-    for line.each_char() |ch| {
+    for ch in line.iter() {
         match ch {
             '"' => (),
             ',' => {
                 // TODO: Can this be moved?
-                result.push(copy name);
+                result.push(name);
                 name = ~"";
             },
             ch => {
-                str::push_char(&mut name, ch);
+                name.push_char(ch);
             }
         }
     }
-    result.push(copy name);
+    result.push(name);
 
     result
 }
 
 fn name_value(name: &~str) -> NamePair {
     let mut total = 0;
-    for name.each_char() |ch| {
+    for ch in name.iter() {
         total += ch as uint - 'A' as uint + 1;
     }
-    NamePair { name: copy *name, value: total }
+    NamePair { name: name.clone(), value: total }
 }

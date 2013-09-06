@@ -3,7 +3,6 @@
 extern mod extra;
 use extra::bitv::*;
 use extra::sort;
-use std::uint;
 
 static default_size: uint = 8192u;
 
@@ -138,7 +137,8 @@ fn test_factorize() {
     println(fmt!("%?\n", f));
 }
 
-struct Factor {
+#[deriving(Eq, IterBytes)]
+pub struct Factor {
     prime: uint,
     power: uint
 }
@@ -153,8 +153,8 @@ fn spread(factors: &[Factor], result: &mut ~[uint]) {
         spread(factors.slice(1, len), &mut rest);
 
         let mut power = 1;
-        for uint::range(0, x.power + 1) |i| {
-            for rest.iter().advance |elt| {
+        for i in range(0u, x.power + 1) {
+            for elt in rest.iter() {
                 result.push(*elt * power);
             }
             if i < power {

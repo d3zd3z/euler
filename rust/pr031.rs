@@ -18,12 +18,12 @@
 
 // Using a list avoids a lot of vector copies, and makes this about 10x faster.
 
-extern mod std;
-use std::list;
-use std::list::List;
+extern mod extra;
+use extra::list;
+use extra::list::List;
 
 fn main() {
-    io::println(fmt!("%u", rways(200, allCoins())));
+    println(format!("{}", rways(200, allCoins())));
 }
 
 fn rways(remaining: uint, coins: @List<uint>) -> uint {
@@ -48,5 +48,5 @@ fn rways(remaining: uint, coins: @List<uint>) -> uint {
 
 fn allCoins() -> @List<uint> {
     // Best performance puts the largest coins first.
-    list::from_vec([200, 100, 50, 20, 10, 5, 2, 1])
+    list::from_vec([200u, 100, 50, 20, 10, 5, 2, 1])
 }

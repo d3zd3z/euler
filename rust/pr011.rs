@@ -33,16 +33,14 @@
 //
 // 70600674
 
-use std::int;
-
 fn main() {
     let mut max = 0u;
     let deltas = ~[Delta {dx: 0, dy: 1}, Delta {dx: 1, dy: 0},
                    Delta {dx: 1, dy: 1}, Delta {dx: 1, dy: -1}];
     let src = source();
-    for int::range(0, 20) |x| {
-        for int::range(0, 20) |y| {
-            for deltas.iter().advance |delta| {
+    for x in range(0, 20) {
+        for y in range(0, 20) {
+            for delta in deltas.iter() {
                 let prod = product(src, x, y, delta);
                 if prod > max {
                     max = prod;

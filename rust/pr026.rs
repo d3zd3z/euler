@@ -24,12 +24,11 @@
 //
 // 983
 
-extern mod std;
+extern mod extra;
 mod sieve;
-use sieve::*;
 
 fn main() {
-    let primes = Sieve();
+    let mut primes = sieve::Sieve::new();
 
     let mut p = 7;
     let mut largest = 0;
@@ -42,7 +41,7 @@ fn main() {
         }
         p = primes.next_prime(p);
     }
-    io::println(fmt!("%u", largest_value));
+    println(format!("{}", largest_value));
 }
 
 // For a given number n, the repeat length of 1/n is the solution to

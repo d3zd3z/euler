@@ -116,10 +116,10 @@ use std::u64;
 
 fn main() {
     let s1 = do source().map() |s| {
-        u64::from_str(s.slice(0, 13)).get()
+        u64::from_str(s.slice(0, 13)).unwrap()
     };
     let total = do s1.iter().fold(0u64) |s, i| {s + *i};
-    let full_answer = u64::to_str(total);
+    let full_answer = total.to_str();
     println(full_answer.slice(0, 10));
 }
 

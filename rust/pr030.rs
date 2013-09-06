@@ -23,13 +23,13 @@
 
 fn main() {
     let mut result = 0;
-    for uint::range(2, 354295) |x| {
+    for x in range(2u, 354295) {
         if sum_power(x, 5) == x {
             result += x;
         }
     }
 
-    io::println(fmt!("%u", result));
+    println(format!("{}", result));
 }
 
 fn sum_power(x: uint, pow: uint) -> uint {
@@ -45,7 +45,7 @@ fn sum_power(x: uint, pow: uint) -> uint {
 
 fn simple_pow(x: uint, pow: uint) -> uint {
     let mut result = 1;
-    for pow.times {
+    do pow.times {
         result *= x;
     }
     result

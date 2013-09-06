@@ -1,11 +1,13 @@
 // TODO: Make this generic, but still useable.
 
+use std::uint;
+
 // Advance the items to the next permutation.  Sets 'done' to true if
 // there are no more permutations.
-pub fn next_permutation(items: &[mut u8], done: &mut bool) {
-    let size = vec::len(items);
+pub fn next_permutation(items: &mut [u8], done: &mut bool) {
+    let size = items.len();
     let mut k = uint::max_value;
-    for uint::range(0, size - 1) |x| {
+    for x in range(0, size - 1) {
         if items[x] < items[x+1] {
             k = x;
         }
@@ -16,7 +18,7 @@ pub fn next_permutation(items: &[mut u8], done: &mut bool) {
     }
 
     let mut l = uint::max_value;
-    for uint::range(k + 1, size) |x| {
+    for x in range(k + 1, size) {
         if items[k] < items[x] {
             l = x;
         }
@@ -28,7 +30,7 @@ pub fn next_permutation(items: &[mut u8], done: &mut bool) {
     *done = false;
 }
 
-fn flip(items: &[mut u8], a: uint, b: uint) {
+fn flip(items: &mut [u8], a: uint, b: uint) {
     let mut aa = a;
     let mut bb = b;
     while aa < bb {
@@ -38,7 +40,7 @@ fn flip(items: &[mut u8], a: uint, b: uint) {
     }
 }
 
-fn swap(items: &[mut u8], a: uint, b: uint) {
+fn swap(items: &mut [u8], a: uint, b: uint) {
     let tmp = items[a];
     items[a] = items[b];
     items[b] = tmp;

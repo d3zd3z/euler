@@ -21,12 +21,10 @@
 //
 // 171
 
-use std::uint;
-
 fn main() {
     let mut count = 0;
-    for uint::range(1901, 2001) |year| {
-        for uint::range(1, 13) |month| {
+    for year in range(1901u, 2001) {
+        for month in range(1u, 13) {
             if jdate(year, month, 1) % 7 == 6 {
                 count += 1;
             }
