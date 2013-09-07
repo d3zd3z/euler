@@ -9,10 +9,11 @@
 // 142913828922
 
 extern mod extra;
+use sieve::Sieve;
 mod sieve;
 
 fn main() {
-    let mut primes = sieve::Sieve::new();
+    let mut primes = Sieve::new();
 
     let mut total = 0u;
     let mut p = 2u;

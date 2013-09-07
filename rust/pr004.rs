@@ -7,29 +7,17 @@
 //
 // Find the largest palindrome made from the product of two 3-digit numbers.
 
+mod misc;
+
 fn main() {
     let mut max = 0u;
     for a in range(100u, 1000) {
         for b in range(a, 1000) {
             let c = a * b;
-            if c > max && is_palindrome(c) {
+            if c > max && misc::is_palindrome(c, 10) {
                 max = c;
             }
         }
     }
     println(fmt!("%u", max));
-}
-
-fn is_palindrome(n: uint) -> bool {
-    n == reverse_number(n)
-}
-
-fn reverse_number(number: uint) -> uint {
-    let mut n = number;
-    let mut result = 0u;
-    while n > 0u {
-        result = result * 10u + n % 10u;
-        n /= 10u;
-    }
-    result
 }

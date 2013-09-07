@@ -29,10 +29,11 @@
 // -59231
 
 extern mod extra;
+use sieve::Sieve;
 mod sieve;
 
 fn main() {
-    let mut s = sieve::Sieve::new();
+    let mut s = Sieve::new();
 
     let mut max = 0;
     let mut max_product: int = 0;

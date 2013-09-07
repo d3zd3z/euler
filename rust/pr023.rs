@@ -25,14 +25,14 @@
 
 extern mod extra;
 use std::vec;
-
+use sieve::Sieve;
 mod sieve;
 
 // TODO: Change this to bitv for space.  Although, it's probably
 // slower.
 
 fn main() {
-    let mut pv = sieve::Sieve::new();
+    let mut pv = Sieve::new();
 
     let abundants = do vec::from_fn(28124) |i| { pv.is_abundant(i) };
     let mut paired = vec::from_elem(28124, false);
