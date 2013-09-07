@@ -25,10 +25,11 @@
 // 983
 
 extern mod extra;
+use sieve::Sieve;
 mod sieve;
 
 fn main() {
-    let mut primes = sieve::Sieve::new();
+    let mut primes = Sieve::new();
 
     let mut p = 7;
     let mut largest = 0;

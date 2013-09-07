@@ -17,10 +17,11 @@
 // 31626
 
 extern mod extra;
+use sieve::Sieve;
 mod sieve;
 
 fn main() {
-    let mut pv = sieve::Sieve::new();
+    let mut pv = Sieve::new();
 
     let mut sum = 0;
     for i in range(1u, 10_000) {

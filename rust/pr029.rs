@@ -22,11 +22,12 @@
 
 extern mod extra;
 use std::hashmap::HashSet;
+use sieve::Sieve;
 
 mod sieve;
 
 fn main() {
-    let mut primes = sieve::Sieve::new();
+    let mut primes = Sieve::new();
     let mut values = HashSet::new();
 
     for a in range(2u, 101) {

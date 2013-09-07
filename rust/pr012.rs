@@ -28,10 +28,11 @@
 // 76576500
 
 extern mod extra;
+use sieve::Sieve;
 mod sieve;
 
 fn main() {
-    let mut primes = sieve::Sieve::new();
+    let mut primes = Sieve::new();
 
     let mut n = 1u;
     let mut tri = 1u;
@@ -45,7 +46,7 @@ fn main() {
     println(fmt!("%u", tri));
 }
 
-fn divisor_count(sieve: &mut sieve::Sieve, n: uint) -> uint {
+fn divisor_count(sieve: &mut Sieve, n: uint) -> uint {
     let mut result = 1u;
     let mut tmp = n;
     let mut prime = 2u;
