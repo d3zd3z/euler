@@ -28,6 +28,11 @@
        identification division.
        program-id. euler-problem-014.
 
+       environment division.
+       configuration section.
+       repository.
+           function mod intrinsic.
+
        data division.
        working-storage section.
        01 working-values.
@@ -87,7 +92,7 @@
       * This takes more than 1 minute, which is beyond the guidlines of
       * project Euler, but it is really the fault of cobc, which has
       * such a poor implementation of some basic arithmetic.
-             if function mod (current-number, 10000) = 0
+             if mod (current-number, 10000) = 0
                display current-number " " largest-chain-length
              end-if
            end-perform.

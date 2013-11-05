@@ -15,6 +15,11 @@
        identification division.
        program-id. euler-problem-002.
 
+       environment division.
+       configuration section.
+       repository.
+           function mod intrinsic.
+
        data division.
        working-storage section.
        01 a             pic 9(7)  value 1.
@@ -24,7 +29,7 @@
 
        procedure division.
            perform until a >= 4000000
-                   if function mod (a, 2) = 0 then
+                   if mod (a, 2) = 0 then
                            add a to total
                    end-if
                    perform advance-fibonacci

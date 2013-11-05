@@ -11,6 +11,11 @@
        identification division.
        program-id. euler-problem-001.
 
+       environment division.
+       configuration section.
+       repository.
+           function mod intrinsic.
+
        data division.
        working-storage section.
        01 counter               pic 9999   value 1.
@@ -19,8 +24,8 @@
        procedure division.
            perform varying counter from 1 by 1
                            until counter = 1000
-                   if (function mod (counter, 3) = 0)
-                           or (function mod (counter, 5) = 0)
+                   if (mod (counter, 3) = 0)
+                           or (mod (counter, 5) = 0)
                    then
                            add counter to total
                    end-if

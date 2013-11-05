@@ -28,6 +28,11 @@
        identification division.
        program-id. euler-problem-012.
 
+       environment division.
+       configuration section.
+       repository.
+           function rem intrinsic.
+
        data division.
        working-storage section.
        01 working-counters.
@@ -73,7 +78,7 @@
            move 1 to divisor-count
            perform until current-number is equal to 1
              move zero to divide-count
-             perform until function rem (current-number, prime)
+             perform until rem (current-number, prime)
                            not equal zero
                divide current-number by prime giving current-number
                add 1 to divide-count

@@ -22,6 +22,11 @@
        identification division.
        program-id. euler-problem-019.
 
+       environment division.
+       configuration section.
+       repository.
+           function integer-of-date, mod intrinsic.
+
       * This problem actually matches COBOL fairly well.  However, the
       * 4-digit year function are kind of "new" (as in 1982).
        data division.
@@ -47,8 +52,8 @@
              perform varying date-month from 1 by 1
                until date-month > 12
 
-               move function integer-of-date (ymd-date) to day-number
-               if function mod (day-number, 7) = 0
+               move integer-of-date (ymd-date) to day-number
+               if mod (day-number, 7) = 0
                  add 1 to sunday-count
                end-if
 

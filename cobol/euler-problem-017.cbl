@@ -19,6 +19,11 @@
        identification division.
        program-id. euler-problem-017.
 
+       environment division.
+       configuration section.
+       repository.
+           function length, trim intrinsic.
+
        data division.
        working-storage section.
        01 numeric-strings.
@@ -142,7 +147,7 @@
       * Append the word in word-buffer to text-result, adjusting
       * text-position appropriately.
        append-word.
-           move function length (function trim (word-buffer))
+           move length (trim (word-buffer))
                  to word-length
            perform varying i from 1 by 1 until i > word-length
              move word-buffer (i:1) to work-character
