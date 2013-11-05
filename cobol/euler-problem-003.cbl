@@ -9,6 +9,11 @@
        identification division.
        program-id. euler-problem-003.
 
+       environment division.
+       configuration section.
+       repository.
+           function mod intrinsic.
+
        data division.
        working-storage section.
        01 working-number        pic 9(12) value 600851475143.
@@ -34,9 +39,12 @@
       * function integer(a/b) will sometimes give 1 less than the
       * correct answer.  This results in the mod function returning the
       * modulus in some cases.
-               compute temp = function mod (working-number, factor)
+      * This seems to be fixed in GNU Cobol 2.0
+               compute temp = mod (working-number, factor)
       
-               if (temp = 0) or (temp = factor) then
+      *        if (temp = 0) or (temp = factor) then
+      *            compute working-number = working-number / factor
+               if (temp = 0) then
                    compute working-number = working-number / factor
                else
                    exit perform

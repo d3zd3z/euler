@@ -15,6 +15,10 @@ all:
 pr007:: sieve.o
 pr010:: sieve.o
 pr012:: sieve.o
+pr021:: sieve.o
+pr023:: sieve.o
+pr026:: sieve.o
+pr027:: sieve.o
 
 clean:
 	rm -f *.o

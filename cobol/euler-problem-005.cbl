@@ -12,6 +12,11 @@
        identification division.
        program-id. euler-problem-005.
 
+       environment division.
+       configuration section.
+       repository.
+           function mod intrinsic.
+
        data division.
        working-storage section.
        01 a             usage binary-long.
@@ -46,7 +51,7 @@
       * Compute a GCD of 'a' and 'b', leaving the result in 'b'.
        gcd.
            perform until b = 0
-                   compute temp = function mod (a, b)
+                   compute temp = mod (a, b)
                    move b to a
                    move temp to b
            end-perform.
