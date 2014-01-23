@@ -26,8 +26,6 @@ import (
 
 // And, worse, this gives the wrong answer.
 func main() {
-	fmt.Printf("Hello world\n")
-	fmt.Printf("Num: %+v\n", sumInts(isqrt(toBase100(2))))
 	sum := 0
 	for i := 1; i <= 100; i++ {
 		tmp := intSqrt(i)

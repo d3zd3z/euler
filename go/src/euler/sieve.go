@@ -65,6 +65,16 @@ func (s *Sieve) NextPrime(base int) (next int) {
 	return
 }
 
+func (s *Sieve) PrimesUpto(limit int) (result []int) {
+	result = make([]int, 0)
+	p := 2
+	for p < limit {
+		result = append(result, p)
+		p = s.NextPrime(p)
+	}
+	return
+}
+
 type Factor struct {
 	Prime int
 	Power int
@@ -80,7 +90,9 @@ func (s *Sieve) Factorize(num int) (factors []Factor) {
 			num /= prime
 			count++
 		} else {
-			factors = append(factors, Factor{Prime: prime, Power: count})
+			if count > 0 {
+				factors = append(factors, Factor{Prime: prime, Power: count})
+			}
 			count = 0
 
 			if num > 1 {

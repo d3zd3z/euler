@@ -10,7 +10,7 @@ type Triple struct {
 }
 
 type TripleInfo struct {
-	Tri Triple
+	Tri           Triple
 	Circumference int
 }
 
@@ -43,7 +43,7 @@ func AllTriples(limit int) (result []TripleInfo) {
 
 	for _, t := range base {
 		for k := 1; true; k++ {
-			t2 := multipleTriple(t.Tri, k)
+			t2 := multiplyTriple(t.Tri, k)
 			c2 := t.Circumference * k
 			if c2 > limit {
 				break
@@ -61,9 +61,9 @@ func children(in Box) (result []Box) {
 	x := in.P2
 	y := in.Q2
 
-	result[0] = Box{P1: y - x, P2: x, Q1: y, Q2: y * 2 - x}
-	result[1] = Box{P1: x, P2: y, Q1: x + y, Q2: x * 2 + y}
-	result[2] = Box{P1: y, P2: x, Q1: x + y, Q2: y * 2 + x}
+	result[0] = Box{P1: y - x, P2: x, Q1: y, Q2: y*2 - x}
+	result[1] = Box{P1: x, P2: y, Q1: x + y, Q2: x*2 + y}
+	result[2] = Box{P1: y, P2: x, Q1: x + y, Q2: y*2 + x}
 	return
 }
 
@@ -74,11 +74,11 @@ func ComputeCircumference(tri Triple) int {
 func makeTriple(in Box) (result Triple) {
 	result.A = in.Q1 * in.P1 * 2
 	result.B = in.Q2 * in.P2
-	result.C = in.P1 * in.Q2 + in.P2 * in.Q1
+	result.C = in.P1*in.Q2 + in.P2*in.Q1
 	return
 }
 
-func multipleTriple(in Triple, k int) (result Triple) {
+func multiplyTriple(in Triple, k int) (result Triple) {
 	result.A = in.A * k
 	result.B = in.B * k
 	result.C = in.C * k
