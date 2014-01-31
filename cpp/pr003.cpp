@@ -10,7 +10,10 @@
 
 #include <iostream>
 
-int main()
+namespace euler {
+namespace pr003 {
+
+void solve()
 {
   long long number = 600851475143;
   int factor = 2;
@@ -23,4 +26,7 @@ int main()
   }
 
   std::cout << factor << "\n";
+}
+
+}
 }

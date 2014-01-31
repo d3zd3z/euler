@@ -11,6 +11,9 @@
 
 #include <iostream>
 
+namespace euler {
+namespace pr004 {
+
 static int reverse(int n)
 {
   int result = 0;
@@ -26,7 +29,7 @@ static int is_palindrome(int n)
   return n == reverse(n);
 }
 
-int main()
+void solve()
 {
   int best = 0;
 
@@ -38,4 +41,7 @@ int main()
     }
 
   std::cout << best << "\n";
+}
+
+}
 }

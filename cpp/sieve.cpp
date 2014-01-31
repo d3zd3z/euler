@@ -2,15 +2,7 @@
 
 #include "sieve.hpp"
 
-Tsieve::Tsieve() {
-  primes = 0;
-  fill(1024);
-}
-
-Tsieve::~Tsieve() {
-  if (primes)
-    delete(primes);
-}
+namespace euler {
 
 void
 Tsieve::fill(int nsize) {
@@ -69,4 +61,6 @@ Tsieve::next_prime(int num) {
   while (!is_prime(num));
 
   return num;
+}
+
 }

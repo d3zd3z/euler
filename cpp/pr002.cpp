@@ -14,7 +14,10 @@
 
 #include <iostream>
 
-int main()
+namespace euler {
+namespace pr002 {
+
+void solve()
 {
   int answer = 0;
   int a = 1, b = 1;
@@ -27,4 +30,7 @@ int main()
     b = tmp;
   }
   std::cout << answer << "\n";
+}
+
+}
 }
