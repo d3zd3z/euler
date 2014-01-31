@@ -12,6 +12,9 @@
 
 #include <iostream>
 
+namespace euler {
+namespace pr005 {
+
 static int
 gcd (int a, int b)
 {
@@ -29,7 +32,7 @@ lcm (int a, int b)
   return (a / gcd(a, b)) * b;
 }
 
-int main()
+void solve()
 {
   int answer = 1;
 
@@ -38,4 +41,7 @@ int main()
   }
 
   std::cout << answer << "\n";
+}
+
+}
 }

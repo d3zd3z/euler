@@ -12,7 +12,10 @@
 
 #include <iostream>
 
-int main()
+namespace euler {
+namespace pr001 {
+
+void solve()
 {
   int total = 0;
   for (int i = 1; i < 1000; ++i) {
@@ -20,4 +23,7 @@ int main()
       total += i;
   }
   std::cout << total << "\n";
+}
+
+}
 }

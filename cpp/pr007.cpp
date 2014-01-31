@@ -13,7 +13,10 @@
 
 #include "sieve.hpp"
 
-int main()
+namespace euler {
+namespace pr007 {
+
+void solve()
 {
   Tsieve sieve;
   int count = 1;
@@ -24,4 +27,7 @@ int main()
   }
 
   std::cout << prime << "\n";
+}
+
+}
 }

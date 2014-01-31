@@ -20,7 +20,10 @@
 
 #include <iostream>
 
-int main()
+namespace euler {
+namespace pr006 {
+
+void solve()
 {
   int sumsq = 0;
   int sqsum = 0;
@@ -33,4 +36,7 @@ int main()
 
   int answer = sqsum - sumsq;
   std::cout << answer << "\n";
+}
+
+}
 }
