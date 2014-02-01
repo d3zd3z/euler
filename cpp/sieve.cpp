@@ -5,7 +5,7 @@
 namespace euler {
 
 void
-Tsieve::fill(int nsize) {
+Sieve::fill(int nsize) {
   primes.assign(nsize, true);
 
   primes[0] = false;
@@ -29,7 +29,7 @@ Tsieve::fill(int nsize) {
 }
 
 bool
-Tsieve::is_prime(int num) {
+Sieve::is_prime(int num) {
   if (num >= primes.size())
     new_length(num);
 
@@ -37,7 +37,7 @@ Tsieve::is_prime(int num) {
 }
 
 void
-Tsieve::new_length(int n) {
+Sieve::new_length(int n) {
   int cur = primes.size();
   while (n >= cur)
     cur *= 8;
@@ -45,7 +45,7 @@ Tsieve::new_length(int n) {
 }
 
 int
-Tsieve::next_prime(int num) {
+Sieve::next_prime(int num) {
   if (num == 2)
     return 3;
   do

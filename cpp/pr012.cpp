@@ -33,7 +33,7 @@
 namespace euler {
 namespace pr012 {
 
-int divisor_count(Tsieve& sieve, int n) {
+int divisor_count(Sieve& sieve, int n) {
   int result = 1;
   int prime = 2;
 
@@ -56,7 +56,7 @@ int divisor_count(Tsieve& sieve, int n) {
 
 void solve()
 {
-  Tsieve sieve;
+  Sieve sieve;
 
   int n = 1;
   int tri = 1;
