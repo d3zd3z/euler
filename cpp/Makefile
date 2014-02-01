@@ -10,16 +10,23 @@ DEPS := $(patsubst %.o,%.d,$(OBJS))
 NUMS := $(patsubst pr%.cpp,%,$(PROBS))
 
 euler: $(OBJS)
-	$(CXX) -o $@ $(OBJS)
+	@echo '[LD]    '$@
+	@$(CXX) -o $@ $(OBJS)
 
 clean: .PHONY
 	rm -f *.d *.o
 	rm -f euler
 	rm -f problems.cpp
 
+%.o: %.cpp
+	@echo '[C++]   '$*.cpp
+	@$(CXX) $(CXXFLAGS) -c -o $@ $*.cpp
+
+# TODO: Make this print nicer
 problems.cpp: .force
-	python etc/gen-problems.py $(NUMS) > $@.tmp
-	./etc/move-if-change $@.tmp $@
+	@echo '[GEN]   '$@
+	@python etc/gen-problems.py $(NUMS) > $@.tmp
+	@./etc/move-if-change $@.tmp $@
 
 all: .force
 	@echo $(PROBS)
