@@ -18,7 +18,7 @@ namespace pr007 {
 
 void solve()
 {
-  Tsieve sieve;
+  Sieve sieve;
   int count = 1;
   int prime = 2;
   while (count < 10001) {

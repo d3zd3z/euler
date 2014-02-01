@@ -18,7 +18,7 @@ namespace pr010 {
 
 void solve()
 {
-  Tsieve sieve;
+  Sieve sieve;
   int64_t total = 0;
   int prime = 2;
   while (prime < 2000000) {

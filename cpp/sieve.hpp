@@ -7,9 +7,9 @@
 
 namespace euler {
 
-class Tsieve {
+class Sieve {
 public:
-  Tsieve() {fill(1024);}
+  Sieve() {fill(1024);}
 
   bool is_prime(int num);
   int next_prime(int num);
