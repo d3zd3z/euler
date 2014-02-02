@@ -24,12 +24,17 @@
 // 837799
 
 #include <iostream>
+#include <vector>
 
 namespace euler {
 namespace pr014 {
 
 // Simple non-memoized solution
-int chainLength(long long n) {
+struct Simple {
+  int chainLength(long long n);
+};
+
+int Simple::chainLength(long long n) {
   int len = 1;
   while (n != 1) {
     len++;
@@ -41,11 +46,51 @@ int chainLength(long long n) {
   return len;
 }
 
+// Cached version.
+// The cache seems to have to be at least 10k for this to be faster
+// than the simple (non-recursive) version.  Above that, it gets
+// faster the larger the cache is, until around a million or so, where
+// it actually gets a bit slower (memory management, perhaps)?
+class Cached {
+ public:
+  Cached() {
+    cache.assign(10240, -1);
+  }
+  int chainLength(long long n);
+ private:
+  std::vector<int> cache;
+  int nextChain(long long n);
+};
+
+int Cached::chainLength(long long n) {
+  if (n < cache.size()) {
+    auto sz = cache[n];
+    if (sz >= 0)
+      return sz;
+    sz = nextChain(n);
+    cache[n] = sz;
+    return sz;
+  } else {
+    return nextChain(n);
+  }
+}
+
+int Cached::nextChain(long long n) {
+  if (n == 1)
+    return 1;
+  if (n % 2 == 0)
+    return 1 + chainLength(n / 2);
+  else
+    return 1 + chainLength(n * 3 + 1);
+}
+
+template<class T>
 int solution() {
+  T solver;
   int largest = 0;
   int largest_value = 0;
   for (int i = 1; i < 1000000; i++) {
-    int tmp = chainLength(i);
+    int tmp = solver.chainLength(i);
     if (tmp > largest) {
       largest = tmp;
       largest_value = i;
@@ -56,7 +101,8 @@ int solution() {
 
 void solve()
 {
-  int answer = solution();
+  // int answer = solution<Simple>();
+  int answer = solution<Cached>();
   std::cout << answer << "\n";
 }
 

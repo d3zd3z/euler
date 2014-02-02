@@ -38,10 +38,16 @@ print O <<EOF;
 
 #include <iostream>
 
-int main()
+namespace euler {
+namespace pr$prob3 {
+
+void solve()
 {
   int answer = 0;
   std::cout << answer << "\\n";
+}
+
+}
 }
 EOF
 close I or die "Problem getting euler page";
