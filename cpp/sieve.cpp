@@ -30,7 +30,7 @@ Sieve::fill(int nsize) {
 
 bool
 Sieve::is_prime(int num) {
-  if (num >= primes.size())
+  if (num >= (int)primes.size())
     new_length(num);
 
   return primes[num];

@@ -70,7 +70,7 @@ void solve()
 {
   auto answer = 0;
   const auto total = data.size() - 4;
-  for (auto i = 0; i < total; ++i) {
+  for (unsigned i = 0; i < total; ++i) {
     answer = std::max(answer, product(i));
   }
   std::cout << answer << "\n";
