@@ -63,7 +63,7 @@ class Cached {
 };
 
 int Cached::chainLength(long long n) {
-  if (n < cache.size()) {
+  if (n < (long long)cache.size()) {
     auto sz = cache[n];
     if (sz >= 0)
       return sz;
