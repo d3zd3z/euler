@@ -34,7 +34,7 @@ fn main() {
         let base = primes.factorize(a);
 
         for b in range(2u, 101) {
-            let elt = @Factors {elts: power(base, b)};
+            let elt = power(base, b);
             values.insert(elt);
         }
     }
@@ -50,10 +50,4 @@ fn power(base: &[sieve::Factor], exp: uint) -> ~[sieve::Factor] {
     }
 
     result
-}
-
-// Explicitly box the vector so that we can '@' it.
-#[deriving(Eq, IterBytes)]
-struct Factors {
-    elts: ~[sieve::Factor]
 }

@@ -53,9 +53,10 @@ fn main() {
         if pos == 0 { break; }
         pos -= 1;
     }
-    println(fmt!("%u", work[0]));
+    println!("{}", work[0]);
 }
 
+#[cfg(none)]
 fn get_triangle() {
     // TODO: Read problem 67 problem set in.
 }

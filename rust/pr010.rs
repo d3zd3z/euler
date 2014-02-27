@@ -22,5 +22,5 @@ fn main() {
         p = primes.next_prime(p);
     }
 
-    println(fmt!("%u", total));
+    println!("{}", total);
 }

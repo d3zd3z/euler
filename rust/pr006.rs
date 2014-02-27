@@ -24,5 +24,5 @@ fn main() {
         sum += i;
         sum_sq += i * i;
     }
-    println(fmt!("%d", sum * sum - sum_sq));
+    println!("{}", sum * sum - sum_sq);
 }

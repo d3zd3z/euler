@@ -19,8 +19,6 @@
 //
 // 100
 
-use std::num::gcd;
-
 fn main() {
     let mut total = Rational { num: 1, den: 1 };
     for a in range(10u, 100) {
@@ -44,7 +42,7 @@ impl<T: Integer + Clone> Mul<Rational<T>, Rational<T>> for Rational<T> {
     fn mul(&self, rhs: &Rational<T>) -> Rational<T> {
         let n = self.num * rhs.num;
         let m = self.den * rhs.den;
-        let common = gcd::(n.clone(), m.clone());
+        let common = n.gcd(&m);
         Rational { num: n / common, den: m / common }
     }
 }

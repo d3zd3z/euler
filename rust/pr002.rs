@@ -22,5 +22,5 @@ fn main() {
         a = b;
         b = tmp;
     }
-    println(fmt!("%d", total));
+    println!("{}", total);
 }

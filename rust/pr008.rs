@@ -56,34 +56,48 @@ fn src() -> ~[u8] {
  }
 
 fn main() {
-    amain()
+    if true {
+        amain();
+    }
+    if false {
+        bmain();
+    }
+    if false {
+        cmain();
+    }
 }
 
 // Three solutions, written in slightly different styles.
 fn amain() {
     let source = src();
-    let groups = do vec::from_fn(source.len() + 1 - 5) |pos| {
-        source.slice(pos, pos + 5).to_owned()
-    };
+    let groups = vec::from_fn(source.len() + 1 - 5,
+        |pos| source.slice(pos, pos + 5).to_owned());
+    let products = groups.map(|item| {
+        item.iter().fold(1u, |a, b| {
+            a * (*b as uint - 48u)
+        })
+    });
+    /*
     let products = do groups.map() |item| {
         do item.iter().fold(1u) |a, b| {
             a * (*b as uint - 48u)
         }
     };
+    */
     let result = *products.iter().max().unwrap();
-    println(fmt!("%u", result));
+    println!("{}", result);
 }
 
 fn bmain() {
     let source = src();
 
     fn digit_product(src: &~[u8]) -> uint {
-        do src.iter().fold(1u) |a, b| { a * (*b as uint - 48u) }
+        src.iter().fold(1u, |a, b| a * (*b as uint - 48u))
     }
     let products = groups(source).map(digit_product);
 
     let result = *products.iter().max().unwrap();
-    println(fmt!("%?", result));
+    println!("{}", result);
 }
 
 fn groups(src: &[u8]) -> ~[~[u8]] {
@@ -117,5 +131,5 @@ fn cmain() {
         pos += 1;
     }
 
-    println(fmt!("%u", max));
+    println!("{}", max);
 }

@@ -14,5 +14,5 @@ fn main() {
             total += i;
         }
     }
-    println(fmt!("%u", total));
+    println!("{}", total);
 }

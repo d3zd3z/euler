@@ -25,42 +25,59 @@
 
 extern mod extra;
 use std::vec;
-use sieve::Sieve;
-mod sieve;
+use std::hashmap::HashSet;
 
 // TODO: Change this to bitv for space.  Although, it's probably
 // slower.
 
 fn main() {
-    let mut pv = Sieve::new();
+    let abundants = make_abundants(28124);
 
-    let abundants = do vec::from_fn(28124) |i| { pv.is_abundant(i) };
-    let mut paired = vec::from_elem(28124, false);
-    for i in range(12u, 28124) {
-        for j in range(i, 28124) {
-            if i + j < 28124 && abundants[i] && abundants[j] {
-                paired[i+j] = true
+    let mut notAdd: HashSet<uint> = HashSet::new();
+
+    for ai in range(0u, abundants.len()) {
+        let a = abundants[ai];
+        for bi in range(ai, abundants.len()) {
+            let sum = a + abundants[bi];
+            if sum > 28123 {
+                break;
             }
+            notAdd.insert(sum);
         }
     }
 
-    let mut total = 0;
+    let mut total = 0u;
     for i in range(1u, 28124) {
-        if !paired[i] {
-            total += i
+        if !notAdd.contains(&i) {
+            total += i;
         }
     }
-    println(format!("{}", total));
+    println!("{}", total);
 }
 
-impl sieve::Sieve {
-    fn is_abundant(&mut self, a: uint) -> bool {
-        self.proper_div_sum(a) > a
+fn make_abundants(limit: uint) -> ~[uint] {
+    let divisors = make_divisors(limit);
+    let mut result = ~[];
+    for i in range(1, limit) {
+        if i < divisors[i] {
+            result.push(i);
+        }
+    }
+    result
+}
+
+// Since we need all of them, compute the divisor sums in advance
+// using a modified sieve.
+fn make_divisors(limit: uint) -> ~[uint] {
+    let mut result = vec::from_elem(limit, 1u);
+
+    for i in range(2u, limit) {
+        let mut n = i + i;
+        while n < limit {
+            result[n] += i;
+            n += i;
+        }
     }
 
-    fn proper_div_sum(&mut self, a: uint) -> uint {
-        let divs = self.divisors(a);
-        let sum = divs.iter().fold(0, |tot, x| { tot + *x });
-        sum - a
-    }
+    result
 }

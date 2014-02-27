@@ -17,5 +17,5 @@ fn main() {
         // accum = accum.lcm(&i);
         accum = lcm(accum, i);
     }
-    println(fmt!("%u", accum));
+    println!("{}", accum);
 }

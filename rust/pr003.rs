@@ -27,5 +27,5 @@ fn main() {
         }
     }
 
-    println(fmt!("%u", prime));
+    println!("{}", prime);
 }

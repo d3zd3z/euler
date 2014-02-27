@@ -43,7 +43,7 @@ fn main() {
         n += 1u;
         tri += n;
     }
-    println(fmt!("%u", tri));
+    println!("{}", tri);
 }
 
 fn divisor_count(sieve: &mut Sieve, n: uint) -> uint {

@@ -2,7 +2,7 @@
 
 # Run a rust problem.
 
-if true; then
+if false; then
 	if [ -x /usr/local/rust/bin/rustc ]; then
 		RUST=/usr/local/rust/bin/rustc
 	else

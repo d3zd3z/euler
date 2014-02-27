@@ -45,8 +45,6 @@ fn sum_power(x: uint, pow: uint) -> uint {
 
 fn simple_pow(x: uint, pow: uint) -> uint {
     let mut result = 1;
-    do pow.times {
-        result *= x;
-    }
+    pow.times(|| result *= x );
     result
 }

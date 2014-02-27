@@ -22,12 +22,12 @@ use std::vec;
 mod permute;
 
 fn main() {
-    let mut base = do vec::from_fn(10) |i| {i as u8};
+    let mut base = vec::from_fn(10, |i| i as u8);
     let mut done = false;
-    do 999_999.times() {
+    999_999.times(|| {
         permute::next_permutation(base, &mut done);
         assert!(!done);
-    }
+    });
     show(base);
 }
 

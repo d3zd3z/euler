@@ -21,10 +21,10 @@ fn main() {
         double(digits);
     }
 
-    let result = do digits.iter().fold(0u) |accum, n| {
+    let result = digits.iter().fold(0u, |accum, n| {
         accum + *n as uint
-    };
-    println(fmt!("%u", result));
+    });
+    println!("{}", result);
 }
 
 fn double(digits: &mut [u8]) {

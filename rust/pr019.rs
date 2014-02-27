@@ -30,7 +30,7 @@ fn main() {
             }
         }
     }
-    println(fmt!("%?", count));
+    println!("{}", count);
 }
 
 // Convert to a julian date <http://en.wikipedia.org/wiki/Julian_day>
