@@ -1,8 +1,9 @@
 // A simple prime number sieve.
 
 extern mod extra;
-use extra::bitv::*;
-use extra::sort;
+use extra::bitv::Bitv;
+// use extra::bitv::*;
+// use extra::sort;
 
 static default_size: uint = 8192u;
 
@@ -73,6 +74,7 @@ fn test_basic() {
 }
 
 impl Sieve {
+    #[allow(dead_code)]
     pub fn next_prime(&mut self, n: uint) -> uint {
         if n == 2 {
             return 3;
@@ -93,6 +95,7 @@ fn test_next() {
 }
 
 impl Sieve {
+    #[allow(dead_code)]
     pub fn factorize(&mut self, n: uint) -> ~[Factor] {
         let mut result = ~[];
         let mut tmp = n;
@@ -122,11 +125,14 @@ impl Sieve {
         result
     }
 
+    #[allow(dead_code)]
     pub fn divisors(&mut self, n: uint) -> ~[uint] {
         let factors = self.factorize(n);
         let mut result = ~[];
         spread(factors, &mut result);
-        do sort::merge_sort(result) |a, b| { *a <= *b }
+        // do sort::merge_sort(result) |a, b| { *a <= *b }
+        result.sort();
+        result
     }
 }
 
@@ -134,7 +140,7 @@ impl Sieve {
 fn test_factorize() {
     let mut sieve = Sieve::new();
     let f = sieve.divisors(138*2);
-    println(fmt!("%?\n", f));
+    println!("{}\n", f);
 }
 
 #[deriving(Eq, IterBytes)]
@@ -143,6 +149,7 @@ pub struct Factor {
     power: uint
 }
 
+#[allow(dead_code)]
 fn spread(factors: &[Factor], result: &mut ~[uint]) {
     let len = factors.len();
     if len == 0 {

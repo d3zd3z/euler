@@ -18,15 +18,17 @@
 // 871198282
 
 extern mod extra;
-use extra::sort;
+use std::cmp;
 use std::io;
+use std::str;
 
 fn main() {
-    let lineresult = io::read_whole_file_str(&Path("../haskell/names.txt"));
-    let line = lineresult.unwrap();
+    let mut file = io::File::open(&Path::new("../haskell/names.txt"));
+    let line = file.read_to_end();
+    let line = str::from_utf8_owned(line);
     let names = decode_names(line);
-    let pairs = names.map(|n| { @name_value(n) });
-    let pairs = sort::merge_sort(pairs, pair_le);
+    let mut pairs = names.map(|n| { ~name_value(n) });
+    pairs.sort_by(pair_le);
 
     let mut total = 0;
     // for pairs.eachi |i, p| {
@@ -35,9 +37,6 @@ fn main() {
         total += pairs[i].value * (i + 1);
     }
     println(format!("{}", total));
-
-    // println(fmt!("len = %u", line.len()));
-    // println(fmt!("len2 = %u", names.len()));
 }
 
 struct NamePair {
@@ -45,15 +44,15 @@ struct NamePair {
     value: uint
 }
 
-fn pair_le(a: &@NamePair, b: &@NamePair) -> bool {
-    a.name <= b.name
+fn pair_le(a: &~NamePair, b: &~NamePair) -> cmp::Ordering {
+    a.name.cmp(&b.name)
 }
 
 fn decode_names(line: &str) -> ~[~str] {
     let mut result = ~[];
     let mut name = ~"";
 
-    for ch in line.iter() {
+    for ch in line.chars() {
         match ch {
             '"' => (),
             ',' => {
@@ -73,7 +72,7 @@ fn decode_names(line: &str) -> ~[~str] {
 
 fn name_value(name: &~str) -> NamePair {
     let mut total = 0;
-    for ch in name.iter() {
+    for ch in name.chars() {
         total += ch as uint - 'A' as uint + 1;
     }
     NamePair { name: name.clone(), value: total }

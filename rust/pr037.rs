@@ -12,10 +12,63 @@
 // to right and right to left.
 //
 // NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
+//
+// 748317
 
 mod miller;
 mod misc;
 
 fn main() {
-    println(format!("{}", 42));
+    let mut rights = right_truncatable_primes();
+    rights.retain(|x| {is_left_truncatable(*x)});
+    rights.retain(|x| {*x>9});
+    let total = rights.iter().fold(0u, |a, x| {a + *x});
+    println(format!("{}", total));
+}
+
+static right_digits: &'static [uint] = &[1u, 3, 7, 9];
+
+// Given a list of numbers, return a list of the numbers that are
+// still prime when a single digit is appended to the right.
+fn add_primes(numbers: &[uint]) -> ~[uint] {
+    let mut result = ~[];
+    for number in numbers.iter() {
+        for extra in right_digits.iter() {
+            let n = number * 10 + *extra;
+            if is_prime(n) {
+                result.push(n);
+            }
+        }
+    }
+    result
+}
+
+// Generate a list of all right-truncatable primes.
+fn right_truncatable_primes() -> ~[uint] {
+    let mut result = ~[];
+    let mut set = ~[2u, 3, 5, 7];
+
+    while set.len() > 0 {
+        result.push_all(set);
+        set = add_primes(set);
+    }
+    result
+}
+
+// Is this number left truncatable?
+fn is_left_truncatable(number: uint) -> bool {
+    let mut number = number;
+    while number > 0 {
+        if number == 1 || !is_prime(number) {
+            return false
+        }
+
+        let rev = misc::reverse_number(number, 10);
+        number = misc::reverse_number(rev / 10, 10);
+    }
+    true
+}
+
+fn is_prime(n: uint) -> bool {
+    miller::is_prime(n, 20)
 }

@@ -18,6 +18,9 @@
 
 // Using a list avoids a lot of vector copies, and makes this about 10x faster.
 
+// Needed until list is converted to use Rc or Gc.
+#[feature(managed_boxes)]
+
 extern mod extra;
 use extra::list;
 use extra::list::List;

@@ -31,12 +31,12 @@ fn main() {
         result += count_letters(text);
     }
 
-    println(fmt!("%u", result));
+    println!("{}", result);
 }
 
 fn count_letters(text: &str) -> uint {
     let mut count = 0;
-    for ch in text.iter() {
+    for ch in text.chars() {
         if char::is_alphabetic(ch) {
             count += 1;
         }

@@ -17,7 +17,7 @@ use std::vec;
 static steps: uint = 20u;
 
 fn main() {
-    let mut values = vec::from_elem(steps + 1u, 1u64);
+    let mut values = vec::from_elem(steps + 1, 1u64);
 
     for _ in range(0u, steps) {
         bump(values);
@@ -27,6 +27,6 @@ fn main() {
 
 fn bump(values: &mut [u64]) {
     for i in range(0u, steps) {
-        values[i+1u] = values[i+1u] + values[i];
+        values[i+1] = values[i+1] + values[i];
     }
 }

@@ -24,5 +24,5 @@ fn main() {
         count += 1;
     }
 
-    println(fmt!("%u", prime));
+    println!("{}", prime);
 }

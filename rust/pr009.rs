@@ -19,7 +19,7 @@ fn main() {
         for b in range(a, 1000) {
             let c = 1000u - a - b;
             if c > b && a*a + b*b == c*c {
-                println(fmt!("%u", a*b*c))
+                println!("{}", a*b*c);
             }
         }
     }

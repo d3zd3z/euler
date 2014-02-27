@@ -19,5 +19,5 @@ fn main() {
             }
         }
     }
-    println(fmt!("%u", max));
+    println!("{}", max);
 }

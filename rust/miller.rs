@@ -97,11 +97,11 @@ pub fn exp_mod(base: T, power: T, modulus: T) -> T {
 
 #[cfg(test)]
 mod test {
-    use super::*;
+    // use super::*;
 
     #[test]
     fn test_exp_mod() {
-        assert_eq!(exp_mod(12345, 54321, 65211), 59112);
+        assert_eq!(super::exp_mod(12345, 54321, 65211), 59112);
     }
 
     #[test]

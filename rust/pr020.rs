@@ -15,13 +15,11 @@
 
 // This is easier to do by using something like base 10_000 (100**2).
 
-use std::vec;
-
 static base: uint = 10_000;
 
 fn main() {
     static size: uint = 40;
-    let mut acc: ~[uint] = vec::from_elem(40, 0u);
+    let mut acc: ~[uint] = ~[0u, .. size];
 
     acc[0] = 1;
 
@@ -29,7 +27,7 @@ fn main() {
         multiply(acc, x);
     }
     let result = sum_digits(acc);
-    println(fmt!("%u", result));
+    println!("{}", result);
 }
 
 // Multiply the little-endian base 10_000 number in 'acc' by 'by'.
@@ -44,7 +42,7 @@ fn multiply(acc: &mut [uint], by: uint) {
 }
 
 fn sum_digits(acc: &[uint]) -> uint {
-    do acc.iter().fold(0u) |accum, n| {
+    acc.iter().fold(0u, |accum, n| {
         let mut sub = 0u;
         let mut tmp = *n;
         while tmp > 0 {
@@ -52,5 +50,5 @@ fn sum_digits(acc: &[uint]) -> uint {
             tmp /= 10;
         }
         accum + sub
-    }
+    })
 }

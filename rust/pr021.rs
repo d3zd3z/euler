@@ -29,7 +29,7 @@ fn main() {
             sum += i;
         }
     }
-    println(fmt!("%u", sum));
+    println!("{}", sum);
 }
 
 impl sieve::Sieve {
@@ -42,7 +42,7 @@ impl sieve::Sieve {
 
     fn proper_div_sum(&mut self, a: uint) -> uint {
         let divs = self.divisors(a);
-        let sum = divs.iter().fold(0, |tot, x| { tot + *x });
+        let sum = divs.iter().fold(0, |tot, x| tot + *x);
         sum - a
     }
 }
