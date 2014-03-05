@@ -10,7 +10,7 @@
 // By considering the terms in the Fibonacci sequence whose values do not
 // exceed four million, find the sum of the even-valued terms.
 //
-// 871198282
+// 4613732
 
 #include <iostream>
 
@@ -22,7 +22,7 @@ void solve()
   int answer = 0;
   int a = 1, b = 1;
   while (b < 4000000) {
-    if ((b & 1) != 0)
+    if ((b & 1) == 0)
       answer += b;
 
     int tmp = a + b;
