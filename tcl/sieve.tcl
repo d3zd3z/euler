@@ -9,10 +9,9 @@ namespace eval ::sieve {
 # TODO: Figure out one of the OO packages and use that.
 proc sieve::fill {limit} {
     # Create initial array
-    set primes [list 0 0]
-    for {set i 2} {$i < $limit} {incr i} {
-	lappend primes 1
-    }
+    set primes [lrepeat $limit 1]
+    lset primes 0 0
+    lset primes 1 0
 
     set pos 2
     while {$pos < $limit} {
