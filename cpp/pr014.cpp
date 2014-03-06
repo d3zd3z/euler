@@ -101,8 +101,8 @@ int solution() {
 
 void solve()
 {
-  // int answer = solution<Simple>();
-  int answer = solution<Cached>();
+  int answer = solution<Simple>();
+  // int answer = solution<Cached>();
   std::cout << answer << "\n";
 }
 
