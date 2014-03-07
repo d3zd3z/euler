@@ -11,7 +11,7 @@
 # By considering the terms in the Fibonacci sequence whose values do not
 # exceed four million, find the sum of the even-valued terms.
 #
-# 4613731
+# 4613732
 
 proc solve {} {
     set total 0
