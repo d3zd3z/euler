@@ -14,7 +14,7 @@ public:
   bool is_prime(int num);
   int next_prime(int num);
 private:
-  std::vector<bool> primes;
+  std::vector<char> primes;
 
   void new_length(int n);
   void fill(int nsize);
