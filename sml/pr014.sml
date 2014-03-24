@@ -35,12 +35,17 @@ struct
 structure Elt = Int64
 
 (* First, a simple, non-memoized version. *)
-fun chainLength 1 = 1
-  | chainLength n =
-    if n mod 2 = 0 then
-      1 + chainLength (n div 2)
-    else
-      1 + chainLength (n * 3 + 1)
+  fun chainLength n =
+  let
+    fun subLen (1, len) = len
+      | subLen (n, len) =
+          if n mod 2 = 0 then
+            subLen(n div 2, len + 1)
+          else
+            subLen(n * 3 + 1, len + 1)
+  in
+    subLen(n, 1)
+  end
 
 (* The larger this is, the faster the end result (but the more memory that is used). *)
 val cacheSize = 10000 : Elt.int
@@ -82,6 +87,7 @@ fun solve' (lengther : Elt.int -> int) =
     end
 
 fun solve () = solve' (cachedChainLength (makeCache ()))
+(* fun solve () = solve' chainLength *)
 
 (* val () = print (Elt.toString (solve (cachedChainLength (makeCache ()))) ^ "\n") *)
 
