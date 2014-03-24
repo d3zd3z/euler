@@ -39,3 +39,15 @@ asSum num = any (\x -> S.member (num - x) abundantSet) abundants
 
 isAbundant :: Int -> Bool
 isAbundant x = sum (divisors x) > 2 * x
+
+{-
+-- Compute all of the divisors up numbers up to n, returning the
+-- result starting with 1.
+-- Basically as a sieve.
+divisorSums :: [Int]
+divisorSums = divs [(i, 1) | i <- [1..]]
+   where
+      divs ((n, sum):xs) = sum : divs [ ... | (x, xsum) <- xs ]
+      next n (x, xsum) =
+         if n `mod`
+-}

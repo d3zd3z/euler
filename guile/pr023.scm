@@ -31,6 +31,7 @@
 (use-modules (sieve)
 	     (srfi srfi-1))
 
+#|
 (define (abundant? sieve n)
   (> (proper-divisor-sum sieve n) n))
 
@@ -55,6 +56,49 @@
     (reduce + 0
 	    (filter (lambda (x) (not (as-sum? x)))
 		    (iota limit 1)))))
+|#
+
+;; Faster version.
+(define (make-divisors limit)
+  (define result (make-vector limit 1))
+  (vector-set! result 0 #f)
+  (do ((i 2 (1+ i)))
+      ((>= i limit))
+    (do ((j (+ i i) (+ j i)))
+        ((>= j limit))
+      (vector-set! result j (+ (vector-ref result j) i))))
+  result)
+
+(define (make-abundants limit)
+  (define divisors (make-divisors limit))
+  (define result '())
+  (do ((i 1 (1+ i)))
+      ((>= i limit))
+    (when (< i (vector-ref divisors i))
+      (set! result (cons i result))))
+  (reverse! result))
+
+(define (euler-23)
+  (define limit 28124)
+  (define abundants (make-abundants limit))
+  (define invalids (make-hash-table))
+  (define total 0)
+  (do ((aa abundants (cdr aa)))
+      ((null? aa))
+    (let ((a (car aa)))
+      (let loop ((bb aa))
+	(when (not (null? bb))
+	  (let* ((b (car bb))
+		 (both (+ a b)))
+	    (when (< both limit)
+	      (hashv-set! invalids both #t)
+	      (loop (cdr bb))))))))
+
+  (do ((i 1 (1+ i)))
+      ((>= i limit))
+    (unless (hashv-ref invalids i)
+      (set! total (+ total i))))
+  total)
 
 (define (main)
   (display (euler-23))
