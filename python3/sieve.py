@@ -111,6 +111,14 @@ class Sieve:
     def proper_divisor_sum(self, n):
         return sum(self.divisors(n)) - n
 
+    def prime_range(self, a, b=None):
+        """Generate prime numbers from a but no greater than b (if
+        specified)."""
+        p = a
+        while b is None or p < b:
+            yield p
+            p = self.next_prime(p)
+
 def test():
     sv = Sieve()
     # print(sv.bits)
