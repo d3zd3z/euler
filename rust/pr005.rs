@@ -8,7 +8,8 @@
 // What is the smallest positive number that is evenly divisible by all of
 // the numbers from 1 to 20?
 
-use std::num::lcm;
+extern crate num;
+use num::lcm;
 
 fn main() {
     let mut accum = 1u;

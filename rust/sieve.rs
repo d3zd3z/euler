@@ -1,7 +1,7 @@
 // A simple prime number sieve.
 
-extern mod extra;
-use extra::bitv::Bitv;
+// extern mod extra;
+use collections::bitv::Bitv;
 // use extra::bitv::*;
 // use extra::sort;
 
@@ -143,7 +143,7 @@ fn test_factorize() {
     println!("{}\n", f);
 }
 
-#[deriving(Eq, IterBytes)]
+#[deriving(Eq)]
 pub struct Factor {
     prime: uint,
     power: uint

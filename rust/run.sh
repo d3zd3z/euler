@@ -2,9 +2,9 @@
 
 # Run a rust problem.
 
-if false; then
-	if [ -x /usr/local/rust/bin/rustc ]; then
-		RUST=/usr/local/rust/bin/rustc
+if true; then
+	if [ -x /usr/local/rust-0.10/bin/rustc ]; then
+		RUST=/usr/local/rust-0.10/bin/rustc
 	else
 		echo 'Unable to find dev rust build'
 		exit 1

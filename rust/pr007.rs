@@ -9,8 +9,9 @@
 //
 // 104743
 
-extern mod extra;
+// extern mod extra;
 
+extern crate collections;
 use sieve::Sieve;
 mod sieve;
 

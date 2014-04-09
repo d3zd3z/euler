@@ -28,7 +28,7 @@
 //
 // 40824
 
-use std::vec;
+use std::vec::Vec;
 
 fn src() -> ~[u8] {
     ("\
@@ -70,7 +70,7 @@ fn main() {
 // Three solutions, written in slightly different styles.
 fn amain() {
     let source = src();
-    let groups = vec::from_fn(source.len() + 1 - 5,
+    let groups = Vec::from_fn(source.len() + 1 - 5,
         |pos| source.slice(pos, pos + 5).to_owned());
     let products = groups.map(|item| {
         item.iter().fold(1u, |a, b| {
