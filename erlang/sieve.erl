@@ -1,8 +1,89 @@
 % A prime sieve, and some utilities.
 
 -module(sieve).
--export([primes/1,
-	 n_primes/1]).
+-export([start/0,
+	 stop/1,
+	 is_prime/2,
+	 primes_to/2,
+	 n_primes/2,
+	 next_prime/2]).
+
+-record(state, {n, primes, set}).
+
+start() -> spawn(fun loop/0).
+stop(Pid) -> Pid ! stop.
+
+% is X prime?
+is_prime(Pid, X) ->
+	Pid ! {self(), isPrime, X},
+	receive {Pid, T} -> T end.
+
+% Return primes at least to X (can return more).
+primes_to(Pid, X) ->
+	Pid ! {self(), primesTo, X},
+	receive {Pid, P} -> P end.
+
+% Return at least N primes.
+n_primes(S, N) -> n_primes(S, N, N).
+
+n_primes(S, N, X) ->
+	P = primes_to(S, X),
+	if
+		length(P) >= N ->
+			P;
+		true ->
+			n_primes(S, N, X * 2)
+	end.
+
+% Given a prime P, return the next prime.
+next_prime(_S, 2) -> 3;
+next_prime(S, P) -> next2(S, P + 2).
+
+next2(S, P) ->
+	Is = is_prime(S, P),
+	if
+		Is ->
+			P;
+		true ->
+			next2(S, P + 2)
+	end.
+
+loop() -> loop(init_state()).
+
+loop(S) ->
+	receive
+		stop ->
+			true;
+		% Is this value prime?
+		{Pid, isPrime, X} ->
+			S2 = ensure(S, X),
+			Is = sets:is_element(X, S2#state.set),
+			Pid ! {self(), Is},
+			loop(S2);
+		{Pid, primesTo, X} ->
+			S2 = ensure(S, X),
+			Pid ! {self(), S2#state.primes},
+			loop(S2);
+		Msg ->
+			io:format("Unknown sieve request: ~w~n", [Msg])
+	end.
+
+init_state() ->
+	N = 1024,
+	Primes = primes(N),
+	#state{n = N, primes = Primes, set = sets:from_list(Primes)}.
+
+% Ensure the computed primes are sufficient for X.  The resulting
+% state will contains primes at least up to X.
+ensure(State, X) when X =< State#state.n -> State;
+ensure(State, X) ->
+	NewN = next_size(X, State#state.n),
+	Primes = primes(NewN),
+	#state{n=NewN, primes=Primes, set=sets:from_list(Primes)}.
+
+% Compute a reasonable size for a new, larger, sieve.
+next_size(Need, Cur) when Need =< Cur -> Cur;
+next_size(Need, Cur) -> next_size(Need, Cur*8).
 
 % Taken from
 % http://stackoverflow.com/questions/146622/sieve-of-eratosthenes-in-erlang
@@ -36,34 +117,3 @@ isqrt(Result, Bit, Num) ->
 find_bit(Num, Bit) when Bit =< Num ->
 	find_bit(Num, Bit bsl 2);
 find_bit(_Num, Bit) -> Bit.
-
-% Build up at least 'N' primes.
-% TODO: We could actually do a lot better for an initial guess than
-% just N.
-n_primes(N) -> n_primes(N, N, primes(N)).
-
-n_primes(N, _T, Primes) when length(Primes) >= N -> Primes;
-n_primes(N, T, _Primes) ->
-	T2 = T * 2,
-	n_primes(N, T2, primes(T2)).
-
-% This is absolutely terrible, but interesting.
-% Build a prime sieve with the given limit.  We do this by collecting
-% all of the composites.
-%% build(Limit) -> build(2, Limit, ordsets:new(), []).
-%% 
-%% build(P, Limit, _, Primes) when P > Limit -> lists:reverse(Primes);
-%% build(P, Limit, Comps, Primes) ->
-%% 	IsComp = sets:is_element(P, Comps),
-%% 	if
-%% 		IsComp ->
-%% 			build(next(P), Limit, Comps, Primes);
-%% 		true ->
-%% 			Adds = sets:from_list(lists:seq(P+P, Limit, P)),
-%% 			C2 = sets:union(Comps, Adds),
-%% 			build(next(P), Limit, C2, [P|Primes])
-%% 	end.
-%% 
-%% % This little cheat skips the obviously non-prime values.
-%% next(2) -> 3;
-%% next(N) -> N + 2.

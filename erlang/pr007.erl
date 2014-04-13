@@ -12,5 +12,7 @@
 -export([solve/0]).
 
 solve() ->
-	Primes = sieve:n_primes(10001),
+	Sieve = sieve:start(),
+	Primes = sieve:n_primes(Sieve, 10001),
+	sieve:stop(Sieve),
 	lists:nth(10001, Primes).

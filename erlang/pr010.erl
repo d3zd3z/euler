@@ -13,5 +13,8 @@
 -export([solve/0]).
 
 solve() ->
-	Primes = sieve:primes(2000000),
-	lists:sum(Primes). 
+	Sieve = sieve:start(),
+	Primes = sieve:primes_to(Sieve, 2000000),
+	P2 = [ P || P <- Primes, P < 2000000 ],
+	sieve:stop(Sieve),
+	lists:sum(P2). 
