@@ -75,8 +75,8 @@ function compute_len(lenfun)
 end
 
 function solve ()
-  -- return compute_len(simple_length)
-  return compute_len(make_cached(10240))
+  return compute_len(simple_length)
+  -- return compute_len(make_cached(10240))
 end
 
 print(solve())

@@ -32,7 +32,6 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Printf("Hello world\n")
 	maximize()
 }
 
@@ -42,16 +41,16 @@ func main() {
 func maximize() int64 {
 	max := 0
 	maxItem := int64(0)
-	var cache Cache
+	// var cache Cache
 
 	// The larger the cache, the faster it is.  Even without a
 	// cache, it's only around a second on a modern machine, so
 	// not that big of a deal.
-	cache.init(10000)
+	// cache.init(10000)
 
 	for x := int64(1); x < 1000000; x++ {
-		// count := collatz(x)
-		count := cache.chainLen(x)
+		count := collatz2(x)
+		// count := cache.chainLen(x)
 		if count > max {
 			max = count
 			maxItem = x
@@ -71,6 +70,21 @@ func collatz(n int64) int {
 		return 1 + collatz(n*3+1)
 	}
 	panic("Not reached")
+}
+
+// Non-recursive solution.
+func collatz2(n int64) (result int) {
+	result = 1
+
+	for n != 1 {
+		if n%2 == 0 {
+			n /= 2
+		} else {
+			n = n * 3 + 1
+		}
+		result++
+	}
+	return
 }
 
 //////////////////////////////////////////////////////////////////////

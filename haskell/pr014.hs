@@ -32,7 +32,7 @@ import Data.Int (Int64)
 
 main :: IO ()
 --  main = print $ maximumBy (compare `on` snd) $ assocs counts
-main = print $ maximumBy (compare `on` snd) $ counts3
+main = print $ maximumBy (compare `on` snd) $ counts4
 
 counts :: Array Int64 Int64
 counts = array (1,999999) [(i, count i i) | i <- [1..999999] ]
@@ -65,3 +65,12 @@ counts3 = [(i, count i) | i <- [1..999999] ]
     count i
       | i `mod` 2 == 0 = 1 + count (i `div` 2)
       | otherwise      = 1 + count (i * 3 + 1)
+
+-- Attempt at a tail recursive solution.
+counts4 :: [(Int64, Int64)]
+counts4 = [(i, count i 1) | i <- [1..999999] ]
+   where
+      count 1 res = res
+      count i res
+         | i `mod` 2 == 0 = count (i `div` 2) (res + 1)
+         | otherwise      = count (i * 3 + 1) (res + 1)

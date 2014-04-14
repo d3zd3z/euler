@@ -36,10 +36,20 @@ module type CHAIN = sig
 end
 
 module Brute_force : CHAIN = struct
+  (*
   let rec chain_len = function
     | 1 -> 1
     | n when even n -> 1 + chain_len (n / 2)
     | n -> 1 + chain_len (3*n + 1)
+  *)
+  (* Tail recursive version. *)
+  (* Note that this is slower with the byte compiler, but faster with
+   * native. *)
+  let rec clen n res = match n with
+    | 1 -> res
+    | n when even n -> clen (n / 2) (res + 1)
+    | n -> clen (3*n + 1) (res + 1)
+  let chain_len n = clen n 1
 end
 
 (* Search a given solution. *)
@@ -103,4 +113,5 @@ module Array_cache3 = Make_array_cache(struct let size = 1000 end)
 module Array_cache7 = Make_array_cache(struct let size = 100000 end)
 
 
-let run () = printf "%d\n" (search Array_cache7.chain_len)
+(* let run () = printf "%d\n" (search Array_cache7.chain_len) *)
+let run () = printf "%d\n" (search Brute_force.chain_len)

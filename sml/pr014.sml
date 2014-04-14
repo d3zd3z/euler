@@ -86,8 +86,8 @@ fun solve' (lengther : Elt.int -> int) =
       loop (0, 0, 1)
     end
 
-fun solve () = solve' (cachedChainLength (makeCache ()))
-(* fun solve () = solve' chainLength *)
+(* fun solve () = solve' (cachedChainLength (makeCache ())) *)
+fun solve () = solve' chainLength
 
 (* val () = print (Elt.toString (solve (cachedChainLength (makeCache ()))) ^ "\n") *)
 
