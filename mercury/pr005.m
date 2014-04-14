@@ -20,12 +20,12 @@
 :- import_module list, int, string.
 
 main(!IO) :-
-    int.fold_up(lcm, 1, 20, 1, Answer),
+    Answer = int.fold_up(lcm, 1, 20, 1),
     io.format("%d\n", [i(Answer)], !IO).
 
-:- pred lcm(int::in, int::in, int::out) is det.
-lcm(A, B, C) :- (C = (A div gcd(A, B)) * B).
+:- func lcm(int, int) = int.
+lcm(A, B) = (A div gcd(A, B)) * B.
 
-:- func gcd(int::in, int::in) = (int::out) is det.
+:- func gcd(int, int) = (int) is det.
 gcd(A, B) = C :-
     (if B = 0 then C = A else C = gcd(B, A mod B)).

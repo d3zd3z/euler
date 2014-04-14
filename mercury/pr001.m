@@ -17,11 +17,17 @@
 :- import_module list, int, string.
 
 main(!IO) :-
-    int.fold_up(each_mod, 1, 999, 0, Answer),
+    % int.fold_up(each_mod, 1, 999, 0, Answer),
+    Answer = int.fold_up(mod_next, 1, 999, 0),
     io.format("%d\n", [i(Answer)], !IO).
 
-:- pred each_mod(int::in, int::in, int::out) is det.
+% :- pred each_mod(int::in, int::in, int::out) is det.
+%
+% each_mod(N, Sofar, Answer) :-
+%     Piece = (if ((N mod 5) = 0 ; (N mod 3) = 0) then N else 0),
+%     Answer = Sofar + Piece.
 
-each_mod(N, Sofar, Answer) :-
+:- func mod_next(int, int) = int.
+mod_next(N, Sofar) = Answer :-
     Piece = (if ((N mod 5) = 0 ; (N mod 3) = 0) then N else 0),
     Answer = Sofar + Piece.
