@@ -19,6 +19,12 @@
 % Given a sieve, return the primes contained in it.
 :- func get_primes(sieve) = list(int).
 
+% Return the next prime.  Will cause an error if the sieve is not large enough.
+:- func next_prime(sieve, int) = int.
+
+% Is this number prime, causes an error if the sieve is not large enough.
+:- pred is_prime(sieve::in, int::in) is semidet.
+
 %------------------------------------------------------------%
 
 :- implementation.
@@ -53,6 +59,17 @@ ensure_size(Size, !S) :-
     else
         Size2 = next_size(Size, Size),
         !:S = new_sieve(Size2)
+    ).
+
+is_prime(S, N) :-
+    lookup(S ^ sieve_primes, N) = yes.
+
+next_prime(S, N) = R :-
+    N2 = (if N = 2 then 3 else N + 2),
+    ( if is_prime(S, N2) then
+        R = N2
+    else
+        R = next_prime(S, N2)
     ).
 
 % To make sure this grows reasonably, compute the better size.

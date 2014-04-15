@@ -41,7 +41,9 @@ print O <<EOF;
 :- pred main(io::di, io::uo) is det.
 
 :- implementation.
-:- import_module list, int, string.
+:- import_module int.
+:- import_module list.
+:- import_module string.
 
 main(!IO) :-
     Answer = 0,
