@@ -45,7 +45,8 @@ print O <<EOF;
 
 main(!IO) :-
     Answer = 0,
-    io.format("%d\\n", [i(Answer)], !IO).
+    io.print(Answer, !IO),
+    io.nl(!IO).
 EOF
 close I or die "Problem getting euler page";
 close O or die;
