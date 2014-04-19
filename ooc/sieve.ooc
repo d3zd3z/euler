@@ -28,6 +28,25 @@ Sieve: class {
         return n
     }
 
+    // Count the number of divisors in 'n'.
+    divisorCount: func (n: Int) -> Int {
+        result := 1
+        p := 2
+        while (n > 1) {
+            dcount := 0
+            while (n % p == 0) {
+                n /= p
+                dcount += 1
+            }
+
+            result *= dcount + 1
+
+            if (n > 1)
+                p = nextPrime(p)
+        }
+        return result
+    }
+
     fill: func (size: Int) {
         // "Prime gen: #{size}" println()
         primes = ArrayList<Bool> new(size)
