@@ -1,7 +1,7 @@
 # Some basic rules to build this with dependencies.
 
 CXX = g++ -MMD
-CXXFLAGS = -std=c++11 -O0 -g -Wall -Wextra -Werror
+CXXFLAGS = -std=c++11 -O2 -g -Wall -Wextra -Werror
 
 PROBS := $(sort $(wildcard pr[0-9][0-9][0-9].cpp))
 
