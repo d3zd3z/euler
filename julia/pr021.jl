@@ -26,15 +26,16 @@ function spread(facts)
       prime, power = facts[1]
       rest = spread(facts[2:end])
 
-      result = []
-      p = 1
-      for x = 0:power
-         result = vcat(result, rest .* p)
-         if x < power
-            p *= prime
-         end
-      end
-      result
+      vec(rest * (prime .^ [0:power]'))
+      #result = []
+      #p = 1
+      #for x = 0:power
+      #   result = vcat(result, rest .* p)
+      #   if x < power
+      #      p *= prime
+      #   end
+      #end
+      #result
    end
 end
 
