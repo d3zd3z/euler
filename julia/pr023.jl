@@ -46,7 +46,7 @@ function make_abundants(limit)
 end
 
 function solve()
-   notadd = Set{Int64}()
+   notadd = IntSet()
    limit = 28124
    abundants = make_abundants(limit)
 
