@@ -10,7 +10,7 @@
 #
 # 233168
 
-function findsum()
+function solve()
    total = 0
    for i = 1:999
       if i%3 == 0 || i%5 == 0
@@ -20,4 +20,4 @@ function findsum()
    total
 end
 
-println(findsum())
+println(solve())
