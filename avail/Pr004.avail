@@ -15,36 +15,41 @@ Uses "Avail"
 Entries "Solve"
 Body
 
+_shortNumber ::= [0 .. 999999];
+/* _shortNumber ::= whole number; */
+
+Private method "short number" is [_shortNumber];
+
 Method "reverse_'s digits" is
 [
-	number : whole number
+	number : short number
 |
-	work : whole number := number;
-	result : whole number := 0;
+	work : short number := number;
+	result : short number := 0;
 	While [work > 0] do [
-		result := result × 10 + work mod 10;
+		result := cast result × 10 + work mod 10 into [ t : short number | t ];
 		work := work ÷ 10;
 	];
 	result
-] : whole number;
+] : short number;
 
 Method "_is a palindrome" is
 [
-	value : whole number
+	value : short number
 |
 	value = reverse value's digits
 ] : boolean;
 
 Method "Solve" is
 [
-	answer : whole number := 0;
+	answer : short number := 0;
 
 	From 100 to 999 do [
-		a : whole number
+		a : [100..999]
 	|
 		/* Print: format "a = “①”\n" with a; */
 		From a to 999 do [
-			b : whole number
+			b : [100..999]
 		|
 			c ::= a × b;
 			If c > answer ∧ [c is a palindrome] then [
