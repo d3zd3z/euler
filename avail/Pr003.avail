@@ -1,0 +1,32 @@
+/**********************************************************************
+ * Problem 3
+ *
+ * 02 November 2001
+ *
+ *
+ * The prime factors of 13195 are 5, 7, 13 and 29.
+ *
+ * What is the largest prime factor of the number 600851475143 ?
+**********************************************************************/
+
+/* 6857 */
+
+Module "Pr003"
+Uses "Avail"
+Entries "Solve"
+Body
+
+Method "Solve" is
+[
+	work : whole number := 600851475143;
+        p : natural number := 3;
+	While [work > 1] do
+	[
+		If work mod p = 0 then [
+			work := work ÷ p;
+		] else [
+			p := p + 2;
+		];
+	];
+        Print: “p”;
+];

@@ -1,0 +1,57 @@
+/**********************************************************************
+ * Problem 4
+ *
+ * 16 November 2001
+ *
+ *
+ * A palindromic number reads the same both ways. The largest palindrome made
+ * from the product of two 2-digit numbers is 9009 = 91 × 99.
+ *
+ * Find the largest palindrome made from the product of two 3-digit numbers.
+**********************************************************************/
+
+Module "Pr004"
+Uses "Avail"
+Entries "Solve"
+Body
+
+Method "reverse_'s digits" is
+[
+	number : whole number
+|
+	work : whole number := number;
+	result : whole number := 0;
+	While [work > 0] do [
+		result := result × 10 + work mod 10;
+		work := work ÷ 10;
+	];
+	result
+] : whole number;
+
+Method "_is a palindrome" is
+[
+	value : whole number
+|
+	value = reverse value's digits
+] : boolean;
+
+Method "Solve" is
+[
+	answer : whole number := 0;
+
+	From 100 to 999 do [
+		a : whole number
+	|
+		/* Print: format "a = “①”\n" with a; */
+		From a to 999 do [
+			b : whole number
+		|
+			c ::= a × b;
+			If c > answer ∧ [c is a palindrome] then [
+				answer := c;
+			];
+		];
+	];
+
+        Print: “answer”;
+];
