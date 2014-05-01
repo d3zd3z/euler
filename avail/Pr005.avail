@@ -1,0 +1,55 @@
+/**********************************************************************
+ * Problem 5
+ *
+ * 30 November 2001
+ *
+ *
+ * 2520 is the smallest number that can be divided by each of the numbers
+ * from 1 to 10 without any remainder.
+ *
+ * What is the smallest positive number that is evenly divisible by all of
+ * the numbers from 1 to 20?
+**********************************************************************/
+
+/* 232792560 */
+
+Module "Pr005"
+Uses "Avail"
+Entries "Solve"
+Body
+
+Forward method "_gcd_" is [whole number, whole number]→whole number;
+
+Method "_gcd_" is
+[
+	a : whole number,
+	b : whole number
+|
+	if b = 0 then [a] else
+	[
+		b gcd (a mod b)
+	]
+] : whole number;
+
+Method "_lcd_" is
+[
+	a : whole number,
+	b : whole number
+|
+	a ÷ (a gcd b) × b
+] : whole number;
+
+/* TODO: Make gcd and lcm have precedence so that other expressions
+ * can be used. */
+
+Method "Solve" is
+[
+        answer ::= left fold 1 to 20 through
+	[
+		a : whole number,
+		work : whole number
+	|
+		a lcd work
+	];
+        Print: “answer”;
+];

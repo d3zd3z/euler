@@ -22,27 +22,28 @@ Private method "short number" is [_shortNumber];
 
 Method "reverse_'s digits" is
 [
-	number : short number
+	number : whole number
 |
-	work : short number := number;
-	result : short number := 0;
+	work : whole number := number;
+	result : whole number := 0;
 	While [work > 0] do [
-		result := cast result × 10 + work mod 10 into [ t : short number | t ];
+		/* result := cast result × 10 + work mod 10 into [ t : * short number | t ]; */
+		result := result × 10 + work mod 10;
 		work := work ÷ 10;
 	];
 	result
-] : short number;
+] : whole number;
 
 Method "_is a palindrome" is
 [
-	value : short number
+	value : whole number
 |
 	value = reverse value's digits
 ] : boolean;
 
 Method "Solve" is
 [
-	answer : short number := 0;
+	answer : whole number := 0;
 
 	From 100 to 999 do [
 		a : [100..999]
