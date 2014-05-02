@@ -1,0 +1,104 @@
+/* Prime sieve. */
+
+Module "Sieve"
+Uses "Avail"
+Names
+	"a new prime sieve",
+	"prime sieve",
+
+	"_'s⁇prime list",
+	"Ensure_can answer for primes up to_",
+	"get primes below_from_",
+
+	/* For debugging, remove for normal use. */
+	"_'s⁇largest value",
+	"_'s⁇composite values"
+Body
+
+"largest value" is a new atom;
+"composite values" is a new atom;
+"prime list" is a new atom;
+
+Class "prime sieve" extends object
+	with mutable fields
+		largest value : [1..∞),
+		composite values : {integer|},
+		prime list : <integer…|>;
+
+Method "generate_composites" is
+[
+	limit : [1..∞)
+|
+	composites : {integer|} := ∅;
+	prime : integer := 2;
+
+	While [prime < limit] do
+	[
+		composites := composites ∪ (prime+prime to limit by prime) →set;
+
+		prime := if prime = 2 then [3] else [prime+2];
+		While [prime < limit ∧ [prime ∈ composites]] do [prime := prime + 2; ];
+	];
+
+	composites
+] : {integer|};
+
+Method "get up to_primes from_" is
+[
+	limit : [1..∞),
+	composites : {integer|}
+|
+	filter 2 to limit by
+	[
+		elt : integer
+	|
+		¬(elt ∈ composites)
+	]
+] : <integer…|>;
+
+Method "Ensure_can answer for primes up to_" is
+[
+	sieve : prime sieve,
+	limit : [1..∞)
+|
+	Unless limit < sieve's largest value then
+	[
+		count : [1..∞) := sieve's largest value;
+		While [count < limit] do
+		[
+			count := count × 8;
+		];
+
+		composites ::= generate count composites;
+
+		sieve's composite values := composites;
+		sieve's prime list := get up to count primes from composites;
+		sieve's largest value := count;
+	];
+];
+
+Method "get primes below_from_" is
+[
+	limit : [1..∞),
+	sieve : prime sieve
+|
+	Ensure sieve can answer for primes up to limit;
+
+	filter sieve's prime list by
+	[
+		elt : integer
+	|
+		elt < limit
+	]
+];
+
+/* TODO: How do I use my constructor instead of invoking the default,
+ * which doesn't initialize anything. */
+Method "a new prime sieve" is
+[
+	limit : [1..∞) := 1024;
+	composites ::= generate limit composites;
+	a prime sieve with largest value := limit,
+		composite values := composites,
+		prime list := get up to limit primes from composites
+] : prime sieve;

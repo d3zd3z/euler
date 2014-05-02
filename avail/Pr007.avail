@@ -15,57 +15,18 @@
  * performs. */
 
 Module "Pr007"
-Uses "Avail"
+Uses
+	"Avail",
+	"Sieve"
 Entries "Solve"
 Body
-
-"largest value" is a new atom;
-"composite values" is a new atom;
-
-Class "prime sieve" extends object
-	with fields
-		largest value : [1..∞),
-		composite values : {integer|};
-
-Method "make prime sieve up to_" is
-[
-	limit : natural number
-|
-	/* composites : {natural number|4..∞} := ∅; */
-	composites : {integer|} := ∅;
-	/* composites : set := ∅; */
-	prime : integer := 2;
-
-	While [prime < limit] do
-	[
-		composites := composites ∪ (prime+prime to limit by prime)→set;
-
-		prime := If prime = 2 then [3] else [prime+2];
-		While [prime < limit ∧ [prime ∈ composites]] do [prime := prime + 2;];
-	];
-
-	a prime sieve with largest value ::= limit,
-		composite values ::= composites
-] : prime sieve;
-
-Method "get primes from_" is
-[
-	sieve : prime sieve
-|
-	filter 2 to sieve's largest value by
-	[
-		elt : integer
-	|
-		¬(elt ∈ sieve's composite values)
-	]
-];
 
 Method "Solve" is
 [
 	/* Took some trial and error to get a size that didn't result
 	 * in a bounds error on the result. */
-	sieve ::= make prime sieve up to 110000;
-	primes ::= get primes from sieve;
+	sieve ::= a new prime sieve;
+	primes ::= get primes below 110000 from sieve;
 	answer ::= primes[10001];
         Print: “answer”;
 ];
