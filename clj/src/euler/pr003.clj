@@ -10,13 +10,14 @@
 
 (ns euler.pr003)
 
-(defn largest-factor
+(defn largest
   [n]
   (loop [n n
-	 p 2]
-    (cond
-     (= n 1) p
-     (zero? (rem n p)) (recur (quot n p) p)
-     :else (recur n (if (= p 2) 3 (+ p 2))))))
+         p 3]
+    (cond (= n 1) p
+          (zero? (rem n p)) (recur (quot n p) p)
+          :else (recur n (+ p 2)))))
 
-(defn euler003 [] (largest-factor 600851475143))
+(defn euler003
+  []
+  (largest 600851475143))

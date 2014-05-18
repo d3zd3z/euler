@@ -18,4 +18,3 @@
 				   (zero? (mod x 5))))
 		       nums)]
     (reduce + valids)))
-		   
