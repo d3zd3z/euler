@@ -21,6 +21,8 @@
 #
 # In the first one-thousand expansions, how many fractions contain a
 # numerator with more digits than denominator?
+#
+# 153
 
 function digit_count(n)
    result = 0
