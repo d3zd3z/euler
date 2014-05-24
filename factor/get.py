@@ -16,7 +16,10 @@ def generate(problem, contents):
             else:
                 print("!", file=f)
         print('''
-USING: kernel io prettyprint ;
+USING:
+    kernel
+    io
+    ;
 IN: euler.pr{0:03}
 
 : solve{0:03} ( -- n )
