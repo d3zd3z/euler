@@ -8,7 +8,9 @@ import subprocess
 import sys
 
 def generate(problem, contents):
-    name = 'pr{0:03}.factor'.format(problem)
+    dirname = 'euler/pr{0:03}'.format(problem)
+    os.mkdir(dirname)
+    name = dirname + '/pr{0:03}.factor'.format(problem)
     with open(name, 'x') as f:
         for line in contents:
             if len(line) > 0:
