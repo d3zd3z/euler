@@ -19,8 +19,8 @@ def generate(problem, contents):
                 print("!", file=f)
         print('''
 USING:
-    kernel
     io
+    kernel
     ;
 IN: euler.pr{0:03}
 
