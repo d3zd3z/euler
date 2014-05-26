@@ -14,14 +14,12 @@ USING: kernel io math
     combinators.short-circuit
     prettyprint
     sequences
+    math.functions
     math.ranges ;
 IN: euler.pr001
 
-: divides? ( n m -- ? )
-    rem zero? ;
-
 : div-3-or-5?  ( n -- ? )
-    { [ 3 divides? ] [ 5 divides? ] } 1|| ;
+    [ 3 divisor? ] [ 5 divisor? ] bi or ;
 
 : solve001 ( -- n )
     1 1000 [a,b)
