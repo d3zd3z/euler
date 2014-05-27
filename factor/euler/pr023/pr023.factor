@@ -72,7 +72,7 @@ SYMBOL: work-divisors
 : each-tail ( ... seq quot: ( ... subseq -- ... ) -- ... )
     over empty? [ 2drop ] [
         [ call ] 2keep
-        [ rest ] dip
+        [ rest-slice ] dip
         each-tail
     ] if ; inline recursive
 
