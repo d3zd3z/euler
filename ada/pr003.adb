@@ -15,7 +15,7 @@ with Ada.Text_IO; use Ada.Text_IO;
 --  division will be sufficiently fast.
 procedure Pr003 is
 
-   type Long is range 0 .. 2**63-1;
+   type Long is range 0 .. 2**63 - 1;
 
    Number : Long := 600851475143;
    Factor : Long := 2;

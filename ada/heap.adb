@@ -65,7 +65,8 @@ package body Heap is
          exit when J1 >= N;
          J2 := J1 + 1;
          if J2 < N and then
-           not (Object.Data.Element (J1) < Object.Data.Element (J2)) then
+           not (Object.Data.Element (J1) < Object.Data.Element (J2))
+         then
             J := J2;
          else
             J := J1;

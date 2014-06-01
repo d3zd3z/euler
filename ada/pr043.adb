@@ -60,7 +60,7 @@ procedure Pr043 is
    Text : String := "1023456789";
    Done : Boolean;
 
-   type Large_Number is range 0 .. 2**63-1;
+   type Large_Number is range 0 .. 2**63 - 1;
 
    Sum : Large_Number := 0;
 

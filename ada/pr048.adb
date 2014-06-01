@@ -19,7 +19,7 @@ with Ada.Text_IO; use Ada.Text_IO;
 procedure Pr048 is
 
    --  The intermediate result requires about 44 bits.
-   type Work_Value is range 0 .. 2**63-1;
+   type Work_Value is range 0 .. 2**63 - 1;
 
    Modulus : constant := 10_000_000_000;
 

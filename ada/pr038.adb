@@ -29,7 +29,7 @@ with Euler; use Euler;
 
 procedure Pr038 is
 
-   type Large_Number is range 0 .. 2**63-1;
+   type Large_Number is range 0 .. 2**63 - 1;
 
    function Is_Pandigital (Number : Large_Number) return Boolean;
    --  Is Number a full 9-element pandigital number.

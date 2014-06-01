@@ -31,8 +31,8 @@ procedure Pr014 is
 
    type Big_Natural is range 0 .. (2**63 - 1);
 
-   type Big_Natural_Array is array (Big_Natural range <>) of Big_Natural;
-   Cache : Big_Natural_Array (1 .. 1000) := (others => 0);
+   --  type Big_Natural_Array is array (Big_Natural range <>) of Big_Natural;
+   --  Cache : Big_Natural_Array (1 .. 1000) := (others => 0);
 
    function Next_Collatz (Number : Big_Natural) return Big_Natural
      with Inline => True;
