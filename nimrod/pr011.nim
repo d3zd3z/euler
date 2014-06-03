@@ -63,7 +63,7 @@ const deltas = [
 var largest = 0
 for row in 0..19:
   for col in 0..19:
-    for delta in @deltas:
+    for delta in deltas:
       let tmp = getProduct(row, col, delta)
       if tmp > largest:
         largest = tmp

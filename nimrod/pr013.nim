@@ -115,7 +115,7 @@ const nums = [
 # enough extra digits to avoid the error.
 
 var total: biggestInt = 0
-for n in @nums:
+for n in nums:
   total += n.substr(0, 12).parseBiggestInt
 
 # Shorten to 10-digits
