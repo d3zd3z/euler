@@ -18,6 +18,7 @@
 // 21124
 
 use std::char;
+use std::mem::replace;
 
 // TODO: Try with ropes.
 
@@ -28,7 +29,7 @@ fn main() {
     for i in range(1u, 1001) {
         let text = conv.to_english(i);
         // println(fmt!("%4u '%s'", i, text));
-        result += count_letters(text);
+        result += count_letters(text.as_slice());
     }
 
     println!("{}", result);
@@ -45,32 +46,32 @@ fn count_letters(text: &str) -> uint {
 }
 
 struct Converter {
-    ones: ~[~str],
-    tens: ~[~str],
-    buffer: ~str,
+    ones: Vec<&'static str>,
+    tens: Vec<&'static str>,
+    buffer: String,
     add_space: bool
 }
 
 impl Converter {
-    pub fn new() -> ~Converter {
-        ~Converter {
+    pub fn new() -> Box<Converter> {
+        box Converter {
             ones: make_ones(),
             tens: make_tens(),
             add_space: false,
-            buffer: ~""
+            buffer: String::new()
         }
     }
 }
 
 impl Converter {
-    fn to_english(&mut self, n: uint) -> ~str {
+    fn to_english(&mut self, n: uint) -> String {
         self.add_space = false;
-        self.buffer = ~"";
+        self.buffer = String::new();
         let mut work = n;
 
         if work > 1000 { fail!("Number too large") }
 
-        if work == 1000 { return ~"one thousand" }
+        if work == 1000 { return String::from_str("one thousand") }
 
         if work >= 100 {
             self.add_ones(work/100);
@@ -97,19 +98,18 @@ impl Converter {
             self.add_ones(work);
         }
         // let result = copy self.buffer;
-        let result = self.buffer.clone();
-        self.buffer = ~"";
-        result
+
+        replace(&mut self.buffer, String::new())
     }
 
     fn add_ones(&mut self, n: uint) {
-        let piece = self.ones[n - 1].clone();
-        self.add(piece);
+        let piece = String::from_str(*self.ones.get(n - 1));
+        self.add(piece.as_slice());
     }
 
     fn add_tens(&mut self, n: uint) {
-        let piece = self.tens[n - 1].clone();
-        self.add(piece);
+        let piece = String::from_str(*self.tens.get(n - 1));
+        self.add(piece.as_slice());
     }
 
     fn add(&mut self, text: &str) {
@@ -121,14 +121,14 @@ impl Converter {
     }
 }
 
-fn make_ones() -> ~[~str] {
-    ~[~"one", ~"two", ~"three", ~"four", ~"five", ~"six", ~"seven",
-      ~"eight", ~"nine", ~"ten", ~"eleven", ~"twelve", ~"thirteen",
-      ~"fourteen", ~"fifteen", ~"sixteen", ~"seventeen", ~"eighteen",
-      ~"nineteen"]
+fn make_ones() -> Vec<&'static str> {
+    vec!["one", "two", "three", "four", "five", "six", "seven",
+      "eight", "nine", "ten", "eleven", "twelve", "thirteen",
+      "fourteen", "fifteen", "sixteen", "seventeen", "eighteen",
+      "nineteen"]
 }
 
-fn make_tens() -> ~[~str] {
-    ~[~"ten", ~"twenty", ~"thirty", ~"forty", ~"fifty",
-      ~"sixty", ~"seventy", ~"eighty", ~"ninety"]
+fn make_tens() -> Vec<&'static str> {
+    vec!["ten", "twenty", "thirty", "forty", "fifty",
+      "sixty", "seventy", "eighty", "ninety"]
 }

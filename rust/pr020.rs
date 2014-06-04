@@ -19,7 +19,7 @@ static base: uint = 10_000;
 
 fn main() {
     static size: uint = 40;
-    let mut acc: ~[uint] = ~[0u, .. size];
+    let mut acc: [uint, .. size] = [0u, .. size];
 
     acc[0] = 1;
 
@@ -38,7 +38,7 @@ fn multiply(acc: &mut [uint], by: uint) {
         acc[i] = temp % base;
         carry = temp / base;
     }
-    if carry != 0 { fail!(~"Multiply overflow") }
+    if carry != 0 { fail!("Multiply overflow") }
 }
 
 fn sum_digits(acc: &[uint]) -> uint {
