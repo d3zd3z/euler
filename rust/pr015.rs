@@ -12,17 +12,15 @@
 //
 // 137846528820
 
-use std::vec;
-
 static steps: uint = 20u;
 
 fn main() {
-    let mut values = vec::from_elem(steps + 1, 1u64);
+    let mut values = Vec::from_elem(steps + 1, 1u64);
 
     for _ in range(0u, steps) {
-        bump(values);
+        bump(values.as_mut_slice());
     }
-    println(format!("{}", values[steps]));
+    println!("{}", values.get(steps));
 }
 
 fn bump(values: &mut [u64]) {

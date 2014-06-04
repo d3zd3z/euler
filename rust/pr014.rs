@@ -24,17 +24,13 @@
 //
 // 837799
 
-use std::vec;
-
-// use std::mem;
-
 fn main() {
     if false {
-        let mut l = ~Noncached;
+        let mut l = box Noncached;
         compute_len(l);
     }
     if true {
-        let mut l = ~EnumCache::new();
+        let mut l = box EnumCache::new();
         compute_len(l);
     }
 
@@ -65,6 +61,7 @@ fn compute_len<T: Lengther>(l: &mut T) {
 struct Noncached;
 
 impl Lengther for Noncached {
+    #[cfg(less_efficient_recursive_version)]
     fn chain_len(&mut self, n: uint) -> uint {
         if n == 1 {
             1
@@ -74,15 +71,30 @@ impl Lengther for Noncached {
             1 + self.chain_len(3 * n + 1)
         }
     }
+
+    // Speed this up, with an iterative version.
+    fn chain_len(&mut self, n: uint) -> uint {
+        let mut n = n;
+        let mut len = 1;
+        while n > 1 {
+            len += 1;
+            if n & 1 == 0 {
+                n >>= 1;
+            } else {
+                n = n * 3 + 1;
+            }
+        }
+        len
+    }
 }
 
 /* Cached version, attempting to speed things up. */
 struct EnumCache {
     size: uint,
-    cache: ~[Info]
+    cache: Vec<Info>
 }
 
-#[deriving(Clone, Eq)]
+#[deriving(Clone, PartialEq, Eq)]
 enum Info {
     Unknown,
     Known(uint)
@@ -92,20 +104,20 @@ impl EnumCache {
     fn new() -> EnumCache {
         let size = 100000;
         EnumCache { size: size,
-            cache: vec::from_elem(size, Unknown) }
+            cache: Vec::from_elem(size, Unknown) }
     }
 }
 
 impl Lengther for EnumCache {
     fn chain_len(&mut self, n: uint) -> uint {
         if n < self.size {
-            match self.cache[n] {
-                Unknown => {
+            match self.cache.get(n) {
+                &Unknown => {
                     let answer = self.chain2(n);
-                    self.cache[n] = Known(answer);
+                    *self.cache.get_mut(n) = Known(answer);
                     answer
                 }
-                Known(x) => x
+                &Known(x) => x
             }
         } else {
             self.chain2(n)

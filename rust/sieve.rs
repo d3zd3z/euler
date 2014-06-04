@@ -96,8 +96,8 @@ fn test_next() {
 
 impl Sieve {
     #[allow(dead_code)]
-    pub fn factorize(&mut self, n: uint) -> ~[Factor] {
-        let mut result = ~[];
+    pub fn factorize(&mut self, n: uint) -> Vec<Factor> {
+        let mut result = vec![];
         let mut tmp = n;
         let mut prime = 2;
         let mut count = 0;
@@ -126,10 +126,10 @@ impl Sieve {
     }
 
     #[allow(dead_code)]
-    pub fn divisors(&mut self, n: uint) -> ~[uint] {
+    pub fn divisors(&mut self, n: uint) -> Vec<uint> {
         let factors = self.factorize(n);
-        let mut result = ~[];
-        spread(factors, &mut result);
+        let mut result = vec![];
+        spread(factors.as_slice(), &mut result);
         // do sort::merge_sort(result) |a, b| { *a <= *b }
         result.sort();
         result
@@ -143,19 +143,19 @@ fn test_factorize() {
     println!("{}\n", f);
 }
 
-#[deriving(Eq)]
+#[deriving(PartialEq, Eq)]
 pub struct Factor {
     prime: uint,
     power: uint
 }
 
 #[allow(dead_code)]
-fn spread(factors: &[Factor], result: &mut ~[uint]) {
+fn spread(factors: &[Factor], result: &mut Vec<uint>) {
     let len = factors.len();
     if len == 0 {
         result.push(1);
     } else {
-        let mut rest = ~[];
+        let mut rest = vec![];
         let x = factors[0];
         spread(factors.slice(1, len), &mut rest);
 

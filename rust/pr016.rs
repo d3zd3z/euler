@@ -10,15 +10,13 @@
 //
 // 1366
 
-use std::vec;
-
 fn main() {
     static size: uint = 302;
-    let mut digits = vec::from_elem(size, 0u8);
-    digits[0] = 1u8;
+    let mut digits = Vec::from_elem(size, 0u8);
+    *digits.get_mut(0) = 1;
  
     for _x in range(0u, 1000) {
-        double(digits);
+        double(digits.as_mut_slice());
     }
 
     let result = digits.iter().fold(0u, |accum, n| {

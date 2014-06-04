@@ -8,7 +8,8 @@
 //
 // 142913828922
 
-extern mod extra;
+extern crate collections;
+
 use sieve::Sieve;
 mod sieve;
 

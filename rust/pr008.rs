@@ -30,7 +30,29 @@
 
 use std::vec::Vec;
 
-fn src() -> ~[u8] {
+fn main() {
+    if true {
+        amain();
+    }
+    if false {
+        cmain();
+    }
+}
+
+fn amain() {
+    let source = src();
+    let groups = Vec::from_fn(source.len() + 1 - 5,
+        |pos| source.slice(pos, pos + 5));
+    let products = groups.iter().map(|item| {
+        item.iter().fold(1u, |a, &b| {
+            a * (b as uint - 48u)
+        })
+    }).collect::<Vec<uint>>();
+    let result = products.iter().max().unwrap();
+    println!("{}", result);
+}
+
+fn src() -> &[u8] {
     ("\
 73167176531330624919225119674426574742355349194934\
 96983520312774506326239578318016984801869478851843\
@@ -52,9 +74,10 @@ fn src() -> ~[u8] {
 84580156166097919133875499200524063689912560717606\
 05886116467109405077541002256983155200055935729725\
 71636269561882670428252483600823257530420752963450")
-    .as_bytes().to_owned()
+    .as_bytes()
  }
 
+/*
 fn main() {
     if true {
         amain();
@@ -111,6 +134,7 @@ fn groups(src: &[u8]) -> ~[~[u8]] {
     }
     result
 }
+*/
 
 fn cmain() {
     let source = src();
