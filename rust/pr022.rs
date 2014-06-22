@@ -17,40 +17,45 @@
 //
 // 871198282
 
-extern mod extra;
+// extern mod extra;
 use std::cmp;
 use std::io;
 use std::str;
 
 fn main() {
     let mut file = io::File::open(&Path::new("../haskell/names.txt"));
-    let line = file.read_to_end();
-    let line = str::from_utf8_owned(line);
-    let names = decode_names(line);
-    let mut pairs = names.map(|n| { ~name_value(n) });
+    let line = file.read_to_end().unwrap();
+    let line = str::from_utf8_owned(line).unwrap();
+    let names = decode_names(line.as_slice());
+    let mut pairs = names.iter().map(|n| { box name_value(n.as_slice()) })
+        .collect::<Vec<Box<NamePair>>>();
     pairs.sort_by(pair_le);
 
+    let total = pairs.iter().enumerate().fold(0, |a, (bi, b)| {
+        a + b.value * (bi + 1)
+    });
+    /*
     let mut total = 0;
-    // for pairs.eachi |i, p| {
-    // Not sure how this is supposed to be done in rust now.
     for i in range(0, pairs.len()) {
-        total += pairs[i].value * (i + 1);
+        total += pairs.get(i).value * (i + 1);
     }
-    println(format!("{}", total));
+    */
+    println!("{}", total);
 }
 
+#[deriving(Show)]
 struct NamePair {
-    name: ~str,
+    name: String,
     value: uint
 }
 
-fn pair_le(a: &~NamePair, b: &~NamePair) -> cmp::Ordering {
+fn pair_le(a: &Box<NamePair>, b: &Box<NamePair>) -> cmp::Ordering {
     a.name.cmp(&b.name)
 }
 
-fn decode_names(line: &str) -> ~[~str] {
-    let mut result = ~[];
-    let mut name = ~"";
+fn decode_names(line: &str) -> Vec<String> {
+    let mut result = vec![];
+    let mut name = String::new();
 
     for ch in line.chars() {
         match ch {
@@ -58,7 +63,7 @@ fn decode_names(line: &str) -> ~[~str] {
             ',' => {
                 // TODO: Can this be moved?
                 result.push(name);
-                name = ~"";
+                name = String::new();
             },
             ch => {
                 name.push_char(ch);
@@ -70,10 +75,10 @@ fn decode_names(line: &str) -> ~[~str] {
     result
 }
 
-fn name_value(name: &~str) -> NamePair {
+fn name_value(name: &str) -> NamePair {
     let mut total = 0;
     for ch in name.chars() {
         total += ch as uint - 'A' as uint + 1;
     }
-    NamePair { name: name.clone(), value: total }
+    NamePair { name: name.to_string(), value: total }
 }

@@ -9,14 +9,15 @@
 // the numbers from 1 to 20?
 
 extern crate num;
-use num::lcm;
+use num::Integer;
 
 fn main() {
     let mut accum = 1u;
 
     for i in range(2u, 20) {
+        accum = accum.lcm(&i);
         // accum = accum.lcm(&i);
-        accum = lcm(accum, i);
+        // accum = lcm(accum, i);
     }
     println!("{}", accum);
 }

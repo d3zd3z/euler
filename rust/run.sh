@@ -26,7 +26,7 @@ else
 fi
 
 rust_flags=""
-rust_flags="${rust_flags} -W deprecated-owned-vector"
+# rust_flags="${rust_flags} -W deprecated-owned-vector"
 
 $RUST ${rust_flags} -O $src && time ./$base
 rm ./$base

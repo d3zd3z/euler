@@ -28,14 +28,49 @@
 //
 // 4782
 
+extern crate num;
+
+use num::BigUint;
+use std::num::One;
+
+fn main() {
+    let mut a : BigUint = FromPrimitive::from_u64(1).unwrap();
+    let mut b : BigUint = FromPrimitive::from_u64(1).unwrap();
+    let stop = exp10(999);
+
+    let mut count = 2u;
+    while b < stop {
+        let tmp = a.add(&b);
+        a = b;
+        b = tmp;
+        count += 1;
+    }
+    println!("{}", count);
+}
+
+// Return 10 to the given power.
+fn exp10(n: uint) -> BigUint {
+    let mut work : BigUint = One::one();
+    let ten : BigUint = FromPrimitive::from_u64(10).unwrap();
+
+    for _ in range(0, n) {
+        work = work.mul(&ten);
+    }
+
+    work
+}
+
+/*
+ * TODO: Fix up this version.
 use std::vec;
 
 static digits: uint = 999;
 
 fn main() {
-    let mut a = vec::from_elem(digits, 0u8);
-    let mut b = vec::from_elem(digits, 0u8);
+    let mut a = Vec::from_elem(digits, 0u8);
+    let mut b = Vec::from_elem(digits, 0u8);
 
+    *a.get_mut(0) = 1
     a[0] = 1;
     b[0] = 1;
     let mut count = 3;
@@ -50,7 +85,7 @@ fn main() {
         if overflowed { break; }
         count += 1;
     }
-    println(format!("{}", count));
+    println!("{}", count);
 }
 
 fn add(dest: &mut [u8], other: &mut [u8],
@@ -65,3 +100,4 @@ fn add(dest: &mut [u8], other: &mut [u8],
 
     *overflowed = carry != 0;
 }
+*/

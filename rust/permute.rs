@@ -6,18 +6,18 @@ use std::uint;
 // there are no more permutations.
 pub fn next_permutation(items: &mut [u8], done: &mut bool) {
     let size = items.len();
-    let mut k = uint::max_value;
+    let mut k = uint::MAX;
     for x in range(0, size - 1) {
         if items[x] < items[x+1] {
             k = x;
         }
     }
-    if k == uint::max_value {
+    if k == uint::MAX {
         *done = true;
         return
     }
 
-    let mut l = uint::max_value;
+    let mut l = uint::MAX;
     for x in range(k + 1, size) {
         if items[k] < items[x] {
             l = x;

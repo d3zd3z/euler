@@ -23,9 +23,8 @@
 //
 // 4179871
 
-extern mod extra;
-use std::vec;
-use std::hashmap::HashSet;
+extern crate collections;
+use std::collections::hashmap::HashSet;
 
 // TODO: Change this to bitv for space.  Although, it's probably
 // slower.
@@ -36,9 +35,9 @@ fn main() {
     let mut notAdd: HashSet<uint> = HashSet::new();
 
     for ai in range(0u, abundants.len()) {
-        let a = abundants[ai];
+        let a = *abundants.get(ai);
         for bi in range(ai, abundants.len()) {
-            let sum = a + abundants[bi];
+            let sum = a + *abundants.get(bi);
             if sum > 28123 {
                 break;
             }
@@ -55,11 +54,11 @@ fn main() {
     println!("{}", total);
 }
 
-fn make_abundants(limit: uint) -> ~[uint] {
+fn make_abundants(limit: uint) -> Vec<uint> {
     let divisors = make_divisors(limit);
-    let mut result = ~[];
+    let mut result = vec![];
     for i in range(1, limit) {
-        if i < divisors[i] {
+        if i < *divisors.get(i) {
             result.push(i);
         }
     }
@@ -68,13 +67,13 @@ fn make_abundants(limit: uint) -> ~[uint] {
 
 // Since we need all of them, compute the divisor sums in advance
 // using a modified sieve.
-fn make_divisors(limit: uint) -> ~[uint] {
-    let mut result = vec::from_elem(limit, 1u);
+fn make_divisors(limit: uint) -> Vec<uint> {
+    let mut result = Vec::from_elem(limit, 1u);
 
     for i in range(2u, limit) {
         let mut n = i + i;
         while n < limit {
-            result[n] += i;
+            *result.get_mut(n) += i;
             n += i;
         }
     }
