@@ -19,32 +19,21 @@
 //
 // 100
 
+extern crate num;
+
+use std::num::One;
+use num::rational::{Ratio, Rational};
+
 fn main() {
-    let mut total = Rational { num: 1, den: 1 };
+    let mut total: Rational = One::one();
     for a in range(10u, 100) {
         for b in range(a + 1, 100) {
             if is_frac(a, b) {
-                // TODO: Possibly future rust.
-                // total *= &Rational { num: a, den: b };
-                total = total.mul(&Rational { num: a, den: b });
+                total = total * Ratio::new(a as int, b as int);
             }
         }
     }
-    println(format!("{}", total.den))
-}
-
-struct Rational<T> {
-    num: T,
-    den: T
-}
-
-impl<T: Integer + Clone> Mul<Rational<T>, Rational<T>> for Rational<T> {
-    fn mul(&self, rhs: &Rational<T>) -> Rational<T> {
-        let n = self.num * rhs.num;
-        let m = self.den * rhs.den;
-        let common = n.gcd(&m);
-        Rational { num: n / common, den: m / common }
-    }
+    println!("{}", total.denom());
 }
 
 // Is this a/b valid in this situation?
@@ -56,8 +45,3 @@ fn is_frac(a: uint, b: uint) -> bool {
     (an == bm && bn > 0 && am*b == bn * a) ||
         (am == bn && bm > 0 && an*b == bm*a)
 }
-
-// TODO: Possibly ready in future Rust.
-// The generic version would be nice, but it doesn't seem
-// IntConvertible is "ready".
-// fn is_frac<T: Integer + IntConvertible>(a: T, b: T) -> bool {

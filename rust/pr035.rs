@@ -13,7 +13,8 @@
 //
 // 55
 
-extern mod extra;
+extern crate collections;
+
 use sieve::Sieve;
 mod sieve;
 
@@ -31,7 +32,7 @@ fn main() {
         p = sv.next_prime(p);
     }
 
-    println(format!("{}", count));
+    println!("{}", count);
 }
 
 // How many digits are in this number.
@@ -63,8 +64,8 @@ fn expt(n: uint, pow: uint) -> uint {
 
 // Generate all of the rotations of a number, not including the
 // original.
-fn number_rotations(num: uint) -> ~[uint] {
-    let mut result = ~[];
+fn number_rotations(num: uint) -> Vec<uint> {
+    let mut result = vec![];
     let len = digit_count(num);
     let highest_one = expt(10, len-1);
 

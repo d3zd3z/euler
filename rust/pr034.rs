@@ -12,25 +12,23 @@
 //
 // 40730
 
-use std::vec;
-
 fn main() {
     let mut chainer = Chainer::new();
     chainer.chain(0, 0);
 
-    println(format!("{}", chainer.total));
+    println!("{}", chainer.total);
 }
 
 struct Chainer {
     total: int,
-    facts: ~[uint],
+    facts: Vec<uint>,
     last_fact: uint
 }
 
 impl Chainer {
     fn new() -> Chainer {
         let facts = make_facts(10);
-        let last = facts[9];
+        let last = facts.get(9).clone();
         Chainer { total: -3, facts: facts, last_fact: last }
     }
 
@@ -40,17 +38,18 @@ impl Chainer {
         }
         if number * 10 <= fact_sum + self.last_fact {
             for i in range(if number > 0 {0u} else {1}, 10) {
-                self.chain(number * 10 + i, fact_sum + self.facts[i]);
+                let elt = self.facts.get(i).clone();
+                self.chain(number * 10 + i, fact_sum + elt);
             }
         }
     }
 }
 
-fn make_facts(limit: uint) -> ~[uint] {
-    let mut result = vec::from_elem(limit, 1u);
+fn make_facts(limit: uint) -> Vec<uint> {
+    let mut result = Vec::from_elem(limit, 1u);
 
     for i in range(2u, limit) {
-        result[i] = i * result[i-1];
+        *result.get_mut(i) = i * *result.get(i-1);
     }
 
     result

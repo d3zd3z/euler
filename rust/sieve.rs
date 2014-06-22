@@ -143,10 +143,10 @@ fn test_factorize() {
     println!("{}\n", f);
 }
 
-#[deriving(PartialEq, Eq)]
+#[deriving(PartialEq, Eq, Hash)]
 pub struct Factor {
-    prime: uint,
-    power: uint
+    pub prime: uint,
+    pub power: uint
 }
 
 #[allow(dead_code)]

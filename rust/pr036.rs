@@ -24,5 +24,5 @@ fn main() {
         }
     }
 
-    println(format!("{}", total));
+    println!("{}", total);
 }

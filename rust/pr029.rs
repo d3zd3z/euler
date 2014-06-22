@@ -20,9 +20,11 @@
 //
 // 9183
 
-extern mod extra;
-use std::hashmap::HashSet;
+extern crate collections;
+
+use std::collections::hashmap::HashSet;
 use sieve::Sieve;
+use sieve::Factor;
 
 mod sieve;
 
@@ -34,16 +36,16 @@ fn main() {
         let base = primes.factorize(a);
 
         for b in range(2u, 101) {
-            let elt = power(base, b);
+            let elt = power(&base, b);
             values.insert(elt);
         }
     }
 
-    println(format!("{}", values.iter().len()));
+    println!("{}", values.len());
 }
 
-fn power(base: &[sieve::Factor], exp: uint) -> ~[sieve::Factor] {
-    let mut result = ~[];
+fn power(base: &Vec<Factor>, exp: uint) -> Vec<Factor> {
+    let mut result = vec![];
 
     for f in base.iter() {
         result.push(sieve::Factor {prime: f.prime, power: f.power * exp});

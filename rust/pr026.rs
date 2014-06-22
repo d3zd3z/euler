@@ -24,7 +24,8 @@
 //
 // 983
 
-extern mod extra;
+extern crate collections;
+
 use sieve::Sieve;
 mod sieve;
 
@@ -42,7 +43,7 @@ fn main() {
         }
         p = primes.next_prime(p);
     }
-    println(format!("{}", largest_value));
+    println!("{}", largest_value);
 }
 
 // For a given number n, the repeat length of 1/n is the solution to

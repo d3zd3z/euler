@@ -29,7 +29,7 @@ fn main() {
         }
     }
 
-    println(format!("{}", result));
+    println!("{}", result);
 }
 
 fn sum_power(x: uint, pow: uint) -> uint {
@@ -45,6 +45,8 @@ fn sum_power(x: uint, pow: uint) -> uint {
 
 fn simple_pow(x: uint, pow: uint) -> uint {
     let mut result = 1;
-    pow.times(|| result *= x );
+    for _ in range(0, pow) {
+        result *= x;
+    }
     result
 }

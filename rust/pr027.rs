@@ -28,7 +28,8 @@
 // values of n, starting with n = 0.
 // -59231
 
-extern mod extra;
+extern crate collections;
+
 use sieve::Sieve;
 mod sieve;
 
@@ -47,7 +48,7 @@ fn main() {
             }
         }
     }
-    println(format!("{}", max_product));
+    println!("{}", max_product);
 }
 
 impl sieve::Sieve {

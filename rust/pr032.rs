@@ -18,7 +18,7 @@
 //
 // 45228
 
-use std::hashmap::HashSet;
+use std::collections::hashmap::HashSet;
 
 mod permute;
 
@@ -36,7 +36,7 @@ fn main() {
 
     let mut total = 0;
     for k in results.iter() { total += *k; }
-    println(format!("{}", total));
+    println!("{}", total);
 }
 
 fn make_groupings(digits: &[u8], result: &mut HashSet<uint>) {

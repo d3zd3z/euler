@@ -28,7 +28,7 @@ fn main() {
         sum += ring_sum(a);
         a += 2;
     }
-    println(format!("{}", sum));
+    println!("{}", sum);
 }
 
 fn ring_sum(n: uint) -> uint {
