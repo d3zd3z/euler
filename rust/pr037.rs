@@ -23,15 +23,15 @@ fn main() {
     rights.retain(|x| {is_left_truncatable(*x)});
     rights.retain(|x| {*x>9});
     let total = rights.iter().fold(0u, |a, x| {a + *x});
-    println(format!("{}", total));
+    println!("{}", total);
 }
 
 static right_digits: &'static [uint] = &[1u, 3, 7, 9];
 
 // Given a list of numbers, return a list of the numbers that are
 // still prime when a single digit is appended to the right.
-fn add_primes(numbers: &[uint]) -> ~[uint] {
-    let mut result = ~[];
+fn add_primes(numbers: &[uint]) -> Vec<uint> {
+    let mut result = vec![];
     for number in numbers.iter() {
         for extra in right_digits.iter() {
             let n = number * 10 + *extra;
@@ -44,13 +44,13 @@ fn add_primes(numbers: &[uint]) -> ~[uint] {
 }
 
 // Generate a list of all right-truncatable primes.
-fn right_truncatable_primes() -> ~[uint] {
-    let mut result = ~[];
-    let mut set = ~[2u, 3, 5, 7];
+fn right_truncatable_primes() -> Vec<uint> {
+    let mut result = vec![];
+    let mut set = vec![2u, 3, 5, 7];
 
     while set.len() > 0 {
-        result.push_all(set);
-        set = add_primes(set);
+        result.push_all(set.as_slice());
+        set = add_primes(set.as_slice());
     }
     result
 }

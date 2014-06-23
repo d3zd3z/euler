@@ -26,7 +26,7 @@ fn main() {
         i += 1;
     }
 
-    println(format!("{}", st.product));
+    println!("{}", st.product);
 }
 
 struct State {
@@ -61,8 +61,8 @@ impl State {
 }
 
 // Return the digits, in order.
-fn digits_of(number: uint) -> ~[uint] {
-    let mut result = ~[];
+fn digits_of(number: uint) -> Vec<uint> {
+    let mut result = vec![];
     let mut number = number;
     while number > 0 {
         result.unshift(number % 10);

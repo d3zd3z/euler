@@ -1,21 +1,21 @@
 // Triangle utilities.
 
-#[deriving(Clone)]
+#[deriving(Clone, Show)]
 pub struct Triple {
     a: uint,
     b: uint,
     c: uint
 }
 
-#[deriving(Clone)]
-struct Box {
+#[deriving(Clone, Show)]
+struct Quad {
     p1: uint,
     p2: uint,
     q1: uint,
     q2: uint
 }
 
-static initial_box: &'static Box = &Box { p1: 1, p2: 1, q1: 2, q2: 3 };
+static initial_box: &'static Quad = &Quad { p1: 1, p2: 1, q1: 2, q2: 3 };
 
 impl Triple {
     fn circumference(&self) -> uint {
@@ -30,13 +30,13 @@ impl Triple {
     }
 }
 
-impl Box {
-    fn children(&self) -> ~[Box] {
+impl Quad {
+    fn children(&self) -> Vec<Quad> {
         let x = self.p2;
         let y = self.q2;
-        ~[  Box { p1: y-x, p2: x, q1:   y, q2: y*2 - x },
-            Box { p1:   x, p2: y, q1: x+y, q2: x*2 + y },
-            Box { p1:   y, p2: x, q1: y+x, q2: y*2 + x } ]
+        vec![ Quad { p1: y-x, p2: x, q1:   y, q2: y*2 - x },
+            Quad { p1:   x, p2: y, q1: x+y, q2: x*2 + y },
+            Quad { p1:   y, p2: x, q1: y+x, q2: y*2 + x } ]
     }
 
     fn triangle(&self) -> Triple {
@@ -51,10 +51,10 @@ impl Box {
 // circumference <= limit.  Calls 'f' for each possible triple.
 fn generate_fibonacci_triples(limit: uint, f: |Triple, uint|) {
 // fn generate_fibonacci_triples(limit: uint, f: &fn(Triple, uint)) {
-    let mut work = ~[*initial_box];
+    let mut work = vec![*initial_box];
 
     loop {
-        match work.pop_opt() {
+        match work.pop() {
             None => break,
             Some(abox) => {
                 let triple = abox.triangle();
@@ -86,10 +86,11 @@ pub fn generate_triples(limit: uint, f: |Triple, uint|) {
 fn test_children() {
     let next = initial_box.children();
     println!("next: {}", next);
-    let tris = next.map(|x| {x.triangle()});
+    let tris = next.iter().map(|x| {x.triangle()})
+        .collect::<Vec<Triple>>();
     println!("tris: {}", tris);
 
-    do generate_triples(100) |tri, circ| {
+    generate_triples(100, |tri, circ| {
         println!("  {:3u} {}", circ, tri);
-    }
+    });
 }

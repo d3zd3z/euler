@@ -29,7 +29,7 @@ fn main() {
             largest = sum;
         }
     }
-    println(format!("{}", largest));
+    println!("{}", largest);
 }
 
 // Given a 'base' according to the problem, multiple successively by

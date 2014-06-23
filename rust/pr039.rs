@@ -13,7 +13,7 @@
 // 840
 
 use triangle::generate_triples;
-use std::hashmap::HashMap;
+use std::collections::hashmap::HashMap;
 mod triangle;
 
 fn main() {
@@ -22,10 +22,10 @@ fn main() {
         map.insert_or_update_with(circ, 1u, |_, x| {*x += 1});
     });
 
-    let k = match map.iter().max_by(|p| {p.second()}) {
+    let k = match map.iter().max_by(|p| {p.val1()}) {
         None => fail!("No solution found"),
         Some((k, _)) => *k
     };
 
-    println(format!("{}", k));
+    println!("{}", k);
 }
