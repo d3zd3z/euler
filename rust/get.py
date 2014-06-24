@@ -17,7 +17,7 @@ def generate(problem, contents):
                 print("//", file=f)
         print('''
 fn main() {
-    println(format!("{}", 42));
+    println!("{}", 42);
 }''', file=f)
 
         # os.chmod(name, 0o755)

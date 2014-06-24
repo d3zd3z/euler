@@ -86,6 +86,22 @@ impl Sieve {
         }
         next
     }
+
+    #[allow(dead_code)]
+    pub fn prev_prime(&mut self, n: uint) -> uint {
+        if n == 3 {
+            return 2;
+        }
+        if n == 2 {
+            fail!("No prime before 2");
+        }
+
+        let mut next = n - 2;
+        while !self.is_prime(next) {
+            next -= 2;
+        }
+        next
+    }
 }
 
 #[test]
