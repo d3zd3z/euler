@@ -6,6 +6,7 @@ extern crate collections;
 extern crate num;
 
 use std::os;
+use std::collections::hashmap::HashSet;
 
 mod problem;
 mod plist;
@@ -29,7 +30,17 @@ struct Problems {
 
 impl Problems {
     fn new() -> Problems {
-        Problems { probs: plist::make() }
+        let result = Problems { probs: plist::make() };
+
+        // Verify that there are no duplicates.
+        let mut all = HashSet::new();
+        for p in result.probs.iter() {
+            if !all.insert(p.num()) {
+                fail!("Duplicate problem {}, not running", p.num());
+            }
+        }
+
+        result
     }
 
     fn run(&mut self, num: uint) {
