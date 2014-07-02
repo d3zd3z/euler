@@ -23,9 +23,8 @@ IN: euler.pr001
 : div-3-or-5?  ( n -- ? )
     { [ 3 divides? ] [ 5 divides? ] } 1|| ;
 
-: solve003 ( -- )
+: solve001 ( -- n )
     1 1000 [a,b)
     [ div-3-or-5? ] filter
-    sum
-    . ;
-MAIN: solve003
+    sum ;
+MAIN: solve001

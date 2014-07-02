@@ -16,12 +16,12 @@ def generate(problem, contents):
             else:
                 print("!", file=f)
         print('''
-USING: kernel io ;
+USING: kernel io prettyprint ;
 IN: euler.pr{0:03}
 
-: solve003 ( -- )
-    42 . ;
-MAIN: solve003'''.format(problem), file=f)
+: solve{0:03} ( -- n )
+    42 ;
+MAIN: solve{0:03}'''.format(problem), file=f)
 
         # os.chmod(name, 0o755)
 
