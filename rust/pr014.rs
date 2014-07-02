@@ -24,14 +24,16 @@
 //
 // 837799
 
+define_problem!(main, 14)
+
 fn main() {
     if false {
         let mut l = box Noncached;
-        compute_len(l);
+        compute_len(&mut *l);
     }
     if true {
         let mut l = box EnumCache::new();
-        compute_len(l);
+        compute_len(&mut *l);
     }
 
     /*

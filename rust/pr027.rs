@@ -28,10 +28,10 @@
 // values of n, starting with n = 0.
 // -59231
 
-extern crate collections;
-
+use sieve;
 use sieve::Sieve;
-mod sieve;
+
+define_problem!(main, 27)
 
 fn main() {
     let mut s = Sieve::new();

@@ -24,10 +24,9 @@
 //
 // 983
 
-extern crate collections;
-
 use sieve::Sieve;
-mod sieve;
+
+define_problem!(main, 26)
 
 fn main() {
     let mut primes = Sieve::new();

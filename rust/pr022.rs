@@ -22,6 +22,8 @@ use std::cmp;
 use std::io;
 use std::str;
 
+define_problem!(main, 22)
+
 fn main() {
     let mut file = io::File::open(&Path::new("../haskell/names.txt"));
     let line = file.read_to_end().unwrap();

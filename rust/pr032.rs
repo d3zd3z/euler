@@ -19,8 +19,9 @@
 // 45228
 
 use std::collections::hashmap::HashSet;
+use permute;
 
-mod permute;
+define_problem!(main, 32)
 
 fn main() {
     let mut base = [1u8, 2, 3, 4, 5, 6, 7, 8, 9];

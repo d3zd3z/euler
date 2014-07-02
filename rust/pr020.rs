@@ -15,6 +15,8 @@
 
 // This is easier to do by using something like base 10_000 (100**2).
 
+define_problem!(main, 20)
+
 static base: uint = 10_000;
 
 fn main() {

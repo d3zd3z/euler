@@ -12,6 +12,8 @@
 //
 // 40730
 
+define_problem!(main, 34)
+
 fn main() {
     let mut chainer = Chainer::new();
     chainer.chain(0, 0);

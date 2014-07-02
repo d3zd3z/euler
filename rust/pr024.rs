@@ -17,12 +17,14 @@
 
 // TODO: With rust 0.5, this produces the wrong result.
 
-mod permute;
+use permute;
+
+define_problem!(main, 24)
 
 fn main() {
     let mut base = Vec::from_fn(10, |i| i as u8);
     let mut done = false;
-    for _ in range(0, 999_999) {
+    for _ in range(0u, 999_999) {
         permute::next_permutation(base.as_mut_slice(), &mut done);
         assert!(!done);
     };

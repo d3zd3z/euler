@@ -20,13 +20,11 @@
 //
 // 9183
 
-extern crate collections;
-
 use std::collections::hashmap::HashSet;
 use sieve::Sieve;
 use sieve::Factor;
 
-mod sieve;
+define_problem!(main, 29)
 
 fn main() {
     let mut primes = Sieve::new();
@@ -48,7 +46,7 @@ fn power(base: &Vec<Factor>, exp: uint) -> Vec<Factor> {
     let mut result = vec![];
 
     for f in base.iter() {
-        result.push(sieve::Factor {prime: f.prime, power: f.power * exp});
+        result.push(Factor {prime: f.prime, power: f.power * exp});
     }
 
     result

@@ -12,6 +12,8 @@
 //
 // 137846528820
 
+define_problem!(main, 15)
+
 static steps: uint = 20u;
 
 fn main() {

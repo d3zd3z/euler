@@ -33,6 +33,8 @@
 //
 // 70600674
 
+define_problem!(main, 11)
+
 fn main() {
     let mut max = 0u;
     let deltas = &[Delta {dx: 0, dy: 1}, Delta {dx: 1, dy: 0},

@@ -14,11 +14,13 @@
 //
 // 872187
 
-mod misc;
+use misc;
+
+define_problem!(main, 36)
 
 fn main() {
     let mut total = 0;
-    for i in range(1, 1_000_000) {
+    for i in range(1u, 1_000_000) {
         if misc::is_palindrome(i, 10) && misc::is_palindrome(i, 2) {
             total += i;
         }

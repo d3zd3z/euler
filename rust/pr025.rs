@@ -28,10 +28,10 @@
 //
 // 4782
 
-extern crate num;
-
 use num::BigUint;
 use std::num::One;
+
+define_problem!(main, 25)
 
 fn main() {
     let mut a : BigUint = FromPrimitive::from_u64(1).unwrap();

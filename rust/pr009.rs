@@ -14,6 +14,8 @@
 //
 // 31875000
 
+define_problem!(main, 9)
+
 fn main() {
     for a in range(1u, 1000) {
         for b in range(a, 1000) {

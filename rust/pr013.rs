@@ -11,6 +11,8 @@
 // of each number, adding them, and then taking the first 10 digits of
 // the result.  The error should be beyond the first 10 digits.
 
+define_problem!(main, 13)
+
 fn main() {
     let s = source();
     let s1 = s.iter().map(|s| {

@@ -21,6 +21,8 @@
 //
 // 932718654
 
+define_problem!(main, 38)
+
 fn main() {
     let mut largest = 0u64;
     for i in range(1u, 10000) {
@@ -50,12 +52,12 @@ fn large_sum(base: uint) -> u64 {
 // a value, making sure no bits are set twice, and at the end that all
 // of the desired bits are set.
 fn is_pandigital(number: u64) -> bool {
-    let mut bits = 0;
+    let mut bits = 0u;
     let mut number = number;
 
     while number > 0 {
         let m = number % 10;
-        let bit = 1 << m;
+        let bit = 1 << m as uint;
         if (bits & bit) != 0 {
             return false;
         }

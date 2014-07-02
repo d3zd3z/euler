@@ -13,10 +13,9 @@
 //
 // 55
 
-extern crate collections;
-
 use sieve::Sieve;
-mod sieve;
+
+define_problem!(main, 35)
 
 fn main() {
     let mut sv = Sieve::new();

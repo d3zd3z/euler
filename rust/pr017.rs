@@ -20,6 +20,8 @@
 use std::char;
 use std::mem::replace;
 
+define_problem!(main, 17)
+
 // TODO: Try with ropes.
 
 fn main() {

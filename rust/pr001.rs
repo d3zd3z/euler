@@ -7,6 +7,8 @@
 // 
 // Find the sum of all the multiples of 3 or 5 below 1000.
 
+define_problem!(main, 1)
+
 fn main() {
     let mut total = 0;
     for i in range(1u, 1000) {

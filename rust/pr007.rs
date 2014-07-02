@@ -11,14 +11,14 @@
 
 // extern mod extra;
 
-extern crate collections;
 use sieve::Sieve;
-mod sieve;
+
+define_problem!(main, 7)
 
 fn main() {
     let mut primes = Sieve::new();
     let mut prime = 2u;
-    let mut count = 1;
+    let mut count = 1u;
 
     while count < 10001 {
         prime = primes.next_prime(prime);

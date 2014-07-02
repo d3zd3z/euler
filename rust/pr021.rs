@@ -16,9 +16,10 @@
 //
 // 31626
 
-extern crate collections;
 use sieve::Sieve;
-mod sieve;
+use sieve;
+
+define_problem!(main, 21)
 
 fn main() {
     let mut pv = Sieve::new();

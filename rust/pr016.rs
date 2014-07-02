@@ -10,6 +10,8 @@
 //
 // 1366
 
+define_problem!(main, 16)
+
 fn main() {
     static size: uint = 302;
     let mut digits = Vec::from_elem(size, 0u8);

@@ -8,8 +8,9 @@
 // What is the smallest positive number that is evenly divisible by all of
 // the numbers from 1 to 20?
 
-extern crate num;
 use num::Integer;
+
+define_problem!(main, 5)
 
 fn main() {
     let mut accum = 1u;

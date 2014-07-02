@@ -23,8 +23,9 @@
 //
 // 4179871
 
-extern crate collections;
 use std::collections::hashmap::HashSet;
+
+define_problem!(main, 23)
 
 // TODO: Change this to bitv for space.  Although, it's probably
 // slower.

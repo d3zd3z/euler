@@ -18,6 +18,8 @@
 // formed in the same way?
 // 669171001
 
+define_problem!(main, 28)
+
 fn main() {
     // Account for 1 in the center.
     let mut sum = 1;

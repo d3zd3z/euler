@@ -15,8 +15,10 @@
 //
 // 748317
 
-mod miller;
-mod misc;
+use miller;
+use misc;
+
+define_problem!(main, 37)
 
 fn main() {
     let mut rights = right_truncatable_primes();

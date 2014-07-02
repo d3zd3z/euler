@@ -30,6 +30,8 @@
 
 use std::vec::Vec;
 
+define_problem!(main, 8)
+
 fn main() {
     if true {
         amain();

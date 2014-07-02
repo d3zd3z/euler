@@ -18,6 +18,8 @@
 
 // By using slices, we avoid copies of the data.
 
+define_problem!(main, 31)
+
 fn main() {
     let coins = all_coins();
     println!("{}", rways(200, coins.as_slice()));

@@ -14,7 +14,8 @@
 
 use triangle::generate_triples;
 use std::collections::hashmap::HashMap;
-mod triangle;
+
+define_problem!(main, 39)
 
 fn main() {
     let mut map = HashMap::new();

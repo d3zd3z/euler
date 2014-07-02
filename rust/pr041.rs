@@ -16,10 +16,9 @@
 // least one 7 digit pandigital prime, it will be larger than any
 // smaller pandigital primes.
 
-extern crate collections;
-
 use sieve::Sieve;
-mod sieve;
+
+define_problem!(main, 41)
 
 fn main() {
     let mut primes = Sieve::new();

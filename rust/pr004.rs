@@ -7,7 +7,9 @@
 //
 // Find the largest palindrome made from the product of two 3-digit numbers.
 
-mod misc;
+use misc;
+
+define_problem!(main, 4)
 
 fn main() {
     let mut max = 0u;

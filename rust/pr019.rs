@@ -21,8 +21,10 @@
 //
 // 171
 
+define_problem!(main, 19)
+
 fn main() {
-    let mut count = 0;
+    let mut count = 0u;
     for year in range(1901u, 2001) {
         for month in range(1u, 13) {
             if jdate(year, month, 1) % 7 == 6 {

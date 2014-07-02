@@ -19,10 +19,10 @@
 //
 // 100
 
-extern crate num;
-
 use std::num::One;
 use num::rational::{Ratio, Rational};
+
+define_problem!(main, 33)
 
 fn main() {
     let mut total: Rational = One::one();
