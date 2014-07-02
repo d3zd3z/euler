@@ -6,7 +6,7 @@ extern crate collections;
 extern crate num;
 
 use std::os;
-use std::collections::hashmap::HashSet;
+use std::collections::hashmap::HashMap;
 
 mod problem;
 mod plist;
@@ -25,47 +25,41 @@ trait Problem {
 }
 
 struct Problems {
-    probs: Vec<Box<Problem>>
+    probs: HashMap<uint, Box<Problem>>
 }
 
 impl Problems {
     fn new() -> Problems {
-        let result = Problems { probs: plist::make() };
+        let probs = plist::make();
 
         // Verify that there are no duplicates.
-        let mut all = HashSet::new();
-        for p in result.probs.iter() {
-            if !all.insert(p.num()) {
-                fail!("Duplicate problem {}, not running", p.num());
+        let mut all = HashMap::new();
+        for p in probs.move_iter() {
+            let num = p.num();
+            if !all.insert(p.num(), p) {
+                fail!("Duplicate problem {}, not running", num);
             }
         }
 
-        result
+        Problems { probs: all }
     }
 
     fn run(&mut self, num: uint) {
-        let mut prob = None;
-        for p in self.probs.iter() {
-            if p.num() == num {
-                prob = Some(p);
-                break
-            }
-        }
-        match prob {
+        match self.probs.find(&num) {
             None => fail!("Unknown problem: {}", num),
             Some(p) => {
                 print!("{}: ", num);
                 std::io::stdio::flush();
                 p.run();
             }
-        };
+        }
     }
 
     fn run_all(&mut self) {
-        for p in self.probs.iter() {
-            print!("{}: ", p.num());
-            std::io::stdio::flush();
-            p.run();
+        let mut keys: Vec<uint> = self.probs.keys().map(|&k| k).collect();
+        keys.sort();
+        for &n in keys.iter() {
+            self.run(n);
         }
     }
 }
