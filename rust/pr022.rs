@@ -21,6 +21,7 @@
 use std::cmp;
 use std::io;
 use std::str;
+use misc::decode_words;
 
 define_problem!(main, 22)
 
@@ -28,7 +29,7 @@ fn main() {
     let mut file = io::File::open(&Path::new("../haskell/names.txt"));
     let line = file.read_to_end().unwrap();
     let line = str::from_utf8_owned(line).unwrap();
-    let names = decode_names(line.as_slice());
+    let names = decode_words(line.as_slice());
     let mut pairs = names.iter().map(|n| { box name_value(n.as_slice()) })
         .collect::<Vec<Box<NamePair>>>();
     pairs.sort_by(pair_le);
@@ -53,28 +54,6 @@ struct NamePair {
 
 fn pair_le(a: &Box<NamePair>, b: &Box<NamePair>) -> cmp::Ordering {
     a.name.cmp(&b.name)
-}
-
-fn decode_names(line: &str) -> Vec<String> {
-    let mut result = vec![];
-    let mut name = String::new();
-
-    for ch in line.chars() {
-        match ch {
-            '"' => (),
-            ',' => {
-                // TODO: Can this be moved?
-                result.push(name);
-                name = String::new();
-            },
-            ch => {
-                name.push_char(ch);
-            }
-        }
-    }
-    result.push(name);
-
-    result
 }
 
 fn name_value(name: &str) -> NamePair {

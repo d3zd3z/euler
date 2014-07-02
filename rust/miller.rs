@@ -97,6 +97,7 @@ pub fn exp_mod(base: T, power: T, modulus: T) -> T {
 
 #[cfg(test)]
 mod test {
+    use super::{exp_mod, is_prime};
     // use super::*;
 
     #[test]
