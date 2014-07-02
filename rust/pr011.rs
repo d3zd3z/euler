@@ -40,8 +40,8 @@ fn main() {
     let deltas = &[Delta {dx: 0, dy: 1}, Delta {dx: 1, dy: 0},
                    Delta {dx: 1, dy: 1}, Delta {dx: 1, dy: -1}];
     let src = source();
-    for x in range(0, 20) {
-        for y in range(0, 20) {
+    for x in range(0i, 20) {
+        for y in range(0i, 20) {
             for delta in deltas.iter() {
                 let prod = product(&src, x, y, delta);
                 if prod > max {
