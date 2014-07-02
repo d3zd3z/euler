@@ -16,9 +16,11 @@ def generate(problem, contents):
             else:
                 print("//", file=f)
         print('''
-fn main() {
-    println!("{}", 42);
-}''', file=f)
+define_problem!(solve, {0})
+
+fn solve() {{
+    println!("{{}}", 42u);
+}}'''.format(problem), file=f)
 
         # os.chmod(name, 0o755)
 
