@@ -25,8 +25,8 @@ use misc::{decode_words, isqrt};
 define_problem!(solve, 42)
 
 fn solve() {
-    let mut file = io::File::open(&Path::new("../haskell/words.txt"));
-    let line = file.read_to_str().unwrap();
+    let mut file = io::File::open(&Path::new("../haskell/words.txt")).unwrap();
+    let line = file.read_to_string().unwrap();
     let words = decode_words(line.as_slice());
     let result = words.iter().filter(|&w| is_triangle(name_value(w.as_slice()))).count();
     println!("{}", result);

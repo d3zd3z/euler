@@ -13,7 +13,7 @@ pub struct Sieve {
 
 impl Sieve {
     pub fn new() -> Sieve {
-        let mut result = Sieve { vec: Bitv::new(default_size + 1, true),
+        let mut result = Sieve { vec: Bitv::with_capacity(default_size + 1, true),
             limit: default_size };
         result.fill();
         result
@@ -55,7 +55,7 @@ impl Sieve {
                 new_limit *= 8;
             }
 
-            self.vec = Bitv::new(new_limit + 1, true);
+            self.vec = Bitv::with_capacity(new_limit + 1, true);
             self.limit = new_limit;
             self.fill();
         }

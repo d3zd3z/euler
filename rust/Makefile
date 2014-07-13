@@ -1,8 +1,8 @@
 # Build the problems.
 
 RUSTC = rustc
-# RUST_FLAGS = -C prefer-dynamic -O -g
-RUST_FLAGS := -C prefer-dynamic -g
+RUST_FLAGS = -C prefer-dynamic -C rpath -O -g
+# RUST_FLAGS := -C prefer-dynamic -g
 # RUST_FLAGS := $(RUST_FLAGS) -Z time-passes
 
 all: euler
