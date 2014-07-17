@@ -113,13 +113,13 @@ impl EnumCache {
 impl Lengther for EnumCache {
     fn chain_len(&mut self, n: uint) -> uint {
         if n < self.size {
-            match self.cache.get(n) {
-                &Unknown => {
+            match self.cache[n] {
+                Unknown => {
                     let answer = self.chain2(n);
                     *self.cache.get_mut(n) = Known(answer);
                     answer
                 }
-                &Known(x) => x
+                Known(x) => x
             }
         } else {
             self.chain2(n)

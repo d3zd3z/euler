@@ -47,15 +47,15 @@ fn main() {
     let numbers = get_source();
     let size = numbers.len();
 
-    let mut work = numbers.get(size-1).clone();
+    let mut work = numbers[size-1].clone();
     let mut pos = size - 2;
     loop {
-        work = combine(work.as_slice(), numbers.get(pos).as_slice());
+        work = combine(work.as_slice(), numbers[pos].as_slice());
 
         if pos == 0 { break; }
         pos -= 1;
     }
-    println!("{}", work.get(0));
+    println!("{}", work[0]);
 }
 
 #[cfg(none)]

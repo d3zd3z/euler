@@ -20,7 +20,6 @@
 // extern mod extra;
 use std::cmp;
 use std::io;
-use std::str;
 use misc::decode_words;
 
 define_problem!(main, 22)
@@ -28,7 +27,7 @@ define_problem!(main, 22)
 fn main() {
     let mut file = io::File::open(&Path::new("../haskell/names.txt"));
     let line = file.read_to_end().unwrap();
-    let line = str::from_utf8_owned(line).unwrap();
+    let line = String::from_utf8(line).unwrap();
     let names = decode_words(line.as_slice());
     let mut pairs = names.iter().map(|n| { box name_value(n.as_slice()) })
         .collect::<Vec<Box<NamePair>>>();

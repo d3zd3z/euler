@@ -30,7 +30,7 @@ struct Chainer {
 impl Chainer {
     fn new() -> Chainer {
         let facts = make_facts(10);
-        let last = facts.get(9).clone();
+        let last = facts[9];
         Chainer { total: -3, facts: facts, last_fact: last }
     }
 
@@ -40,7 +40,7 @@ impl Chainer {
         }
         if number * 10 <= fact_sum + self.last_fact {
             for i in range(if number > 0 {0u} else {1}, 10) {
-                let elt = self.facts.get(i).clone();
+                let elt = self.facts[i];
                 self.chain(number * 10 + i, fact_sum + elt);
             }
         }
@@ -51,7 +51,7 @@ fn make_facts(limit: uint) -> Vec<uint> {
     let mut result = Vec::from_elem(limit, 1u);
 
     for i in range(2u, limit) {
-        *result.get_mut(i) = i * *result.get(i-1);
+        *result.get_mut(i) = i * result[i-1];
     }
 
     result

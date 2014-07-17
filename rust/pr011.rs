@@ -63,7 +63,7 @@ fn product(ary: &Vec<[uint, ..20]>, x: int, y: int, d: &Delta) -> uint {
     while count < 4u {
         count += 1u;
         if px >= 20 || py >= 20 || px < 0 || py < 0 { prod = 0u; break; }
-        prod *= ary.get(py as uint)[px as uint];
+        prod *= ary[py as uint][px as uint];
         px += d.dx;
         py += d.dy;
     }

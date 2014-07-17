@@ -105,12 +105,12 @@ impl Converter {
     }
 
     fn add_ones(&mut self, n: uint) {
-        let piece = String::from_str(*self.ones.get(n - 1));
+        let piece = String::from_str(self.ones[n-1]);
         self.add(piece.as_slice());
     }
 
     fn add_tens(&mut self, n: uint) {
-        let piece = String::from_str(*self.tens.get(n - 1));
+        let piece = String::from_str(self.tens[n-1]);
         self.add(piece.as_slice());
     }
 

@@ -22,7 +22,7 @@ fn main() {
     for _ in range(0u, steps) {
         bump(values.as_mut_slice());
     }
-    println!("{}", values.get(steps));
+    println!("{}", values[steps]);
 }
 
 fn bump(values: &mut [u64]) {

@@ -36,9 +36,9 @@ fn main() {
     let mut notAdd: HashSet<uint> = HashSet::new();
 
     for ai in range(0u, abundants.len()) {
-        let a = *abundants.get(ai);
+        let a = abundants[ai];
         for bi in range(ai, abundants.len()) {
-            let sum = a + *abundants.get(bi);
+            let sum = a + abundants[bi];
             if sum > 28123 {
                 break;
             }
@@ -59,7 +59,7 @@ fn make_abundants(limit: uint) -> Vec<uint> {
     let divisors = make_divisors(limit);
     let mut result = vec![];
     for i in range(1, limit) {
-        if i < *divisors.get(i) {
+        if i < divisors[i] {
             result.push(i);
         }
     }
