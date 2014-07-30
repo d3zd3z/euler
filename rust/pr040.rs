@@ -67,7 +67,7 @@ fn digits_of(number: uint) -> Vec<uint> {
     let mut result = vec![];
     let mut number = number;
     while number > 0 {
-        result.unshift(number % 10);
+        result.insert(0, number % 10);
         number /= 10;
     }
     result
