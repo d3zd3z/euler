@@ -21,7 +21,7 @@ plist.rs: .force
 	@echo "" >> $@.tmp
 	@for p in $(probs); do echo "#[path=\"$$p.rs\"] mod $$p;"; done >> $@.tmp
 	@echo "" >> $@.tmp
-	@echo "pub fn make() -> Vec<Box<Problem>> {" >> $@.tmp
+	@echo "pub fn make() -> Vec<Box<Problem + 'static>> {" >> $@.tmp
 	@echo "    let mut probs = Vec::new();" >> $@.tmp
 	@for p in $(probs); do echo "    add_problem!(probs, $$p::Solution);"; done >> $@.tmp
 	@echo "    probs" >> $@.tmp

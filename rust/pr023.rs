@@ -33,7 +33,7 @@ define_problem!(main, 23)
 fn main() {
     let abundants = make_abundants(28124);
 
-    let mut notAdd: HashSet<uint> = HashSet::new();
+    let mut not_add: HashSet<uint> = HashSet::new();
 
     for ai in range(0u, abundants.len()) {
         let a = abundants[ai];
@@ -42,13 +42,13 @@ fn main() {
             if sum > 28123 {
                 break;
             }
-            notAdd.insert(sum);
+            not_add.insert(sum);
         }
     }
 
     let mut total = 0u;
     for i in range(1u, 28124) {
-        if !notAdd.contains(&i) {
+        if !not_add.contains(&i) {
             total += i;
         }
     }

@@ -25,7 +25,7 @@ trait Problem {
 }
 
 struct Problems {
-    probs: HashMap<uint, Box<Problem>>
+    probs: HashMap<uint, Box<Problem + 'static>>
 }
 
 impl Problems {
