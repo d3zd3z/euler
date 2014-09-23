@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
 // Problem 96
-// 
+//
 // 27 May 2005
-// 
+//
 // Su Doku (Japanese meaning number place) is the name given to a
 // popular puzzle concept. Its origin is unclear, but credit must be
 // attributed to Leonhard Euler who invented a similar, and much more
@@ -11,7 +11,7 @@
 // 9 grid in such that each row, column, and 3 by 3 box contains each
 // of the digits 1 to 9. Below is an example of a typical starting
 // puzzle grid and its solution grid.
-// 
+//
 // ┌───────┬───────┬───────┐          ┌───────┬───────┬───────┐
 // │ 0 0 3 │ 0 2 0 │ 6 0 0 │          │ 4 8 3 │ 9 2 1 │ 6 5 7 │
 // │ 9 0 0 │ 3 0 5 │ 0 0 1 │          │ 9 6 7 │ 3 4 5 │ 8 2 1 │
@@ -25,24 +25,24 @@
 // │ 8 0 0 │ 2 0 3 │ 0 0 9 │          │ 8 1 4 │ 2 5 3 │ 7 6 9 │
 // │ 0 0 5 │ 0 1 0 │ 3 0 0 │          │ 6 9 5 │ 4 1 7 │ 3 8 2 │
 // └───────┴───────┴───────┘          └───────┴───────┴───────┘
-// 
+//
 // A well constructed Su Doku puzzle has a unique solution and can be
 // solved by logic, although it may be necessary to employ "guess and
 // test" methods in order to eliminate options (there is much contested
 // opinion over this). The complexity of the search determines the
 // difficulty of the puzzle; the example above is considered easy
 // because it can be solved by straight forward direct deduction.
-// 
+//
 // The 6K text file, sudoku.txt (right click and 'Save Link/Target
 // As...'), contains fifty different Su Doku puzzles ranging in
 // difficulty, but all with unique solutions (the first puzzle in the
 // file is the example above).
-// 
+//
 // By solving all fifty puzzles find the sum of the 3-digit numbers
 // found in the top left corner of each solution grid; for example, 483
 // is the 3-digit number found in the top left corner of the solution
 // grid above.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // 24702
@@ -68,14 +68,14 @@ func main() {
 		branch := NewBranch(board)
 		solution := branch.Solve()
 
-		cell := int(solution[0]) * 100 + int(solution[1]) * 10 + int(solution[2])
+		cell := int(solution[0])*100 + int(solution[1])*10 + int(solution[2])
 		total += cell
 	}
 	fmt.Printf("%d\n", total)
 }
 
 type Branch struct {
-	board board
+	board  board
 	places []Places
 }
 
@@ -128,7 +128,7 @@ func (b *Branch) SetPossible() {
 
 	for r := 0; r < 9; r++ {
 		for c := 0; c < 9; c++ {
-			places[9*r + c] = b.board.Possible(r, c)
+			places[9*r+c] = b.board.Possible(r, c)
 		}
 	}
 	b.places = places
@@ -137,8 +137,8 @@ func (b *Branch) SetPossible() {
 
 type Move struct {
 	row, col int
-	places Places
-	count int
+	places   Places
+	count    int
 }
 
 // Compute the best move from this board position.  Returns 'nil' if
@@ -149,7 +149,7 @@ func (b *Branch) BestMove() *Move {
 
 	for c := 0; c < 9; c++ {
 		for r := 0; r < 9; r++ {
-			pl := b.places[r*9 + c]
+			pl := b.places[r*9+c]
 			count := pl.Count()
 
 			if count == 1 {
@@ -280,11 +280,11 @@ func newBoard() board {
 }
 
 func (b board) Get(row, col int) byte {
-	return b[9*row + col]
+	return b[9*row+col]
 }
 
 func (b board) Set(row, col int, value byte) {
-	b[9*row + col] = value
+	b[9*row+col] = value
 }
 
 func (b board) UnknownCount() int {
@@ -328,7 +328,7 @@ func (b board) Possible(row, col int) (places Places) {
 	for c := 0; c < 9; c++ {
 		tmp := b.Get(row, c)
 		if tmp > 0 {
-			places &^= 1 << (tmp-1)
+			places &^= 1 << (tmp - 1)
 		}
 	}
 
@@ -336,7 +336,7 @@ func (b board) Possible(row, col int) (places Places) {
 	for r := 0; r < 9; r++ {
 		tmp := b.Get(r, col)
 		if tmp > 0 {
-			places &^= 1 << (tmp-1)
+			places &^= 1 << (tmp - 1)
 		}
 	}
 
@@ -351,7 +351,7 @@ func (b board) Possible(row, col int) (places Places) {
 		for c := ca; c < cb; c++ {
 			tmp := b.Get(r, c)
 			if tmp > 0 {
-				places &^= 1 << (tmp-1)
+				places &^= 1 << (tmp - 1)
 			}
 		}
 	}
@@ -360,7 +360,7 @@ func (b board) Possible(row, col int) (places Places) {
 }
 
 func (p Places) Count() int {
-	return pcount[p & 15] + pcount[(p >> 4) & 15] + pcount[p >> 8]
+	return pcount[p&15] + pcount[(p>>4)&15] + pcount[p>>8]
 }
 
 var pcount = []int{
@@ -371,8 +371,8 @@ func (p Places) Values() (result []byte) {
 	result = make([]byte, 0, 2)
 
 	for b := byte(0); b < 9; b++ {
-		if (p & (1<<b)) != 0 {
-			result = append(result, b + 1)
+		if (p & (1 << b)) != 0 {
+			result = append(result, b+1)
 		}
 	}
 	return
