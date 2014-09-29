@@ -5,12 +5,13 @@ organization := "org.davidb"
 // scalaVersion := "2.9.2"
 // scalaVersion := "2.10.0-RC3"
 // scalaVersion := "2.10.0-M6"
-scalaVersion := "2.10.0"
+scalaVersion := "2.11.2"
 
 // For offline work.
 // offline := true
 
-scalacOptions ++= List("-deprecation", "-optimise", "-target:jvm-1.7")
+// scalacOptions ++= List("-deprecation", "-optimise", "-target:jvm-1.7")
+scalacOptions ++= List("-deprecation", "-optimise")
 
 // Put the classpath needed to run the application into a file
 // 'target/classpath.sh'.  The run script can source this to get a
