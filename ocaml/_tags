@@ -9,7 +9,7 @@
 #<pr023.ml>: package(deriving-ocsigen.syntax), syntax(camlp4o)
 #<pr023.*>: package(deriving-ocsigen)
 
-<*.ml> or <*.mli>: warn(A)
+<*.ml> or <*.mli>: warn(+A-44)
 
 <*.ml> or <*.mli>: package(batteries)
 <*.ml> or <*.mli>: annot
