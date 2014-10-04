@@ -348,3 +348,11 @@ let divisors sieve n = List.sort compare (spread (factorize sieve n))
 
 let proper_divisor_sum sieve n =
   List.fold_left (+) 0 (divisors sieve n) - n
+
+let all_primes () =
+  let sieve = create () in
+  let next p =
+    let p2 = next_prime sieve p in
+    (p, p2) in
+  Enum.from_loop 2 next
+
