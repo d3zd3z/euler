@@ -16,9 +16,9 @@
 
    The sieve is in a functor over a general numeric type. *)
 
-(* open Batteries_uni *)
+(* open! Batteries_uni *)
 (* module Enum = BatEnum *)
-open Batteries
+open! Batteries
 
 module type SimpleNumeric = sig
   type t

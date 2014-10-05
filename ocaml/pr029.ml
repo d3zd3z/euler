@@ -21,7 +21,7 @@
  * a ≤ 100 and 2 ≤ b ≤ 100?
  *)
 
-open Batteries
+open! Batteries
 open Printf
 open Num
 (* open Int *)

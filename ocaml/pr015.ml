@@ -12,7 +12,7 @@
  * How many routes are there through a 20×20 grid?
  **********************************************************************)
 
-open Batteries
+open! Batteries
 open Printf
 
 (* Answer needs to be in an int64 so that the result fits. *)

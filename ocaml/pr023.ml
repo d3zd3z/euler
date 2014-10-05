@@ -24,7 +24,7 @@
  * the sum of two abundant numbers.
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 (*

@@ -1,6 +1,6 @@
 (* Utilities for project euler. *)
 
-open Batteries
+open! Batteries
 
 module type VEC = sig
   type elt
@@ -89,7 +89,7 @@ module MillerRabin = struct
   (* The batteries 2.0 Num package overrides the basic arithmetic, so
      open Int to get them back. *)
   open Num
-  open Int
+  open! Int
 
   (* The Batteries Big_int module is completely worthless, because it
      overrides all of the normal arithmetic operations.  Worse, they

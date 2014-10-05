@@ -25,7 +25,7 @@
  * recurring cycle in its decimal fraction part.
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 (*

@@ -15,7 +15,7 @@
  * NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 (*

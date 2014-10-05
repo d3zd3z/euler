@@ -14,7 +14,7 @@
  * 840
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 module IntMap = Map.Make(Int)

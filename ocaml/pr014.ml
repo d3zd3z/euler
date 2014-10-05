@@ -26,7 +26,7 @@
  * million.
  **********************************************************************)
 
-open Batteries
+open! Batteries
 open Printf
 
 let even n = (n land 1) = 0

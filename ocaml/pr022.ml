@@ -17,7 +17,7 @@
  * What is the total of all the name scores in the file?
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 let get_names path =

@@ -19,7 +19,7 @@
  * 210
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 let sequence () =

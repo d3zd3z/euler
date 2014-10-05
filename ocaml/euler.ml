@@ -1,6 +1,6 @@
 (* Invoke the project euler problems. *)
 
-open Batteries
+open! Batteries
 open Printf
 
 let problems = Problems.problems

@@ -13,7 +13,7 @@
  * 7652413
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 let run () =

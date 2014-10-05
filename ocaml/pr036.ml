@@ -14,7 +14,7 @@
  * include leading zeros.)
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 let is_palindrome ?(base=10) number =

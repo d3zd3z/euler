@@ -19,7 +19,7 @@
  * to only include it once in your sum.
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 (* Return all groupings (as a list) that can be built out of this

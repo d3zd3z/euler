@@ -22,7 +22,7 @@
  * the top left to the bottom right by only moving right and down.
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 module IntMap = Map.Make(Int)

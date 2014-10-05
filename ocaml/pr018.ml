@@ -40,7 +40,7 @@
  *
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 let source = List.rev [

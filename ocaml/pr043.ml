@@ -24,7 +24,7 @@
  * 16695334890
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 let low_primes = [ 2; 3; 5; 7; 11; 13; 17 ]

@@ -1,6 +1,6 @@
 (* Triangle utilities. *)
 
-open Batteries
+open! Batteries
 
 type box = { p1 : int; p2 : int; q1 : int; q2 : int }
 

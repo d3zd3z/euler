@@ -22,7 +22,7 @@
  * 162
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 (* Read the contents of a single line file. *)

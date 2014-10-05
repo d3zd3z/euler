@@ -12,7 +12,7 @@
  * How many circular primes are there below one million?
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 let number_of_digits num =

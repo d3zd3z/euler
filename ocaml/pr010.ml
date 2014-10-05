@@ -12,14 +12,14 @@
  *
  **********************************************************************)
 
-open Batteries
+open! Batteries
 open Printf
 
 let pr10 () =
   let sieve = Sieve.create () in
   let rec loop p sum =
     if p >= 2000000 then sum else
-      let open Int64 in
+      let open! Int64 in
       loop (Sieve.next_prime sieve p)
 	(sum + of_int p) in
   loop 2 0L

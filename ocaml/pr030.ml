@@ -19,7 +19,7 @@
  * fifth powers of their digits.
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 let expt base power =

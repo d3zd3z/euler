@@ -23,7 +23,7 @@
  * where n > 1?
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 (* Is this number a full 9-element pandigital number. *)

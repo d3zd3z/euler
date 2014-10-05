@@ -27,7 +27,7 @@
  * hundred divisors?
  **********************************************************************)
 
-open Batteries
+open! Batteries
 
 let euler12 () =
   let sieve = Sieve.create () in

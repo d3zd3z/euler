@@ -15,7 +15,7 @@
  * Evaluate the sum of all the amicable numbers under 10000.
  *)
 
-open Batteries
+open! Batteries
 open Printf
 
 let is_amicable sieve num =
