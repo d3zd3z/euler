@@ -25,7 +25,7 @@ let run () =
       | Some perm ->
 	let num = int_of_string perm in
 	let next =
-	  try Some (Misc.string_next_permutation perm)
+	  try Some (Misc.bytes_next_permutation perm)
 	  with Not_found -> None in
 	if Sieve.is_prime sieve num && num > largest then
 	  loop next num

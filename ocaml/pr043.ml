@@ -42,9 +42,9 @@ let valid digits =
   loop 1 low_primes
 
 let run () =
-  let base = String.copy "0123456789" in
+  let base = Bytes.copy "0123456789" in
   let next () =
-    try Some (String.copy (Misc.string_next_permutation base))
+    try Some (Bytes.copy (Misc.bytes_next_permutation base))
     with Not_found -> None in
   let numbers = Enum.from_while next in
   let nifty = Enum.filter valid numbers in

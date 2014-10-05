@@ -43,8 +43,8 @@ let euler32 () =
   let products = ref [] in
   let rec loop text =
     products := (make_groupings text) :: !products;
-    loop (Misc.string_next_permutation text) in
-  (try loop (String.copy "123456789")
+    loop (Misc.bytes_next_permutation text) in
+  (try loop (Bytes.copy "123456789")
    with Not_found -> ());
   List.sum (List.sort_unique Int.compare (List.concat !products))
 

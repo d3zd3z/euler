@@ -55,12 +55,12 @@ struct
 
 end
 
-module StringPermuter = MakePermuter (struct
+module BytesPermuter = MakePermuter (struct
   type elt = char
-  include String
+  include Bytes
 end) (Char)
 
-let string_next_permutation = StringPermuter.next_permutation
+let bytes_next_permutation = BytesPermuter.next_permutation
 
 let expt base power =
   let rec loop result base power =
