@@ -254,3 +254,15 @@ let isqrt2 num =
     end in
   loop 0 (find_bit num 1) num
 *)
+
+module Result =
+  struct
+    type 'a t = 'a option ref
+    let make () = ref None
+    let save result num = match !result with
+      | None -> result := Some num
+      | Some _ -> failwith "More than one result"
+    let get result = match !result with
+      | None -> failwith "No result"
+      | Some r -> r
+  end

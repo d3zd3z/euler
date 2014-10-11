@@ -30,3 +30,13 @@ module MillerRabin : sig
 end
 
 val isqrt : int -> int
+
+(* A simple result container.  It can hold a single result, and makes sure
+ * there isn't more than one result.  It doesn't stop the computation early. *)
+module Result :
+  sig
+    type 'a t
+    val make : unit -> 'a t
+    val save : 'a t -> 'a -> unit
+    val get : 'a t -> 'a
+  end
