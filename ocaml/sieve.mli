@@ -59,4 +59,4 @@ val factorize : t -> int -> factor list
 val divisor_count : t -> int -> int
 val divisors : t -> int -> int list
 val proper_divisor_sum : t -> int -> int
-val all_primes : unit -> int BatEnum.t
+val all_primes : t -> int BatEnum.t
