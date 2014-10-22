@@ -18,9 +18,11 @@
  *
  * What is the sum of the numbers on the diagonals in a 1001 by 1001
  * spiral formed in the same way?
+ *
+ * 669171001
  *)
 
-open Printf
+open! Core.Std
 
 let ring_sum n = 4*n*n - 6*n + 6
 

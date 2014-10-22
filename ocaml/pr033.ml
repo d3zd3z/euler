@@ -18,10 +18,11 @@
  *
  * If the product of these four fractions is given in its lowest common
  * terms, find the value of the denominator.
+ *
+ * 100
  *)
 
-open Num
-open Printf
+open! Core.Std
 
 let is_frac a b =
   let an = a / 10 in
@@ -32,13 +33,14 @@ let is_frac a b =
     (am = bn && bm > 0 && an*b = bm*a)
 
 let euler33 () =
-  let prod = ref (num_of_int 1) in
+  let prod = ref Num.(num_of_int 1) in
   for a = 10 to 99 do
     for b = a+1 to 99 do
       if is_frac a b then
+        let open! Num in
 	prod := !prod */ (num_of_int a // num_of_int b)
     done
   done;
-  Big_int.int_of_big_int (Ratio.denominator_ratio (ratio_of_num !prod))
+  Big_int.int_of_big_int (Ratio.denominator_ratio Num.(ratio_of_num !prod))
 
 let run () = printf "%d\n" (euler33 ())

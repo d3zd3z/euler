@@ -13,10 +13,11 @@
  * from left to right and right to left.
  *
  * NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
+ *
+ * 748317
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 (*
 module P = Sieve.Int64Factory
@@ -31,8 +32,8 @@ let is_prime = Misc.MillerRabin.is_prime_int
    when a single digit is appended to the right. *)
 let add_primes numbers =
   let result = ref [] in
-  List.iter (fun number ->
-    List.iter (fun extra ->
+  List.iter ~f:(fun number ->
+    List.iter ~f:(fun extra ->
       let n = number * 10 + extra in
       if is_prime n then
 	result := n :: !result
@@ -59,7 +60,9 @@ let is_left_truncatable number =
   loop number
 
 let euler37 () =
-  List.sum (List.filter (fun x -> x > 9 && is_left_truncatable x)
+  List.sum (module Int)
+    ~f:ident
+    (List.filter ~f:(fun x -> x > 9 && is_left_truncatable x)
 	      (right_truncatable_primes ()))
 
 let run () = printf "%d\n" (euler37 ())

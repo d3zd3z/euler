@@ -15,33 +15,35 @@
  * list. So, COLIN would obtain a score of 938 × 53 = 49714.
  *
  * What is the total of all the name scores in the file?
+ *
+ * 871198282
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 let get_names path =
-  match List.of_enum (File.lines_of path) with
+  match In_channel.read_lines path with
     | [names] ->
-	let names = String.nsplit names ~by:"," in
-	List.map (String.strip ~chars:"\"") names
+	let names = String.split names ~on:',' in
+	List.map ~f:(String.strip ~drop:(fun ch -> ch = '\"')) names
     | _ -> failwith "Unexpected names list"
 
-let letter_A = Char.code 'A'
+let letter_A = Char.to_int 'A'
 
 let name_value name =
   let value = ref 0 in
   for i = 0 to String.length name - 1 do
-    value := !value + Char.code name.[i] - letter_A + 1
+    value := !value + Char.to_int name.[i] - letter_A + 1
   done;
   !value
 
 let euler22 () =
   let names = get_names "../haskell/names.txt" in
-  let names = List.sort compare names in
-  let values = List.map name_value names in
-  let values = List.enum values in
-  Enum.sum (Enum.mapi (fun index value -> (index + 1) * value) values)
+  let names = List.sort ~cmp:compare names in
+  let values = List.map ~f:name_value names in
+  let v = List.mapi ~f:(fun index value -> (index + 1) * value) values in
+  (* List.fold ~init:0 ~f:(+) v *)
+  List.sum (module Int) v ~f:ident
 
 let run () =
   let result = euler22 () in

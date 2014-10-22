@@ -14,23 +14,24 @@
  * 840
  *)
 
-open! Batteries
-open Printf
-
-module IntMap = Map.Make(Int)
+open! Core.Std
 
 let all_triples limit =
-  let result = ref IntMap.empty in
+  let result = ref Int.Map.empty in
   let add _triple p =
-    result := IntMap.modify_def 0 p (fun x -> x + 1) !result in
+    result := Int.Map.change !result p (function
+      | None -> Some 1
+      | Some x -> Some (x + 1)) in
   Triangle.generate_triples limit add;
   !result
 
 let run () =
   let triples = all_triples 1000 in
-  let update p count (largest_p, largest_count) =
+  let update ~key ~data (largest_p, largest_count) =
+    let p = key in
+    let count = data in
     if count > largest_count
     then (p, count)
     else (largest_p, largest_count) in
-  let (largest, _count) = IntMap.fold update triples (0, 0) in
+  let (largest, _count) = Int.Map.fold triples ~init:(0, 0) ~f:update in
   printf "%d\n" largest

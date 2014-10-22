@@ -10,17 +10,18 @@
  * [p_015]
  *
  * How many routes are there through a 20×20 grid?
+ *
+ * 137846528820
  **********************************************************************)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 (* Answer needs to be in an int64 so that the result fits. *)
 
-let (++) = Int64.add
+let (++) = Int64.(+)
 
 (* An imperative solution. *)
-let base n = Array.make (n+1) 1L
+let base n = Array.create ~len:(n+1) 1L
 
 let bump vec =
   for i = 0 to Array.length vec - 2 do
@@ -36,7 +37,7 @@ let routes n =
 
 (* A functional solution. *)
 module Func = struct
-  let base n = List.of_enum (Enum.repeat ~times:(n+1) 1L)
+  let base n = List.init (n+1) ~f:(const 1L)
 
   let rec reduce = function
     | [a] -> [a]
@@ -57,7 +58,7 @@ module Func = struct
 
   let routes n =
     let rec loop x count =
-      if count = n then List.last x
+      if count = n then List.last_exn x
       else loop (reduce x) (count + 1) in
     loop (base n) 0
 end

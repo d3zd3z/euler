@@ -15,9 +15,11 @@
  * hundred and forty-two) contains 23 letters and 115 (one hundred and
  * fifteen) contains 20 letters. The use of "and" when writing out
  * numbers is in compliance with British usage.
+ *
+ * 21124
  *)
 
-open Printf
+open! Core.Std
 
 (* Blort *)
 let one_names = [|

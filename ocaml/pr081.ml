@@ -22,18 +22,12 @@
  * the top left to the bottom right by only moving right and down.
  *)
 
-open! Batteries
-open Printf
-
-module IntMap = Map.Make(Int)
-
-type node = int * int
-(*     deriving (Show) *)
+open! Core.Std
 
 module Node = struct
-  type t = node
-  let compare = compare
+  type t = int * int with sexp, compare
 end
+type node = Node.t
 
 module EM = Map.Make (Node)
 module ES = Set.Make (Node)
@@ -49,9 +43,9 @@ type edge_map = edge list EM.t
 
 (* Build up a matrix out of the contents of the given file. *)
 let read_matrix path =
-  let lines = File.lines_of path in
-  let split_line line = Array.of_list (List.map int_of_string (String.nsplit line ~by:",")) in
-  Array.of_enum (Enum.map split_line lines)
+  let lines = In_channel.read_lines path in
+  let split_line line = Array.of_list (List.map ~f:int_of_string (String.split line ~on:',')) in
+  Array.of_list (List.map lines ~f:split_line)
 
 let sample = [|
   [| 131; 673; 234; 103; 18 |];
@@ -85,77 +79,86 @@ let build_graph matrix =
   let edge1 = horizontal_edges matrix in
   let edge2 = vertical_edges matrix in
   let init_node = ((-1, -1), { weight = matrix.(0).(0); next = (0, 0) }) in
+  let edges = List.append edge1 edge2 in
+  let edges = init_node :: edges in
+  let combine map (k, v) = EM.change map k (function
+    | None -> Some [v]
+    | Some x -> Some (v :: x)) in
+  List.fold edges ~init: EM.empty ~f:combine
+
+  (*
   let edges = Enum.append (List.enum edge1) (List.enum edge2) in
   let edges = Enum.append (Enum.singleton init_node) edges in
   let combine map (k, v) = EM.modify_def [] k (fun l -> v :: l) map in
   Enum.fold combine EM.empty edges
+  *)
 
 (* Return a specific node from a map, returning that node, as well as
    the map without it. *)
 let map_without key map = (EM.find key map, EM.remove key map)
 let map_min map =
-  let (mkey, mval) = EM.min_binding map in
-  (mkey, mval, EM.remove mkey map)
+  let (mkey, mval) = EM.min_elt_exn map in
+  (mkey, mval, EM.remove map mkey)
 
 (* Update the cost for the given node. *)
 let update_cost costs unvisited cur_weight edges =
   let visit edge =
-    if ES.mem edge.next unvisited then begin
+    if ES.mem unvisited edge.next then begin
       let new_cost = cur_weight + edge.weight in
-      match EM.Exceptionless.find edge.next !costs with
-	| None -> costs := EM.add edge.next new_cost !costs
+      match EM.find !costs edge.next with
+	| None -> costs := EM.add !costs ~key:edge.next ~data:new_cost
 	| Some w when new_cost < w ->
-	    costs := EM.add edge.next new_cost !costs
+	    costs := EM.add !costs ~key:edge.next ~data:new_cost
 	| _ -> ()
     end in
-  List.iter visit edges
+  List.iter edges ~f:visit
 
 let swap (a, b) = (b, a)
+
+let bcmp (_, a) (_, b) = Int.compare a b
 
 (* The unvisited set starts as all of the possible destinations. *)
 let compute_unvisited graph =
   let result = ref ES.empty in
-  let each _ node = List.iter (fun edge -> result := ES.add edge.next !result) node in
-  EM.iter each graph;
+  let each ~key ~data = (ignore key; List.iter data ~f:(fun edge -> result := ES.add !result edge.next)) in
+  EM.iter graph ~f:each;
   !result
 
 let dijkstra (graph : edge_map) start final =
   let costs = ref (EM.singleton start 0) in
   let unvisited = ref (compute_unvisited graph) in
 
-  let rec loop (current_cost, current) =
+  let rec loop (current, current_cost) =
     (* printf "Visit %s\n" (Show.show<node> current); *)
     (* printf "  unvisited: %s\n" (Show.show<node list> (List.of_enum (ES.enum !unvisited))); *)
-    if current = final then EM.find current !costs
+    if current = final then uw @@ EM.find !costs current
     else begin
-      let edges = EM.find current graph in
+      let edges = EM.find_exn graph current in
       (* printf "  edges: %s\n" (Show.show<edge list> edges); *)
       (* printf "   pre costs: %s\n" (Show.show<(node * int) list> (List.of_enum (EM.enum !costs))); *)
       update_cost costs !unvisited current_cost edges;
       (* printf "  post costs: %s\n" (Show.show<(node * int) list> (List.of_enum (EM.enum !costs))); *)
 
       (* Remove the "cost" for the current node. *)
-      costs := EM.remove current !costs;
-      unvisited := ES.remove current !unvisited;
+      costs := EM.remove !costs current;
+      unvisited := ES.remove !unvisited current;
 
-      (* Select the lowest cost node.  TODO: This could be done
-	 better, say with a priority queue, or even 'select min',
-	 rather than build the whole thing. *)
-      let rcosts = IntMap.of_enum (Enum.map swap (EM.enum !costs)) in
+      (* Select the lowest cost node. *)
+      let min_elt = uw @@ Sequence.min_elt (EM.to_sequence !costs) ~cmp:bcmp in
 
       (* And, select the lowest cost node to visit. *)
-      loop (IntMap.min_binding rcosts)
+      loop min_elt
     end in
-  loop (0, start)
+  loop (start, 0)
 
 (* Extract all nodes that don't exit the mapping. *)
 let find_exits graph =
   let dests = compute_unvisited graph in
-  let srcs = ES.of_enum (EM.keys graph) in
+  let srcs = ES.of_list @@ EM.keys graph in
   ES.diff dests srcs
 
 let get_finish graph =
-  match List.of_enum (ES.enum (find_exits graph)) with
+  match ES.to_list (find_exits graph) with
     | [e] -> e
     | [] -> failwith "No exists from graph"
     | _ -> failwith "Multiple exits from graph"

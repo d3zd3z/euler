@@ -13,10 +13,11 @@
  * 284 are 1, 2, 4, 71 and 142; so d(284) = 220.
  *
  * Evaluate the sum of all the amicable numbers under 10000.
+ *
+ * 31626
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 let is_amicable sieve num =
   let other = Sieve.proper_divisor_sum sieve num in

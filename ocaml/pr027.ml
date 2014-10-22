@@ -27,9 +27,11 @@
  * Find the product of the coefficients, a and b, for the quadratic
  * expression that produces the maximum number of primes for
  * consecutive values of n, starting with n = 0.
+ *
+ * -59231
  *)
 
-open Printf
+open! Core.Std
 
 let prime_length sieve a b =
   let rec loop n =

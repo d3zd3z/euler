@@ -10,12 +10,14 @@
  * factorial of their digits.
  *
  * Note: as 1! = 1 and 2! = 2 are not sums they are not included.
+ *
+ * 40730
  *)
 
-open Printf
+open! Core.Std
 
 let factorial =
-  let facts = Array.make 10 1 in
+  let facts = Array.create ~len:10 1 in
   for i = 2 to 9 do
     facts.(i) <- i * facts.(i-1)
   done;

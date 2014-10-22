@@ -25,9 +25,11 @@
  *
  * What is the value of the first triangle number to have over five
  * hundred divisors?
+ *
+ * 76576500
  **********************************************************************)
 
-open! Batteries
+open! Core.Std
 
 let euler12 () =
   let sieve = Sieve.create () in
@@ -38,4 +40,4 @@ let euler12 () =
   loop 1 2
 
 let run () =
-  Printf.printf "%d\n" (euler12 ())
+  printf "%d\n" (euler12 ())

@@ -22,10 +22,11 @@
  *
  * Find the sum of all the positive integers which cannot be written as
  * the sum of two abundant numbers.
+ *
+ * 4179871
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 (*
 module S = Set.IntSet
@@ -55,7 +56,7 @@ let euler23 () =
 (* Since we're computing all of the divisors, do it incrementally,
    rather than by division, which should be significantly faster. *)
 let make_divisors limit =
-  let result = Array.make limit 1 in
+  let result = Array.create ~len:limit 1 in
   for base = 2 to limit-1 do
     let n = ref (base+base) in
     while !n < limit do
@@ -68,17 +69,16 @@ let make_divisors limit =
 let make_abundants limit =
   let divisors = make_divisors limit in
   let result = ref [] in
-  Array.iteri (fun i dc -> if i > 0 && i < dc then result := i :: !result) divisors;
+  Array.iteri ~f:(fun i dc -> if i > 0 && i < dc then result := i :: !result) divisors;
   !result
 
 let sums limit =
-  let abundants = Array.of_enum (List.enum (make_abundants limit)) in
-  let s = Array.make limit false in
-  Array.iter (fun outer ->
-    Array.iter (fun inner ->
+  let abundants = Array.of_list (make_abundants limit) in
+  let s = Array.create ~len:limit false in
+  Array.iter abundants ~f:(fun outer ->
+    Array.iter abundants ~f:(fun inner ->
       let t = outer + inner in
-      if t < limit then s.(t) <- true) abundants)
-    abundants;
+      if t < limit then s.(t) <- true));
   let sum = ref 0 in
   for i = 1 to limit-1 do
     if not s.(i) then sum := !sum + i

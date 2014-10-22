@@ -8,12 +8,10 @@
  *
  * Find the sum of all the primes below two million.
  *
- *
- *
+ * 142913828922
  **********************************************************************)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 let pr10 () =
   let sieve = Sieve.create () in

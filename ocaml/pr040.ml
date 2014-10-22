@@ -19,28 +19,27 @@
  * 210
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
+
+let digits n =
+  let rec loop accum = function
+    | 0 -> accum
+    | n -> loop (n mod 10 :: accum) (n / 10) in
+  loop [] n
 
 let sequence () =
-  let numbers = 1 -- 1000000 in
-  let textual = Enum.map (List.enum % String.explode % string_of_int) numbers in
-  Enum.concat textual
-
-let eget seq =
-  match Enum.get seq with
-      Some x -> x
-    | None   -> failwith "Out of elements"
+  let numbers = Sequence.range 1 1_000_000 in
+  Sequence.concat_map numbers ~f:(fun x ->
+    digits x |> Sequence.of_list)
 
 let run () =
   let seq = sequence () in
-  let rec loop sum drops =
-    if drops > 999999 then sum
+  let rec loop seq sum drops =
+    if drops > 999_999 then sum
     else begin
-      let head = eget seq in
-      let head = Char.code head - Char.code '0' in
-      Enum.drop (drops - 1) seq;
-      loop (sum * head) (drops * 10)
+      let head, seq = uw (Sequence.next seq) in
+      let seq = Sequence.drop_eagerly seq (drops - 1) in
+      loop seq (sum * head) (drops * 10)
     end in
-  let result = loop 1 9 in
+  let result = loop seq 1 9 in
   printf "%d\n" result

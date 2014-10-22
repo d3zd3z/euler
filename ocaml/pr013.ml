@@ -5,8 +5,11 @@
  *
  * Work out the first ten digits of the sum of the following
  * one-hundred 50-digit numbers.
+ *
+ * 5537376230
  *)
 
+open! Core.Std
 open Num
 
 let numbers =
@@ -112,8 +115,8 @@ let numbers =
     "53503534226472524250874054075591789781264330331690" ]
 
 let euler13 () =
-  let sum = List.fold_left (fun sum txt ->
-    sum +/ num_of_string txt) (num_of_int 0) numbers in
-  String.sub (string_of_num sum) 0 10
+  let sum = List.fold ~f:(fun sum txt ->
+    sum +/ num_of_string txt) ~init:(num_of_int 0) numbers in
+  String.sub (string_of_num sum) ~pos:0 ~len:10
 
 let run () = Printf.printf "%s\n" (euler13 ())

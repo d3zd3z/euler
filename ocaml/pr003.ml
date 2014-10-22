@@ -8,7 +8,10 @@
  *
  * What is the largest prime factor of the number 600851475143 ?
  *
+ * 6857
  **********************************************************************)
+
+open! Core.Std
 
 let testing_dump () =
   let rec loop s count =
@@ -27,11 +30,11 @@ let factors number =
 	 for large powers. *)
       let (next, s') = Sieve.Int64Sieve.next s in
       if Int64.rem number next = 0L then
-	loop s (Int64.div number next) (next :: so_far)
+        loop s (Int64.(/) number next) (next :: so_far)
       else
 	loop s' number so_far in
   loop Sieve.Int64Sieve.initial number []
 
 let pr3 () =
-  Printf.printf "%Ld\n" (List.hd (factors 600851475143L))
+  Printf.printf "%Ld\n" (List.hd_exn (factors 600851475143L))
 let run () = pr3 ()

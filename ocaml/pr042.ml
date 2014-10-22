@@ -22,22 +22,21 @@
  * 162
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 (* Read the contents of a single line file. *)
 let get_file_line path =
-  let lines = File.lines_of path in
-  Enum.get_exn lines
+  let lines = In_channel.read_lines path in
+  List.hd_exn lines
 
 let get_words () =
   let line = get_file_line "../haskell/words.txt" in
-  let names = String.nsplit line ~by:"," in
-  List.map (String.strip ~chars:"\"") names
+  let names = String.split line ~on:',' in
+  List.map names ~f:(String.strip ~drop:(fun ch -> ch = '"'))
 
 let name_value name =
-  let chval sum ch = sum + Char.code ch - Char.code 'A' + 1 in
-  String.fold_left chval 0 name
+  let chval sum ch = sum + Char.to_int ch - Char.to_int 'A' + 1 in
+  String.fold name ~init:0 ~f:chval
 
 let is_triangle number =
   let square = 1 + number * 8 in
@@ -46,7 +45,7 @@ let is_triangle number =
 
 let run () =
   let words = get_words () in
-  let values = List.map name_value words in
-  let values = List.filter is_triangle values in
+  let values = List.map words ~f:name_value in
+  let values = List.filter values ~f:is_triangle in
   let result = List.length values in
   printf "%d\n" result

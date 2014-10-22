@@ -12,6 +12,8 @@
  * 9110846700
  *)
 
+open! Core.Std
+
 (* This should probably use explicit Int64, since the intermediate
  * result doesn't fit in a 32-bit int.  However, this constant will
  * cause compilation to fail on a 32-bit platform, which should be ok. *)
@@ -32,4 +34,4 @@ let solve () =
   in loop 0 1
 
 let run () =
-  Printf.printf "%d\n" (solve ())
+  printf "%d\n" (solve ())

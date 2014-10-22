@@ -9,12 +9,15 @@
  *
  * What is the 10 001st prime number?
  *
+ * 104743
  **********************************************************************)
+
+open! Core.Std
 
 let pr7 () =
   let rec loop s count =
     let (next, s') = Sieve.Int64Sieve.next s in
     if count = 10001 then next else
       loop s' (count + 1) in
-  Printf.printf "%Ld\n" (loop Sieve.Int64Sieve.initial 1)
+  printf "%Ld\n" (loop Sieve.Int64Sieve.initial 1)
 let run () = pr7 ()

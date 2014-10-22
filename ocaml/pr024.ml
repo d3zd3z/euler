@@ -14,14 +14,16 @@
  *
  * What is the millionth lexicographic permutation of the digits 0, 1,
  * 2, 3, 4, 5, 6, 7, 8 and 9?
+ *
+ * 2783915460
  *)
 
-open Printf
+open! Core.Std
 
 let euler24 () =
   let rec loop text count =
     if count = 1_000_000 then text
     else loop (Misc.bytes_next_permutation text) (count+1) in
-  loop (Bytes.copy "0123456789") 1
+  loop (String.copy "0123456789") 1
 
 let run () = printf "%s\n" (euler24 ())

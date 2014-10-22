@@ -10,9 +10,11 @@
  * + 0 = 27.
  *
  * Find the sum of the digits in the number 100!
+ *
+ * 648
  *)
 
-open Printf
+open! Core.Std
 open Num
 
 let fact n =

@@ -27,9 +27,13 @@
  * 84580156166097919133875499200524063689912560717606
  * 05886116467109405077541002256983155200055935729725
  * 71636269561882670428252483600823257530420752963450
+ *
+ * 40824
  **********************************************************************)
 
-let digits = String.concat ""
+open! Core.Std
+
+let digits = String.concat
   [ "73167176531330624919225119674426574742355349194934";
     "96983520312774506326239578318016984801869478851843";
     "85861560789112949495459501737958331952853208805511";
@@ -54,10 +58,10 @@ let digits = String.concat ""
 (* Get the product of 5 digits starting at pos. *)
 let digit_product base =
   let ch offset =
-    Char.code (digits.[base + offset]) in
+    Char.to_int (digits.[base + offset]) in
   let rec loop offset product =
     if offset < 5 then
-      loop (offset + 1) (product * (ch offset - (Char.code '0')))
+      loop (offset + 1) (product * (ch offset - (Char.to_int '0')))
     else
       product in
   loop 0 1
@@ -72,4 +76,4 @@ let pr8 () =
       largest in
   loop limit (-1)
 
-let run () = Printf.printf "%d\n" (pr8 ())
+let run () = printf "%d\n" (pr8 ())

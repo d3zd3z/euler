@@ -9,9 +9,18 @@
 #<pr023.ml>: package(deriving-ocsigen.syntax), syntax(camlp4o)
 #<pr023.*>: package(deriving-ocsigen)
 
-<*.ml> or <*.mli>: warn(+A)
+# <*.ml> or <*.mli>: warn(+A)
+true: warn(+A-4)
+true: warn_error(+A-4)
 
-<*.ml> or <*.mli>: package(batteries)
 <*.ml> or <*.mli>: annot
+
+# true: syntax(camlp4o)
+true: package(core)
+# true: package(core,sexplib.syntax,bin_prot.syntax,comparelib.syntax,fieldslib.syntax,variantslib.syntax)
+true: thread
+
+<pr081.ml>: syntax(camlp4o)
+<pr081.ml>: package(sexplib.syntax,comparelib.syntax)
 
 <*.native> or <*.byte>: package(batteries)

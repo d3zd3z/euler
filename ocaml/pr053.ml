@@ -24,6 +24,8 @@
  * 4075
  *)
 
+open! Core.Std
+
 (* The answer is just Pascal's triangle.  To make this easier to
  * implement, build it from a saturating arithmetic type. *)
 module Saturating = struct
@@ -65,7 +67,7 @@ let array_count f ary =
   !total
 
 let solve () =
-  let buffer = Array.make 101 S.zero in
+  let buffer = Array.create ~len:101 S.zero in
   buffer.(0) <- S.one;
   let counter = ref 0 in
   for i = 1 to 100 do
@@ -77,4 +79,4 @@ let solve () =
   !counter
 
 let run () =
-  Printf.printf "%d\n" (solve ())
+  printf "%d\n" (solve ())

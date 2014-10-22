@@ -1,13 +1,20 @@
-(* Utilities for project euler problems. *)
+(* Core-based utilities for euler problems. *)
 
-open! Batteries
+open! Core.Std
 
+(* A general vector type. *)
 module type VEC = sig
-  type elt
   type t
+  type elt
   val length : t -> int
   val get : t -> int -> elt
   val set : t -> int -> elt -> unit
+end
+
+(* TODO: Can we leverage the comparison found in Core? *)
+module type CMP = sig
+  type t
+  val compare : t -> t -> int
 end
 
 module type PERM = sig
@@ -15,10 +22,9 @@ module type PERM = sig
   val next_permutation : t -> t
 end
 
-module MakePermuter (Vec: VEC) (Cmp: Interfaces.OrderedType with type t = Vec.elt)
-  : PERM with type t = Vec.t
+module Make_permuter (Vec : VEC) (Cmp : CMP with type t = Vec.elt) : PERM with type t = Vec.t
 
-val bytes_next_permutation : bytes -> bytes
+val bytes_next_permutation : string -> string
 
 val expt : int -> int -> int
 val reverse_number : ?base:int -> int -> int

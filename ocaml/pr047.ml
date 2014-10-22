@@ -23,6 +23,8 @@
  * 134043
  *)
 
+open! Core.Std
+
 let expect = 4
 
 let solve () =
@@ -30,9 +32,9 @@ let solve () =
   let rec loop i count =
     (* let facts = SV.factorize i in *)
     let facts = Sieve.factorize sieve i in
-    if List.length facts == expect then begin
+    if List.length facts = expect then begin
       let c2 = count + 1 in
-      if c2 == expect then
+      if c2 = expect then
         (i-expect+1)
       else
         loop (i+1) c2
@@ -41,4 +43,4 @@ let solve () =
   in loop 2 0
 
 let run () =
-  Printf.printf "%d\n" (solve ())
+  printf "%d\n" (solve ())

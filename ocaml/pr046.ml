@@ -22,40 +22,36 @@
  * 5777
  *)
 
-module Enum = BatEnum
-module SV = Sieve.IntFactory
+open! Core.Std
 
 (* Determine if this number can be composed of a Goldbach number. *)
-let goldbach n =
-  let ps = SV.primes_upto n in
-  Enum.junk ps;
-  let rec loop () =
-    match Enum.get ps with
-      | Some p ->
+let goldbach sv n =
+  let ps = Sieve.primes_upto sv n in
+  let _, ps = uw (Sequence.next ps) in
+  let rec loop ps =
+    match Sequence.next ps with
+      | Some (p, ps') ->
           begin
             let b = (n-p) / 2 in
             let bsub = Misc.isqrt b in
-            if bsub*bsub == b then
+            if bsub*bsub = b then
               Some p
             else
-              loop ()
+              loop ps'
           end
       | None -> None
-  in loop ()
+  in loop ps
 
 let solve () =
+  let sv = Sieve.create () in
   let rec loop n =
-    if SV.is_prime n then
+    if Sieve.is_prime sv n then
       loop (n+2)
     else
-      match goldbach n with
+      match goldbach sv n with
         | Some _ -> loop (n+2)
         | None -> n
   in loop 9
 
 let run () =
-  (*
-  BatPrintf.printf "stuff: %a\n" (BatOption.print BatInt.print)
-    (goldbach 27);
-  *)
   Printf.printf "%d\n" (solve ())

@@ -1,13 +1,20 @@
-(* Utilities for project euler. *)
+(* Core based utilities. *)
 
-open! Batteries
+open! Core.Std
 
+(* A general vector type. *)
 module type VEC = sig
-  type elt
   type t
+  type elt
   val length : t -> int
   val get : t -> int -> elt
   val set : t -> int -> elt -> unit
+end
+
+(* TODO: Can we leverage the comparison found in Core? *)
+module type CMP = sig
+  type t
+  val compare : t -> t -> int
 end
 
 module type PERM = sig
@@ -15,9 +22,7 @@ module type PERM = sig
   val next_permutation : t -> t
 end
 
-module MakePermuter (Vec : VEC) (Cmp: Interfaces.OrderedType with type t = Vec.elt)
-  : PERM with type t = Vec.t =
-struct
+module Make_permuter (Vec : VEC) (Cmp : CMP with type t = Vec.elt) : PERM with type t = Vec.t = struct
   module Array = Vec
   type t = Vec.t
 
@@ -29,38 +34,35 @@ struct
   let reverse_subvec text a b =
     let rec loop a b =
       if a < b then begin
-	swap text a b;
-	loop (a+1) (b-1)
+        swap text a b;
+        loop (a+1) (b-1)
       end in
     loop a b
 
   (* Modify the vector in place, to generate the next lexical
-     permutation.  Raises Not_found if given the last permutation. *)
+   * permutation.  Raises Not_found if given the last permutation.
+   * TODO: Fix this to not raise. *)
   let next_permutation text =
     let len = Array.length text in
     let k = ref (-1) in
     for x = 0 to len-2 do
       if Cmp.compare text.(x) text.(x+1) < 0 then
-	k := x
+        k := x
     done;
     if !k < 0 then raise Not_found;
     let l = ref (-1) in
     for x = !k+1 to len-1 do
       if Cmp.compare text.(!k) text.(x) < 0 then
-	l := x
+        l := x
     done;
     swap text !k !l;
     reverse_subvec text (!k+1) (len-1);
     text
-
 end
 
-module BytesPermuter = MakePermuter (struct
-  type elt = char
-  include Bytes
-end) (Char)
+module Bytes_permuter = Make_permuter (String) (Char)
 
-let bytes_next_permutation = BytesPermuter.next_permutation
+let bytes_next_permutation = Bytes_permuter.next_permutation
 
 let expt base power =
   let rec loop result base power =
@@ -86,22 +88,8 @@ let number_of_digits number =
   loop 0 number
 
 module MillerRabin = struct
-  (* The batteries 2.0 Num package overrides the basic arithmetic, so
-     open Int to get them back. *)
   open Num
-  open! Int
-
-  (* The Batteries Big_int module is completely worthless, because it
-     overrides all of the normal arithmetic operations.  Worse, they
-     don't even provide a legacy version of it, so our only hope is to
-     pull in the symbols desired.  Ick. *)
-  let and_big_int = Big_int.and_big_int
-  let or_big_int = Big_int.or_big_int
-  let mod_big_int = Big_int.mod_big_int
-  let big_int_of_int = Big_int.big_int_of_int
-  let shift_right_big_int = Big_int.shift_right_big_int
-  let shift_left_big_int = Big_int.shift_left_big_int
-  let compare_big_int = Big_int.compare_big_int
+  open Big_int
 
   let zero = num_of_int 0
   let one = num_of_int 1
@@ -127,7 +115,7 @@ module MillerRabin = struct
     | Ratio _ -> failwith "shift of ratio"
 
   (* This is a little trickier, since it can overflow.  For
-     simplicitly, just always convert the result to a bit_int.  TODO:
+     simplicitly, just always convert the result to a big_int.  TODO:
      keep the int value as an int if possible. *)
   let num_shift_left num count = match num with
     | Int a -> Big_int (shift_left_big_int (big_int_of_int a) count)
@@ -229,31 +217,6 @@ let isqrt num =
     bit := !bit lsr 2
   done;
   !result
-
-(* Functional version.  Interestingly, ocaml doesn't generate quite as
-   good code for this version.  Even with the manual lifting of
-   "find_bit", the loop bodies still end up being called rather than
-   inlined. *)
-(*
-let isqrt2 num =
-  let rec find_bit num bit =
-    let bit2 = bit lsl 2 in
-    if bit <= num then
-      find_bit num bit2
-    else bit in
-  let rec loop result bit num =
-    if bit = 0 then result
-    else begin
-      let rb = result + bit in
-      let rlsr1 = result lsr 1 in
-      let bitlsr2 = bit lsr 2 in
-      if num >= rb then
-	loop (rlsr1 + bit) bitlsr2 (num - rb)
-      else
-	loop rlsr1 bitlsr2 num
-    end in
-  loop 0 (find_bit num 1) num
-*)
 
 module Result =
   struct

@@ -8,11 +8,14 @@
  *
  * Find the sum of all the multiples of 3 or 5 below 1000.
  *
+ * 234168
  **********************************************************************)
 
-open Printf
+(* open Printf *)
 
-let mult n = n mod 5 == 0 || n mod 3 == 0
+open! Core.Std
+
+let mult n = n mod 5 = 0 || n mod 3 = 0
 
 let range a b =
   let rec loop x accum =
@@ -22,7 +25,7 @@ let range a b =
 
 let pr1 () =
   let nums = range 1 1000 in
-  let fnums = List.filter mult nums in
-  List.fold_left (+) 0 fnums
+  let fnums = List.filter ~f:mult nums in
+  List.fold_left ~init:0 ~f:(+) fnums
 
 let run () = printf "%d\n" (pr1 ())

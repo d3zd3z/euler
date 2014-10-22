@@ -17,10 +17,11 @@
  *
  * HINT: Some products can be obtained in more than one way so be sure
  * to only include it once in your sum.
+ *
+ * 45228
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 (* Return all groupings (as a list) that can be built out of this
    group of digits. *)
@@ -29,7 +30,7 @@ let make_groupings digits =
   let result = ref [] in
   for i = 1 to len-3 do
     for j = i+1 to len-1 do
-      let piece a b = int_of_string (String.sub digits a (b-a)) in
+      let piece a b = int_of_string (String.sub digits ~pos:a ~len:(b-a)) in
       let a = piece 0 i in
       let b = piece i j in
       let c = piece j len in
@@ -44,8 +45,8 @@ let euler32 () =
   let rec loop text =
     products := (make_groupings text) :: !products;
     loop (Misc.bytes_next_permutation text) in
-  (try loop (Bytes.copy "123456789")
+  (try loop (String.copy "123456789")
    with Not_found -> ());
-  List.sum (List.sort_unique Int.compare (List.concat !products))
+  List.sum (module Int) ~f:ident (List.dedup ~compare:Int.compare (List.concat !products))
 
 let run () = printf "%d\n" (euler32 ())

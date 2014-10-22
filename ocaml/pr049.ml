@@ -19,9 +19,11 @@
  * 296962999629
  *)
 
+open! Core.Std
+
 (* The first 10 primes. *)
 let early_primes =
-  let buf = Array.make 10 0 in
+  let buf = Array.create ~len:10 0 in
   let sieve = Sieve.create () in
   let rec loop p i =
     if i < 10 then begin
@@ -52,13 +54,13 @@ let gen_primes () =
       loop a2 (Sieve.next_prime sieve p)
   in loop [] 2
 
-(* Group the numbers by their values. *)
-module IntMap = BatMap.Make(BatInt)
 let value_group nums =
   let add m num =
     let value = number_value num in
-    IntMap.modify_def [] value (fun l -> num :: l) m in
-  BatList.fold_left add IntMap.empty nums
+    Int.Map.change m value (function
+      | None -> Some [num]
+      | Some l -> Some (num :: l)) in
+  List.fold nums ~init:Int.Map.empty ~f:add
 
 (* Evaluate 'thunk' on each subgroup of 'items'.  Note that the items
  * are reversed. *)
@@ -79,12 +81,12 @@ let combos_len len thunk =
 let run () =
   let p = gen_primes () in
   let m = value_group p in
-  let m = IntMap.values m in
+  let m = Int.Map.data m in
   let act1 = function
     | [a;b;c] ->
         if c <> 1487 && c-b = b-a then
-          Printf.printf "%d%d%d\n" c b a
+          printf "%d%d%d\n" c b a
     | _ -> failwith "Internal error, expecting 3 elements"
   in
   let act l = combos_len 3 act1 l in
-  BatEnum.iter act m
+  List.iter m ~f:act

@@ -2,7 +2,7 @@ all: euler.byte
 native: euler.native
 
 euler.%: FORCE
-	ocamlbuild $@
+	ocamlbuild -j 16 $@
 
 .PHONY: FORCE
 

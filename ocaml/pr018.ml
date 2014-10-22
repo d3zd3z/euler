@@ -38,10 +38,11 @@
  * challenge with a triangle containing one-hundred rows; it cannot be
  * solved by brute force, and requires a clever method! ;o)
  *
+ * 18: 1073
+ * 67: 7273
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 let source = List.rev [
   [75];
@@ -74,9 +75,9 @@ let run () =
 
 (* This also solves problem 67 *)
 let get_triangle path =
-  let lines = File.lines_of path in
-  let each l = List.map int_of_string (String.nsplit l ~by:" ") in
-  List.of_backwards (Enum.map each lines)
+  let lines = In_channel.read_lines path in
+  let each l = List.map ~f:int_of_string (String.split l ~on:' ') in
+  List.rev (List.map lines ~f:each)
 
 let run67 () =
   printf "%d\n" (reduce (get_triangle "../haskell/triangle.txt"))

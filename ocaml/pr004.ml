@@ -11,7 +11,10 @@
  * Find the largest palindrome made from the product of two 3-digit
  * numbers.
  *
+ * 906609
  **********************************************************************)
+
+open! Core.Std
 
 let reverse_digits number =
   let rec loop number result =
@@ -37,4 +40,4 @@ let euler_4 () =
       outer b (a + 1)
     end in
   outer 0 100
-let run () = Printf.printf "%d\n" (euler_4 ())
+let run () = printf "%d\n" (euler_4 ())

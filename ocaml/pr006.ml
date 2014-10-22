@@ -17,16 +17,20 @@
  *
  * Find the difference between the sum of the squares of the first one
  * hundred natural numbers and the square of the sum.
+ *
+ * 25164150
  **********************************************************************)
 
+open! Core.Std
+
 let solve' count =
-  let nums = BatList.init count (function x -> x + 1) in
-  let sumsq = List.fold_left (+) 0 nums in
+  let nums = List.init count ~f:(fun x -> x + 1) in
+  let sumsq = List.fold ~f:(+) ~init:0 nums in
   let sumsq = sumsq * sumsq in
-  let sq = List.map (function x -> x * x) nums in
-  let sq = List.fold_left (+) 0 sq in
+  let sq = List.map ~f:(fun x -> x * x) nums in
+  let sq = List.fold ~f:(+) ~init:0 sq in
   sumsq - sq
 
 let solve () = solve' 100
 
-let run () = Printf.printf "%d\n" (solve ())
+let run () = printf "%d\n" (solve ())

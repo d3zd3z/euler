@@ -14,7 +14,11 @@
  * There exists exactly one Pythagorean triplet for which a + b + c =
  * 1000.
  * Find the product abc.
+ *
+ * 31875000
  **********************************************************************)
+
+open! Core.Std
 
 let pr9 () =
   let rec top a =
@@ -29,4 +33,4 @@ let pr9 () =
     in mid a
   in top 1
 
-let run () = Printf.printf "%d\n" (pr9 ())
+let run () = printf "%d\n" (pr9 ())

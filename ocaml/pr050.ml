@@ -20,7 +20,7 @@
  * 997651
  *)
 
-module Enum = BatEnum
+open! Core.Std
 
 let primes_to n =
   let sieve = Sieve.create () in
@@ -56,11 +56,11 @@ let solve () =
   in
   let best_prime sofar primes =
     let pieces = primesum [] 0 0 primes in
-    List.fold_left max sofar pieces in
+    List.fold pieces ~f:max ~init:sofar in
 
   let primes = primes_to limit in
   let (_, best) = left_inits best_prime (0,0) primes in
   best
 
 let run () =
-  Printf.printf "%d\n" @@ solve ()
+  printf "%d\n" @@ solve ()

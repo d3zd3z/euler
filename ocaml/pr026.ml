@@ -23,10 +23,11 @@
  *
  * Find the value of d < 1000 for which ^1/[d] contains the longest
  * recurring cycle in its decimal fraction part.
+ *
+ * 983
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 (*
 let one = num_of_int 1
@@ -67,7 +68,6 @@ let dlog n =
   loop 1
 
 module IS = Sieve.IntSieve
-module LL = LazyList
 
 let primes_from_7 () =
   let s = IS.initial in
@@ -88,23 +88,19 @@ let euler26 () =
     end in
   loop (primes_from_7 ()) 0 0
 
-(* Easier solution, using LazyList. *)
+(* Easier solution, using Sequence. *)
 let int_primes () =
-  let p = LL.from_loop IS.initial IS.next in
-  let p = LL.drop_while (fun x -> x < 7) p in
-  LL.take_while (fun x -> x < 1000) p
+  let p = IS.to_sequence (IS.initial) in
+  let p = Sequence.drop_while p ~f:(fun x -> x < 7) in
+  Sequence.take_while p ~f:(fun x -> x < 1000)
 
 let euler26b () =
   let each (largest, largest_p) p =
     let digits = dlog p in
     if digits > largest then (digits, p)
     else (largest, largest_p) in
-  let _, result = LL.fold_left each (0, 0) (int_primes ()) in
+  let _, result = Sequence.fold ~init:(0, 0) ~f:each (int_primes ()) in
   result
-
-let ignore f arg =
-  let _ = f arg in
-  ()
 
 let run () = printf "%d\n%!" (euler26b ())
 (*

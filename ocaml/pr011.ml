@@ -33,11 +33,10 @@
  * What is the greatest product of four adjacent numbers in any
  * direction (up, down, left, right, or diagonally) in the 20×20 grid?
  *
- *
- *
+ * 70600674
  **********************************************************************)
 
-open! Batteries
+open! Core.Std
 
 let grid =
   [| [|08;02;22;97;38;15;00;40;00;75;04;05;07;78;52;12;50;77;91;08|];
@@ -75,7 +74,7 @@ let euler_11 () =
   for row = 0 to 19 do
     for col = 0 to 19 do
       let each delta = largest := max !largest (multiply_out row col delta) in
-      List.iter each [0,1; 1,0; 1,1; 1,-1]
+      List.iter ~f:each [0,1; 1,0; 1,1; 1,-1]
     done
   done;
   !largest

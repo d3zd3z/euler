@@ -10,10 +10,11 @@
  * 31, 37, 71, 73, 79, and 97.
  *
  * How many circular primes are there below one million?
+ *
+ * 55
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 let number_of_digits num =
   let rec loop count num =
@@ -34,25 +35,19 @@ let number_rotations num =
     end in
   loop highest_one 1 0 num []
 
-(* To go up to 1 million, we need to use a 64-bit sieve (which must
-   support n**2). *)
-(*
-module P = Sieve.Int64Factory
-
-let primes_upto n = Enum.map Int64.to_int (P.primes_upto (Int64.of_int n))
-let is_prime n = P.is_prime (Int64.of_int n)
-*)
+(* Return a sequence of primes up to the given limit. *)
 let primes_upto sieve limit =
   let next p =
-    if p > limit then raise Enum.No_more_elements
-    else (p, Sieve.next_prime sieve p) in
-  Enum.from_loop 2 next
+    if p > limit then None
+    else Some (p, Sieve.next_prime sieve p) in
+  Sequence.unfold ~init:2 ~f:next
 
 let euler35 () =
   let sieve = Sieve.create () in
   let each count prime =
-    if List.for_all (Sieve.is_prime sieve) (number_rotations prime)
+    if List.for_all ~f:(Sieve.is_prime sieve) (number_rotations prime)
     then count + 1 else count in
-  Enum.fold each 0 (primes_upto sieve 1_000_000)
+  Sequence.fold (primes_upto sieve 1_000_000)
+    ~init:0 ~f:each
 
 let run () = printf "%d\n" (euler35 ())

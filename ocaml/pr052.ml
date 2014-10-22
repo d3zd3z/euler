@@ -20,8 +20,10 @@
  * describing the bag of digits present.
  *)
 
+open! Core.Std
+
 let early_primes =
-  let buf = Array.make 10 0 in
+  let buf = Array.create ~len:10 0 in
   let sieve = Sieve.create () in
   let rec loop p i =
     if i < 10 then begin
@@ -50,10 +52,10 @@ let solve () =
   let result = Result.make () in
   for base = 100000 to 199999 do
     let bval = number_value base in
-    if List.for_all (fun m -> number_value (base * m) = bval) seq then
+    if List.for_all seq ~f:(fun m -> number_value (base * m) = bval) then
       Result.save result base
   done;
   Result.get result
 
 let run () =
-  Printf.printf "%d\n" (solve ())
+  printf "%d\n" (solve ())

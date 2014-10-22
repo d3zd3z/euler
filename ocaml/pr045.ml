@@ -18,9 +18,11 @@
  * 1533776805
  *)
 
+open! Core.Std
+
 let solve () =
   let rec loop pn hn pentagonal hexagonal =
-    if pentagonal == hexagonal && pentagonal > 40755 then
+    if pentagonal = hexagonal && pentagonal > 40755 then
       pentagonal
     else begin
       if pentagonal < hexagonal then

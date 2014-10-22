@@ -17,10 +17,11 @@
  *
  * Find the sum of all the numbers that can be written as the sum of
  * fifth powers of their digits.
+ *
+ * 443839
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 let expt base power =
   let rec loop result base power =

@@ -24,8 +24,7 @@
  * 16695334890
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 let low_primes = [ 2; 3; 5; 7; 11; 13; 17 ]
 
@@ -34,8 +33,8 @@ let valid digits =
     match primes with
 	[] -> true
       | (p::ps) ->
-	let num = int_of_string (String.sub digits offset 3) in
-	if num mod p == 0 then
+	let num = int_of_string (String.sub digits ~pos:offset ~len:3) in
+	if num mod p = 0 then
 	  loop (offset + 1) ps
 	else
 	  false in
@@ -43,11 +42,12 @@ let valid digits =
 
 let run () =
   let base = Bytes.copy "0123456789" in
-  let next () =
-    try Some (Bytes.copy (Misc.bytes_next_permutation base))
+  let next s =
+    let s' = Bytes.copy s in
+    try Some (s, (Misc.bytes_next_permutation s'))
     with Not_found -> None in
-  let numbers = Enum.from_while next in
-  let nifty = Enum.filter valid numbers in
-  let nifty = Enum.map Int64.of_string nifty in
-  let result = Enum.fold Int64.add 0L nifty in
+  let numbers = Sequence.unfold ~init:base ~f:next in
+  let nifty = Sequence.filteri numbers ~f:(fun _ x -> valid x) in
+  let nifty = Sequence.map nifty ~f:Int64.of_string in
+  let result = Sequence.sum (module Int64) nifty ~f:ident in
   printf "%Ld\n" result

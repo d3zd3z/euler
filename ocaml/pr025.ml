@@ -27,9 +27,11 @@
  *
  * What is the first term in the Fibonacci sequence to contain 1000
  * digits?
+ *
+ * 4782
  *)
 
-open Printf
+open! Core.Std
 open Num
 
 let euler25 () =

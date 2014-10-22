@@ -13,11 +13,10 @@
  * 7652413
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 let run () =
-  let base = "1234567" in
+  let base = String.copy "1234567" in
   let sieve = Sieve.create () in
   let rec loop perm largest =
     match perm with

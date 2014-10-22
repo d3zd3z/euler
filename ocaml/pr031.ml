@@ -14,9 +14,11 @@
  *     1×£1 + 1×50p + 2×20p + 1×5p + 1×2p + 3×1p
  *
  * How many different ways can £2 be made using any number of coins?
+ *
+ * 73682
  *)
 
-open Printf
+open! Core.Std
 
 let coins = [200; 100; 50; 20; 10; 5; 2; 1]
 

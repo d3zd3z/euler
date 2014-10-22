@@ -21,10 +21,11 @@
  * What is the largest 1 to 9 pandigital 9-digit number that can be
  * formed as the concatenated product of an integer with (1,2, ... , n)
  * where n > 1?
+ *
+ * 932718654
  *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 (* Is this number a full 9-element pandigital number. *)
 let is_pandigital number =
@@ -55,10 +56,11 @@ let large_sum base =
   loop 0 0 1
 
 let euler38 () =
-  Enum.fold (fun largest a ->
-    let sum = large_sum a in
-    if is_pandigital sum then max largest sum
-    else largest
-  ) 0 (1 --^ 10000)
+  Sequence.fold (Sequence.range ~stop:`exclusive 1 10000)
+    ~init:0
+    ~f:(fun largest a ->
+      let sum = large_sum a in
+      if is_pandigital sum then max largest sum
+      else largest)
 
 let run () = printf "%d\n" (euler38 ())

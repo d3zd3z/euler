@@ -18,7 +18,7 @@
  * 5482660
  *)
 
-open Printf
+open! Core.Std
 
 let nth_pentagonal n =
   (n * (n * 3 - 1)) / 2
@@ -26,14 +26,14 @@ let nth_pentagonal n =
 let is_pentagonal n =
   let sq = 24 * n + 1 in
   let root = Misc.isqrt sq in
-  (root * root == sq) && ((root + 1) mod 6) == 0
+  (root * root = sq) && ((root + 1) mod 6) = 0
 
 let solve () =
   let rec outer i =
     let penti = nth_pentagonal i in
 
     let rec inner j =
-      if j == i then
+      if j = i then
         outer (i + 1)
       else begin
         let pentj = nth_pentagonal j in

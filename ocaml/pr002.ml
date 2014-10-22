@@ -13,15 +13,16 @@
  * By considering the terms in the Fibonacci sequence whose values do
  * not exceed four million, find the sum of the even-valued terms.
  *
+ * 4613732
  **********************************************************************)
 
-open Printf
+open! Core.Std
 
 let pr2 () =
   let rec loop a b result =
     if a >= 4000000 then result
     else
-      let next = result + if a mod 2 == 0 then a else 0 in
+      let next = result + if a mod 2 = 0 then a else 0 in
       loop b (a + b) next in
   loop 1 1 0
 

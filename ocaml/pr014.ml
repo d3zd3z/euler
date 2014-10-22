@@ -24,10 +24,11 @@
  *
  * NOTE: Once the chain starts the terms are allowed to go above one
  * million.
+ *
+ * 837799
  **********************************************************************)
 
-open! Batteries
-open Printf
+open Core.Std
 
 let even n = (n land 1) = 0
 
@@ -71,17 +72,18 @@ let search chain_len =
 
 (* We can use a map to cache the results (note that this is slower) *)
 module Map_cache : CHAIN = struct
-  module IM = IMap
-  let known = ref (IM.empty ~eq:(=))
+  module IM = Int.Map
+  let known = ref IM.empty
   let rec chain_len = function
     | 1 -> 1
     | n ->
-	try IM.find n !known
-	with Not_found ->
-	  let answer = if even n then chain_len (n/2)
-	    else chain_len (3*n + 1) in
-	  known := IM.add n answer !known;
-	  answer
+        match IM.find !known n with
+          | Some x -> x
+          | None ->
+              let answer = if even n then chain_len (n/2)
+                else chain_len (3*n + 1) in
+              known := IM.add ~key:n ~data:answer !known;
+              answer
 end
 
 (* With a bit of carefulness, we can cache only some solutions and get
@@ -91,7 +93,7 @@ module type SIZED = sig
   val size : int
 end
 module Make_array_cache(Sized : SIZED) : CHAIN = struct
-  let small_known = Array.make Sized.size None
+  let small_known = Array.create ~len:Sized.size None
   let rec chain_len = function
     | 1 -> 1
     | n ->

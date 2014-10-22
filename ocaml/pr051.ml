@@ -31,7 +31,7 @@
  * possibility of not hitting a multiple of 3 is a multiple of 3
  * digits.  We'll start by just doing groups of 3. *)
 
-module Enum = BatEnum
+open! Core.Std
 
 (* Explode a number into a list of digits. *)
 let rec explode num =
@@ -70,7 +70,7 @@ module BitSet : sig
 end = struct
   type t = int
   let of_list nums =
-    List.fold_left (fun num pos -> num lor (1 lsl pos)) 0 nums
+    List.fold ~f:(fun num pos -> num lor (1 lsl pos)) ~init:0 nums
   let mem pos set =
     (set land (1 lsl pos)) <> 0
 end
@@ -97,7 +97,7 @@ exception Result of int
 let check sieve inumber =
   let number = explode inumber in
   for early = 0 to 2 do
-    List.iter (fun places ->
+    List.iter ~f:(fun places ->
       let count = ref 0 in
       for i = early to 9 do
         if Sieve.is_prime sieve (implode (replace number places i)) then
@@ -110,8 +110,8 @@ let check sieve inumber =
 
 let run () =
   let sieve = Sieve.create () in
-  let primes = Enum.take_while (fun x -> x < 1_000_000) (Sieve.all_primes sieve) in
+  let primes = Sieve.primes_upto sieve 1_000_000 in
   try
-    Enum.iter (fun p -> check sieve p) primes;
+    Sequence.iter primes ~f:(fun p -> check sieve p);
     failwith "No result found"
-  with Result r -> Printf.printf "%d\n" r
+  with Result r -> printf "%d\n" r

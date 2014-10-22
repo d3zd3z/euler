@@ -1,14 +1,8 @@
 (* Invoke the project euler problems. *)
 
-open! Batteries
-open Printf
+open! Core.Std
 
 let problems = Problems.problems
-
-module IntMap = Map.Make(struct
-  type t = int
-  let compare = compare
-end)
 
 let run (num, thunk) =
   printf "%d: " num;
@@ -16,13 +10,13 @@ let run (num, thunk) =
   thunk ()
 
 let run_all problems =
-  List.iter (fun prob -> run prob) problems
+  List.iter ~f:(fun prob -> run prob) problems
 
 let lookup_problems problems =
-  let m = IntMap.of_enum (List.enum problems) in
+  let m = Int.Map.of_alist_exn problems in
   fun probname ->
     let pnum = int_of_string probname in
-    (pnum, IntMap.find pnum m)
+    (pnum, Int.Map.find_exn m pnum)
 
 let () =
   let args = Array.to_list (Sys.argv) in
@@ -31,5 +25,5 @@ let () =
     | [_] -> failwith "Usage: ./euler all  or ./euler 2 5"
     | _ :: probs ->
       let lookup = lookup_problems problems in
-      run_all (List.map lookup probs)
+      run_all (List.map probs ~f:lookup)
     | [] -> failwith "Not reached"
