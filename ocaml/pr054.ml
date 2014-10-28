@@ -223,8 +223,7 @@ module Rank :
 let solve () =
   let lines = In_channel.read_lines "../haskell/poker.txt" in
   (* let lines = In_channel.read_lines "tpoker.txt" in *)
-  let wins = ref 0 in
-  List.iter lines ~f:(fun line ->
+  let wins = List.count lines ~f:(fun line ->
     let p1, p2 = Card.decode_hands line in
     let r1 = Rank.rank_of p1 in
     let r2 = Rank.rank_of p2 in
@@ -236,9 +235,8 @@ let solve () =
       (Rank.rank_of p2 |> Rank.sexp_of_rank |> Sexp.to_string)
       (compare r1 r2);
     *)
-    if (r1, Rank.get_nums p1) > (r2, Rank.get_nums p2) then
-      wins := !wins + 1);
-    printf "%d\n" !wins
+    (r1, Rank.get_nums p1) > (r2, Rank.get_nums p2)) in
+    printf "%d\n" wins
 
 let run () =
   solve ()
