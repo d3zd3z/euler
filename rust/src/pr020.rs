@@ -21,14 +21,15 @@ static base: uint = 10_000;
 
 fn main() {
     static size: uint = 40;
-    let mut acc: [uint, .. size] = [0u, .. size];
+    // let mut acc: [uint, .. size] = [0u, .. size];
+    let mut acc = Vec::from_elem(size, 0u);
 
     acc[0] = 1;
 
     for x in range(2u, 101) {
-        multiply(acc, x);
+        multiply(acc.as_mut_slice(), x);
     }
-    let result = sum_digits(acc);
+    let result = sum_digits(acc.as_slice());
     println!("{}", result);
 }
 
@@ -40,7 +41,7 @@ fn multiply(acc: &mut [uint], by: uint) {
         acc[i] = temp % base;
         carry = temp / base;
     }
-    if carry != 0 { fail!("Multiply overflow") }
+    if carry != 0 { panic!("Multiply overflow") }
 }
 
 fn sum_digits(acc: &[uint]) -> uint {

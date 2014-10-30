@@ -33,7 +33,7 @@ pub fn decode_words(line: &str) -> Vec<String> {
                 word = String::new();
             },
             ch => {
-                word.push_char(ch);
+                word.push(ch);
             }
         }
     }

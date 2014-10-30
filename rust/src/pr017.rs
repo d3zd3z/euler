@@ -71,7 +71,7 @@ impl Converter {
         self.buffer = String::new();
         let mut work = n;
 
-        if work > 1000 { fail!("Number too large") }
+        if work > 1000 { panic!("Number too large") }
 
         if work == 1000 { return String::from_str("one thousand") }
 
@@ -116,7 +116,7 @@ impl Converter {
 
     fn add(&mut self, text: &str) {
         if self.add_space {
-            self.buffer.push_char(' ');
+            self.buffer.push(' ');
         }
         self.buffer.push_str(text);
         self.add_space = true;

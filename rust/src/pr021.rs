@@ -33,7 +33,12 @@ fn main() {
     println!("{}", sum);
 }
 
-impl sieve::Sieve {
+trait Amicable {
+    fn is_amicable(&mut self, a: uint) -> bool;
+    fn proper_div_sum(&mut self, a: uint) -> uint;
+}
+
+impl Amicable for sieve::Sieve {
     fn is_amicable(&mut self, a: uint) -> bool {
         let b = self.proper_div_sum(a);
         if a == b || b == 0 { return false }

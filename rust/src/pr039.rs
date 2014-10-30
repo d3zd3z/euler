@@ -14,17 +14,21 @@
 
 use triangle::generate_triples;
 use std::collections::hashmap::HashMap;
+use std::collections::hashmap::{Occupied, Vacant};
 
 define_problem!(main, 39)
 
 fn main() {
     let mut map = HashMap::new();
     generate_triples(1000, |_, circ| {
-        map.insert_or_update_with(circ, 1u, |_, x| {*x += 1});
+        match map.entry(circ) {
+            Vacant(entry) => { entry.set(1u); },
+            Occupied(mut entry) => *entry.get_mut() += 1
+        }
     });
 
     let k = match map.iter().max_by(|p| {p.val1()}) {
-        None => fail!("No solution found"),
+        None => panic!("No solution found"),
         Some((k, _)) => *k
     };
 

@@ -93,7 +93,7 @@ impl Sieve {
             return 2;
         }
         if n == 2 {
-            fail!("No prime before 2");
+            panic!("No prime before 2");
         }
 
         let mut next = n - 2;

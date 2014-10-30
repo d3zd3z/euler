@@ -5,15 +5,17 @@ RUST_FLAGS = -C prefer-dynamic -C rpath -O -g
 # RUST_FLAGS := -C prefer-dynamic -g
 # RUST_FLAGS := $(RUST_FLAGS) -Z time-passes
 
+CARGO_BUILD_FLAGS := --release
+
 all: euler
 
-probs := $(sort $(patsubst %.rs,%,$(wildcard pr[0-9][0-9][0-9]*.rs)))
+probs := $(sort $(patsubst src/%.rs,%,$(wildcard src/pr[0-9][0-9][0-9]*.rs)))
 
-euler: $(wildcard *.rs) plist.rs
+euler: $(wildcard *.rs) src/plist.rs
 	@echo "    RUST " $@
-	@$(RUSTC) $(RUST_FLAGS) euler.rs
+	@cargo build $(CARGO_BUILD_FLAGS)
 
-plist.rs: .force
+src/plist.rs: .force
 	@echo "     GEN " $@
 	@echo "// Auto generate" > $@.tmp
 	@echo "" >> $@.tmp
@@ -29,6 +31,7 @@ plist.rs: .force
 	@etc/move-if-change $@.tmp $@
 
 clean:
-	rm -f euler plist.rs
+	rm -f src/plist.rs
+	cargo clean
 
 .PHONY: all .force clean

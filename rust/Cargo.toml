@@ -1,0 +1,10 @@
+[project]
+name = "euler"
+version = "0.0.1"
+authors = ["David Brown <davidb@davidb.org>"]
+
+[dependencies.num]
+git = "https://github.com/rust-lang/num"
+
+[[bin]]
+name = "euler"

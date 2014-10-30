@@ -33,6 +33,6 @@ fn main() {
 
 fn show(digits: &[u8]) {
     let mut result = String::new();
-    for &x in digits.iter() { result.push_char((x + '0' as u8) as char); }
+    for &x in digits.iter() { result.push((x + '0' as u8) as char); }
     println!("{}", result);
 }

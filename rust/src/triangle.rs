@@ -61,7 +61,7 @@ fn generate_fibonacci_triples(limit: uint, f: |Triple, uint|) {
                 let size = triple.circumference();
                 if size <= limit {
                     f(triple, size);
-                    work.push_all_move(abox.children());
+                    work.extend(abox.children().into_iter());
                 }
             }
         }

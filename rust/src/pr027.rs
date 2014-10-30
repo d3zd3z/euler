@@ -51,7 +51,11 @@ fn main() {
     println!("{}", max_product);
 }
 
-impl sieve::Sieve {
+trait Counter {
+    fn prime_count(&mut self, a: int, b: int) -> uint;
+}
+
+impl Counter for sieve::Sieve {
     fn prime_count(&mut self, a: int, b: int) -> uint {
         let mut n = 0;
         loop {

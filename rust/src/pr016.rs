@@ -35,5 +35,5 @@ fn double(digits: &mut [u8]) {
         carry = temp / 10;
     }
 
-    if carry != 0 { fail!("Numeric overflow"); }
+    if carry != 0 { panic!("Numeric overflow"); }
 }
