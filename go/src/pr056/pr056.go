@@ -40,13 +40,13 @@ func digitSum(num *big.Int) (sum int) {
 	zero := big.NewInt(0)
 	ten := big.NewInt(10)
 
-	work := big.NewInt(0)
-	work.Add(work, num)
+	var work big.Int
+	work.Set(num)
 
 	tmp := big.NewInt(0)
 
 	for work.Cmp(zero) > 0 {
-		work.DivMod(work, ten, tmp)
+		work.DivMod(&work, ten, tmp)
 		sum += int(tmp.Int64())
 	}
 	return

@@ -79,7 +79,7 @@ var ten = big.NewInt(10)
 func reverse(n *big.Int) (result *big.Int) {
 	result = big.NewInt(0)
 	var work big.Int
-	work.Add(n, zero)
+	work.Set(n)
 	tmp := big.NewInt(0)
 
 	for work.Cmp(zero) != 0 {
