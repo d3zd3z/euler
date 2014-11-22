@@ -26,7 +26,8 @@ with Prime_Sieve;
 
 procedure Pr062 is
 
-   type U64 is mod 2 ** 64;
+   type U64 is mod 2 ** 64
+      with Size => 64;
 
    subtype Count_Type is Ada.Containers.Count_Type;
    use type Count_Type;
