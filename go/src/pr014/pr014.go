@@ -27,11 +27,11 @@
 //////////////////////////////////////////////////////////////////////
 // 837799 (525)
 
-package main
+package pr014
 
 import "fmt"
 
-func main() {
+func Run() {
 	maximize()
 }
 

@@ -18,12 +18,12 @@
 //////////////////////////////////////////////////////////////////////
 // 21124
 
-package main
+package pr017
 
 import "fmt"
 import "unicode"
 
-func main() {
+func Run() {
 	count := 0
 	for i := 1; i <= 1000; i++ {
 		text := textify(i)

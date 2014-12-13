@@ -21,11 +21,11 @@
 //////////////////////////////////////////////////////////////////////
 // 669171001
 
-package main
+package pr028
 
 import "fmt"
 
-func main() {
+func Run() {
 	total := 1
 	for i := 3; i < 1002; i += 2 {
 		total += ringSum(i)

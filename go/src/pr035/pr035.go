@@ -14,12 +14,12 @@
 //////////////////////////////////////////////////////////////////////
 // 55
 
-package main
+package pr035
 
 import "fmt"
 import "euler"
 
-func main() {
+func Run() {
 	var s euler.Sieve
 
 	p := 2

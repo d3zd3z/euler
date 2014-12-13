@@ -11,11 +11,11 @@
 // 
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr005
 
 import "fmt"
 
-func main() {
+func Run() {
 	answer := 1
 	for i := 2; i <= 20; i++ {
 		answer = lcm(answer, i)

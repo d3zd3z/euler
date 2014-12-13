@@ -17,11 +17,11 @@
 //////////////////////////////////////////////////////////////////////
 // 73682
 
-package main
+package pr031
 
 import "fmt"
 
-func main() {
+func Run() {
 	fmt.Printf("%d\n", rways(200, coins))
 }
 

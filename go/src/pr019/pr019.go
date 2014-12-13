@@ -22,12 +22,12 @@
 //////////////////////////////////////////////////////////////////////
 // 171
 
-package main
+package pr019
 
 import "fmt"
 import "time"
 
-func main() {
+func Run() {
 	count := 0
 	for year := 1901; year < 2001; year++ {
 		for month := time.January; month <= time.December; month++ {

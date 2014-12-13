@@ -18,13 +18,13 @@
 //////////////////////////////////////////////////////////////////////
 // 871198282
 
-package main
+package pr022
 
 import "fmt"
 import "io/ioutil"
 import "sort"
 
-func main() {
+func Run() {
 	text, err := ioutil.ReadFile("../haskell/names.txt")
 	if err != nil {
 		panic("Unable to read names file")

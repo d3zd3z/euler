@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////
 // 840
 
-package main
+package pr039
 
 import (
 	"fmt"
@@ -21,7 +21,7 @@ import (
 	"euler"
 )
 
-func main() {
+func Run() {
 	sizes := make(map[int]int)
 
 	for _, trip := range euler.AllTriples(1000) {

@@ -23,13 +23,13 @@
 // 4075
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr053
 
 import (
 	"fmt"
 )
 
-func main() {
+func Run() {
 	buffer := make([]saturated, 101)
 	buffer[0] = saturated(1)
 

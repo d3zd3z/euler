@@ -18,11 +18,11 @@
 //////////////////////////////////////////////////////////////////////
 // 210
 
-package main
+package pr040
 
 import "fmt"
 
-func main() {
+func Run() {
 	nums := make(chan int)
 	go generate(nums)
 

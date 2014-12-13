@@ -13,12 +13,12 @@
 // Two ways of doing this.  We can compute it ourselves, or we can
 // just use bignums.
 
-package main
+package pr016
 
 import "fmt"
 import "math/big"
 
-func main() {
+func Run() {
 	num := big.NewInt(1)
 	factor := big.NewInt(2)
 

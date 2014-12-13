@@ -16,12 +16,12 @@
 //////////////////////////////////////////////////////////////////////
 // 748317
 
-package main
+package pr037
 
 import "euler"
 import "fmt"
 
-func main() {
+func Run() {
 	var s euler.Sieve
 
 	count := 0
@@ -31,7 +31,7 @@ func main() {
 		if isRightPrime(&s, p) && isLeftPrime(&s, p) {
 			sum += p
 			count++
-			fmt.Printf("%d\n", p)
+			// fmt.Printf("%d\n", p)
 		}
 
 		p = s.NextPrime(p)

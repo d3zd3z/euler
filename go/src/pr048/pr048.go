@@ -11,7 +11,7 @@
 // 9110846700
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr048
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ import (
 
 const modulus = 10000000000
 
-func main() {
+func Run() {
 	sum := int64(0)
 	for i := 1; i <= 1000; i++ {
 		sum = (sum + expt(int64(i), i)) % modulus

@@ -9,14 +9,14 @@
 // 
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr010
 
 import (
 	"euler"
 	"fmt"
 )
 
-func main() {
+func Run() {
 	sum := int64(0)
 	var sieve euler.Sieve
 	for prime := 2; prime < 2000000; prime = sieve.NextPrime(prime) {

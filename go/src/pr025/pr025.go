@@ -30,14 +30,14 @@
 //////////////////////////////////////////////////////////////////////
 // 4782
 
-package main
+package pr025
 
 import "fmt"
 
 // Represent the numbers in base 10, using just bytes for each digit.
 // The digit value has to be large enough to not overflow when added.
 
-func main() {
+func Run() {
 	a := make([]int, 999)
 	a[0] = 1
 

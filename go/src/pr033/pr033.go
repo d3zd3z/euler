@@ -20,12 +20,12 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr033
 
 import "fmt"
 import "math/big"
 
-func main() {
+func Run() {
 	product := big.NewRat(1, 1)
 	for ab := 1; ab < 100; ab++ {
 		for cd := ab+1; cd < 100; cd++ {

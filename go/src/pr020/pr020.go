@@ -14,13 +14,13 @@
 //////////////////////////////////////////////////////////////////////
 // 648
 
-package main
+package pr020
 
 import "fmt"
 
 const base int = 10000
 
-func main() {
+func Run() {
 	// Create the starting number 1, little endian.
 	accumulator := make([]int, 40)
 	accumulator[0] = 1

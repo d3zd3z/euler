@@ -13,11 +13,11 @@
 //////////////////////////////////////////////////////////////////////
 // 40730
 
-package main
+package pr034
 
 import "fmt"
 
-func main() {
+func Run() {
 	facts := digitFacts()
 
 	total := -3 // Eliminate 1 and 2 as per definition.

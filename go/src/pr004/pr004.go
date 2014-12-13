@@ -12,11 +12,11 @@
 // 
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr004
 
 import "fmt"
 
-func main() {
+func Run() {
 	max := 0
 	for a := 1; a < 1000; a++ {
 		for b := a; b < 1000; b++ {

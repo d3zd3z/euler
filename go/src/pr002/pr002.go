@@ -14,11 +14,11 @@
 // 
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr002
 
 import "fmt"
 
-func main() {
+func Run() {
 	a, b := 1, 2
 	sum := 0
 

@@ -30,12 +30,12 @@
 //////////////////////////////////////////////////////////////////////
 // -59231
 
-package main
+package pr027
 
 import "euler"
 import "fmt"
 
-func main() {
+func Run() {
 	var sieve euler.Sieve
 
 	largest := 0

@@ -13,13 +13,13 @@
 //////////////////////////////////////////////////////////////////////
 // 137846528820
 
-package main
+package pr015
 
 import "fmt"
 
 const steps int = 20
 
-func main() {
+func Run() {
 	values := make([]int64, steps+1)
 	fill(values)
 

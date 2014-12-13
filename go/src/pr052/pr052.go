@@ -11,14 +11,14 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr052
 
 import (
 	"euler"
 	"fmt"
 )
 
-func main() {
+func Run() {
 Outer:
 	for b := 100000; b < 200000; b++ {
 		bval := numberValue(b)

@@ -26,14 +26,14 @@
 // 153
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr057
 
 import (
 	"fmt"
 	"math/big"
 )
 
-func main() {
+func Run() {
 	s := big.NewRat(3, 2)
 	one := big.NewRat(1, 1)
 

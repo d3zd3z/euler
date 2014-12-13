@@ -37,14 +37,14 @@
 // 249
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr055
 
 import (
 	"fmt"
 	"math/big"
 )
 
-func main() {
+func Run() {
 	count := 0
 	for i := 1; i < 10000; i++ {
 		_, stop := countLen(i)

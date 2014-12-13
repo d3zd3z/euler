@@ -16,7 +16,7 @@
 //
 // 296962999629
 
-package main
+package pr049
 
 import (
 	"euler"
@@ -24,7 +24,7 @@ import (
 	"sort"
 )
 
-func main() {
+func Run() {
 	var sieve euler.Sieve
 
 	var result int64

@@ -19,11 +19,11 @@
 // 
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr006
 
 import "fmt"
 
-func main() {
+func Run() {
 	sum := 0
 	sumsq := 0
 	for i := 1; i <= 100; i++ {

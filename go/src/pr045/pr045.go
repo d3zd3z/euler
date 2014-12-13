@@ -21,13 +21,13 @@
 //
 // 1533776805
 
-package main
+package pr045
 
 import (
 	"fmt"
 )
 
-func main() {
+func Run() {
 	solution := solve()
 	fmt.Printf("%d\n", solution)
 }

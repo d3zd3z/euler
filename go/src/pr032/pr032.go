@@ -20,13 +20,13 @@
 //////////////////////////////////////////////////////////////////////
 // 45228
 
-package main
+package pr032
 
 import "euler"
 import "fmt"
 import "sort"
 
-func main() {
+func Run() {
 	base := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
 
 	sum := 0

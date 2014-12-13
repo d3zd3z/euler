@@ -11,7 +11,7 @@
 
 // The input number fits in an Int64.
 
-package main
+package pr003
 
 import "fmt"
 import "euler"
@@ -22,7 +22,7 @@ import "runtime/pprof"
 
 const start int64 = 600851475143
 
-func main() {
+func Run() {
 	var sieve euler.Sieve
 
 	num := start

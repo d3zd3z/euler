@@ -12,7 +12,7 @@
 //////////////////////////////////////////////////////////////////////
 // 7652413
 
-package main
+package pr041
 
 import (
 	"fmt"
@@ -23,7 +23,7 @@ import (
 // 8 and 9 digit pandigital numbers will always be divisible by 3, so
 // the largest this can be is a 7-digit number.
 
-func main() {
+func Run() {
 	var sv euler.Sieve
 
 	largest := 0

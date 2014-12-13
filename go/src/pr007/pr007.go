@@ -10,14 +10,14 @@
 // 
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr007
 
 import (
 	"euler"
 	"fmt"
 )
 
-func main() {
+func Run() {
 	var sieve euler.Sieve
 
 	prime := 2

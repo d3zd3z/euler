@@ -28,12 +28,12 @@
 //////////////////////////////////////////////////////////////////////
 // 76576500
 
-package main
+package pr012
 
 import "euler"
 import "fmt"
 
-func main() {
+func Run() {
 	var sieve euler.Sieve
 
 	n := 1

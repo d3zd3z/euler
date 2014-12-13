@@ -22,13 +22,13 @@
 //////////////////////////////////////////////////////////////////////
 // 9183
 
-package main
+package pr029
 
 import "euler"
 import "fmt"
 import "sort"
 
-func main() {
+func Run() {
 	var sieve euler.Sieve
 
 	all := make([][]euler.Factor, 0, 10000)

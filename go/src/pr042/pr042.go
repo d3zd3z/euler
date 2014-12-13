@@ -21,7 +21,7 @@
 //////////////////////////////////////////////////////////////////////
 // 162
 
-package main
+package pr042
 
 import (
 	"io/ioutil"
@@ -30,7 +30,7 @@ import (
 	"strings"
 )
 
-func main() {
+func Run() {
 	line, err := ioutil.ReadFile("../haskell/words.txt")
 	if err != nil {
 		log.Fatalf("Unable to read words.txt: %s", err)

@@ -20,11 +20,11 @@
 //////////////////////////////////////////////////////////////////////
 // 443839
 
-package main
+package pr030
 
 import "fmt"
 
-func main() {
+func Run() {
 	fmt.Printf("%d\n", count_summable(5))
 }
 

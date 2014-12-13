@@ -20,14 +20,14 @@
 // 
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr046
 
 import (
 	"euler"
 	"fmt"
 )
 
-func main() {
+func Run() {
 	var s euler.Sieve
 
 	n := 9

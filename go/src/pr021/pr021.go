@@ -16,14 +16,14 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr021
 
 import "euler"
 import "fmt"
 
 const limit = 10000
 
-func main() {
+func Run() {
 	var sieve euler.Sieve
 
 	sum := 0

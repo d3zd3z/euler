@@ -33,9 +33,9 @@ while (<I>) {
 print O <<EOF;
 //////////////////////////////////////////////////////////////////////
 
-package main
+package $prob3
 
-func main() {
+func Run() {
 }
 EOF
 close I or die "Problem getting euler page";

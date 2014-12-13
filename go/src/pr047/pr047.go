@@ -22,7 +22,7 @@
 //////////////////////////////////////////////////////////////////////
 // 134043
 
-package main
+package pr047
 
 import (
 	"euler"
@@ -31,7 +31,7 @@ import (
 
 const expect = 4
 
-func main() {
+func Run() {
 	var sieve euler.Sieve
 
 	count := 0

@@ -40,11 +40,11 @@
 //////////////////////////////////////////////////////////////////////
 // 1074
 
-package main
+package pr018
 
 import "fmt"
 
-func main() {
+func Run() {
 	row := triangle[len(triangle)-1]
 
 	for i := len(triangle) - 2; i >= 0; i-- {

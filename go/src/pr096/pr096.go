@@ -47,7 +47,7 @@
 
 // 24702
 
-package main
+package pr096
 
 import (
 	"bufio"
@@ -57,7 +57,7 @@ import (
 	"os"
 )
 
-func main() {
+func Run() {
 	problems, err := readProblems()
 	if err != nil {
 		panic(err)

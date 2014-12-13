@@ -15,11 +15,11 @@
 //////////////////////////////////////////////////////////////////////
 // 872187
 
-package main
+package pr036
 
 import "fmt"
 
-func main() {
+func Run() {
 	sum := 0
 	for i := 1; i < 1000000; i++ {
 		if isPalindrome(i, 10) && isPalindrome(i, 2) {

@@ -18,13 +18,13 @@
 
 // This one can easily be brute forced.
 
-package main
+package pr009
 
 import (
 	"fmt"
 )
 
-func main() {
+func Run() {
 	for a := 1; a < 998; a++ {
 		for b := a + 1; b < 988; b++ {
 			c := 1000 - a - b

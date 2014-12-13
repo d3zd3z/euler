@@ -24,11 +24,11 @@
 //////////////////////////////////////////////////////////////////////
 // 932718654
 
-package main
+package pr038
 
 import "fmt"
 
-func main() {
+func Run() {
 	largest := int64(0)
 
 	for base := int64(1); base < 10000; base++ {

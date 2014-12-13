@@ -17,7 +17,7 @@
 //////////////////////////////////////////////////////////////////////
 
 // WRONG ANSWER
-package main
+package pr080
 
 import (
 	"fmt"
@@ -25,7 +25,7 @@ import (
 )
 
 // And, worse, this gives the wrong answer.
-func main() {
+func Run() {
 	sum := 0
 	for i := 1; i <= 100; i++ {
 		tmp := intSqrt(i)

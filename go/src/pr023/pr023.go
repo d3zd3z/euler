@@ -26,14 +26,14 @@
 //////////////////////////////////////////////////////////////////////
 // 4179871
 
-package main
+package pr023
 
 import "euler"
 import "fmt"
 
 const limit = 28124
 
-func main() {
+func Run() {
 	notAdd := make(map[int]bool)
 	abundants := makeAbundants(limit)
 

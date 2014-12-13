@@ -23,7 +23,7 @@
 //////////////////////////////////////////////////////////////////////
 // 16695334890
 
-package main
+package pr043
 
 import (
 	"euler"
@@ -34,7 +34,7 @@ type intBase int64
 
 var primes = []intBase{2, 3, 5, 7, 11, 13, 17}
 
-func main() {
+func Run() {
 	base := []intBase{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 
 	sum := intBase(0)

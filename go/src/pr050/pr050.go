@@ -20,14 +20,14 @@
 //
 // 997651
 
-package main
+package pr050
 
 import (
 	"euler"
 	"fmt"
 )
 
-func main() {
+func Run() {
 	var sieve euler.Sieve
 	limit := 1000000
 	ps := sieve.PrimesUpto(limit)

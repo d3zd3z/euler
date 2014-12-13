@@ -19,14 +19,14 @@
 // 121313
 //////////////////////////////////////////////////////////////////////
 
-package main
+package pr051
 
 import (
 	"euler"
 	"fmt"
 )
 
-func main() {
+func Run() {
 	var sieve euler.Sieve
 
 	base := 2

@@ -18,14 +18,14 @@
 //////////////////////////////////////////////////////////////////////
 // 5482660
 
-package main
+package pr044
 
 import (
 	"euler"
 	"fmt"
 )
 
-func main() {
+func Run() {
 	for i := 2;; i++ {
 		pentI := NthPentagonal(i)
 		for j := 1; j < i; j++ {
