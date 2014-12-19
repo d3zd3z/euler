@@ -53,7 +53,7 @@ begin
    Put_Line ("--  Project euler problems.  Auto generated, do not edit");
    New_Line;
    for N of Nodes loop
-      Put ("with Pr");
+      Put ("private with Pr");
       Put_Padded (N, 3);
       Put_Line (";");
    end loop;
