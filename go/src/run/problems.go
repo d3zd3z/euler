@@ -59,6 +59,7 @@ import (
 	"pr055"
 	"pr056"
 	"pr057"
+	"pr058"
 	"pr080"
 	"pr096"
 )
@@ -120,6 +121,7 @@ var problems = []Problem{
 	{55, pr055.Run},
 	{56, pr056.Run},
 	{57, pr057.Run},
+	{58, pr058.Run},
 	{80, pr080.Run},
 	{96, pr096.Run},
 }
