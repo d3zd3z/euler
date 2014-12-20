@@ -51,7 +51,6 @@ func Run() {
 	// the result might not be the lowest permutation, and that
 	// lowest permutation might not be prime.
 	for base := 1009; base < 10000; base++ {
-	// for prime := 1009; prime < 10000; prime = sieve.NextPrime(prime) {
 		if !isAscending(base) {
 			continue
 		}
