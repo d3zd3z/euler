@@ -33,7 +33,7 @@ while (<I>) {
 print O <<EOF;
 //////////////////////////////////////////////////////////////////////
 
-package $prob3
+package pr$prob3
 
 func Run() {
 }
