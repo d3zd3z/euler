@@ -44,7 +44,7 @@ func Run() {
 			}
 
 			if b-a+1 > longestLen && sieve.IsPrime(total) {
-				longestLen = b-a+1
+				longestLen = b - a + 1
 				longestVal = total
 			}
 		}

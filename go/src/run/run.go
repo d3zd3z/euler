@@ -50,7 +50,7 @@ func run(p Problem) {
 
 type Problem struct {
 	Number int
-	Run    func ()
+	Run    func()
 }
 
 var byNum map[int]Problem

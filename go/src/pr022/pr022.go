@@ -34,7 +34,7 @@ func Run() {
 	sort.Strings(names)
 	sum := 0
 	for i, name := range names {
-		sum += (i+1) * nameValue(name)
+		sum += (i + 1) * nameValue(name)
 	}
 	fmt.Printf("%d\n", sum)
 }
@@ -58,7 +58,7 @@ func getNames(text []byte) (result []string) {
 			pos++
 		}
 		result = append(result, string(text[base:pos]))
-		pos++  // The quote.
+		pos++ // The quote.
 		if pos < len(text) {
 			must(',')
 		}
@@ -68,7 +68,7 @@ func getNames(text []byte) (result []string) {
 }
 
 func nameValue(text string) (result int) {
-	for _, ch := range(text) {
+	for _, ch := range text {
 		result += int(ch) - int('A') + 1
 	}
 	return

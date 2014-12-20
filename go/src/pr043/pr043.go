@@ -55,7 +55,7 @@ func Run() {
 func check(digits []intBase) bool {
 	offset := 1
 	for _, p := range primes {
-		if numberOf(digits[offset:offset+3]) % p != 0 {
+		if numberOf(digits[offset:offset+3])%p != 0 {
 			return false
 		}
 		offset++
@@ -65,13 +65,13 @@ func check(digits []intBase) bool {
 
 func numberOf(digits []intBase) (result intBase) {
 	for _, d := range digits {
-		result = result * 10 + d
+		result = result*10 + d
 	}
 	return
 }
 
 type intBaseSlice []intBase
 
-func (p intBaseSlice) Len() int { return len(p) }
+func (p intBaseSlice) Len() int           { return len(p) }
 func (p intBaseSlice) Less(i, j int) bool { return p[i] < p[j] }
-func (p intBaseSlice) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
+func (p intBaseSlice) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }

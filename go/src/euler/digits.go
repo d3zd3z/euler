@@ -5,7 +5,7 @@ func DigitsOf(base int) (result []int) {
 	result = make([]int, 0)
 
 	for base != 0 {
-		result = append(result, base % 10)
+		result = append(result, base%10)
 		base /= 10
 	}
 
@@ -24,7 +24,7 @@ func DigitsOf(base int) (result []int) {
 // Convert digits back into an integer.
 func OfDigits(digits []int) (result int) {
 	for _, digit := range digits {
-		result = result * 10 + digit
+		result = result*10 + digit
 	}
 
 	return

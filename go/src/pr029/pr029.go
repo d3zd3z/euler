@@ -56,7 +56,7 @@ func unique(factors [][]euler.Factor) (result [][]euler.Factor) {
 	result = make([][]euler.Factor, 0, 500)
 
 	for pos, _ := range factors {
-		if (pos + 1 >= len(factors) || !equal(factors[pos], factors[pos+1])) {
+		if pos+1 >= len(factors) || !equal(factors[pos], factors[pos+1]) {
 			result = append(result, factors[pos])
 		}
 	}
@@ -79,16 +79,16 @@ func (p Nodes) Less(i, j int) bool {
 		if pos >= len(p[j]) {
 			return true
 		}
-		if (p[i][pos].Prime < p[j][pos].Prime) {
+		if p[i][pos].Prime < p[j][pos].Prime {
 			return true
 		}
-		if (p[i][pos].Prime > p[j][pos].Prime) {
+		if p[i][pos].Prime > p[j][pos].Prime {
 			return false
 		}
-		if (p[i][pos].Power < p[j][pos].Power) {
+		if p[i][pos].Power < p[j][pos].Power {
 			return true
 		}
-		if (p[i][pos].Power > p[j][pos].Power) {
+		if p[i][pos].Power > p[j][pos].Power {
 			return false
 		}
 		pos++

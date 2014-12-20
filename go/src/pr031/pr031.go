@@ -34,7 +34,7 @@ func rways(remaining int, coins []int) int {
 		}
 	}
 	coin := coins[0]
-	others := coins[1 : len(coins)]
+	others := coins[1:len(coins)]
 	sum := 0
 	for remaining >= 0 {
 		sum += rways(remaining, others)
@@ -43,4 +43,4 @@ func rways(remaining int, coins []int) int {
 	return sum
 }
 
-var coins = []int { 200, 100, 50, 20, 10, 5, 2, 1 }
+var coins = []int{200, 100, 50, 20, 10, 5, 2, 1}

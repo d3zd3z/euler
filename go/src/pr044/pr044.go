@@ -26,14 +26,14 @@ import (
 )
 
 func Run() {
-	for i := 2;; i++ {
+	for i := 2; ; i++ {
 		pentI := NthPentagonal(i)
 		for j := 1; j < i; j++ {
 			pentJ := NthPentagonal(j)
 
-			if IsPentagonal(pentI - pentJ) &&
-				IsPentagonal(pentI + pentJ) {
-				fmt.Printf("%d\n", pentI - pentJ)
+			if IsPentagonal(pentI-pentJ) &&
+				IsPentagonal(pentI+pentJ) {
+				fmt.Printf("%d\n", pentI-pentJ)
 				return
 			}
 		}
@@ -41,12 +41,12 @@ func Run() {
 }
 
 func NthPentagonal(num int) int {
-	return num * (3 * num - 1) / 2
+	return num * (3*num - 1) / 2
 }
 
 func IsPentagonal(num int) bool {
-	sq := num * 24 + 1
+	sq := num*24 + 1
 	root := euler.ISqrt(sq)
-	return (root * root == sq) &&
-		((root + 1) % 6) == 0
+	return (root*root == sq) &&
+		((root+1)%6) == 0
 }

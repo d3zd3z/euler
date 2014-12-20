@@ -28,7 +28,7 @@ import "math/big"
 func Run() {
 	product := big.NewRat(1, 1)
 	for ab := 1; ab < 100; ab++ {
-		for cd := ab+1; cd < 100; cd++ {
+		for cd := ab + 1; cd < 100; cd++ {
 			if is, ad := isCurious(ab, cd); is {
 				// fmt.Printf("%d/%d\n", ab, cd)
 				product.Mul(product, ad)

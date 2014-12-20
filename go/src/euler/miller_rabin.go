@@ -15,7 +15,7 @@ func IsPrime(num int, k int) bool {
 		return true
 	}
 
-	if num % 2 == 0 || num % 3 == 0 || num % 5 == 0 || num % 7 == 0 {
+	if num%2 == 0 || num%3 == 0 || num%5 == 0 || num%7 == 0 {
 		return false
 	}
 
@@ -46,10 +46,10 @@ func compute_sd(num int) (s, d int) {
 }
 
 func round(n, s, d int) bool {
-	a := rand.Intn(n - 3) + 2
+	a := rand.Intn(n-3) + 2
 	x := exp_mod(a, d, n)
 
-	if x == 1 || x == n - 1 {
+	if x == 1 || x == n-1 {
 		return true
 	}
 
@@ -59,7 +59,7 @@ func round(n, s, d int) bool {
 			return false
 		}
 
-		if x == n - 1 {
+		if x == n-1 {
 			return true
 		}
 	}
@@ -67,7 +67,7 @@ func round(n, s, d int) bool {
 	return false
 }
 
-func exp_mod (b, p, m int) (result int) {
+func exp_mod(b, p, m int) (result int) {
 	result = 1
 
 	for p > 0 {

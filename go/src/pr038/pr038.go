@@ -47,7 +47,7 @@ func products(base int64) (pand int64, ok bool) {
 
 	mult := int64(1)
 	for work < largest {
-		work = concat(work, base * mult)
+		work = concat(work, base*mult)
 		if isPandigital(work) {
 			return work, true
 		}
@@ -89,5 +89,6 @@ func augment(base int64, number int) (result int64) {
 }
 
 var primes = []int64{2, 3, 5, 7, 11, 13, 17, 19, 23, 29}
+
 const pandigital = 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 * 29
 const largest = 987654321

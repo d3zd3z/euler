@@ -31,7 +31,7 @@ func Run() {
 
 	// Check if this result is valid, and process it if it is.
 	isValid := func(nums []int) {
-		if nums[1] - nums[0] != nums[2] - nums[1] {
+		if nums[1]-nums[0] != nums[2]-nums[1] {
 			return
 		}
 		for _, num := range nums {
@@ -43,7 +43,7 @@ func Run() {
 			// Skip, per problem description.
 			return
 		}
-		result = int64(nums[0]) * 100000000 + int64(nums[1]) * 10000 + int64(nums[0])
+		result = int64(nums[0])*100000000 + int64(nums[1])*10000 + int64(nums[0])
 	}
 
 	// This isn't actually right, but it so happens that the

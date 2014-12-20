@@ -46,7 +46,7 @@ func Run() {
 // Return the first goldbach prime for the given number, if present.
 func goldbach(sieve *euler.Sieve, number int) (result int, present bool) {
 	for _, p := range sieve.PrimesUpto(number) {
-		if (p == 2) {
+		if p == 2 {
 			continue
 		}
 		_, perfect := perfect_root((number - p) / 2)
@@ -63,6 +63,6 @@ func goldbach(sieve *euler.Sieve, number int) (result int, present bool) {
 // otherwise not.
 func perfect_root(base int) (root int, perfect bool) {
 	root = euler.ISqrt(base)
-	perfect = (root * root == base)
+	perfect = (root*root == base)
 	return
 }

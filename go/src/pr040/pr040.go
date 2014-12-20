@@ -51,7 +51,7 @@ func digits(base int) (result []int) {
 	result = make([]int, 0)
 
 	for base != 0 {
-		result = append(result, base % 10)
+		result = append(result, base%10)
 		base /= 10
 	}
 

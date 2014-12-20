@@ -24,8 +24,8 @@
 package pr042
 
 import (
-	"io/ioutil"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"strings"
 )
@@ -56,7 +56,7 @@ func wordValue(word string) (result int) {
 }
 
 func isTriangle(n int) bool {
-	sqr := n * 8 + 1
+	sqr := n*8 + 1
 	root := isqrt(sqr)
 	return (root * root) == sqr
 

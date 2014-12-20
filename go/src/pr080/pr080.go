@@ -153,7 +153,7 @@ sqrtSum :: Int -> Int
 sqrtSum = sum . iSqrtDigs 0 0 . sourceNum
 
 isqrt :: Int -> Int
-isqrt = floor . sqrt . fromIntegral 
+isqrt = floor . sqrt . fromIntegral
 
 isSquare :: Int -> Bool
 isSquare x = let q = isqrt x in q*q == x
