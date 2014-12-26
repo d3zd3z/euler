@@ -10,7 +10,7 @@
 
 use num::Integer;
 
-define_problem!(main, 5)
+define_problem!(main, 5);
 
 fn main() {
     let mut accum = 1u;

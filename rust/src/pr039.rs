@@ -13,10 +13,10 @@
 // 840
 
 use triangle::generate_triples;
-use std::collections::hashmap::HashMap;
-use std::collections::hashmap::{Occupied, Vacant};
+use std::collections::HashMap;
+use std::collections::hash_map::Entry::{Occupied, Vacant};
 
-define_problem!(main, 39)
+define_problem!(main, 39);
 
 fn main() {
     let mut map = HashMap::new();
@@ -27,7 +27,7 @@ fn main() {
         }
     });
 
-    let k = match map.iter().max_by(|p| {p.val1()}) {
+    let k = match map.iter().max_by(|p| {p.1}) {
         None => panic!("No solution found"),
         Some((k, _)) => *k
     };

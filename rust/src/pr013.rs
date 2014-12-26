@@ -11,12 +11,12 @@
 // of each number, adding them, and then taking the first 10 digits of
 // the result.  The error should be beyond the first 10 digits.
 
-define_problem!(main, 13)
+define_problem!(main, 13);
 
 fn main() {
     let s = source();
     let s1 = s.iter().map(|s| {
-        from_str::<u64>(s.slice(0, 13)).unwrap()
+        s.slice(0, 13).parse::<u64>().unwrap()
     }).collect::<Vec<u64>>();
     let total = s1.iter().fold(0u64, |s, &i| s + i);
     println!("{}", shrink(total));

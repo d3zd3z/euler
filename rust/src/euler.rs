@@ -6,7 +6,7 @@ extern crate collections;
 extern crate num;
 
 use std::os;
-use std::collections::hashmap::HashMap;
+use std::collections::HashMap;
 
 mod problem;
 mod plist;
@@ -36,7 +36,7 @@ impl Problems {
         let mut all = HashMap::new();
         for p in probs.into_iter() {
             let num = p.num();
-            if !all.insert(p.num(), p) {
+            if !all.insert(p.num(), p).is_none() {
                 panic!("Duplicate problem {}, not running", num);
             }
         }
@@ -45,7 +45,7 @@ impl Problems {
     }
 
     fn run(&mut self, num: uint) {
-        match self.probs.find(&num) {
+        match self.probs.get(&num) {
             None => panic!("Unknown problem: {}", num),
             Some(p) => {
                 print!("{}: ", num);
@@ -71,7 +71,7 @@ fn main() {
         [] => panic!("Usage: euler {{all | n1 n2 n3}}"),
         pns => {
             for p in pns.iter() {
-                match std::from_str::FromStr::from_str(p.as_slice()) {
+                match p.parse() {
                     None => panic!("Invalid number: {}", p),
                     Some(n) => probs.run(n)
                 };

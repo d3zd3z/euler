@@ -23,9 +23,9 @@
 //
 // 4179871
 
-use std::collections::hashmap::HashSet;
+use std::collections::HashSet;
 
-define_problem!(main, 23)
+define_problem!(main, 23);
 
 // TODO: Change this to bitv for space.  Although, it's probably
 // slower.
@@ -74,7 +74,7 @@ fn make_divisors(limit: uint) -> Vec<uint> {
     for i in range(2u, limit) {
         let mut n = i + i;
         while n < limit {
-            *result.get_mut(n) += i;
+            result[n] += i;
             n += i;
         }
     }

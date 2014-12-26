@@ -12,7 +12,7 @@
 //
 // 40730
 
-define_problem!(main, 34)
+define_problem!(main, 34);
 
 fn main() {
     let mut chainer = Chainer::new();
@@ -51,7 +51,7 @@ fn make_facts(limit: uint) -> Vec<uint> {
     let mut result = Vec::from_elem(limit, 1u);
 
     for i in range(2u, limit) {
-        *result.get_mut(i) = i * result[i-1];
+        result[i] = i * result[i-1];
     }
 
     result

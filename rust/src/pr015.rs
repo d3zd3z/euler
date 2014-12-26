@@ -12,21 +12,21 @@
 //
 // 137846528820
 
-define_problem!(main, 15)
+define_problem!(main, 15);
 
-static steps: uint = 20u;
+static STEPS: uint = 20u;
 
 fn main() {
-    let mut values = Vec::from_elem(steps + 1, 1u64);
+    let mut values = Vec::from_elem(STEPS + 1, 1u64);
 
-    for _ in range(0u, steps) {
+    for _ in range(0u, STEPS) {
         bump(values.as_mut_slice());
     }
-    println!("{}", values[steps]);
+    println!("{}", values[STEPS]);
 }
 
 fn bump(values: &mut [u64]) {
-    for i in range(0u, steps) {
+    for i in range(0u, STEPS) {
         values[i+1] = values[i+1] + values[i];
     }
 }

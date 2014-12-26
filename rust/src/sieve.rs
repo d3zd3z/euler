@@ -5,7 +5,7 @@ use collections::bitv::Bitv;
 // use extra::bitv::*;
 // use extra::sort;
 
-static default_size: uint = 8192u;
+static DEFAULT_SIZE: uint = 8192u;
 
 pub struct Sieve {
     vec: Bitv, limit: uint
@@ -13,8 +13,8 @@ pub struct Sieve {
 
 impl Sieve {
     pub fn new() -> Sieve {
-        let mut result = Sieve { vec: Bitv::with_capacity(default_size + 1, true),
-            limit: default_size };
+        let mut result = Sieve { vec: Bitv::from_elem(DEFAULT_SIZE + 1, true),
+            limit: DEFAULT_SIZE };
         result.fill();
         result
     }
@@ -29,7 +29,7 @@ impl Sieve {
         let mut pos = 2u;
         let limit = self.limit;
         while pos <= limit {
-            if !self.vec.get(pos) {
+            if !self.vec[pos] {
                 pos += 2;
             } else {
                 let mut n = pos + pos;
@@ -55,12 +55,12 @@ impl Sieve {
                 new_limit *= 8;
             }
 
-            self.vec = Bitv::with_capacity(new_limit + 1, true);
+            self.vec = Bitv::from_elem(new_limit + 1, true);
             self.limit = new_limit;
             self.fill();
         }
 
-        self.vec.get(n)
+        self.vec[n]
     }
 }
 
@@ -159,7 +159,7 @@ fn test_factorize() {
     println!("{}\n", f);
 }
 
-#[deriving(PartialEq, Eq, Hash)]
+#[deriving(PartialEq, Eq, Hash, Clone)]
 pub struct Factor {
     pub prime: uint,
     pub power: uint
@@ -172,7 +172,7 @@ fn spread(factors: &[Factor], result: &mut Vec<uint>) {
         result.push(1);
     } else {
         let mut rest = vec![];
-        let x = factors[0];
+        let x = factors[0].clone();
         spread(factors.slice(1, len), &mut rest);
 
         let mut power = 1;

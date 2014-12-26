@@ -10,12 +10,12 @@
 //
 // 1366
 
-define_problem!(main, 16)
+define_problem!(main, 16);
 
 fn main() {
-    static size: uint = 302;
-    let mut digits = Vec::from_elem(size, 0u8);
-    *digits.get_mut(0) = 1;
+    static SIZE: uint = 302;
+    let mut digits = Vec::from_elem(SIZE, 0u8);
+    digits[0] = 1;
  
     for _x in range(0u, 1000) {
         double(digits.as_mut_slice());

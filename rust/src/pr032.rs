@@ -18,10 +18,10 @@
 //
 // 45228
 
-use std::collections::hashmap::HashSet;
+use std::collections::HashSet;
 use permute;
 
-define_problem!(main, 32)
+define_problem!(main, 32);
 
 fn main() {
     let mut base = [1u8, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -29,9 +29,9 @@ fn main() {
 
     let mut results = HashSet::new();
     loop {
-        make_groupings(base, &mut results);
+        make_groupings(base.as_slice(), &mut results);
 
-        permute::next_permutation(base, &mut done);
+        permute::next_permutation(base.as_mut_slice(), &mut done);
         if done { break; }
     }
 

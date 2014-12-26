@@ -33,7 +33,7 @@
 //
 // 70600674
 
-define_problem!(main, 11)
+define_problem!(main, 11);
 
 fn main() {
     let mut max = 0u;

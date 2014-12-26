@@ -22,7 +22,7 @@
 use std::io;
 use misc::{decode_words, isqrt};
 
-define_problem!(solve, 42)
+define_problem!(solve, 42);
 
 fn solve() {
     let mut file = io::File::open(&Path::new("../haskell/words.txt")).unwrap();

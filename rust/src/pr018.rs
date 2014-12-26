@@ -41,7 +41,7 @@
 
 use std::cmp;
 
-define_problem!(main, 18)
+define_problem!(main, 18);
 
 fn main() {
     let numbers = get_source();

@@ -22,7 +22,7 @@ use std::cmp;
 use std::io;
 use misc::decode_words;
 
-define_problem!(main, 22)
+define_problem!(main, 22);
 
 fn main() {
     let mut file = io::File::open(&Path::new("../haskell/names.txt"));

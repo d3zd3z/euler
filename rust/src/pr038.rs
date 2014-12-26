@@ -21,7 +21,7 @@
 //
 // 932718654
 
-define_problem!(main, 38)
+define_problem!(main, 38);
 
 fn main() {
     let mut largest = 0u64;

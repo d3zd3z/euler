@@ -21,7 +21,7 @@
 // Looking at n*9^5, we can quickly determine that there cannot be a
 // 7-digit number that works.  Se, only need to compute up to n=6.
 
-define_problem!(main, 30)
+define_problem!(main, 30);
 
 fn main() {
     let mut result = 0;

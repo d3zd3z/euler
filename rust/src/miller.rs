@@ -5,7 +5,7 @@
 // with division and modulus, even though this is fairly inefficient
 // when just down with '2'.
 
-use std::num::{One,Zero};
+use std::num::Int;
 use std::rand;
 
 type T = uint;
@@ -64,13 +64,13 @@ fn round(n: T, s: T, d: T) -> bool {
 }
 
 fn compute_sd(number: T) -> (T, T) {
-    let mut s: T = Zero::zero();
-    let mut d = number - One::one();
-    let one: T = One::one();
+    let mut s: T = Int::zero();
+    let mut d = number - Int::one();
+    let one: T = Int::one();
     let two = one + one;
 
-    while (d & One::one()) == Zero::zero() {
-        s = s + One::one();
+    while (d & Int::one()) == Int::zero() {
+        s = s + Int::one();
         d = d / two;
     }
 
@@ -80,11 +80,11 @@ fn compute_sd(number: T) -> (T, T) {
 pub fn exp_mod(base: T, power: T, modulus: T) -> T {
     let mut p = power;
     let mut b = base;
-    let mut result: T = One::one();
+    let mut result: T = Int::one();
     let two = result + result;
 
-    while p > Zero::zero() {
-        if (p & One::one()) != Zero::zero() {
+    while p > Int::zero() {
+        if (p & Int::one()) != Int::zero() {
             result = (result * b) % modulus;
         }
 
@@ -107,8 +107,8 @@ mod test {
 
     #[test]
     fn test_mr() {
-        assert!(!is_prime(655321, 20))
-        assert!(!is_prime(655323, 20))
-        assert!(is_prime(655331, 20))
+        assert!(!is_prime(655321, 20));
+        assert!(!is_prime(655323, 20));
+        assert!(is_prime(655331, 20));
     }
 }

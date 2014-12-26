@@ -29,9 +29,8 @@
 // 4782
 
 use num::BigUint;
-use std::num::One;
 
-define_problem!(main, 25)
+define_problem!(main, 25);
 
 fn main() {
     let mut a : BigUint = FromPrimitive::from_u64(1).unwrap();
@@ -50,7 +49,7 @@ fn main() {
 
 // Return 10 to the given power.
 fn exp10(n: uint) -> BigUint {
-    let mut work : BigUint = One::one();
+    let mut work: BigUint = FromPrimitive::from_u64(1).unwrap();
     let ten : BigUint = FromPrimitive::from_u64(10).unwrap();
 
     for _ in range(0, n) {

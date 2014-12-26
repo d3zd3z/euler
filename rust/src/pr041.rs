@@ -18,7 +18,7 @@
 
 use sieve::Sieve;
 
-define_problem!(main, 41)
+define_problem!(main, 41);
 
 fn main() {
     let mut primes = Sieve::new();

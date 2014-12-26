@@ -1,26 +1,28 @@
 // Miscellaneous Euler utilities.
 
-use std::num::{div_rem, zero};
+use std::num::{zero};
+use std::num::Int;
 
 #[allow(dead_code)]
-pub fn is_palindrome<T: Num + Ord + Clone> (n: T, base: T) -> bool {
+pub fn is_palindrome<T: Int + Ord + Clone> (n: T, base: T) -> bool {
     n == reverse_number(n.clone(), base)
 }
 
 #[allow(dead_code)]
-pub fn reverse_number<T: Num + Ord + Clone>(number: T, base: T) -> T {
-    let z = zero();
+pub fn reverse_number<T: Int + Ord + Clone>(number: T, base: T) -> T {
+    let z: T = Int::zero();
     let mut n = number;
-    let mut result: T = zero();
-    while n > z {
-        result = result * base + n % base;
-        n = n / base;
+    let mut result: T = Int::zero();
+    while n.clone() > z {
+        result = result * base.clone() + n.clone() % base.clone();
+        n = n / base.clone();
     }
     result
 }
 
 /// Several problems contain a single line of comma separated quoted
 /// strings.  Decode that all at once.
+#[allow(dead_code)]
 pub fn decode_words(line: &str) -> Vec<String> {
     let mut result = Vec::new();
     let mut word = String::new();
@@ -43,11 +45,14 @@ pub fn decode_words(line: &str) -> Vec<String> {
 }
 
 // Integer square root.  Returns the floor of the sqrt of n.
+#[allow(dead_code)]
 pub fn isqrt(n: uint) -> uint {
     if n == 0 {
         return 0;
     }
-    let (a, b) = div_rem(log2(n as u64), 2);
+    let tmp = log2(n as u64);
+    let a = tmp / 2;
+    let b = tmp % 2;
     let mut x = 1u << (a+b);
     loop {
         let y = (x + n / x) / 2;

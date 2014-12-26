@@ -19,13 +19,12 @@
 //
 // 100
 
-use std::num::One;
 use num::rational::{Ratio, Rational};
 
-define_problem!(main, 33)
+define_problem!(main, 33);
 
 fn main() {
-    let mut total: Rational = One::one();
+    let mut total: Rational = Ratio::new(1, 1);
     for a in range(10u, 100) {
         for b in range(a + 1, 100) {
             if is_frac(a, b) {

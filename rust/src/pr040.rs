@@ -17,7 +17,7 @@
 //
 // 210
 
-define_problem!(main, 40)
+define_problem!(main, 40);
 
 fn main() {
     let mut st = State::new();

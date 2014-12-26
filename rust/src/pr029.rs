@@ -20,11 +20,11 @@
 //
 // 9183
 
-use std::collections::hashmap::HashSet;
+use std::collections::HashSet;
 use sieve::Sieve;
 use sieve::Factor;
 
-define_problem!(main, 29)
+define_problem!(main, 29);
 
 fn main() {
     let mut primes = Sieve::new();

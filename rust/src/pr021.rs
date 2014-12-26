@@ -19,7 +19,7 @@
 use sieve::Sieve;
 use sieve;
 
-define_problem!(main, 21)
+define_problem!(main, 21);
 
 fn main() {
     let mut pv = Sieve::new();

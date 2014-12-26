@@ -17,7 +17,7 @@
 // hundred natural numbers and the square of the sum.
 // 25164150
 
-define_problem!(main, 6)
+define_problem!(main, 6);
 
 fn main() {
     let mut sum_sq = 0;

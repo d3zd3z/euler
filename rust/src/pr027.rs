@@ -31,7 +31,7 @@
 use sieve;
 use sieve::Sieve;
 
-define_problem!(main, 27)
+define_problem!(main, 27);
 
 fn main() {
     let mut s = Sieve::new();

@@ -9,8 +9,8 @@ macro_rules! define_problem (($f:expr, $n:expr) => (
         fn run(&self) { $f(); }
         fn num(&self) -> uint { $n }
     }
-))
+));
 
 macro_rules! add_problem( ($p:expr, $t:expr) => (
     $p.push(box $t as Box<super::Problem>)
-))
+));

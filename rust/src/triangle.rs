@@ -15,7 +15,7 @@ struct Quad {
     q2: uint
 }
 
-static initial_box: &'static Quad = &Quad { p1: 1, p2: 1, q1: 2, q2: 3 };
+static INITIAL_BOX: &'static Quad = &Quad { p1: 1, p2: 1, q1: 2, q2: 3 };
 
 impl Triple {
     fn circumference(&self) -> uint {
@@ -51,7 +51,7 @@ impl Quad {
 // circumference <= limit.  Calls 'f' for each possible triple.
 fn generate_fibonacci_triples(limit: uint, f: |Triple, uint|) {
 // fn generate_fibonacci_triples(limit: uint, f: &fn(Triple, uint)) {
-    let mut work = vec![*initial_box];
+    let mut work = vec![INITIAL_BOX.clone()];
 
     loop {
         match work.pop() {
@@ -84,13 +84,13 @@ pub fn generate_triples(limit: uint, f: |Triple, uint|) {
 
 #[test]
 fn test_children() {
-    let next = initial_box.children();
+    let next = INITIAL_BOX.children();
     println!("next: {}", next);
     let tris = next.iter().map(|x| {x.triangle()})
         .collect::<Vec<Triple>>();
     println!("tris: {}", tris);
 
     generate_triples(100, |tri, circ| {
-        println!("  {:3u} {}", circ, tri);
+        println!("  {:3} {}", circ, tri);
     });
 }

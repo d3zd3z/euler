@@ -15,14 +15,14 @@
 
 // This is easier to do by using something like base 10_000 (100**2).
 
-define_problem!(main, 20)
+define_problem!(main, 20);
 
-static base: uint = 10_000;
+static BASE: uint = 10_000;
 
 fn main() {
-    static size: uint = 40;
+    static SIZE: uint = 40;
     // let mut acc: [uint, .. size] = [0u, .. size];
-    let mut acc = Vec::from_elem(size, 0u);
+    let mut acc = Vec::from_elem(SIZE, 0u);
 
     acc[0] = 1;
 
@@ -38,8 +38,8 @@ fn multiply(acc: &mut [uint], by: uint) {
     let mut carry = 0u;
     for i in range(0u, acc.len()) {
         let temp = acc[i] * by + carry;
-        acc[i] = temp % base;
-        carry = temp / base;
+        acc[i] = temp % BASE;
+        carry = temp / BASE;
     }
     if carry != 0 { panic!("Multiply overflow") }
 }

@@ -24,7 +24,7 @@
 //
 // 837799
 
-define_problem!(main, 14)
+define_problem!(main, 14);
 
 fn main() {
     if false {
@@ -106,7 +106,7 @@ impl EnumCache {
     fn new() -> EnumCache {
         let size = 100000;
         EnumCache { size: size,
-            cache: Vec::from_elem(size, Unknown) }
+            cache: Vec::from_elem(size, Info::Unknown) }
     }
 }
 
@@ -114,12 +114,12 @@ impl Lengther for EnumCache {
     fn chain_len(&mut self, n: uint) -> uint {
         if n < self.size {
             match self.cache[n] {
-                Unknown => {
+                Info::Unknown => {
                     let answer = self.chain2(n);
-                    *self.cache.get_mut(n) = Known(answer);
+                    self.cache[n] = Info::Known(answer);
                     answer
                 }
-                Known(x) => x
+                Info::Known(x) => x
             }
         } else {
             self.chain2(n)

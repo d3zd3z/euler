@@ -18,7 +18,7 @@
 
 // By using slices, we avoid copies of the data.
 
-define_problem!(main, 31)
+define_problem!(main, 31);
 
 fn main() {
     let coins = all_coins();

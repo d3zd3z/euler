@@ -19,7 +19,7 @@
 
 use permute;
 
-define_problem!(main, 24)
+define_problem!(main, 24);
 
 fn main() {
     let mut base = Vec::from_fn(10, |i| i as u8);

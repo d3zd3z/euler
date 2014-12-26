@@ -21,7 +21,7 @@
 //
 // 171
 
-define_problem!(main, 19)
+define_problem!(main, 19);
 
 fn main() {
     let mut count = 0u;

@@ -18,7 +18,7 @@
 use miller;
 use misc;
 
-define_problem!(main, 37)
+define_problem!(main, 37);
 
 fn main() {
     let mut rights = right_truncatable_primes();
@@ -28,15 +28,15 @@ fn main() {
     println!("{}", total);
 }
 
-static right_digits: &'static [uint] = &[1u, 3, 7, 9];
+static RIGHT_DIGITS: &'static [uint] = &[1u, 3, 7, 9];
 
 // Given a list of numbers, return a list of the numbers that are
 // still prime when a single digit is appended to the right.
 fn add_primes(numbers: &[uint]) -> Vec<uint> {
     let mut result = vec![];
-    for number in numbers.iter() {
-        for extra in right_digits.iter() {
-            let n = number * 10 + *extra;
+    for &number in numbers.iter() {
+        for &extra in RIGHT_DIGITS.iter() {
+            let n = number * 10 + extra;
             if is_prime(n) {
                 result.push(n);
             }

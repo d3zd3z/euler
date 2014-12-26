@@ -15,7 +15,7 @@
 
 use sieve::Sieve;
 
-define_problem!(main, 35)
+define_problem!(main, 35);
 
 fn main() {
     let mut sv = Sieve::new();

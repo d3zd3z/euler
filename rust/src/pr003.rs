@@ -10,7 +10,7 @@
 
 use sieve::Sieve;
 
-define_problem!(main, 3)
+define_problem!(main, 3);
 
 fn main() {
     let mut sieve = Sieve::new();

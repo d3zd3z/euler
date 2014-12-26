@@ -16,7 +16,7 @@
 
 use misc;
 
-define_problem!(main, 36)
+define_problem!(main, 36);
 
 fn main() {
     let mut total = 0;

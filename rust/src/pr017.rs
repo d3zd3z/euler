@@ -17,10 +17,9 @@
 //
 // 21124
 
-use std::char;
 use std::mem::replace;
 
-define_problem!(main, 17)
+define_problem!(main, 17);
 
 // TODO: Try with ropes.
 
@@ -40,7 +39,7 @@ fn main() {
 fn count_letters(text: &str) -> uint {
     let mut count = 0;
     for ch in text.chars() {
-        if char::is_alphabetic(ch) {
+        if ch.is_alphabetic() {
             count += 1;
         }
     }

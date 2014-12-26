@@ -9,7 +9,7 @@
 
 use misc;
 
-define_problem!(main, 4)
+define_problem!(main, 4);
 
 fn main() {
     let mut max = 0u;
