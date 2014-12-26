@@ -2,6 +2,7 @@
 name = "euler"
 version = "0.0.1"
 authors = ["David Brown <davidb@davidb.org>"]
+build = "build.rs"
 
 [dependencies.num]
 git = "https://github.com/rust-lang/num"

@@ -1,1 +1,5 @@
 /target
+
+# The build system replaces this file with a symlink to the current
+# generated version.  This should be considered a volatile thing.
+/src/plist.rs
