@@ -4,8 +4,11 @@ version = "0.0.1"
 authors = ["David Brown <davidb@davidb.org>"]
 build = "build.rs"
 
-[dependencies.num]
-git = "https://github.com/rust-lang/num"
+[dependencies]
+num = "0.1.0"
+
+[build-dependencies]
+glob = "0.1.0"
 
 [[bin]]
 name = "euler"

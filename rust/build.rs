@@ -1,15 +1,13 @@
 // Generate the problem list based on available modules.
 
-#![feature(phase)]
-
-#[phase(plugin)]
-extern crate regex_macros;
-extern crate regex;
+extern crate glob;
 
 use std::os;
 use std::io::fs;
 use std::io::File;
 use std::str::from_utf8;
+
+use glob::glob;
 
 fn main() {
     let dst = Path::new(os::getenv("OUT_DIR").unwrap());
@@ -53,17 +51,10 @@ fn main() {
 fn get_problems() -> Vec<uint> {
     let mut result = vec![];
 
-    let re = regex!(r"^pr(\d{3})\.rs$");
-
-    for path in fs::readdir(&Path::new("src")).unwrap().iter() {
+    for path in glob("src/pr[0-9][0-9][0-9].rs") {
         let rawname = path.filename().unwrap();
         let name = from_utf8(rawname).unwrap();
-        match re.captures(name) {
-            None => (),
-            Some(caps) => {
-                result.push(caps.at(1).unwrap().parse().unwrap());
-            }
-        }
+        result.push(name.slice(2, 5).parse().unwrap());
     }
 
     result.sort();
