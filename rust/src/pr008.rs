@@ -43,8 +43,9 @@ fn main() {
 
 fn amain() {
     let source = src();
-    let groups = Vec::from_fn(source.len() + 1 - 5,
-        |pos| source.slice(pos, pos + 5));
+    let groups = range(0, source.len() + 1 - 5)
+        .map(|pos| source.slice(pos, pos + 5))
+        .collect::<Vec<_>>();
     let products = groups.iter().map(|item| {
         item.iter().fold(1u, |a, &b| {
             a * (b as uint - 48u)

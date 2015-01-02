@@ -24,6 +24,7 @@
 // 4179871
 
 use std::collections::HashSet;
+use std::iter;
 
 define_problem!(main, 23);
 
@@ -69,7 +70,7 @@ fn make_abundants(limit: uint) -> Vec<uint> {
 // Since we need all of them, compute the divisor sums in advance
 // using a modified sieve.
 fn make_divisors(limit: uint) -> Vec<uint> {
-    let mut result = Vec::from_elem(limit, 1u);
+    let mut result: Vec<_> = iter::repeat(1u).take(limit).collect();
 
     for i in range(2u, limit) {
         let mut n = i + i;

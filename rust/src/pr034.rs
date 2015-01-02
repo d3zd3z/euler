@@ -12,6 +12,8 @@
 //
 // 40730
 
+use std::iter;
+
 define_problem!(main, 34);
 
 fn main() {
@@ -48,7 +50,7 @@ impl Chainer {
 }
 
 fn make_facts(limit: uint) -> Vec<uint> {
-    let mut result = Vec::from_elem(limit, 1u);
+    let mut result: Vec<_> = iter::repeat(1u).take(limit).collect();
 
     for i in range(2u, limit) {
         result[i] = i * result[i-1];

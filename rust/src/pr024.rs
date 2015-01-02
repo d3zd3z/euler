@@ -22,7 +22,7 @@ use permute;
 define_problem!(main, 24);
 
 fn main() {
-    let mut base = Vec::from_fn(10, |i| i as u8);
+    let mut base: Vec<_> = range(0u, 10).map(|i| i as u8).collect();
     let mut done = false;
     for _ in range(0u, 999_999) {
         permute::next_permutation(base.as_mut_slice(), &mut done);

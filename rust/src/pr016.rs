@@ -10,11 +10,13 @@
 //
 // 1366
 
+use std::iter;
+
 define_problem!(main, 16);
 
 fn main() {
     static SIZE: uint = 302;
-    let mut digits = Vec::from_elem(SIZE, 0u8);
+    let mut digits: Vec<_> = iter::repeat(0u8).take(SIZE).collect();
     digits[0] = 1;
  
     for _x in range(0u, 1000) {

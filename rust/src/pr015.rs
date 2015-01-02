@@ -12,12 +12,14 @@
 //
 // 137846528820
 
+use std::iter;
+
 define_problem!(main, 15);
 
 static STEPS: uint = 20u;
 
 fn main() {
-    let mut values = Vec::from_elem(STEPS + 1, 1u64);
+    let mut values: Vec<_> = iter::repeat(1u64).take(STEPS + 1).collect();
 
     for _ in range(0u, STEPS) {
         bump(values.as_mut_slice());

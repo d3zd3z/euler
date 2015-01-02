@@ -24,6 +24,8 @@
 //
 // 837799
 
+use std::iter;
+
 define_problem!(main, 14);
 
 fn main() {
@@ -105,8 +107,10 @@ enum Info {
 impl EnumCache {
     fn new() -> EnumCache {
         let size = 100000;
-        EnumCache { size: size,
-            cache: Vec::from_elem(size, Info::Unknown) }
+        EnumCache {
+            size: size,
+            cache: iter::repeat(Info::Unknown).take(size).collect(),
+        }
     }
 }
 

@@ -15,6 +15,8 @@
 
 // This is easier to do by using something like base 10_000 (100**2).
 
+use std::iter;
+
 define_problem!(main, 20);
 
 static BASE: uint = 10_000;
@@ -22,7 +24,7 @@ static BASE: uint = 10_000;
 fn main() {
     static SIZE: uint = 40;
     // let mut acc: [uint, .. size] = [0u, .. size];
-    let mut acc = Vec::from_elem(SIZE, 0u);
+    let mut acc: Vec<_> = iter::repeat(0u).take(SIZE).collect();
 
     acc[0] = 1;
 
