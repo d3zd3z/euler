@@ -98,7 +98,7 @@ struct EnumCache {
     cache: Vec<Info>
 }
 
-#[deriving(Clone, PartialEq, Eq)]
+#[derive(Clone, PartialEq, Eq)]
 enum Info {
     Unknown,
     Known(uint)

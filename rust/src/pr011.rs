@@ -55,7 +55,7 @@ fn main() {
 
 struct Delta {dx: int, dy: int}
 
-fn product(ary: &Vec<[uint, ..20]>, x: int, y: int, d: &Delta) -> uint {
+fn product(ary: &Vec<[uint; 20]>, x: int, y: int, d: &Delta) -> uint {
     let mut px = x;
     let mut py = y;
     let mut prod = 1u;
@@ -70,7 +70,7 @@ fn product(ary: &Vec<[uint, ..20]>, x: int, y: int, d: &Delta) -> uint {
     prod
 }
 
-fn source() -> Vec<[uint, ..20]> {
+fn source() -> Vec<[uint; 20]> {
     vec![
         [08u, 02u, 22u, 97u, 38u, 15u, 00u, 40u, 00u, 75u, 04u, 05u, 07u, 78u, 52u, 12u, 50u, 77u, 91u, 08u],
         [49u, 49u, 99u, 40u, 17u, 81u, 18u, 57u, 60u, 87u, 17u, 40u, 98u, 43u, 69u, 48u, 04u, 56u, 62u, 00u],

@@ -1,6 +1,5 @@
 // Miscellaneous Euler utilities.
 
-use std::num::{zero};
 use std::num::Int;
 
 #[allow(dead_code)]

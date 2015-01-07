@@ -1,13 +1,13 @@
 // Triangle utilities.
 
-#[deriving(Clone, Show)]
+#[derive(Clone, Show)]
 pub struct Triple {
     a: uint,
     b: uint,
     c: uint
 }
 
-#[deriving(Clone, Show)]
+#[derive(Clone, Show)]
 struct Quad {
     p1: uint,
     p2: uint,

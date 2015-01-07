@@ -29,6 +29,8 @@
 // 4782
 
 use num::BigUint;
+use std::num::FromPrimitive;
+use std::ops::{Add, Mul};
 
 define_problem!(main, 25);
 

@@ -45,7 +45,7 @@ fn main() {
     println!("{}", total);
 }
 
-#[deriving(Show)]
+#[derive(Show)]
 struct NamePair {
     name: String,
     value: uint

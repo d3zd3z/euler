@@ -21,8 +21,8 @@ define_problem!(main, 39);
 fn main() {
     let mut map = HashMap::new();
     generate_triples(1000, |_, circ| {
-        match map.entry(circ) {
-            Vacant(entry) => { entry.set(1u); },
+        match map.entry(&circ) {
+            Vacant(entry) => { entry.insert(1u); },
             Occupied(mut entry) => *entry.get_mut() += 1
         }
     });
