@@ -2,27 +2,27 @@
 
 #[derive(Clone, Show)]
 pub struct Triple {
-    a: uint,
-    b: uint,
-    c: uint
+    a: u32,
+    b: u32,
+    c: u32
 }
 
 #[derive(Clone, Show)]
 struct Quad {
-    p1: uint,
-    p2: uint,
-    q1: uint,
-    q2: uint
+    p1: u32,
+    p2: u32,
+    q1: u32,
+    q2: u32
 }
 
 static INITIAL_BOX: &'static Quad = &Quad { p1: 1, p2: 1, q1: 2, q2: 3 };
 
 impl Triple {
-    fn circumference(&self) -> uint {
+    fn circumference(&self) -> u32 {
         self.a + self.b + self.c
     }
 
-    fn mult(&self, k: uint) -> Triple {
+    fn mult(&self, k: u32) -> Triple {
         Triple {
             a: self.a * k,
             b: self.b * k,
@@ -47,61 +47,115 @@ impl Quad {
     }
 }
 
-// TODO: Perhaps we should change this to an iterator.
-
-// Generate all of the primitive Pythagorean triples with a
-// circumference <= limit.  Calls 'f' for each possible triple.
-fn generate_fibonacci_triples<F>(limit: uint, f: F)
-    where F: FnMut(Triple, uint)
-{
-    panic!("TODO");
-    /*
-    let mut work = vec![INITIAL_BOX.clone()];
-
-    loop {
-        match work.pop() {
-            None => break,
-            Some(abox) => {
-                let triple = abox.triangle();
-                let size = triple.circumference();
-                if size <= limit {
-                    f(triple, size);
-                    work.extend(abox.children().into_iter());
-                }
-            }
-        }
-    }
-    */
+pub struct IterItem {
+    pub tri: Triple,
+    pub circ: u32,
 }
 
-// Generate all of the triples up to (and including) a given limit.
-pub fn generate_triples<F>(limit: uint, f: F)
-    where F: FnMut(Triple, uint)
-{
-    panic!("TODO");
-    /*
-    generate_fibonacci_triples(limit, |&mut: tri, circ| {
-        let mut k = 1;
-        loop {
-            let kcirc = k * circ;
-            if kcirc > limit { break; }
-            f(tri.mult(k), kcirc);
+pub struct FibonacciIter {
+    work: Vec<Quad>,
+    limit: u32,
+}
 
-            k += 1;
+impl FibonacciIter {
+    pub fn new(limit: u32) -> FibonacciIter {
+        FibonacciIter {
+            work: vec![INITIAL_BOX.clone()],
+            limit: limit,
         }
-    });
-    */
+    }
+}
+
+impl Iterator for FibonacciIter {
+    type Item = IterItem;
+
+    fn next(&mut self) -> Option<IterItem> {
+        match self.work.pop() {
+            None => None,
+            Some(abox) => {
+                let tri = abox.triangle();
+                let size = tri.circumference();
+                if size <= self.limit {
+                    self.work.extend(abox.children().into_iter());
+                    Some(IterItem {
+                        tri: tri,
+                        circ: size,
+                    })
+                } else {
+                    self.next()
+                }
+            },
+        }
+    }
+}
+
+pub struct Iter {
+    root: FibonacciIter,
+    cur: Option<IterItem>,
+    k: u32,
+    limit: u32,
+}
+
+impl Iter {
+    pub fn new(limit: u32) -> Iter {
+        Iter {
+            root: FibonacciIter::new(limit),
+            cur: None,
+            k: 0,
+            limit: limit,
+        }
+    }
+}
+
+impl Iterator for Iter {
+    type Item = IterItem;
+
+    fn next(&mut self) -> Option<IterItem> {
+        loop {
+            // Make sure we have a root to look at.
+            if self.cur.is_none() {
+                self.cur = self.root.next();
+                self.k = 1;
+            }
+
+            // Handle the case where we still have some work to do.  Returns a
+            // result if that is known.
+            match self.cur {
+                None => return None,
+                Some(IterItem { ref tri, circ }) => {
+                    let kcirc = self.k * circ;
+                    if kcirc <= self.limit {
+                        let k1 = self.k;
+                        self.k += 1;
+                        return Some(IterItem {
+                            tri: tri.mult(k1),
+                            circ: kcirc,
+                        })
+                    }
+                },
+            }
+
+            // Otherwise, we've exhaused this particular root, clear it, and
+            // move on to the next one.
+            self.cur = None;
+        }
+    }
 }
 
 #[test]
 fn test_children() {
     let next = INITIAL_BOX.children();
-    println!("next: {}", next);
+    println!("next: {:?}", next);
     let tris = next.iter().map(|x| {x.triangle()})
         .collect::<Vec<Triple>>();
-    println!("tris: {}", tris);
+    println!("tris: {:?}", tris);
 
+    /*
     generate_triples(100, |tri, circ| {
-        println!("  {:3} {}", circ, tri);
+        println!("  {:3} {:?}", circ, tri);
     });
+    */
+    for IterItem { tri, circ } in Iter::new(100) {
+        println!("   {:3} {:?}", circ, tri);
+    }
 }

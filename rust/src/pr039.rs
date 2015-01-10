@@ -12,28 +12,25 @@
 //
 // 840
 
-use triangle::generate_triples;
+use triangle;
 use std::collections::HashMap;
 use std::collections::hash_map::Entry::{Occupied, Vacant};
 
 define_problem!(main, 39);
 
 fn main() {
-    println!("TODO: Fix for new closures");
-    /*
     let mut map = HashMap::new();
-    generate_triples(1000, |_, circ| {
-        match map.entry(&circ) {
-            Vacant(entry) => { entry.insert(1u); },
-            Occupied(mut entry) => *entry.get_mut() += 1
+    for triangle::IterItem { circ, .. } in triangle::Iter::new(1000) {
+        match map.entry(circ) {
+            Vacant(entry) => { entry.insert(1u32); },
+            Occupied(mut entry) => *entry.get_mut() += 1,
         }
-    });
+    }
 
-    let k = match map.iter().max_by(|p| {p.1}) {
+    let k = match map.iter().max_by(|p| p.1) {
         None => panic!("No solution found"),
         Some((k, _)) => *k
     };
 
     println!("{}", k);
-    */
 }
