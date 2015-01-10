@@ -156,7 +156,7 @@ impl Sieve {
 fn test_factorize() {
     let mut sieve = Sieve::new();
     let f = sieve.divisors(138*2);
-    println!("{}\n", f);
+    println!("{:?}\n", f);
 }
 
 #[derive(PartialEq, Eq, Hash, Clone)]
