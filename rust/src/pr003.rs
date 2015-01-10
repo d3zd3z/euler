@@ -10,9 +10,9 @@
 
 use sieve::Sieve;
 
-define_problem!(main, 3);
+define_problem!(pr003, 3, 6857);
 
-fn main() {
+fn pr003() -> usize {
     let mut sieve = Sieve::new();
 
     let mut number = 600851475143u64;
@@ -27,5 +27,5 @@ fn main() {
         }
     }
 
-    println!("{}", prime);
+    prime
 }

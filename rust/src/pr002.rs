@@ -10,10 +10,10 @@
 // By considering the terms in the Fibonacci sequence whose values do not
 // exceed four million, find the sum of the even-valued terms.
 
-define_problem!(main, 2);
+define_problem!(pr002, 2, 4613732);
 
-fn main() {
-    let mut total = 0u;
+fn pr002() -> u32 {
+    let mut total = 0u32;
     let mut a = 1;
     let mut b = 2;
     while a < 4000000 {
@@ -24,5 +24,5 @@ fn main() {
         a = b;
         b = tmp;
     }
-    println!("{}", total);
+    total
 }

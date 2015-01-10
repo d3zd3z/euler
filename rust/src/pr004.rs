@@ -9,9 +9,9 @@
 
 use misc;
 
-define_problem!(main, 4);
+define_problem!(pr004, 4, 906609);
 
-fn main() {
+fn pr004() -> usize {
     let mut max = 0u;
     for a in range(100u, 1000) {
         for b in range(a, 1000) {
@@ -21,5 +21,5 @@ fn main() {
             }
         }
     }
-    println!("{}", max);
+    max
 }

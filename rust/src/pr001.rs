@@ -7,14 +7,14 @@
 // 
 // Find the sum of all the multiples of 3 or 5 below 1000.
 
-define_problem!(main, 1);
+define_problem!(pr001, 1, 233168);
 
-fn main() {
+fn pr001() -> u32 {
     let mut total = 0;
-    for i in range(1u, 1000) {
+    for i in range(1u32, 1000) {
         if (i % 3 == 0) || (i % 5 == 0) {
             total += i;
         }
     }
-    println!("{}", total);
+    total
 }

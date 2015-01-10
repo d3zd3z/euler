@@ -10,9 +10,9 @@
 
 use num::Integer;
 
-define_problem!(main, 5);
+define_problem!(pr005, 5, 232792560);
 
-fn main() {
+fn pr005() -> uint {
     let mut accum = 1u;
 
     for i in range(2u, 20) {
@@ -20,5 +20,5 @@ fn main() {
         // accum = accum.lcm(&i);
         // accum = lcm(accum, i);
     }
-    println!("{}", accum);
+    accum
 }
