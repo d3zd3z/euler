@@ -18,11 +18,11 @@
 
 // By using slices, we avoid copies of the data.
 
-define_problem!(main, 31);
+define_problem!(pr031, 31, 73682);
 
-fn main() {
+fn pr031() -> uint {
     let coins = all_coins();
-    println!("{}", rways(200, coins.as_slice()));
+    rways(200, coins.as_slice())
 }
 
 fn rways(remaining: uint, coins: &[uint]) -> uint {

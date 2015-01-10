@@ -21,9 +21,9 @@
 
 use num::rational::{Ratio, Rational};
 
-define_problem!(main, 33);
+define_problem!(pr033, 33, 100);
 
-fn main() {
+fn pr033() -> int {
     let mut total: Rational = Ratio::new(1, 1);
     for a in range(10u, 100) {
         for b in range(a + 1, 100) {
@@ -32,7 +32,7 @@ fn main() {
             }
         }
     }
-    println!("{}", total.denom());
+    *total.denom()
 }
 
 // Is this a/b valid in this situation?

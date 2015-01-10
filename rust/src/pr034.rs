@@ -14,13 +14,13 @@
 
 use std::iter;
 
-define_problem!(main, 34);
+define_problem!(pr034, 34, 40730);
 
-fn main() {
+fn pr034() -> int {
     let mut chainer = Chainer::new();
     chainer.chain(0, 0);
 
-    println!("{}", chainer.total);
+    chainer.total
 }
 
 struct Chainer {

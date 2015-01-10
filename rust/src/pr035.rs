@@ -15,9 +15,9 @@
 
 use sieve::Sieve;
 
-define_problem!(main, 35);
+define_problem!(pr035, 35, 55);
 
-fn main() {
+fn pr035() -> uint {
     let mut sv = Sieve::new();
 
     let mut count = 0u;
@@ -31,7 +31,7 @@ fn main() {
         p = sv.next_prime(p);
     }
 
-    println!("{}", count);
+    count
 }
 
 // How many digits are in this number.

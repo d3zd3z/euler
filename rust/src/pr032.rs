@@ -21,9 +21,9 @@
 use std::collections::HashSet;
 use permute;
 
-define_problem!(main, 32);
+define_problem!(pr032, 32, 45228);
 
-fn main() {
+fn pr032() -> uint {
     let mut base = [1u8, 2, 3, 4, 5, 6, 7, 8, 9];
     let mut done = false;
 
@@ -35,9 +35,7 @@ fn main() {
         if done { break; }
     }
 
-    let mut total = 0;
-    for k in results.iter() { total += *k; }
-    println!("{}", total);
+    results.iter().fold(0u, |accum, &k| accum + k)
 }
 
 fn make_groupings(digits: &[u8], result: &mut HashSet<uint>) {
