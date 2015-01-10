@@ -14,15 +14,17 @@
 //
 // 31875000
 
-define_problem!(main, 9);
+define_problem!(pr009, 9, 31875000);
 
-fn main() {
+fn pr009() -> uint {
     for a in range(1u, 1000) {
         for b in range(a, 1000) {
             let c = 1000u - a - b;
             if c > b && a*a + b*b == c*c {
-                println!("{}", a*b*c);
+                return a*b*c;
             }
         }
     }
+
+    unreachable!();
 }

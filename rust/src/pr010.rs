@@ -10,17 +10,17 @@
 
 use sieve::Sieve;
 
-define_problem!(main, 10);
+define_problem!(main, 10, 142913828922);
 
-fn main() {
+fn main() -> u64 {
     let mut primes = Sieve::new();
 
-    let mut total = 0u;
+    let mut total = 0u64;
     let mut p = 2u;
     while p < 2_000_000u {
-        total += p;
+        total += p as u64;
         p = primes.next_prime(p);
     }
 
-    println!("{}", total);
+    total
 }

@@ -30,18 +30,20 @@
 
 use std::vec::Vec;
 
-define_problem!(main, 8);
+define_problem!(pr008, 8, 40824);
 
-fn main() {
+fn pr008() -> uint {
     if true {
-        amain();
+        amain()
     }
-    if false {
-        cmain();
+    else if false {
+        cmain()
+    } else {
+        0
     }
 }
 
-fn amain() {
+fn amain() -> uint {
     let source = src();
     let groups = range(0, source.len() + 1 - 5)
         .map(|pos| source.slice(pos, pos + 5))
@@ -51,8 +53,8 @@ fn amain() {
             a * (b as uint - 48u)
         })
     }).collect::<Vec<uint>>();
-    let result = products.iter().max().unwrap();
-    println!("{}", result);
+    let result = products.iter().map(|&x| x).max().unwrap();
+    result
 }
 
 fn src() -> &'static [u8] {
@@ -139,7 +141,7 @@ fn groups(src: &[u8]) -> ~[~[u8]] {
 }
 */
 
-fn cmain() {
+fn cmain() -> uint {
     let source = src();
     let mut max = 0u;
     let len = source.len();
@@ -158,5 +160,5 @@ fn cmain() {
         pos += 1;
     }
 
-    println!("{}", max);
+    max
 }

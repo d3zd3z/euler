@@ -17,14 +17,14 @@
 // hundred natural numbers and the square of the sum.
 // 25164150
 
-define_problem!(main, 6);
+define_problem!(pr006, 6, 25164150);
 
-fn main() {
+fn pr006() -> usize {
     let mut sum_sq = 0;
     let mut sum = 0;
     for i in range(1u, 101) {
         sum += i;
         sum_sq += i * i;
     }
-    println!("{}", sum * sum - sum_sq);
+    sum * sum - sum_sq
 }

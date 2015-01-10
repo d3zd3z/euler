@@ -13,9 +13,9 @@
 
 use sieve::Sieve;
 
-define_problem!(main, 7);
+define_problem!(pr007, 7, 104743);
 
-fn main() {
+fn pr007() -> uint {
     let mut primes = Sieve::new();
     let mut prime = 2u;
     let mut count = 1u;
@@ -25,5 +25,5 @@ fn main() {
         count += 1;
     }
 
-    println!("{}", prime);
+    prime
 }
