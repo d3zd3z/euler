@@ -51,7 +51,7 @@ impl Problems {
         match self.probs.get(&num) {
             None => panic!("Unknown problem: {}", num),
             Some(p) => {
-                print!("{}: ", num);
+                print!("{:>3}: ", num);
                 std::io::stdio::flush();
                 p.run();
             }
