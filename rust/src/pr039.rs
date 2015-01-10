@@ -16,9 +16,9 @@ use triangle;
 use std::collections::HashMap;
 use std::collections::hash_map::Entry::{Occupied, Vacant};
 
-define_problem!(main, 39);
+define_problem!(pr039, 39, 840);
 
-fn main() {
+fn pr039() -> u32 {
     let mut map = HashMap::new();
     for triangle::IterItem { circ, .. } in triangle::Iter::new(1000) {
         match map.entry(circ) {
@@ -27,10 +27,8 @@ fn main() {
         }
     }
 
-    let k = match map.iter().max_by(|p| p.1) {
+    match map.iter().max_by(|p| p.1) {
         None => panic!("No solution found"),
-        Some((k, _)) => *k
-    };
-
-    println!("{}", k);
+        Some((&k, _)) => k
+    }
 }

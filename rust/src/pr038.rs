@@ -21,9 +21,9 @@
 //
 // 932718654
 
-define_problem!(main, 38);
+define_problem!(pr038, 38, 932718654);
 
-fn main() {
+fn pr038() -> u64 {
     let mut largest = 0u64;
     for i in range(1u, 10000) {
         let sum = large_sum(i);
@@ -31,7 +31,7 @@ fn main() {
             largest = sum;
         }
     }
-    println!("{}", largest);
+    largest
 }
 
 // Given a 'base' according to the problem, multiple successively by

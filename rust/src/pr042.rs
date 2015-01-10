@@ -22,14 +22,13 @@
 use std::io;
 use misc::{decode_words, isqrt};
 
-define_problem!(solve, 42);
+define_problem!(pr042, 42, 162);
 
-fn solve() {
+fn pr042() -> uint {
     let mut file = io::File::open(&Path::new("../haskell/words.txt")).unwrap();
     let line = file.read_to_string().unwrap();
     let words = decode_words(line.as_slice());
-    let result = words.iter().filter(|&w| is_triangle(name_value(w.as_slice()))).count();
-    println!("{}", result);
+    words.iter().filter(|&w| is_triangle(name_value(w.as_slice()))).count()
 }
 
 fn name_value(name: &str) -> uint {

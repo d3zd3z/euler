@@ -17,9 +17,9 @@
 //
 // 210
 
-define_problem!(main, 40);
+define_problem!(pr040, 40, 210);
 
-fn main() {
+fn pr040() -> uint {
     let mut st = State::new();
 
     let mut i = 1;
@@ -28,7 +28,7 @@ fn main() {
         i += 1;
     }
 
-    println!("{}", st.product);
+    st.product
 }
 
 struct State {

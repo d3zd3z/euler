@@ -18,14 +18,13 @@
 use miller;
 use misc;
 
-define_problem!(main, 37);
+define_problem!(pr037, 37, 748317);
 
-fn main() {
+fn pr037() -> uint {
     let mut rights = right_truncatable_primes();
     rights.retain(|x| {is_left_truncatable(*x)});
     rights.retain(|x| {*x>9});
-    let total = rights.iter().fold(0u, |a, x| {a + *x});
-    println!("{}", total);
+    rights.iter().fold(0u, |a, x| {a + *x})
 }
 
 static RIGHT_DIGITS: &'static [uint] = &[1u, 3, 7, 9];

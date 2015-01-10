@@ -16,9 +16,9 @@
 
 use misc;
 
-define_problem!(main, 36);
+define_problem!(pr036, 36, 872187);
 
-fn main() {
+fn pr036() -> uint {
     let mut total = 0;
     for i in range(1u, 1_000_000) {
         if misc::is_palindrome(i, 10) && misc::is_palindrome(i, 2) {
@@ -26,5 +26,5 @@ fn main() {
         }
     }
 
-    println!("{}", total);
+    total
 }

@@ -18,9 +18,9 @@
 
 use sieve::Sieve;
 
-define_problem!(main, 41);
+define_problem!(pr041, 41, 7652413);
 
-fn main() {
+fn pr041() -> uint {
     let mut primes = Sieve::new();
 
     let mut p = 9_999_999u;
@@ -30,7 +30,8 @@ fn main() {
             break;
         }
     }
-    println!("{}", p);
+
+    p
 }
 
 // Determine if the given number uses all of the digits 1-9.
