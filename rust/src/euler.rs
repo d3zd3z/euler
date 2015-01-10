@@ -67,6 +67,7 @@ impl Problems {
     }
 }
 
+#[allow(dead_code)]
 fn main() {
     let mut probs = Problems::new();
     match os::args().tail().as_slice() {
