@@ -19,9 +19,9 @@
 use sieve::Sieve;
 use sieve;
 
-define_problem!(main, 21);
+define_problem!(pr021, 21, 31626);
 
-fn main() {
+fn pr021() -> uint {
     let mut pv = Sieve::new();
 
     let mut sum = 0;
@@ -30,7 +30,8 @@ fn main() {
             sum += i;
         }
     }
-    println!("{}", sum);
+
+    sum
 }
 
 trait Amicable {

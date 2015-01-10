@@ -26,12 +26,12 @@
 use std::collections::HashSet;
 use std::iter;
 
-define_problem!(main, 23);
+define_problem!(pr023, 23, 4179871);
 
 // TODO: Change this to bitv for space.  Although, it's probably
 // slower.
 
-fn main() {
+fn pr023() -> uint {
     let abundants = make_abundants(28124);
 
     let mut not_add: HashSet<uint> = HashSet::new();
@@ -53,7 +53,8 @@ fn main() {
             total += i;
         }
     }
-    println!("{}", total);
+
+    total
 }
 
 fn make_abundants(limit: uint) -> Vec<uint> {

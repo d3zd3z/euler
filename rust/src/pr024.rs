@@ -19,20 +19,20 @@
 
 use permute;
 
-define_problem!(main, 24);
+define_problem!(pr024, 24, 2783915460);
 
-fn main() {
+fn pr024() -> u64 {
     let mut base: Vec<_> = range(0u, 10).map(|i| i as u8).collect();
     let mut done = false;
     for _ in range(0u, 999_999) {
         permute::next_permutation(base.as_mut_slice(), &mut done);
         assert!(!done);
     };
-    show(base.as_slice());
+    show(base.as_slice())
 }
 
-fn show(digits: &[u8]) {
-    let mut result = String::new();
-    for &x in digits.iter() { result.push((x + '0' as u8) as char); }
-    println!("{}", result);
+fn show(digits: &[u8]) -> u64 {
+    let mut result = 0u64;
+    for &x in digits.iter() { result = result * 10 + x as u64; }
+    result
 }

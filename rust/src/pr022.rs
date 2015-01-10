@@ -17,14 +17,13 @@
 //
 // 871198282
 
-// extern mod extra;
 use std::cmp;
 use std::io;
 use misc::decode_words;
 
-define_problem!(main, 22);
+define_problem!(pr022, 22, 871198282);
 
-fn main() {
+fn pr022() -> uint {
     let mut file = io::File::open(&Path::new("../haskell/names.txt"));
     let line = file.read_to_end().unwrap();
     let line = String::from_utf8(line).unwrap();
@@ -42,7 +41,7 @@ fn main() {
         total += pairs.get(i).value * (i + 1);
     }
     */
-    println!("{}", total);
+    total
 }
 
 #[derive(Show)]

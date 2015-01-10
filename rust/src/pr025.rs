@@ -32,9 +32,9 @@ use num::BigUint;
 use std::num::FromPrimitive;
 use std::ops::{Add, Mul};
 
-define_problem!(main, 25);
+define_problem!(pr025, 25, 4782);
 
-fn main() {
+fn pr025() -> uint {
     let mut a : BigUint = FromPrimitive::from_u64(1).unwrap();
     let mut b : BigUint = FromPrimitive::from_u64(1).unwrap();
     let stop = exp10(999);
@@ -46,7 +46,7 @@ fn main() {
         b = tmp;
         count += 1;
     }
-    println!("{}", count);
+    count
 }
 
 // Return 10 to the given power.
