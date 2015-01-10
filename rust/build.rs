@@ -1,5 +1,7 @@
 // Generate the problem list based on available modules.
 
+#![allow(unstable)]
+
 extern crate glob;
 
 use std::os;
@@ -48,7 +50,7 @@ fn main() {
 
 // Get all of the problems, based on standard filenames of "src/prxxx.rs" where xxx is the problem
 // number.  Returns the result, sorted.
-fn get_problems() -> Vec<uint> {
+fn get_problems() -> Vec<u32> {
     let mut result = vec![];
 
     for path in glob("src/pr[0-9][0-9][0-9].rs") {
