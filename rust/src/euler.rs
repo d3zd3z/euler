@@ -1,6 +1,9 @@
 // Project euler
 
-#![feature(macro_rules)]
+// Language and library changes.  Turn these back on to find and fix these
+// problems.
+#![feature(int_uint)]
+#![allow(unstable)]
 
 extern crate collections;
 extern crate num;

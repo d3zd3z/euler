@@ -19,6 +19,8 @@ use std::collections::hash_map::Entry::{Occupied, Vacant};
 define_problem!(main, 39);
 
 fn main() {
+    println!("TODO: Fix for new closures");
+    /*
     let mut map = HashMap::new();
     generate_triples(1000, |_, circ| {
         match map.entry(&circ) {
@@ -33,4 +35,5 @@ fn main() {
     };
 
     println!("{}", k);
+    */
 }

@@ -41,7 +41,7 @@ fn main() {
 }
 
 fn make_groupings(digits: &[u8], result: &mut HashSet<uint>) {
-    let piece = |a: uint, b: uint| {
+    let piece = |&: a: uint, b: uint| {
         let mut result = 0;
         for x in range(a, b) {
             result = result * 10 + (digits[x] as uint);

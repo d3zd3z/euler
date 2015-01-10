@@ -1,6 +1,6 @@
 // Problem definition
 
-#![macro_escape]
+#![macro_use]
 
 macro_rules! define_problem (($f:expr, $n:expr) => (
     pub struct Solution;

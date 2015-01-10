@@ -29,7 +29,7 @@ fn main() {
     let line = file.read_to_end().unwrap();
     let line = String::from_utf8(line).unwrap();
     let names = decode_words(line.as_slice());
-    let mut pairs = names.iter().map(|n| { box name_value(n.as_slice()) })
+    let mut pairs = names.iter().map(|n| { Box::new(name_value(n.as_slice())) })
         .collect::<Vec<Box<NamePair>>>();
     pairs.sort_by(pair_le);
 

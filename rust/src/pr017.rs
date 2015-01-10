@@ -55,12 +55,12 @@ struct Converter {
 
 impl Converter {
     pub fn new() -> Box<Converter> {
-        box Converter {
+        Box::new(Converter {
             ones: make_ones(),
             tens: make_tens(),
             add_space: false,
             buffer: String::new()
-        }
+        })
     }
 }
 

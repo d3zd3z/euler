@@ -47,10 +47,15 @@ impl Quad {
     }
 }
 
+// TODO: Perhaps we should change this to an iterator.
+
 // Generate all of the primitive Pythagorean triples with a
 // circumference <= limit.  Calls 'f' for each possible triple.
-fn generate_fibonacci_triples(limit: uint, f: |Triple, uint|) {
-// fn generate_fibonacci_triples(limit: uint, f: &fn(Triple, uint)) {
+fn generate_fibonacci_triples<F>(limit: uint, f: F)
+    where F: FnMut(Triple, uint)
+{
+    panic!("TODO");
+    /*
     let mut work = vec![INITIAL_BOX.clone()];
 
     loop {
@@ -66,11 +71,16 @@ fn generate_fibonacci_triples(limit: uint, f: |Triple, uint|) {
             }
         }
     }
+    */
 }
 
 // Generate all of the triples up to (and including) a given limit.
-pub fn generate_triples(limit: uint, f: |Triple, uint|) {
-    generate_fibonacci_triples(limit, |tri, circ| {
+pub fn generate_triples<F>(limit: uint, f: F)
+    where F: FnMut(Triple, uint)
+{
+    panic!("TODO");
+    /*
+    generate_fibonacci_triples(limit, |&mut: tri, circ| {
         let mut k = 1;
         loop {
             let kcirc = k * circ;
@@ -80,6 +90,7 @@ pub fn generate_triples(limit: uint, f: |Triple, uint|) {
             k += 1;
         }
     });
+    */
 }
 
 #[test]

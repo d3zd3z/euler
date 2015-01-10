@@ -30,11 +30,11 @@ define_problem!(main, 14);
 
 fn main() {
     if false {
-        let mut l = box Noncached;
+        let mut l = Box::new(Noncached);
         compute_len(&mut *l);
     }
     if true {
-        let mut l = box EnumCache::new();
+        let mut l = Box::new(EnumCache::new());
         compute_len(&mut *l);
     }
 
