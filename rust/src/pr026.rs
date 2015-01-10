@@ -26,9 +26,9 @@
 
 use sieve::Sieve;
 
-define_problem!(main, 26);
+define_problem!(pr026, 26, 983);
 
-fn main() {
+fn pr026() -> uint {
     let mut primes = Sieve::new();
 
     let mut p = 7;
@@ -42,7 +42,7 @@ fn main() {
         }
         p = primes.next_prime(p);
     }
-    println!("{}", largest_value);
+    largest_value
 }
 
 // For a given number n, the repeat length of 1/n is the solution to

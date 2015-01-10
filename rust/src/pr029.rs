@@ -24,9 +24,9 @@ use std::collections::HashSet;
 use sieve::Sieve;
 use sieve::Factor;
 
-define_problem!(main, 29);
+define_problem!(pr029, 29, 9183);
 
-fn main() {
+fn pr029() -> uint {
     let mut primes = Sieve::new();
     let mut values = HashSet::new();
 
@@ -39,7 +39,7 @@ fn main() {
         }
     }
 
-    println!("{}", values.len());
+    values.len()
 }
 
 fn power(base: &Vec<Factor>, exp: uint) -> Vec<Factor> {

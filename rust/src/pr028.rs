@@ -18,9 +18,9 @@
 // formed in the same way?
 // 669171001
 
-define_problem!(main, 28);
+define_problem!(pr028, 28, 669171001);
 
-fn main() {
+fn pr028() -> uint {
     // Account for 1 in the center.
     let mut sum = 1;
 
@@ -30,7 +30,7 @@ fn main() {
         sum += ring_sum(a);
         a += 2;
     }
-    println!("{}", sum);
+    sum
 }
 
 fn ring_sum(n: uint) -> uint {

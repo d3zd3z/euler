@@ -31,9 +31,9 @@
 use sieve;
 use sieve::Sieve;
 
-define_problem!(main, 27);
+define_problem!(pr027, 27, -59231);
 
-fn main() {
+fn pr027() -> int {
     let mut s = Sieve::new();
 
     let mut max = 0;
@@ -48,7 +48,7 @@ fn main() {
             }
         }
     }
-    println!("{}", max_product);
+    max_product
 }
 
 trait Counter {
