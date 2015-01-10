@@ -3,15 +3,7 @@
 #![macro_use]
 
 macro_rules! define_problem {
-    ($f:expr, $n:expr) => (
-        pub struct Solution;
-
-        impl super::Problem for Solution {
-            fn run(&self) { $f(); }
-            fn num(&self) -> uint { $n }
-        });
-
-    // A possible third argument gives an expected answer, which will be
+    // The third argument gives an expected answer, which will be
     // checked in a test.  These also expect the test to return something that
     // is comparable to the result of the $f test function.
     ($f:expr, $n:expr, $sol:expr) => (
