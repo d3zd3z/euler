@@ -29,9 +29,9 @@
 
 use sieve::Sieve;
 
-define_problem!(main, 12);
+define_problem!(pr012, 12, 76576500);
 
-fn main() {
+fn pr012() -> uint {
     let mut primes = Sieve::new();
 
     let mut n = 1u;
@@ -43,7 +43,7 @@ fn main() {
         n += 1u;
         tri += n;
     }
-    println!("{}", tri);
+    tri
 }
 
 fn divisor_count(sieve: &mut Sieve, n: uint) -> uint {

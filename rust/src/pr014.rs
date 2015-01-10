@@ -26,17 +26,19 @@
 
 use std::iter;
 
-define_problem!(main, 14);
+define_problem!(pr014, 14, 837799);
 
-fn main() {
+fn pr014() -> uint {
     if false {
         let mut l = Box::new(Noncached);
-        compute_len(&mut *l);
+        return compute_len(&mut *l);
     }
     if true {
         let mut l = Box::new(EnumCache::new());
-        compute_len(&mut *l);
+        return compute_len(&mut *l);
     }
+
+    unreachable!();
 
     /*
     println!("size: {}", mem::size_of::<~Lengther>());
@@ -49,7 +51,7 @@ trait Lengther {
     fn chain_len(&mut self, n: uint) -> uint;
 }
 
-fn compute_len<T: Lengther>(l: &mut T) {
+fn compute_len<T: Lengther>(l: &mut T) -> uint {
     let mut max_len = 0;
     let mut max = 0;
     for x in range(1u, 1_000_000) {
@@ -59,7 +61,7 @@ fn compute_len<T: Lengther>(l: &mut T) {
             max = x;
         }
     }
-    println!("chain {}, len {}", max, max_len);
+    max
 }
 
 struct Noncached;

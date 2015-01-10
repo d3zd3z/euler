@@ -14,17 +14,18 @@
 
 use std::iter;
 
-define_problem!(main, 15);
+define_problem!(pr015, 15, 137846528820);
 
 static STEPS: uint = 20u;
 
-fn main() {
+fn pr015() -> u64 {
     let mut values: Vec<_> = iter::repeat(1u64).take(STEPS + 1).collect();
 
     for _ in range(0u, STEPS) {
         bump(values.as_mut_slice());
     }
-    println!("{}", values[STEPS]);
+
+    values[STEPS]
 }
 
 fn bump(values: &mut [u64]) {
