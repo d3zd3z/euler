@@ -41,9 +41,9 @@
 
 use std::cmp;
 
-define_problem!(main, 18);
+define_problem!(pr018, 18, 1074);
 
-fn main() {
+fn pr018() -> uint {
     let numbers = get_source();
     let size = numbers.len();
 
@@ -55,7 +55,7 @@ fn main() {
         if pos == 0 { break; }
         pos -= 1;
     }
-    println!("{}", work[0]);
+    work[0]
 }
 
 #[cfg(none)]

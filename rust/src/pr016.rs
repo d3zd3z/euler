@@ -12,9 +12,9 @@
 
 use std::iter;
 
-define_problem!(main, 16);
+define_problem!(pr016, 16, 1366);
 
-fn main() {
+fn pr016() -> uint {
     static SIZE: uint = 302;
     let mut digits: Vec<_> = iter::repeat(0u8).take(SIZE).collect();
     digits[0] = 1;
@@ -26,7 +26,8 @@ fn main() {
     let result = digits.iter().fold(0u, |accum, n| {
         accum + *n as uint
     });
-    println!("{}", result);
+
+    result
 }
 
 fn double(digits: &mut [u8]) {

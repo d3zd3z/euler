@@ -19,11 +19,9 @@
 
 use std::mem::replace;
 
-define_problem!(main, 17);
+define_problem!(pr017, 17, 21124);
 
-// TODO: Try with ropes.
-
-fn main() {
+fn pr017() -> uint {
     let mut conv = Converter::new();
     let mut result = 0;
 
@@ -33,7 +31,7 @@ fn main() {
         result += count_letters(text.as_slice());
     }
 
-    println!("{}", result);
+    result
 }
 
 fn count_letters(text: &str) -> uint {
@@ -47,8 +45,6 @@ fn count_letters(text: &str) -> uint {
 }
 
 struct Converter {
-    ones: Vec<&'static str>,
-    tens: Vec<&'static str>,
     buffer: String,
     add_space: bool
 }
@@ -56,8 +52,6 @@ struct Converter {
 impl Converter {
     pub fn new() -> Box<Converter> {
         Box::new(Converter {
-            ones: make_ones(),
-            tens: make_tens(),
             add_space: false,
             buffer: String::new()
         })
@@ -104,12 +98,12 @@ impl Converter {
     }
 
     fn add_ones(&mut self, n: uint) {
-        let piece = String::from_str(self.ones[n-1]);
+        let piece = String::from_str(ONES[n-1]);
         self.add(piece.as_slice());
     }
 
     fn add_tens(&mut self, n: uint) {
-        let piece = String::from_str(self.tens[n-1]);
+        let piece = String::from_str(TENS[n-1]);
         self.add(piece.as_slice());
     }
 
@@ -122,14 +116,13 @@ impl Converter {
     }
 }
 
-fn make_ones() -> Vec<&'static str> {
-    vec!["one", "two", "three", "four", "five", "six", "seven",
-      "eight", "nine", "ten", "eleven", "twelve", "thirteen",
-      "fourteen", "fifteen", "sixteen", "seventeen", "eighteen",
-      "nineteen"]
-}
+static ONES: &'static [&'static str] = &[
+    "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+    "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
+    "seventeen", "eighteen", "nineteen"
+];
 
-fn make_tens() -> Vec<&'static str> {
-    vec!["ten", "twenty", "thirty", "forty", "fifty",
-      "sixty", "seventy", "eighty", "ninety"]
-}
+static TENS: &'static [&'static str] = &[
+    "ten", "twenty", "thirty", "forty", "fifty",
+    "sixty", "seventy", "eighty", "ninety"
+];

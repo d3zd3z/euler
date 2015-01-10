@@ -21,9 +21,9 @@
 //
 // 171
 
-define_problem!(main, 19);
+define_problem!(pr017, 19, 171);
 
-fn main() {
+fn pr017() -> uint {
     let mut count = 0u;
     for year in range(1901u, 2001) {
         for month in range(1u, 13) {
@@ -32,7 +32,7 @@ fn main() {
             }
         }
     }
-    println!("{}", count);
+    count
 }
 
 // Convert to a julian date <http://en.wikipedia.org/wiki/Julian_day>

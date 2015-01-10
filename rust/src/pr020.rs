@@ -17,13 +17,12 @@
 
 use std::iter;
 
-define_problem!(main, 20);
+define_problem!(pr020, 20, 648);
 
 static BASE: uint = 10_000;
 
-fn main() {
+fn pr020() -> uint {
     static SIZE: uint = 40;
-    // let mut acc: [uint, .. size] = [0u, .. size];
     let mut acc: Vec<_> = iter::repeat(0u).take(SIZE).collect();
 
     acc[0] = 1;
@@ -31,8 +30,7 @@ fn main() {
     for x in range(2u, 101) {
         multiply(acc.as_mut_slice(), x);
     }
-    let result = sum_digits(acc.as_slice());
-    println!("{}", result);
+    sum_digits(acc.as_slice())
 }
 
 // Multiply the little-endian base 10_000 number in 'acc' by 'by'.
@@ -47,9 +45,9 @@ fn multiply(acc: &mut [uint], by: uint) {
 }
 
 fn sum_digits(acc: &[uint]) -> uint {
-    acc.iter().fold(0u, |accum, n| {
+    acc.iter().fold(0u, |accum, &n| {
         let mut sub = 0u;
-        let mut tmp = *n;
+        let mut tmp = n;
         while tmp > 0 {
             sub += tmp % 10;
             tmp /= 10;
