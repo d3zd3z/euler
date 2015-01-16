@@ -34,16 +34,13 @@ define_problem!(pr012, 12, 76576500);
 fn pr012() -> uint {
     let mut primes = Sieve::new();
 
-    let mut n = 1u;
-    let mut tri = 1u;
-    loop {
-        if divisor_count(&mut primes, tri) > 500u {
-            break;
+    for tri in TriIter::new() {
+        if divisor_count(&mut primes, tri) > 500 {
+            return tri;
         }
-        n += 1u;
-        tri += n;
     }
-    tri
+
+    unreachable!();
 }
 
 fn divisor_count(sieve: &mut Sieve, n: uint) -> uint {
@@ -66,4 +63,31 @@ fn divisor_count(sieve: &mut Sieve, n: uint) -> uint {
     }
 
     return result
+}
+
+// An iterator over the triangle numbers.
+struct TriIter {
+    n: uint,
+    tri: uint
+}
+
+impl TriIter {
+    pub fn new() -> TriIter {
+        TriIter {
+            n: 1,
+            tri: 1,
+        }
+    }
+}
+
+impl Iterator for TriIter {
+    type Item = uint;
+
+    fn next(&mut self) -> Option<uint> {
+        let result = self.tri;
+
+        self.n += 1;
+        self.tri += self.n;
+        Some(result)
+    }
 }
