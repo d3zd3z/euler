@@ -8,6 +8,9 @@
 extern crate collections;
 extern crate num;
 
+#[cfg(test)]
+extern crate test;
+
 use std::os;
 use std::collections::HashMap;
 
