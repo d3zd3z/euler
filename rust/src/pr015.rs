@@ -21,7 +21,7 @@ static STEPS: uint = 20u;
 fn pr015() -> u64 {
     let mut values: Vec<_> = iter::repeat(1u64).take(STEPS + 1).collect();
 
-    for _ in range(0u, STEPS) {
+    for _ in 0u .. STEPS {
         bump(values.as_mut_slice());
     }
 
@@ -29,7 +29,7 @@ fn pr015() -> u64 {
 }
 
 fn bump(values: &mut [u64]) {
-    for i in range(0u, STEPS) {
+    for i in 0u .. STEPS {
         values[i+1] = values[i+1] + values[i];
     }
 }

@@ -50,8 +50,8 @@ fn right_truncatable_primes() -> Vec<uint> {
     let mut set = vec![2u, 3, 5, 7];
 
     while set.len() > 0 {
-        result.push_all(set.as_slice());
-        set = add_primes(set.as_slice());
+        result.push_all(&set[]);
+        set = add_primes(&set[]);
     }
     result
 }

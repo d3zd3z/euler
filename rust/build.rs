@@ -1,12 +1,15 @@
 // Generate the problem list based on available modules.
 
-#![allow(unstable)]
+#![feature(os)]
+#![feature(path)]
+#![feature(io)]
+#![feature(collections)]
 
 extern crate glob;
 
 use std::os;
-use std::io::fs;
-use std::io::File;
+use std::old_io::fs;
+use std::old_io::File;
 use std::str::from_utf8;
 
 use glob::glob;
@@ -53,10 +56,11 @@ fn main() {
 fn get_problems() -> Vec<u32> {
     let mut result = vec![];
 
-    for path in glob("src/pr[0-9][0-9][0-9].rs") {
+    for path in glob("src/pr[0-9][0-9][0-9].rs").unwrap() {
+        let path = path.unwrap();
         let rawname = path.filename().unwrap();
         let name = from_utf8(rawname).unwrap();
-        result.push(name.slice(2, 5).parse().unwrap());
+        result.push(name[2..5].parse().unwrap());
     }
 
     result.sort();

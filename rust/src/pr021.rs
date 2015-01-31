@@ -25,7 +25,7 @@ fn pr021() -> uint {
     let mut pv = Sieve::new();
 
     let mut sum = 0;
-    for i in range(1u, 10_000) {
+    for i in 1u .. 10_000 {
         if pv.is_amicable(i) {
             sum += i;
         }

@@ -39,8 +39,8 @@ fn pr027() -> int {
     let mut max = 0;
     let mut max_product: int = 0;
 
-    for a in range(-999i, 1000) {
-        for b in range(-999i, 1000) {
+    for a in -999i .. 1000 {
+        for b in -999i .. 1000 {
             let count = s.prime_count(a, b);
             if count > max {
                 max = count;

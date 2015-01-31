@@ -22,7 +22,7 @@ define_problem!(pr006, 6, 25164150);
 fn pr006() -> usize {
     let mut sum_sq = 0;
     let mut sum = 0;
-    for i in range(1u, 101) {
+    for i in 1u .. 101 {
         sum += i;
         sum_sq += i * i;
     }

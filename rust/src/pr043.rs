@@ -25,7 +25,7 @@ use permute::next_permutation;
 define_problem!(pr043, 43, 16695334890);
 
 fn pr043() -> u64 {
-    let mut work: Vec<u8> = (0 .. 10).collect();
+    let mut work: Vec<u8> = (0_u8 .. 10).collect();
     let mut done = false;
     let mut total = 0u64;
 

@@ -25,7 +25,7 @@ define_problem!(pr038, 38, 932718654);
 
 fn pr038() -> u64 {
     let mut largest = 0u64;
-    for i in range(1u, 10000) {
+    for i in 1u .. 10000 {
         let sum = large_sum(i);
         if sum > largest && is_pandigital(sum) {
             largest = sum;

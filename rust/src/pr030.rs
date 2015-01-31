@@ -25,7 +25,7 @@ define_problem!(pr030, 30, 443839);
 
 fn pr030() -> uint {
     let mut result = 0;
-    for x in range(2u, 354295) {
+    for x in 2u .. 354295 {
         if sum_power(x, 5) == x {
             result += x;
         }
@@ -47,7 +47,7 @@ fn sum_power(x: uint, pow: uint) -> uint {
 
 fn simple_pow(x: uint, pow: uint) -> uint {
     let mut result = 1;
-    for _ in range(0, pow) {
+    for _ in 0 .. pow {
         result *= x;
     }
     result

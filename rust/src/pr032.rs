@@ -29,7 +29,7 @@ fn pr032() -> uint {
 
     let mut results = HashSet::new();
     loop {
-        make_groupings(base.as_slice(), &mut results);
+        make_groupings(&base[], &mut results);
 
         permute::next_permutation(base.as_mut_slice(), &mut done);
         if done { break; }
@@ -41,15 +41,15 @@ fn pr032() -> uint {
 fn make_groupings(digits: &[u8], result: &mut HashSet<uint>) {
     let piece = |&: a: uint, b: uint| {
         let mut result = 0;
-        for x in range(a, b) {
+        for x in a .. b {
             result = result * 10 + (digits[x] as uint);
         }
         result
     };
 
     let len = digits.len();
-    for i in range(1, len-2) {
-        for j in range(i+1, len-1) {
+    for i in 1 .. len-2 {
+        for j in i+1 .. len-1 {
             let a = piece(0, i);
             let b = piece(i, j);
             let c = piece(j, len);

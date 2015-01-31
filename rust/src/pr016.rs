@@ -19,7 +19,7 @@ fn pr016() -> uint {
     let mut digits: Vec<_> = iter::repeat(0u8).take(SIZE).collect();
     digits[0] = 1;
  
-    for _x in range(0u, 1000) {
+    for _x in 0u .. 1000 {
         double(digits.as_mut_slice());
     }
 
@@ -32,7 +32,7 @@ fn pr016() -> uint {
 
 fn double(digits: &mut [u8]) {
     let mut carry = 0;
-    for i in range(0u, digits.len()) {
+    for i in 0u .. digits.len() {
         let temp = digits[i] * 2 + carry;
         digits[i] = temp % 10;
         carry = temp / 10;

@@ -36,9 +36,9 @@ fn pr023() -> uint {
 
     let mut not_add: HashSet<uint> = HashSet::new();
 
-    for ai in range(0u, abundants.len()) {
+    for ai in 0u .. abundants.len() {
         let a = abundants[ai];
-        for bi in range(ai, abundants.len()) {
+        for bi in ai .. abundants.len() {
             let sum = a + abundants[bi];
             if sum > 28123 {
                 break;
@@ -48,7 +48,7 @@ fn pr023() -> uint {
     }
 
     let mut total = 0u;
-    for i in range(1u, 28124) {
+    for i in 1u .. 28124 {
         if !not_add.contains(&i) {
             total += i;
         }
@@ -60,7 +60,7 @@ fn pr023() -> uint {
 fn make_abundants(limit: uint) -> Vec<uint> {
     let divisors = make_divisors(limit);
     let mut result = vec![];
-    for i in range(1, limit) {
+    for i in 1 .. limit {
         if i < divisors[i] {
             result.push(i);
         }
@@ -73,7 +73,7 @@ fn make_abundants(limit: uint) -> Vec<uint> {
 fn make_divisors(limit: uint) -> Vec<uint> {
     let mut result: Vec<_> = iter::repeat(1u).take(limit).collect();
 
-    for i in range(2u, limit) {
+    for i in 2u .. limit {
         let mut n = i + i;
         while n < limit {
             result[n] += i;

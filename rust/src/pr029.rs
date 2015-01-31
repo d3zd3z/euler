@@ -30,10 +30,10 @@ fn pr029() -> uint {
     let mut primes = Sieve::new();
     let mut values = HashSet::new();
 
-    for a in range(2u, 101) {
+    for a in 2u .. 101 {
         let base = primes.factorize(a);
 
-        for b in range(2u, 101) {
+        for b in 2u .. 101 {
             let elt = power(&base, b);
             values.insert(elt);
         }

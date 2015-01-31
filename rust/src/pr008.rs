@@ -45,8 +45,8 @@ fn pr008() -> uint {
 
 fn amain() -> uint {
     let source = src();
-    let groups = range(0, source.len() + 1 - 5)
-        .map(|pos| source.slice(pos, pos + 5))
+    let groups = (0 .. source.len() + 1 - 5)
+        .map(|pos| &source[pos .. pos + 5])
         .collect::<Vec<_>>();
     let products = groups.iter().map(|item| {
         item.iter().fold(1u, |a, &b| {

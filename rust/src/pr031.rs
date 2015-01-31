@@ -22,7 +22,7 @@ define_problem!(pr031, 31, 73682);
 
 fn pr031() -> uint {
     let coins = all_coins();
-    rways(200, coins.as_slice())
+    rways(200, &coins[])
 }
 
 fn rways(remaining: uint, coins: &[uint]) -> uint {

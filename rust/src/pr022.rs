@@ -18,7 +18,7 @@
 // 871198282
 
 use std::cmp;
-use std::io;
+use std::old_io as io;
 use misc::decode_words;
 
 define_problem!(pr022, 22, 871198282);
@@ -27,24 +27,18 @@ fn pr022() -> uint {
     let mut file = io::File::open(&Path::new("../haskell/names.txt"));
     let line = file.read_to_end().unwrap();
     let line = String::from_utf8(line).unwrap();
-    let names = decode_words(line.as_slice());
-    let mut pairs = names.iter().map(|n| { Box::new(name_value(n.as_slice())) })
+    let names = decode_words(&line[]);
+    let mut pairs = names.iter().map(|n| { Box::new(name_value(&n[])) })
         .collect::<Vec<Box<NamePair>>>();
     pairs.sort_by(pair_le);
 
     let total = pairs.iter().enumerate().fold(0, |a, (bi, b)| {
         a + b.value * (bi + 1)
     });
-    /*
-    let mut total = 0;
-    for i in range(0, pairs.len()) {
-        total += pairs.get(i).value * (i + 1);
-    }
-    */
     total
 }
 
-#[derive(Show)]
+#[derive(Debug)]
 struct NamePair {
     name: String,
     value: uint

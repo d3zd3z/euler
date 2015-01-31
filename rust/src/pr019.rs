@@ -25,8 +25,8 @@ define_problem!(pr017, 19, 171);
 
 fn pr017() -> uint {
     let mut count = 0u;
-    for year in range(1901u, 2001) {
-        for month in range(1u, 13) {
+    for year in 1901u .. 2001 {
+        for month in 1u .. 13 {
             if jdate(year, month, 1) % 7 == 6 {
                 count += 1;
             }

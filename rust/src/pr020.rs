@@ -27,16 +27,16 @@ fn pr020() -> uint {
 
     acc[0] = 1;
 
-    for x in range(2u, 101) {
+    for x in 2u .. 101 {
         multiply(acc.as_mut_slice(), x);
     }
-    sum_digits(acc.as_slice())
+    sum_digits(&acc[])
 }
 
 // Multiply the little-endian base 10_000 number in 'acc' by 'by'.
 fn multiply(acc: &mut [uint], by: uint) {
     let mut carry = 0u;
-    for i in range(0u, acc.len()) {
+    for i in 0u .. acc.len() {
         let temp = acc[i] * by + carry;
         acc[i] = temp % BASE;
         carry = temp / BASE;

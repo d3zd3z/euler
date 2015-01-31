@@ -105,7 +105,7 @@ impl<'a> Iterator for Iter {
 pub fn next_permutation(items: &mut [u8], done: &mut bool) {
     let size = items.len();
     let mut k = uint::MAX;
-    for x in range(0, size - 1) {
+    for x in 0 .. size - 1 {
         if items[x] < items[x+1] {
             k = x;
         }
@@ -116,7 +116,7 @@ pub fn next_permutation(items: &mut [u8], done: &mut bool) {
     }
 
     let mut l = uint::MAX;
-    for x in range(k + 1, size) {
+    for x in k + 1 .. size {
         if items[k] < items[x] {
             l = x;
         }

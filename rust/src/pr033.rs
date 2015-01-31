@@ -25,8 +25,8 @@ define_problem!(pr033, 33, 100);
 
 fn pr033() -> int {
     let mut total: Rational = Ratio::new(1, 1);
-    for a in range(10u, 100) {
-        for b in range(a + 1, 100) {
+    for a in 10u .. 100 {
+        for b in a+1 .. 100 {
             if is_frac(a, b) {
                 total = total * Ratio::new(a as int, b as int);
             }

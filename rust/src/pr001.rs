@@ -11,7 +11,7 @@ define_problem!(pr001, 1, 233168);
 
 fn pr001() -> u32 {
     let mut total = 0;
-    for i in range(1u32, 1000) {
+    for i in 1_u32 .. 1000 {
         if (i % 3 == 0) || (i % 5 == 0) {
             total += i;
         }

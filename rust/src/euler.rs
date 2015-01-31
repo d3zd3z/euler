@@ -1,9 +1,22 @@
 // Project euler
 
-// Language and library changes.  Turn these back on to find and fix these
-// problems.
+// Features still considered unstable that need to be explicitly enabled.
 #![feature(int_uint)]
-#![allow(unstable)]
+#![feature(collections)]
+#![feature(path)]
+#![feature(io)]
+#![feature(os)]
+#![feature(rand)]
+#![feature(hash)]
+#![feature(std_misc)]
+
+// This really shouldn't be enabled, but fmt/io are not reconciled, so
+// #[derive(Debug)] needs this.
+// Also, the 'Int' trait requires this.
+#![feature(core)]
+
+// Testing is unstable, so bring it in when testing.
+#![cfg_attr(test, feature(test))]
 
 extern crate collections;
 extern crate num;
@@ -11,6 +24,7 @@ extern crate num;
 #[cfg(test)]
 extern crate test;
 
+use std::old_io as io;
 use std::os;
 use std::collections::HashMap;
 
@@ -55,7 +69,7 @@ impl Problems {
             None => panic!("Unknown problem: {}", num),
             Some(p) => {
                 print!("{:>3}: ", num);
-                std::io::stdio::flush();
+                io::stdio::flush();
                 p.run();
             }
         }
@@ -73,8 +87,8 @@ impl Problems {
 #[allow(dead_code)]
 fn main() {
     let mut probs = Problems::new();
-    match os::args().tail().as_slice() {
-        [ref all] if all.as_slice() == "all" => probs.run_all(),
+    match &os::args().tail()[] {
+        [ref all] if &all[] == "all" => probs.run_all(),
         [] => panic!("Usage: euler {{all | n1 n2 n3}}"),
         pns => {
             for p in pns.iter() {

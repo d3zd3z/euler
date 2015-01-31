@@ -54,7 +54,7 @@ fn exp10(n: uint) -> BigUint {
     let mut work: BigUint = FromPrimitive::from_u64(1).unwrap();
     let ten : BigUint = FromPrimitive::from_u64(10).unwrap();
 
-    for _ in range(0, n) {
+    for _ in 0 .. n {
         work = work.mul(&ten);
     }
 

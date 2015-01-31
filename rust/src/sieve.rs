@@ -153,7 +153,7 @@ impl Sieve {
     pub fn divisors(&mut self, n: uint) -> Vec<uint> {
         let factors = self.factorize(n);
         let mut result = vec![];
-        spread(factors.as_slice(), &mut result);
+        spread(&factors[], &mut result);
         // do sort::merge_sort(result) |a, b| { *a <= *b }
         result.sort();
         result
@@ -181,10 +181,10 @@ fn spread(factors: &[Factor], result: &mut Vec<uint>) {
     } else {
         let mut rest = vec![];
         let x = factors[0].clone();
-        spread(factors.slice(1, len), &mut rest);
+        spread(&factors[1 .. len], &mut rest);
 
         let mut power = 1;
-        for i in range(0u, x.power + 1) {
+        for i in 0u .. x.power + 1 {
             for elt in rest.iter() {
                 result.push(*elt * power);
             }

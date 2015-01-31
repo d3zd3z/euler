@@ -54,7 +54,7 @@ trait Lengther {
 fn compute_len<T: Lengther>(l: &mut T) -> uint {
     let mut max_len = 0;
     let mut max = 0;
-    for x in range(1u, 1_000_000) {
+    for x in 1u .. 1_000_000 {
         let len = l.chain_len(x);
         if len > max_len {
             max_len = len;

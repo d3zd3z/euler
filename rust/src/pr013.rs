@@ -16,7 +16,7 @@ define_problem!(pr013, 13, 5537376230);
 fn pr013() -> u64 {
     let s = source();
     let s1 = s.iter().map(|s| {
-        s.slice(0, 13).parse::<u64>().unwrap()
+        s[0 .. 13].parse::<u64>().unwrap()
     }).collect::<Vec<u64>>();
     let total = s1.iter().fold(0, |s, &i| s + i);
 

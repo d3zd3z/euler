@@ -31,7 +31,7 @@ pub fn is_prime(n: T, k: uint) -> bool {
 
 fn check(n: T, k: uint) -> bool {
     let (s, d) = compute_sd(n);
-    for _ in range(0, k) {
+    for _ in 0 .. k {
         if !round(n, s, d) {
             return false;
         }
@@ -49,7 +49,7 @@ fn round(n: T, s: T, d: T) -> bool {
         return true;
     }
 
-    for _ in range(1, s) {
+    for _ in 1 .. s {
         x = (x * x) % n;
         if x == 1 {
             return false;

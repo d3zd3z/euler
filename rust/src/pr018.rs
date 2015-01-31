@@ -50,7 +50,7 @@ fn pr018() -> uint {
     let mut work = numbers[size-1].clone();
     let mut pos = size - 2;
     loop {
-        work = combine(work.as_slice(), numbers[pos].as_slice());
+        work = combine(&work[], &numbers[pos][]);
 
         if pos == 0 { break; }
         pos -= 1;
@@ -67,7 +67,7 @@ fn combine(a: &[uint], b: &[uint]) -> Vec<uint> {
     assert!(a.len() == b.len() + 1);
 
     let mut result = vec![];
-    for i in range(0u, b.len()) {
+    for i in 0u .. b.len() {
         result.push(b[i] + cmp::max(a[i], a[i+1]))
     }
     result
