@@ -29,7 +29,7 @@
 
 import sieve
 
-proc divisorCount(sv: var TSieve, n: int): int =
+proc divisorCount(sv: var Sieve, n: int): int =
   result = 1
   var tmp = n
   var prime = 2

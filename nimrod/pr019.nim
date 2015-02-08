@@ -32,9 +32,9 @@ proc solve =
 
   for year in 1901 .. 2000:
     now.year = year
-    for month in TMonth:
+    for month in Month:
       now.month = month
-      let tt = getGMTime(TimeInfoToTime(now))
+      let tt = getGMTime(timeInfoToTime(now))
       if tt.weekday == dSun:
         inc(count)
   echo count

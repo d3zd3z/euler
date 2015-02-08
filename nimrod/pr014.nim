@@ -35,18 +35,18 @@ proc simple(n: int): int =
     1 + simple(n * 3 + 1)
 
 type
-  TLengther = object of TObject
-  TSimple = object of TLengther
+  Lengther = object of RootObj
+  Simple = object of Lengther
 
-method length(t: ref TLengther, n: int): int =
+method length(t: ref Lengther, n: int): int =
   quit "Abstract"
 
-method length(t: ref TSimple, n: int): int = simple(n)
+method length(t: ref Simple, n: int): int = simple(n)
 
-proc newSimple(): ref TSimple = new(result)
+# proc newSimple(): ref Simple = new(result)
 
 type
-  TCached = object of TLengther
+  TCached = object of Lengther
     cache: seq[int]
 
 proc newCached(limit: int): ref TCached =
@@ -101,7 +101,7 @@ when false:
         1 + getLen(n * 3 + 1)
     getLen
 
-proc longest(lengther: ref TLengther): int =
+proc longest(lengther: ref Lengther): int =
   # Compute the longest chain, using the given lengther function.
   var largest = 0
   var largestInd = 0

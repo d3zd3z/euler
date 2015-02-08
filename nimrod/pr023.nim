@@ -28,7 +28,7 @@ import sets
 
 # We are computing all of the divisors, it is much faster to use a
 # modified sieve and compute the divisors as we go.
-proc makeDivisors(limit: int): Seq[int] =
+proc makeDivisors(limit: int): seq[int] =
   result = newSeq[int](limit)
   for i in result.low .. result.high:
     result[i] = 1
@@ -39,7 +39,7 @@ proc makeDivisors(limit: int): Seq[int] =
       result[n] += i
       n += i
 
-proc makeAbundants(limit: int): Seq[int] =
+proc makeAbundants(limit: int): seq[int] =
   let divisors = makeDivisors(limit)
   result = newSeq[int](0)
   for i in divisors.low+1 .. divisors.high:

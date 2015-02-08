@@ -32,7 +32,7 @@ const tens = [
 
 proc toEnglish(n: int): string =
   var
-    buffer: PRope
+    buffer: Rope
     addSpace = false
     work = n
 

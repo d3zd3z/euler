@@ -114,7 +114,7 @@ const nums = [
 # Compute 13 leading digits.  Fits nicely in a 64-bit int, and has
 # enough extra digits to avoid the error.
 
-var total: biggestInt = 0
+var total: BiggestInt = 0
 for n in nums:
   total += n.substr(0, 12).parseBiggestInt
 

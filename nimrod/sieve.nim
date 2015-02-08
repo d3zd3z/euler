@@ -6,12 +6,12 @@ import intsets
 const defaultSize = 8192
 
 type
-  TSieve* = object
-    composites: TIntSet
+  Sieve* = object
+    composites: IntSet
     limit: int
 
-proc fill(t: var TSieve, size: int) =
-  var v = InitIntSet()
+proc fill(t: var Sieve, size: int) =
+  var v = initIntSet()
   v.incl(0)
   v.incl(1)
 
@@ -31,10 +31,10 @@ proc fill(t: var TSieve, size: int) =
   t.composites = v
   t.limit = size
 
-proc InitSieve*(): TSieve =
+proc IniTSieve*(): Sieve =
   result.fill(defaultSize)
 
-proc isPrime*(t: var TSieve, n: int): bool =
+proc isPrime*(t: var Sieve, n: int): bool =
   if n >= t.limit:
     var nlimit = t.limit
     while nlimit < n:
@@ -43,7 +43,7 @@ proc isPrime*(t: var TSieve, n: int): bool =
 
   not t.composites.contains(n)
 
-proc nextPrime*(t: var TSieve, n: int): int =
+proc nextPrime*(t: var Sieve, n: int): int =
   if n == 2:
     return 3
 
@@ -52,12 +52,12 @@ proc nextPrime*(t: var TSieve, n: int): int =
     result += 2
 
 type
-  TFactor* = object
+  Factor* = object
     prime*: int
     power*: int
 
-proc factorize*(t: var TSieve, n: int): Seq[TFactor] =
-  result = newSeq[TFactor](0)
+proc factorize*(t: var Sieve, n: int): seq[Factor] =
+  result = newSeq[Factor](0)
 
   var tmp = n
   var prime = 2
@@ -69,16 +69,16 @@ proc factorize*(t: var TSieve, n: int): Seq[TFactor] =
       count += 1
     else:
       if count > 0:
-        result.add(TFactor(prime: prime, power: count))
+        result.add(Factor(prime: prime, power: count))
         count = 0
 
       if tmp > 1:
         prime = t.nextPrime(prime)
 
   if count > 0:
-    result.add(TFactor(prime: prime, power: count))
+    result.add(Factor(prime: prime, power: count))
 
-proc spread(factors: Seq[TFactor]): Seq[int] =
+proc spread(factors: seq[Factor]): seq[int] =
   result = newSeq[int](0)
   let len = factors.len
   if len == 0:
@@ -94,7 +94,7 @@ proc spread(factors: Seq[TFactor]): Seq[int] =
       if i < power:
         power *= x.prime
 
-proc divisors*(t: var TSieve, n: int): Seq[int] =
+proc divisors*(t: var Sieve, n: int): seq[int] =
   result = spread(t.factorize(n))
   sort(result, cmp[int])
 

@@ -20,12 +20,12 @@ import sieve
 # TODO: It would be better to just compute the divisors instead of the
 # prime table, and then look things up from there.
 
-proc properDivSum(t: var TSieve, n: int): int =
+proc properDivSum(t: var Sieve, n: int): int =
   for d in t.divisors(n):
     result += d
   result -= n
 
-proc isAmicable(t: var TSieve, a: int): bool =
+proc isAmicable(t: var Sieve, a: int): bool =
   let b = t.properDivSum(a)
   if a == b or b == 0:
     return false
