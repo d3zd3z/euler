@@ -3,11 +3,10 @@
 // Features still considered unstable that need to be explicitly enabled.
 #![feature(int_uint)]
 #![feature(collections)]
-#![feature(path)]
-#![feature(io)]
+#![feature(old_path)]
+#![feature(old_io)]
 #![feature(os)]
 #![feature(rand)]
-#![feature(hash)]
 #![feature(std_misc)]
 
 // This really shouldn't be enabled, but fmt/io are not reconciled, so
@@ -87,15 +86,12 @@ impl Problems {
 #[allow(dead_code)]
 fn main() {
     let mut probs = Problems::new();
-    match &os::args().tail()[] {
-        [ref all] if &all[] == "all" => probs.run_all(),
+    match &os::args().tail()[..] {
+        [ref all] if &all[..] == "all" => probs.run_all(),
         [] => panic!("Usage: euler {{all | n1 n2 n3}}"),
         pns => {
             for p in pns.iter() {
-                match p.parse() {
-                    None => panic!("Invalid number: {}", p),
-                    Some(n) => probs.run(n)
-                };
+                probs.run(p.parse().unwrap())
             }
         }
     }

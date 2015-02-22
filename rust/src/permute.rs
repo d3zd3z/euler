@@ -165,7 +165,7 @@ mod bench {
             let mut done = false;
 
             loop {
-                next_permutation(&mut nums[], &mut done);
+                next_permutation(&mut nums[..], &mut done);
                 if done { break; }
             }
         });

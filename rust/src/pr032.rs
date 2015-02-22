@@ -29,7 +29,7 @@ fn pr032() -> uint {
 
     let mut results = HashSet::new();
     loop {
-        make_groupings(&base[], &mut results);
+        make_groupings(&base[..], &mut results);
 
         permute::next_permutation(base.as_mut_slice(), &mut done);
         if done { break; }

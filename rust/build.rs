@@ -3,7 +3,6 @@
 #![feature(os)]
 #![feature(path)]
 #![feature(io)]
-#![feature(collections)]
 
 extern crate glob;
 

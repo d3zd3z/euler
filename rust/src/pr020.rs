@@ -30,7 +30,7 @@ fn pr020() -> uint {
     for x in 2u .. 101 {
         multiply(acc.as_mut_slice(), x);
     }
-    sum_digits(&acc[])
+    sum_digits(&acc[..])
 }
 
 // Multiply the little-endian base 10_000 number in 'acc' by 'by'.

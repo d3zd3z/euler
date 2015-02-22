@@ -27,8 +27,8 @@ fn pr022() -> uint {
     let mut file = io::File::open(&Path::new("../haskell/names.txt"));
     let line = file.read_to_end().unwrap();
     let line = String::from_utf8(line).unwrap();
-    let names = decode_words(&line[]);
-    let mut pairs = names.iter().map(|n| { Box::new(name_value(&n[])) })
+    let names = decode_words(&line[..]);
+    let mut pairs = names.iter().map(|n| { Box::new(name_value(&n[..])) })
         .collect::<Vec<Box<NamePair>>>();
     pairs.sort_by(pair_le);
 

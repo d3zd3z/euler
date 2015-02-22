@@ -50,7 +50,7 @@ fn pr018() -> uint {
     let mut work = numbers[size-1].clone();
     let mut pos = size - 2;
     loop {
-        work = combine(&work[], &numbers[pos][]);
+        work = combine(&work[..], &numbers[pos][..]);
 
         if pos == 0 { break; }
         pos -= 1;

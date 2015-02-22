@@ -28,7 +28,7 @@ fn pr017() -> uint {
     for i in 1u .. 1001 {
         let text = conv.to_english(i);
         // println(fmt!("%4u '%s'", i, text));
-        result += count_letters(&text[]);
+        result += count_letters(&text[..]);
     }
 
     result
@@ -99,12 +99,12 @@ impl Converter {
 
     fn add_ones(&mut self, n: uint) {
         let piece = String::from_str(ONES[n-1]);
-        self.add(&piece[]);
+        self.add(&piece[..]);
     }
 
     fn add_tens(&mut self, n: uint) {
         let piece = String::from_str(TENS[n-1]);
-        self.add(&piece[]);
+        self.add(&piece[..]);
     }
 
     fn add(&mut self, text: &str) {

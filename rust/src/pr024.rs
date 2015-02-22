@@ -25,10 +25,10 @@ fn pr024() -> u64 {
     let mut base: Vec<_> = (0u..10).map(|i| i as u8).collect();
     let mut done = false;
     for _ in 0u .. 999_999 {
-        permute::next_permutation(&mut base[], &mut done);
+        permute::next_permutation(&mut base[..], &mut done);
         assert!(!done);
     };
-    show(&base[])
+    show(&base[..])
 }
 
 fn show(digits: &[u8]) -> u64 {
