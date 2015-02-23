@@ -6,7 +6,7 @@
 // when just down with '2'.
 
 use std::num::Int;
-use std::rand;
+use rand;
 
 type T = uint;
 

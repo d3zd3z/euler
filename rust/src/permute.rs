@@ -1,6 +1,6 @@
 // TODO: Make this generic, but still useable.
 
-use std::uint;
+use std::usize;
 
 // TODO: Figure out if there is some way of implementing this iterator.
 
@@ -104,18 +104,18 @@ impl<'a> Iterator for Iter {
 /// there are no more permutations.
 pub fn next_permutation(items: &mut [u8], done: &mut bool) {
     let size = items.len();
-    let mut k = uint::MAX;
+    let mut k = usize::MAX;
     for x in 0 .. size - 1 {
         if items[x] < items[x+1] {
             k = x;
         }
     }
-    if k == uint::MAX {
+    if k == usize::MAX {
         *done = true;
         return
     }
 
-    let mut l = uint::MAX;
+    let mut l = usize::MAX;
     for x in k + 1 .. size {
         if items[k] < items[x] {
             l = x;

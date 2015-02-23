@@ -1,12 +1,11 @@
 // Project euler
 
 // Features still considered unstable that need to be explicitly enabled.
-#![feature(int_uint)]
 #![feature(collections)]
-#![feature(old_path)]
+#![feature(env)]
+#![feature(int_uint)]
 #![feature(old_io)]
-#![feature(os)]
-#![feature(rand)]
+#![feature(old_path)]
 #![feature(std_misc)]
 
 // This really shouldn't be enabled, but fmt/io are not reconciled, so
@@ -19,12 +18,13 @@
 
 extern crate collections;
 extern crate num;
+extern crate rand;
 
 #[cfg(test)]
 extern crate test;
 
 use std::old_io as io;
-use std::os;
+use std::env;
 use std::collections::HashMap;
 
 mod problem;
@@ -86,7 +86,8 @@ impl Problems {
 #[allow(dead_code)]
 fn main() {
     let mut probs = Problems::new();
-    match &os::args().tail()[..] {
+    let args: Vec<String> = env::args().skip(1).collect();
+    match &args[..] {
         [ref all] if &all[..] == "all" => probs.run_all(),
         [] => panic!("Usage: euler {{all | n1 n2 n3}}"),
         pns => {
