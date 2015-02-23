@@ -1,20 +1,28 @@
 // Generate the problem list based on available modules.
 
-#![feature(os)]
-#![feature(path)]
+#![feature(env)]
+#![feature(fs)]
 #![feature(io)]
+#![feature(path)]
+
+// The glob crate uses old_path, so enable that feature to avoid warnings from
+// using it's paths.
+#![feature(old_path)]
 
 extern crate glob;
 
-use std::os;
-use std::old_io::fs;
-use std::old_io::File;
+use std::env;
+use std::fs;
+use std::io::prelude::*;
+use std::fs::File;
 use std::str::from_utf8;
+use std::path::Path;
 
 use glob::glob;
 
 fn main() {
-    let dst = Path::new(os::getenv("OUT_DIR").unwrap());
+    let odir = env::var("OUT_DIR").unwrap();
+    let dst = Path::new(&odir);
     let gen_name = dst.join("plist.rs");
     let mut f = File::create(&gen_name).unwrap();
     writeln!(&mut f, "// Auto-generated, do not edit.").unwrap();
@@ -46,8 +54,8 @@ fn main() {
     // We'll ignore it, and always replace it for each checkout.  It's a little better than just
     // dropping the generated file into the tree (but not much better).
     let src_name = Path::new("src/plist.rs");
-    let _ = fs::unlink(&src_name);
-    fs::symlink(&gen_name, &src_name).unwrap();
+    fs::remove_file(&src_name).unwrap();
+    fs::soft_link(&gen_name, &src_name).unwrap();
 }
 
 // Get all of the problems, based on standard filenames of "src/prxxx.rs" where xxx is the problem
