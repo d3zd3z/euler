@@ -15,7 +15,7 @@ macro_rules! define_problem {
                 assert_eq!(answer, $sol);
                 println!("{:<20} pass", answer);
             }
-            fn num(&self) -> uint { $n }
+            fn num(&self) -> usize { $n }
         }
 
         // TODO: Once we can make constructed identifiers, come up with a

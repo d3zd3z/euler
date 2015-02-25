@@ -12,8 +12,8 @@ use misc;
 define_problem!(pr004, 4, 906609);
 
 fn pr004() -> usize {
-    let mut max = 0u;
-    for a in 100u .. 1000 {
+    let mut max = 0usize;
+    for a in 100usize .. 1000 {
         for b in a .. 1000 {
             let c = a * b;
             if c > max && misc::is_palindrome(c, 10) {

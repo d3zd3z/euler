@@ -15,10 +15,10 @@ use sieve::Sieve;
 
 define_problem!(pr007, 7, 104743);
 
-fn pr007() -> uint {
+fn pr007() -> usize {
     let mut primes = Sieve::new();
-    let mut prime = 2u;
-    let mut count = 1u;
+    let mut prime = 2;
+    let mut count = 1;
 
     while count < 10001 {
         prime = primes.next_prime(prime);

@@ -5,10 +5,10 @@ use collections::bitv::Bitv;
 // use extra::bitv::*;
 // use extra::sort;
 
-static DEFAULT_SIZE: uint = 8192u;
+static DEFAULT_SIZE: usize = 8192u;
 
 pub struct Sieve {
-    vec: Bitv, limit: uint
+    vec: Bitv, limit: usize
 }
 
 impl Sieve {
@@ -48,7 +48,7 @@ impl Sieve {
 }
 
 impl Sieve {
-    pub fn is_prime(&mut self, n: uint) -> bool {
+    pub fn is_prime(&mut self, n: usize) -> bool {
         if n >= self.limit {
             let mut new_limit = self.limit;
             while new_limit < n {
@@ -83,7 +83,7 @@ fn bench_sieve(b: &mut ::test::Bencher) {
 
 impl Sieve {
     #[allow(dead_code)]
-    pub fn next_prime(&mut self, n: uint) -> uint {
+    pub fn next_prime(&mut self, n: usize) -> usize {
         if n == 2 {
             return 3;
         }
@@ -96,7 +96,7 @@ impl Sieve {
     }
 
     #[allow(dead_code)]
-    pub fn prev_prime(&mut self, n: uint) -> uint {
+    pub fn prev_prime(&mut self, n: usize) -> usize {
         if n == 3 {
             return 2;
         }
@@ -120,7 +120,7 @@ fn test_next() {
 
 impl Sieve {
     #[allow(dead_code)]
-    pub fn factorize(&mut self, n: uint) -> Vec<Factor> {
+    pub fn factorize(&mut self, n: usize) -> Vec<Factor> {
         let mut result = vec![];
         let mut tmp = n;
         let mut prime = 2;
@@ -150,7 +150,7 @@ impl Sieve {
     }
 
     #[allow(dead_code)]
-    pub fn divisors(&mut self, n: uint) -> Vec<uint> {
+    pub fn divisors(&mut self, n: usize) -> Vec<usize> {
         let factors = self.factorize(n);
         let mut result = vec![];
         spread(&factors[..], &mut result);
@@ -169,12 +169,12 @@ fn test_factorize() {
 
 #[derive(PartialEq, Eq, Hash, Clone)]
 pub struct Factor {
-    pub prime: uint,
-    pub power: uint
+    pub prime: usize,
+    pub power: usize
 }
 
 #[allow(dead_code)]
-fn spread(factors: &[Factor], result: &mut Vec<uint>) {
+fn spread(factors: &[Factor], result: &mut Vec<usize>) {
     let len = factors.len();
     if len == 0 {
         result.push(1);

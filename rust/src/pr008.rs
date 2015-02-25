@@ -32,7 +32,7 @@ use std::vec::Vec;
 
 define_problem!(pr008, 8, 40824);
 
-fn pr008() -> uint {
+fn pr008() -> u32 {
     if true {
         amain()
     }
@@ -43,16 +43,16 @@ fn pr008() -> uint {
     }
 }
 
-fn amain() -> uint {
+fn amain() -> u32 {
     let source = src();
     let groups = (0 .. source.len() + 1 - 5)
         .map(|pos| &source[pos .. pos + 5])
         .collect::<Vec<_>>();
     let products = groups.iter().map(|item| {
-        item.iter().fold(1u, |a, &b| {
-            a * (b as uint - 48u)
+        item.iter().fold(1, |a, &b| {
+            a * (b as u32 - 48)
         })
-    }).collect::<Vec<uint>>();
+    }).collect::<Vec<u32>>();
     let result = products.iter().map(|&x| x).max().unwrap();
     result
 }
@@ -141,17 +141,17 @@ fn groups(src: &[u8]) -> ~[~[u8]] {
 }
 */
 
-fn cmain() -> uint {
+fn cmain() -> u32 {
     let source = src();
-    let mut max = 0u;
+    let mut max = 0;
     let len = source.len();
 
-    let mut pos = 0u;
+    let mut pos = 0;
     while pos + 5 < len {
-        let mut i = 0u;
-        let mut tmp = 1u;
+        let mut i = 0;
+        let mut tmp = 1;
         while i < 5 {
-            tmp *= source[pos+i] as uint - 48u;
+            tmp *= source[pos+i] as u32 - 48;
             i += 1;
         }
         if tmp > max {

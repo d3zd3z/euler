@@ -12,10 +12,10 @@ use num::Integer;
 
 define_problem!(pr005, 5, 232792560);
 
-fn pr005() -> uint {
-    let mut accum = 1u;
+fn pr005() -> u64 {
+    let mut accum = 1u64;
 
-    for i in (2u .. 20) {
+    for i in (2u64 .. 20) {
         accum = accum.lcm(&i);
         // accum = accum.lcm(&i);
         // accum = lcm(accum, i);
