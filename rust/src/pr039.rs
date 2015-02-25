@@ -27,6 +27,7 @@ fn pr039() -> u32 {
         }
     }
 
+    // TODO: Leave this as max_by for now, until this settles.
     match map.iter().max_by(|p| p.1) {
         None => panic!("No solution found"),
         Some((&k, _)) => k

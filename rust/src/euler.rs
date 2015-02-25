@@ -8,9 +8,7 @@
 #![feature(old_path)]
 #![feature(std_misc)]
 
-// This really shouldn't be enabled, but fmt/io are not reconciled, so
-// #[derive(Debug)] needs this.
-// Also, the 'Int' trait requires this.
+// Needed to allow max_by() and the num::Int trait.
 #![feature(core)]
 
 // Testing is unstable, so bring it in when testing.

@@ -29,14 +29,14 @@
 // 4782
 
 use num::BigUint;
-use std::num::FromPrimitive;
+use num::bigint::ToBigUint;
 use std::ops::{Add, Mul};
 
 define_problem!(pr025, 25, 4782);
 
 fn pr025() -> uint {
-    let mut a : BigUint = FromPrimitive::from_u64(1).unwrap();
-    let mut b : BigUint = FromPrimitive::from_u64(1).unwrap();
+    let mut a = 1.to_biguint().unwrap();
+    let mut b = 1.to_biguint().unwrap();
     let stop = exp10(999);
 
     let mut count = 2u;
@@ -51,8 +51,8 @@ fn pr025() -> uint {
 
 // Return 10 to the given power.
 fn exp10(n: uint) -> BigUint {
-    let mut work: BigUint = FromPrimitive::from_u64(1).unwrap();
-    let ten : BigUint = FromPrimitive::from_u64(10).unwrap();
+    let mut work = 1.to_biguint().unwrap();
+    let ten = 10.to_biguint().unwrap();
 
     for _ in 0 .. n {
         work = work.mul(&ten);
