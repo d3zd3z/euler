@@ -8,28 +8,38 @@
 use std::num::Int;
 use rand;
 
-type T = uint;
-
 /// Miller/Rabin primailty test.  Determines if 'n' is prime.  If it
 /// returns true, 'n' is prime with a probabily of approximately
 /// 1/4**k.
-pub fn is_prime(n: T, k: uint) -> bool {
-    if n == 1 || n == 0 {
+pub fn is_prime<T>(n: T, k: uint) -> bool
+    where T: Int + rand::Rand
+{
+    // More tacky constants.
+    let zero: T = Int::zero();
+    let one: T = Int::one();
+    let two = one + one;
+    let three = two + one;
+    let five = three + two;
+    let seven = five + two;
+
+    if n == one || n == zero {
         return false;
     }
 
-    if n == 2 || n == 3 || n == 5 || n == 7 {
+    if n == two || n == three || n == five || n == seven {
         return true;
     }
 
-    if n%2 == 0 || n%2 == 0 || n%5 == 0 || n%7 == 0 {
+    if n%two == zero || n%three == zero || n%five == zero || n%seven == zero {
         return false;
     }
 
     check(n, k)
 }
 
-fn check(n: T, k: uint) -> bool {
+fn check<T>(n: T, k: uint) -> bool
+    where T: Int + rand::Rand
+{
     let (s, d) = compute_sd(n);
     for _ in 0 .. k {
         if !round(n, s, d) {
@@ -40,22 +50,30 @@ fn check(n: T, k: uint) -> bool {
     return true;
 }
 
-fn round(n: T, s: T, d: T) -> bool {
-    let a = rand::random::<T>() % (n - 3) + 2;
+fn round<T>(n: T, s: T, d: T) -> bool
+    where T: Int + rand::Rand
+{
+    // This doesn't seem particularly comfortable.  From primitive will go
+    // away, and hopefully be replaced with something useful.
+    let one: T = Int::one();
+    let two = one + one;
+    let three = two + one;
+
+    let a = rand::random::<T>() % (n - three) + two;
     // let a: T = self.rng.gen() % (n - 3) + 2;
     let mut x = exp_mod(a, d, n);
 
-    if x == 1 || x == n-1 {
+    if x == one || x == n-one {
         return true;
     }
 
-    for _ in 1 .. s {
+    for _ in one .. s {
         x = (x * x) % n;
-        if x == 1 {
+        if x == one {
             return false;
         }
 
-        if x == n-1 {
+        if x == n-one {
             return true;
         }
     }
@@ -63,7 +81,9 @@ fn round(n: T, s: T, d: T) -> bool {
     return false;
 }
 
-fn compute_sd(number: T) -> (T, T) {
+fn compute_sd<T>(number: T) -> (T, T)
+    where T: Int
+{
     let mut s: T = Int::zero();
     let mut d = number - Int::one();
     let one: T = Int::one();
@@ -77,7 +97,9 @@ fn compute_sd(number: T) -> (T, T) {
     (s, d)
 }
 
-pub fn exp_mod(base: T, power: T, modulus: T) -> T {
+pub fn exp_mod<T>(base: T, power: T, modulus: T) -> T
+    where T: Int
+{
     let mut p = power;
     let mut b = base;
     let mut result: T = Int::one();
