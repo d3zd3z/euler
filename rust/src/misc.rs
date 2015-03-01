@@ -2,6 +2,9 @@
 
 use std::num::Int;
 
+use std::num::FromPrimitive;
+use std::num::ToPrimitive;
+
 #[allow(dead_code)]
 pub fn is_palindrome<T: Int + Ord + Clone> (n: T, base: T) -> bool {
     n == reverse_number(n.clone(), base)
@@ -44,17 +47,20 @@ pub fn decode_words(line: &str) -> Vec<String> {
 }
 
 // Integer square root.  Returns the floor of the sqrt of n.
-#[allow(dead_code)]
-pub fn isqrt(n: uint) -> uint {
-    if n == 0 {
-        return 0;
+pub fn isqrt<T: Int + FromPrimitive>(n: T) -> T {
+    let z: T = Int::zero();
+    let one: T = Int::one();
+    let two = one + one;
+
+    if n == z {
+        return z;
     }
-    let tmp = log2(n as u64);
-    let a = tmp / 2;
-    let b = tmp % 2;
-    let mut x = 1u << (a+b);
+    let tmp: T = FromPrimitive::from_uint(log2(n.to_u64().unwrap())).unwrap();
+    let a = tmp / two;
+    let b = tmp % two;
+    let mut x = one << (a+b).to_uint().unwrap();
     loop {
-        let y = (x + n / x) / 2;
+        let y = (x + n / x) / two;
         if y >= x {
             return x;
         }
