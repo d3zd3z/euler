@@ -18,7 +18,7 @@ def generate(problem, contents):
         print('''
 define_problem!(pr{0:03}, {0}, 42);
 
-fn pr{0:03}() -> uint {{
+fn pr{0:03}() -> u64 {{
     42u
 }}'''.format(problem), file=f)
 
