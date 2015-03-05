@@ -1,13 +1,9 @@
 // Generate the problem list based on available modules.
 
-#![feature(env)]
 #![feature(fs)]
 #![feature(io)]
+#![feature(os)]
 #![feature(path)]
-
-// The glob crate uses old_path, so enable that feature to avoid warnings from
-// using it's paths.
-#![feature(old_path)]
 
 extern crate glob;
 
@@ -15,7 +11,6 @@ use std::env;
 use std::fs;
 use std::io::prelude::*;
 use std::fs::File;
-use std::str::from_utf8;
 use std::path::Path;
 
 use glob::glob;
@@ -65,8 +60,8 @@ fn get_problems() -> Vec<u32> {
 
     for path in glob("src/pr[0-9][0-9][0-9].rs").unwrap() {
         let path = path.unwrap();
-        let rawname = path.filename().unwrap();
-        let name = from_utf8(rawname).unwrap();
+        let path = path.file_name().unwrap();
+        let name = path.to_str().unwrap();
         result.push(name[2..5].parse().unwrap());
     }
 

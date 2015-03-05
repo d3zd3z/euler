@@ -2,7 +2,6 @@
 
 // Features still considered unstable that need to be explicitly enabled.
 #![feature(collections)]
-#![feature(env)]
 #![feature(int_uint)]
 #![feature(old_io)]
 #![feature(old_path)]

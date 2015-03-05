@@ -39,7 +39,7 @@ fn pr032() -> uint {
 }
 
 fn make_groupings(digits: &[u8], result: &mut HashSet<uint>) {
-    let piece = |&: a: uint, b: uint| {
+    let piece = |a: uint, b: uint| {
         let mut result = 0;
         for x in a .. b {
             result = result * 10 + (digits[x] as uint);
