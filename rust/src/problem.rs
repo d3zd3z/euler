@@ -28,5 +28,5 @@ macro_rules! define_problem {
 }
 
 macro_rules! add_problem( ($p:expr, $t:expr) => (
-    $p.push(box $t as Box<super::Problem>)
+    $p.push(Box::new($t) as Box<super::Problem>)
 ));
