@@ -28,7 +28,7 @@ fn pr020() -> u64 {
     acc[0] = 1;
 
     for x in 2 .. 101 {
-        multiply(acc.as_mut_slice(), x);
+        multiply(&mut acc[..], x);
     }
     sum_digits(&acc[..])
 }

@@ -22,7 +22,7 @@ fn pr015() -> usize {
     let mut values: Vec<_> = iter::repeat(1).take(STEPS + 1).collect();
 
     for _ in 0 .. STEPS {
-        bump(values.as_mut_slice());
+        bump(&mut values[..]);
     }
 
     values[STEPS]

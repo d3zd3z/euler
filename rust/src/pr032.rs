@@ -31,7 +31,7 @@ fn pr032() -> u64 {
     loop {
         make_groupings(&base[..], &mut results);
 
-        permute::next_permutation(base.as_mut_slice(), &mut done);
+        permute::next_permutation(&mut base[..], &mut done);
         if done { break; }
     }
 

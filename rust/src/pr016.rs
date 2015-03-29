@@ -20,7 +20,7 @@ fn pr016() -> u64 {
     digits[0] = 1;
  
     for _x in 0 .. 1000 {
-        double(digits.as_mut_slice());
+        double(&mut digits[..]);
     }
 
     let result = digits.iter().fold(0, |accum, n| {
