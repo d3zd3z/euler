@@ -19,14 +19,17 @@
 //
 // 162
 
-use std::old_io as io;
+use std::fs::File;
+use std::path::Path;
+use std::io::prelude::*;
 use misc::{decode_words, isqrt};
 
 define_problem!(pr042, 42, 162);
 
-fn pr042() -> uint {
-    let mut file = io::File::open(&Path::new("../haskell/words.txt")).unwrap();
-    let line = file.read_to_string().unwrap();
+fn pr042() -> usize {
+    let mut file = File::open(&Path::new("../haskell/words.txt")).unwrap();
+    let mut line = String::new();
+    file.read_to_string(&mut line).unwrap();
     let words = decode_words(&line[..]);
     words.iter().filter(|&w| is_triangle(name_value(&w[..]))).count()
 }

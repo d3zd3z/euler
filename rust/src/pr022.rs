@@ -18,14 +18,17 @@
 // 871198282
 
 use std::cmp;
-use std::old_io as io;
+use std::fs;
+use std::path::Path;
+use std::io::prelude::*;
 use misc::decode_words;
 
 define_problem!(pr022, 22, 871198282);
 
-fn pr022() -> uint {
-    let mut file = io::File::open(&Path::new("../haskell/names.txt"));
-    let line = file.read_to_end().unwrap();
+fn pr022() -> u64 {
+    let mut file = fs::File::open(&Path::new("../haskell/names.txt")).unwrap();
+    let mut line = Vec::new();
+    file.read_to_end(&mut line).unwrap();
     let line = String::from_utf8(line).unwrap();
     let names = decode_words(&line[..]);
     let mut pairs = names.iter().map(|n| { Box::new(name_value(&n[..])) })
