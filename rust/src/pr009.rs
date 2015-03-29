@@ -16,10 +16,10 @@
 
 define_problem!(pr009, 9, 31875000);
 
-fn pr009() -> uint {
-    for a in 1u .. 1000 {
+fn pr009() -> u64 {
+    for a in 1 .. 1000 {
         for b in a .. 1000 {
-            let c = 1000u - a - b;
+            let c = 1000 - a - b;
             if c > b && a*a + b*b == c*c {
                 return a*b*c;
             }

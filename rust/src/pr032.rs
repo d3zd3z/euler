@@ -23,7 +23,7 @@ use permute;
 
 define_problem!(pr032, 32, 45228);
 
-fn pr032() -> uint {
+fn pr032() -> u64 {
     let mut base = [1u8, 2, 3, 4, 5, 6, 7, 8, 9];
     let mut done = false;
 
@@ -35,19 +35,19 @@ fn pr032() -> uint {
         if done { break; }
     }
 
-    results.iter().fold(0u, |accum, &k| accum + k)
+    results.iter().fold(0, |accum, &k| accum + k)
 }
 
-fn make_groupings(digits: &[u8], result: &mut HashSet<uint>) {
-    let piece = |a: uint, b: uint| {
+fn make_groupings(digits: &[u8], result: &mut HashSet<u64>) {
+    let piece = |a: u64, b: u64| {
         let mut result = 0;
         for x in a .. b {
-            result = result * 10 + (digits[x] as uint);
+            result = result * 10 + (digits[x as usize] as u64);
         }
         result
     };
 
-    let len = digits.len();
+    let len = digits.len() as u64;
     for i in 1 .. len-2 {
         for j in i+1 .. len-1 {
             let a = piece(0, i);

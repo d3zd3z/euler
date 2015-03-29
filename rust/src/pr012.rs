@@ -31,7 +31,7 @@ use sieve::Sieve;
 
 define_problem!(pr012, 12, 76576500);
 
-fn pr012() -> uint {
+fn pr012() -> u64 {
     let mut primes = Sieve::new();
 
     for tri in TriIter::new() {
@@ -43,22 +43,22 @@ fn pr012() -> uint {
     unreachable!();
 }
 
-fn divisor_count(sieve: &mut Sieve, n: uint) -> uint {
-    let mut result = 1u;
+fn divisor_count(sieve: &mut Sieve, n: u64) -> u64 {
+    let mut result = 1;
     let mut tmp = n;
-    let mut prime = 2u;
+    let mut prime = 2;
 
-    while tmp > 1u {
-        let mut divide_count = 0u;
-        while tmp % prime == 0u {
+    while tmp > 1 {
+        let mut divide_count = 0;
+        while tmp % prime == 0 {
             tmp /= prime;
-            divide_count += 1u;
+            divide_count += 1;
         }
 
-        result *= divide_count + 1u;
+        result *= divide_count + 1;
 
-        if tmp > 1u {
-            prime = sieve.next_prime(prime);
+        if tmp > 1 {
+            prime = sieve.next_prime(prime as usize) as u64;
         }
     }
 
@@ -67,8 +67,8 @@ fn divisor_count(sieve: &mut Sieve, n: uint) -> uint {
 
 // An iterator over the triangle numbers.
 struct TriIter {
-    n: uint,
-    tri: uint
+    n: u64,
+    tri: u64
 }
 
 impl TriIter {
@@ -81,9 +81,9 @@ impl TriIter {
 }
 
 impl Iterator for TriIter {
-    type Item = uint;
+    type Item = u64;
 
-    fn next(&mut self) -> Option<uint> {
+    fn next(&mut self) -> Option<u64> {
         let result = self.tri;
 
         self.n += 1;

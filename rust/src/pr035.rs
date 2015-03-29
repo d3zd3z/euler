@@ -17,25 +17,25 @@ use sieve::Sieve;
 
 define_problem!(pr035, 35, 55);
 
-fn pr035() -> uint {
+fn pr035() -> u64 {
     let mut sv = Sieve::new();
 
-    let mut count = 0u;
+    let mut count = 0;
 
     let mut p = 2;
     while p < 1_000_000 {
         let rots = number_rotations(p);
-        if rots.iter().all(|i| { sv.is_prime(*i) }) {
+        if rots.iter().all(|i| { sv.is_prime(*i as usize) }) {
             count += 1;
         }
-        p = sv.next_prime(p);
+        p = sv.next_prime(p as usize) as u64;
     }
 
     count
 }
 
 // How many digits are in this number.
-fn digit_count(num: uint) -> uint {
+fn digit_count(num: u64) -> u64 {
     let mut tmp = num;
     let mut result = 0;
     while tmp > 0 {
@@ -46,8 +46,8 @@ fn digit_count(num: uint) -> uint {
 }
 
 // Integer exponentiation.
-fn expt(n: uint, pow: uint) -> uint {
-    let mut result = 1u;
+fn expt(n: u64, pow: u64) -> u64 {
+    let mut result = 1;
     let mut n = n;
     let mut pow = pow;
 
@@ -63,14 +63,14 @@ fn expt(n: uint, pow: uint) -> uint {
 
 // Generate all of the rotations of a number, not including the
 // original.
-fn number_rotations(num: uint) -> Vec<uint> {
+fn number_rotations(num: u64) -> Vec<u64> {
     let mut result = vec![];
     let len = digit_count(num);
     let highest_one = expt(10, len-1);
 
     let mut right = highest_one;
-    let mut left = 1u;
-    let mut accum = 0u;
+    let mut left = 1;
+    let mut accum = 0;
     let mut n = num;
     while left < highest_one {
         let n_quot = n / 10;

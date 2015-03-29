@@ -21,11 +21,11 @@ use std::mem::replace;
 
 define_problem!(pr017, 17, 21124);
 
-fn pr017() -> uint {
+fn pr017() -> u64 {
     let mut conv = Converter::new();
     let mut result = 0;
 
-    for i in 1u .. 1001 {
+    for i in 1 .. 1001 {
         let text = conv.to_english(i);
         // println(fmt!("%4u '%s'", i, text));
         result += count_letters(&text[..]);
@@ -34,7 +34,7 @@ fn pr017() -> uint {
     result
 }
 
-fn count_letters(text: &str) -> uint {
+fn count_letters(text: &str) -> u64 {
     let mut count = 0;
     for ch in text.chars() {
         if ch.is_alphabetic() {
@@ -59,7 +59,7 @@ impl Converter {
 }
 
 impl Converter {
-    fn to_english(&mut self, n: uint) -> String {
+    fn to_english(&mut self, n: u64) -> String {
         self.add_space = false;
         self.buffer = String::new();
         let mut work = n;
@@ -97,13 +97,13 @@ impl Converter {
         replace(&mut self.buffer, String::new())
     }
 
-    fn add_ones(&mut self, n: uint) {
-        let piece = String::from_str(ONES[n-1]);
+    fn add_ones(&mut self, n: u64) {
+        let piece = String::from_str(ONES[n as usize - 1]);
         self.add(&piece[..]);
     }
 
-    fn add_tens(&mut self, n: uint) {
-        let piece = String::from_str(TENS[n-1]);
+    fn add_tens(&mut self, n: u64) {
+        let piece = String::from_str(TENS[n as usize - 1]);
         self.add(&piece[..]);
     }
 

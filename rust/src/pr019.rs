@@ -23,10 +23,10 @@
 
 define_problem!(pr017, 19, 171);
 
-fn pr017() -> uint {
-    let mut count = 0u;
-    for year in 1901u .. 2001 {
-        for month in 1u .. 13 {
+fn pr017() -> u64 {
+    let mut count = 0;
+    for year in 1901 .. 2001 {
+        for month in 1 .. 13 {
             if jdate(year, month, 1) % 7 == 6 {
                 count += 1;
             }
@@ -36,7 +36,7 @@ fn pr017() -> uint {
 }
 
 // Convert to a julian date <http://en.wikipedia.org/wiki/Julian_day>
-fn jdate(year: uint, month: uint, day: uint) -> uint {
+fn jdate(year: u64, month: u64, day: u64) -> u64 {
     let a = (14 - month) / 12;
     let y = year + 4800 - a;
     let m = month + 12*a - 3;

@@ -43,7 +43,7 @@ use std::cmp;
 
 define_problem!(pr018, 18, 1074);
 
-fn pr018() -> uint {
+fn pr018() -> u64 {
     let numbers = get_source();
     let size = numbers.len();
 
@@ -63,17 +63,17 @@ fn get_triangle() {
     // TODO: Read problem 67 problem set in.
 }
 
-fn combine(a: &[uint], b: &[uint]) -> Vec<uint> {
+fn combine(a: &[u64], b: &[u64]) -> Vec<u64> {
     assert!(a.len() == b.len() + 1);
 
     let mut result = vec![];
-    for i in 0u .. b.len() {
+    for i in 0 .. b.len() {
         result.push(b[i] + cmp::max(a[i], a[i+1]))
     }
     result
 }
 
-fn get_source() -> Vec<Vec<uint>> {
+fn get_source() -> Vec<Vec<u64>> {
     vec![
         vec![ 75 ],
         vec![ 95, 64 ],

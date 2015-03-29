@@ -19,16 +19,16 @@
 //
 // 100
 
-use num::rational::{Ratio, Rational};
+use num::rational::{Ratio, Rational64};
 
 define_problem!(pr033, 33, 100);
 
-fn pr033() -> int {
-    let mut total: Rational = Ratio::new(1, 1);
-    for a in 10u .. 100 {
+fn pr033() -> i64 {
+    let mut total: Rational64 = Ratio::new(1, 1);
+    for a in 10 .. 100 {
         for b in a+1 .. 100 {
             if is_frac(a, b) {
-                total = total * Ratio::new(a as int, b as int);
+                total = total * Ratio::new(a as i64, b as i64);
             }
         }
     }
@@ -36,7 +36,7 @@ fn pr033() -> int {
 }
 
 // Is this a/b valid in this situation?
-fn is_frac(a: uint, b: uint) -> bool {
+fn is_frac(a: u64, b: u64) -> bool {
     let an = a / 10;
     let am = a % 10;
     let bn = b / 10;

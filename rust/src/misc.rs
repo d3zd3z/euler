@@ -55,10 +55,10 @@ pub fn isqrt<T: Int + FromPrimitive>(n: T) -> T {
     if n == z {
         return z;
     }
-    let tmp: T = FromPrimitive::from_uint(log2(n.to_u64().unwrap())).unwrap();
+    let tmp: T = FromPrimitive::from_u64(log2(n.to_u64().unwrap())).unwrap();
     let a = tmp / two;
     let b = tmp % two;
-    let mut x = one << (a+b).to_uint().unwrap();
+    let mut x = one << (a+b).to_usize().unwrap();
     loop {
         let y = (x + n / x) / two;
         if y >= x {
@@ -71,7 +71,7 @@ pub fn isqrt<T: Int + FromPrimitive>(n: T) -> T {
 // Return the floor log base 2 of this number, this is the number of
 // bits needed to encode this value.
 // TODO: Can we do this for a known size value?
-fn log2(n: u64) -> uint {
+fn log2(n: u64) -> u64 {
     if n == 0 { return 0; } // Needed, else it returns 64.
 
     let mut result = 64;

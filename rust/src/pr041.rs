@@ -20,12 +20,12 @@ use sieve::Sieve;
 
 define_problem!(pr041, 41, 7652413);
 
-fn pr041() -> uint {
+fn pr041() -> u64 {
     let mut primes = Sieve::new();
 
-    let mut p = 9_999_999u;
+    let mut p = 9_999_999;
     loop {
-        p = primes.prev_prime(p);
+        p = primes.prev_prime(p as usize) as u64;
         if is_pandigital(p) {
             break;
         }
@@ -35,14 +35,14 @@ fn pr041() -> uint {
 }
 
 // Determine if the given number uses all of the digits 1-9.
-fn is_pandigital(num: uint) -> bool {
-    let mut digits = 0u;
+fn is_pandigital(num: u64) -> bool {
+    let mut digits = 0;
 
     let mut num = num;
     let mut count = 0;
     while num > 0 {
         let dig = num % 10;
-        let bit = 1u << dig;
+        let bit = 1 << dig;
         if digits & bit != 0 {
             return false
         }

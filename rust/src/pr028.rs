@@ -20,7 +20,7 @@
 
 define_problem!(pr028, 28, 669171001);
 
-fn pr028() -> uint {
+fn pr028() -> u64 {
     // Account for 1 in the center.
     let mut sum = 1;
 
@@ -33,6 +33,6 @@ fn pr028() -> uint {
     sum
 }
 
-fn ring_sum(n: uint) -> uint {
+fn ring_sum(n: u64) -> u64 {
     4*n*n - 6*n + 6
 }

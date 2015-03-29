@@ -1,11 +1,8 @@
 // Project euler
 
 // Features still considered unstable that need to be explicitly enabled.
+#![feature(slice_patterns)]
 #![feature(collections)]
-#![feature(int_uint)]
-#![feature(old_io)]
-#![feature(old_path)]
-#![feature(std_misc)]
 
 // Needed to allow max_by() and the num::Int trait.
 #![feature(core)]
@@ -20,9 +17,10 @@ extern crate rand;
 #[cfg(test)]
 extern crate test;
 
-use std::old_io as io;
+use std::io;
 use std::env;
 use std::collections::HashMap;
+use std::io::prelude::*;
 
 mod problem;
 mod plist;
@@ -35,13 +33,13 @@ mod miller;
 
 // TODO: Maybe there is a way of doing function pointers.  But, this
 // seems to be easier for now.
-trait Problem {
+pub trait Problem {
     fn run(&self);
-    fn num(&self) -> uint;
+    fn num(&self) -> usize;
 }
 
 struct Problems {
-    probs: HashMap<uint, Box<Problem + 'static>>
+    probs: HashMap<usize, Box<Problem + 'static>>
 }
 
 impl Problems {
@@ -60,19 +58,19 @@ impl Problems {
         Problems { probs: all }
     }
 
-    fn run(&mut self, num: uint) {
+    fn run(&mut self, num: usize) {
         match self.probs.get(&num) {
             None => panic!("Unknown problem: {}", num),
             Some(p) => {
                 print!("{:>3}: ", num);
-                io::stdio::flush();
+                io::stdout().flush().unwrap();;
                 p.run();
             }
         }
     }
 
     fn run_all(&mut self) {
-        let mut keys: Vec<uint> = self.probs.keys().map(|&k| k).collect();
+        let mut keys: Vec<usize> = self.probs.keys().map(|&k| k).collect();
         keys.sort();
         for &n in keys.iter() {
             self.run(n);

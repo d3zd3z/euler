@@ -20,18 +20,18 @@ use misc;
 
 define_problem!(pr037, 37, 748317);
 
-fn pr037() -> uint {
+fn pr037() -> u64 {
     let mut rights = right_truncatable_primes();
     rights.retain(|x| {is_left_truncatable(*x)});
     rights.retain(|x| {*x>9});
-    rights.iter().fold(0u, |a, x| {a + *x})
+    rights.iter().fold(0, |a, x| {a + *x})
 }
 
-static RIGHT_DIGITS: &'static [uint] = &[1u, 3, 7, 9];
+static RIGHT_DIGITS: &'static [u64] = &[1, 3, 7, 9];
 
 // Given a list of numbers, return a list of the numbers that are
 // still prime when a single digit is appended to the right.
-fn add_primes(numbers: &[uint]) -> Vec<uint> {
+fn add_primes(numbers: &[u64]) -> Vec<u64> {
     let mut result = vec![];
     for &number in numbers.iter() {
         for &extra in RIGHT_DIGITS.iter() {
@@ -45,9 +45,9 @@ fn add_primes(numbers: &[uint]) -> Vec<uint> {
 }
 
 // Generate a list of all right-truncatable primes.
-fn right_truncatable_primes() -> Vec<uint> {
+fn right_truncatable_primes() -> Vec<u64> {
     let mut result = vec![];
-    let mut set = vec![2u, 3, 5, 7];
+    let mut set = vec![2, 3, 5, 7];
 
     while set.len() > 0 {
         result.push_all(&set[..]);
@@ -57,7 +57,7 @@ fn right_truncatable_primes() -> Vec<uint> {
 }
 
 // Is this number left truncatable?
-fn is_left_truncatable(number: uint) -> bool {
+fn is_left_truncatable(number: u64) -> bool {
     let mut number = number;
     while number > 0 {
         if number == 1 || !is_prime(number) {
@@ -70,6 +70,6 @@ fn is_left_truncatable(number: uint) -> bool {
     true
 }
 
-fn is_prime(n: uint) -> bool {
+fn is_prime(n: u64) -> bool {
     miller::is_prime(n, 20)
 }

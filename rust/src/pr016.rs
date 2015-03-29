@@ -14,17 +14,17 @@ use std::iter;
 
 define_problem!(pr016, 16, 1366);
 
-fn pr016() -> uint {
-    static SIZE: uint = 302;
+fn pr016() -> u64 {
+    static SIZE: usize = 302;
     let mut digits: Vec<_> = iter::repeat(0u8).take(SIZE).collect();
     digits[0] = 1;
  
-    for _x in 0u .. 1000 {
+    for _x in 0 .. 1000 {
         double(digits.as_mut_slice());
     }
 
-    let result = digits.iter().fold(0u, |accum, n| {
-        accum + *n as uint
+    let result = digits.iter().fold(0, |accum, n| {
+        accum + *n as u64
     });
 
     result
@@ -32,7 +32,7 @@ fn pr016() -> uint {
 
 fn double(digits: &mut [u8]) {
     let mut carry = 0;
-    for i in 0u .. digits.len() {
+    for i in 0 .. digits.len() {
         let temp = digits[i] * 2 + carry;
         digits[i] = temp % 10;
         carry = temp / 10;

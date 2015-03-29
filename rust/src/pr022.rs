@@ -36,7 +36,7 @@ fn pr022() -> u64 {
     pairs.sort_by(pair_le);
 
     let total = pairs.iter().enumerate().fold(0, |a, (bi, b)| {
-        a + b.value * (bi + 1)
+        a + b.value * (bi as u64 + 1)
     });
     total
 }
@@ -44,7 +44,7 @@ fn pr022() -> u64 {
 #[derive(Debug)]
 struct NamePair {
     name: String,
-    value: uint
+    value: u64
 }
 
 fn pair_le(a: &Box<NamePair>, b: &Box<NamePair>) -> cmp::Ordering {
@@ -54,7 +54,7 @@ fn pair_le(a: &Box<NamePair>, b: &Box<NamePair>) -> cmp::Ordering {
 fn name_value(name: &str) -> NamePair {
     let mut total = 0;
     for ch in name.chars() {
-        total += ch as uint - 'A' as uint + 1;
+        total += ch as u64 - 'A' as u64 + 1;
     }
     NamePair { name: name.to_string(), value: total }
 }

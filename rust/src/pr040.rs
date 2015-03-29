@@ -19,7 +19,7 @@
 
 define_problem!(pr040, 40, 210);
 
-fn pr040() -> uint {
+fn pr040() -> u64 {
     let mut st = State::new();
 
     let mut i = 1;
@@ -32,9 +32,9 @@ fn pr040() -> uint {
 }
 
 struct State {
-    count: uint,
-    next: uint,
-    product: uint
+    count: u64,
+    next: u64,
+    product: u64
 }
 
 impl State {
@@ -46,7 +46,7 @@ impl State {
         self.next > 1_000_000
     }
 
-    fn add_digit(&mut self, digit: uint) {
+    fn add_digit(&mut self, digit: u64) {
         if self.count == self.next {
             self.product *= digit;
             self.next *= 10;
@@ -54,7 +54,7 @@ impl State {
         self.count += 1;
     }
 
-    fn add_number(&mut self, number: uint) {
+    fn add_number(&mut self, number: u64) {
         let digits = digits_of(number);
         for digit in digits.iter() {
             self.add_digit(*digit);
@@ -63,7 +63,7 @@ impl State {
 }
 
 // Return the digits, in order.
-fn digits_of(number: uint) -> Vec<uint> {
+fn digits_of(number: u64) -> Vec<u64> {
     let mut result = vec![];
     let mut number = number;
     while number > 0 {

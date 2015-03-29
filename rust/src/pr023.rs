@@ -31,12 +31,12 @@ define_problem!(pr023, 23, 4179871);
 // TODO: Change this to bitv for space.  Although, it's probably
 // slower.
 
-fn pr023() -> uint {
+fn pr023() -> u64 {
     let abundants = make_abundants(28124);
 
-    let mut not_add: HashSet<uint> = HashSet::new();
+    let mut not_add: HashSet<u64> = HashSet::new();
 
-    for ai in 0u .. abundants.len() {
+    for ai in 0 .. abundants.len() {
         let a = abundants[ai];
         for bi in ai .. abundants.len() {
             let sum = a + abundants[bi];
@@ -47,8 +47,8 @@ fn pr023() -> uint {
         }
     }
 
-    let mut total = 0u;
-    for i in 1u .. 28124 {
+    let mut total = 0;
+    for i in 1 .. 28124 {
         if !not_add.contains(&i) {
             total += i;
         }
@@ -57,11 +57,11 @@ fn pr023() -> uint {
     total
 }
 
-fn make_abundants(limit: uint) -> Vec<uint> {
-    let divisors = make_divisors(limit);
+fn make_abundants(limit: u64) -> Vec<u64> {
+    let divisors = make_divisors(limit as usize);
     let mut result = vec![];
     for i in 1 .. limit {
-        if i < divisors[i] {
+        if i < divisors[i as usize] {
             result.push(i);
         }
     }
@@ -70,13 +70,13 @@ fn make_abundants(limit: uint) -> Vec<uint> {
 
 // Since we need all of them, compute the divisor sums in advance
 // using a modified sieve.
-fn make_divisors(limit: uint) -> Vec<uint> {
-    let mut result: Vec<_> = iter::repeat(1u).take(limit).collect();
+fn make_divisors(limit: usize) -> Vec<u64> {
+    let mut result: Vec<_> = iter::repeat(1u64).take(limit).collect();
 
-    for i in 2u .. limit {
+    for i in 2 .. limit {
         let mut n = i + i;
         while n < limit {
-            result[n] += i;
+            result[n] += i as u64;
             n += i;
         }
     }

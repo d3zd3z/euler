@@ -5,7 +5,7 @@ use collections::bitv::Bitv;
 // use extra::bitv::*;
 // use extra::sort;
 
-static DEFAULT_SIZE: usize = 8192u;
+static DEFAULT_SIZE: usize = 8192usize;
 
 pub struct Sieve {
     vec: Bitv, limit: usize
@@ -26,7 +26,7 @@ impl Sieve {
         self.vec.set(0, false);
         self.vec.set(1, false);
 
-        let mut pos = 2u;
+        let mut pos = 2;
         let limit = self.limit;
         while pos <= limit {
             if !self.vec[pos] {
@@ -184,7 +184,7 @@ fn spread(factors: &[Factor], result: &mut Vec<usize>) {
         spread(&factors[1 .. len], &mut rest);
 
         let mut power = 1;
-        for i in 0u .. x.power + 1 {
+        for i in 0 .. x.power + 1 {
             for elt in rest.iter() {
                 result.push(*elt * power);
             }

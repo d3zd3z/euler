@@ -16,20 +16,20 @@ use std::iter;
 
 define_problem!(pr015, 15, 137846528820);
 
-static STEPS: uint = 20u;
+static STEPS: usize = 20;
 
-fn pr015() -> u64 {
-    let mut values: Vec<_> = iter::repeat(1u64).take(STEPS + 1).collect();
+fn pr015() -> usize {
+    let mut values: Vec<_> = iter::repeat(1).take(STEPS + 1).collect();
 
-    for _ in 0u .. STEPS {
+    for _ in 0 .. STEPS {
         bump(values.as_mut_slice());
     }
 
     values[STEPS]
 }
 
-fn bump(values: &mut [u64]) {
-    for i in 0u .. STEPS {
+fn bump(values: &mut [usize]) {
+    for i in 0 .. STEPS {
         values[i+1] = values[i+1] + values[i];
     }
 }

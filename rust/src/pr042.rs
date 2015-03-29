@@ -34,16 +34,16 @@ fn pr042() -> usize {
     words.iter().filter(|&w| is_triangle(name_value(&w[..]))).count()
 }
 
-fn name_value(name: &str) -> uint {
+fn name_value(name: &str) -> u64 {
     let mut total = 0;
     for ch in name.chars() {
-        total += ch as uint - 'A' as uint + 1;
+        total += ch as u64 - 'A' as u64 + 1;
     }
     total
 }
 
 // Is this a triangle number.
-fn is_triangle(n: uint) -> bool {
+fn is_triangle(n: u64) -> bool {
     let sqr = 1 + 8 * n;
     let root = isqrt(sqr);
     sqr == root * root

@@ -28,7 +28,7 @@ use std::iter;
 
 define_problem!(pr014, 14, 837799);
 
-fn pr014() -> uint {
+fn pr014() -> usize {
     if false {
         let mut l = Box::new(Noncached);
         return compute_len(&mut *l);
@@ -48,13 +48,13 @@ fn pr014() -> uint {
 }
 
 trait Lengther {
-    fn chain_len(&mut self, n: uint) -> uint;
+    fn chain_len(&mut self, n: usize) -> usize;
 }
 
-fn compute_len<T: Lengther>(l: &mut T) -> uint {
+fn compute_len<T: Lengther>(l: &mut T) -> usize {
     let mut max_len = 0;
     let mut max = 0;
-    for x in 1u .. 1_000_000 {
+    for x in 1 .. 1_000_000 {
         let len = l.chain_len(x);
         if len > max_len {
             max_len = len;
@@ -68,7 +68,7 @@ struct Noncached;
 
 impl Lengther for Noncached {
     #[cfg(less_efficient_recursive_version)]
-    fn chain_len(&mut self, n: uint) -> uint {
+    fn chain_len(&mut self, n: usize) -> usize {
         if n == 1 {
             1
         } else if n & 1 == 0 {
@@ -79,7 +79,7 @@ impl Lengther for Noncached {
     }
 
     // Speed this up, with an iterative version.
-    fn chain_len(&mut self, n: uint) -> uint {
+    fn chain_len(&mut self, n: usize) -> usize {
         let mut n = n;
         let mut len = 1;
         while n > 1 {
@@ -96,14 +96,14 @@ impl Lengther for Noncached {
 
 /* Cached version, attempting to speed things up. */
 struct EnumCache {
-    size: uint,
+    size: usize,
     cache: Vec<Info>
 }
 
 #[derive(Clone, PartialEq, Eq)]
 enum Info {
     Unknown,
-    Known(uint)
+    Known(usize)
 }
 
 impl EnumCache {
@@ -117,7 +117,7 @@ impl EnumCache {
 }
 
 impl Lengther for EnumCache {
-    fn chain_len(&mut self, n: uint) -> uint {
+    fn chain_len(&mut self, n: usize) -> usize {
         if n < self.size {
             match self.cache[n] {
                 Info::Unknown => {
@@ -134,7 +134,7 @@ impl Lengther for EnumCache {
 }
 
 impl EnumCache {
-    fn chain2(&mut self, n: uint) -> uint {
+    fn chain2(&mut self, n: usize) -> usize {
         if n == 1 {
             1
         } else if n & 1 == 0 {

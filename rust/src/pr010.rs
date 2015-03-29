@@ -16,8 +16,8 @@ fn main() -> u64 {
     let mut primes = Sieve::new();
 
     let mut total = 0u64;
-    let mut p = 2u;
-    while p < 2_000_000u {
+    let mut p = 2;
+    while p < 2_000_000 {
         total += p as u64;
         p = primes.next_prime(p);
     }

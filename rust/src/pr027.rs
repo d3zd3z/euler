@@ -33,14 +33,14 @@ use sieve::Sieve;
 
 define_problem!(pr027, 27, -59231);
 
-fn pr027() -> int {
+fn pr027() -> i64 {
     let mut s = Sieve::new();
 
     let mut max = 0;
-    let mut max_product: int = 0;
+    let mut max_product: i64 = 0;
 
-    for a in -999i .. 1000 {
-        for b in -999i .. 1000 {
+    for a in -999 .. 1000 {
+        for b in -999 .. 1000 {
             let count = s.prime_count(a, b);
             if count > max {
                 max = count;
@@ -52,19 +52,19 @@ fn pr027() -> int {
 }
 
 trait Counter {
-    fn prime_count(&mut self, a: int, b: int) -> uint;
+    fn prime_count(&mut self, a: i64, b: i64) -> u64;
 }
 
 impl Counter for sieve::Sieve {
-    fn prime_count(&mut self, a: int, b: int) -> uint {
+    fn prime_count(&mut self, a: i64, b: i64) -> u64 {
         let mut n = 0;
         loop {
             let p = n*n + a*n + b;
-            if p < 2 || !self.is_prime(p as uint) {
+            if p < 2 || !self.is_prime(p as usize) {
                 break;
             }
             n += 1;
         }
-        n as uint
+        n as u64
     }
 }

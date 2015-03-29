@@ -11,7 +11,7 @@ use rand;
 /// Miller/Rabin primailty test.  Determines if 'n' is prime.  If it
 /// returns true, 'n' is prime with a probabily of approximately
 /// 1/4**k.
-pub fn is_prime<T>(n: T, k: uint) -> bool
+pub fn is_prime<T>(n: T, k: u64) -> bool
     where T: Int + rand::Rand
 {
     // More tacky constants.
@@ -37,7 +37,7 @@ pub fn is_prime<T>(n: T, k: uint) -> bool
     check(n, k)
 }
 
-fn check<T>(n: T, k: uint) -> bool
+fn check<T>(n: T, k: u64) -> bool
     where T: Int + rand::Rand
 {
     let (s, d) = compute_sd(n);

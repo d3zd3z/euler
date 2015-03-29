@@ -128,7 +128,7 @@ pub fn next_permutation(items: &mut [u8], done: &mut bool) {
     *done = false;
 }
 
-fn flip(items: &mut [u8], a: uint, b: uint) {
+fn flip(items: &mut [u8], a: usize, b: usize) {
     let mut aa = a;
     let mut bb = b;
     while aa < bb {
@@ -138,7 +138,7 @@ fn flip(items: &mut [u8], a: uint, b: uint) {
     }
 }
 
-fn swap(items: &mut [u8], a: uint, b: uint) {
+fn swap(items: &mut [u8], a: usize, b: usize) {
     let tmp = items[a];
     items[a] = items[b];
     items[b] = tmp;

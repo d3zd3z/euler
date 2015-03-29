@@ -28,7 +28,7 @@ use sieve::Sieve;
 
 define_problem!(pr026, 26, 983);
 
-fn pr026() -> uint {
+fn pr026() -> u64 {
     let mut primes = Sieve::new();
 
     let mut p = 7;
@@ -40,7 +40,7 @@ fn pr026() -> uint {
             largest = size;
             largest_value = p;
         }
-        p = primes.next_prime(p);
+        p = primes.next_prime(p as usize) as u64;
     }
     largest_value
 }
@@ -54,7 +54,7 @@ fn pr026() -> uint {
 // will fail to terminate if the value passed has 2 or 5 as factors,
 // so this would have to be accounted for.
 
-fn tenlog(n: uint) -> uint {
+fn tenlog(n: u64) -> u64 {
     let mut result = 1;
     let mut temp = 10 % n;
 

@@ -34,12 +34,12 @@ use std::ops::{Add, Mul};
 
 define_problem!(pr025, 25, 4782);
 
-fn pr025() -> uint {
+fn pr025() -> u64 {
     let mut a = 1.to_biguint().unwrap();
     let mut b = 1.to_biguint().unwrap();
     let stop = exp10(999);
 
-    let mut count = 2u;
+    let mut count = 2;
     while b < stop {
         let tmp = a.add(&b);
         a = b;
@@ -50,7 +50,7 @@ fn pr025() -> uint {
 }
 
 // Return 10 to the given power.
-fn exp10(n: uint) -> BigUint {
+fn exp10(n: u64) -> BigUint {
     let mut work = 1.to_biguint().unwrap();
     let ten = 10.to_biguint().unwrap();
 
@@ -65,7 +65,7 @@ fn exp10(n: uint) -> BigUint {
  * TODO: Fix up this version.
 use std::vec;
 
-static digits: uint = 999;
+static digits: u64 = 999;
 
 fn main() {
     let mut a = Vec::from_elem(digits, 0u8);

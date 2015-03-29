@@ -21,11 +21,11 @@ use sieve;
 
 define_problem!(pr021, 21, 31626);
 
-fn pr021() -> uint {
+fn pr021() -> u64 {
     let mut pv = Sieve::new();
 
     let mut sum = 0;
-    for i in 1u .. 10_000 {
+    for i in 1 .. 10_000 {
         if pv.is_amicable(i) {
             sum += i;
         }
@@ -35,21 +35,21 @@ fn pr021() -> uint {
 }
 
 trait Amicable {
-    fn is_amicable(&mut self, a: uint) -> bool;
-    fn proper_div_sum(&mut self, a: uint) -> uint;
+    fn is_amicable(&mut self, a: u64) -> bool;
+    fn proper_div_sum(&mut self, a: u64) -> u64;
 }
 
 impl Amicable for sieve::Sieve {
-    fn is_amicable(&mut self, a: uint) -> bool {
+    fn is_amicable(&mut self, a: u64) -> bool {
         let b = self.proper_div_sum(a);
         if a == b || b == 0 { return false }
         let c = self.proper_div_sum(b);
         a == c
     }
 
-    fn proper_div_sum(&mut self, a: uint) -> uint {
-        let divs = self.divisors(a);
+    fn proper_div_sum(&mut self, a: u64) -> u64 {
+        let divs = self.divisors(a as usize);
         let sum = divs.iter().fold(0, |tot, x| tot + *x);
-        sum - a
+        sum as u64 - a
     }
 }

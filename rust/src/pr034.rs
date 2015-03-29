@@ -16,7 +16,7 @@ use std::iter;
 
 define_problem!(pr034, 34, 40730);
 
-fn pr034() -> int {
+fn pr034() -> i64 {
     let mut chainer = Chainer::new();
     chainer.chain(0, 0);
 
@@ -24,9 +24,9 @@ fn pr034() -> int {
 }
 
 struct Chainer {
-    total: int,
-    facts: Vec<uint>,
-    last_fact: uint
+    total: i64,
+    facts: Vec<u64>,
+    last_fact: u64
 }
 
 impl Chainer {
@@ -36,24 +36,24 @@ impl Chainer {
         Chainer { total: -3, facts: facts, last_fact: last }
     }
 
-    fn chain(&mut self, number: uint, fact_sum: uint) {
+    fn chain(&mut self, number: u64, fact_sum: u64) {
         if number > 0 && number == fact_sum {
-            self.total += number as int;
+            self.total += number as i64;
         }
         if number * 10 <= fact_sum + self.last_fact {
-            for i in (if number > 0 {0u} else {1}) .. 10 {
+            for i in (if number > 0 {0} else {1}) .. 10 {
                 let elt = self.facts[i];
-                self.chain(number * 10 + i, fact_sum + elt);
+                self.chain(number * 10 + i as u64, fact_sum + elt);
             }
         }
     }
 }
 
-fn make_facts(limit: uint) -> Vec<uint> {
-    let mut result: Vec<_> = iter::repeat(1u).take(limit).collect();
+fn make_facts(limit: usize) -> Vec<u64> {
+    let mut result: Vec<_> = iter::repeat(1).take(limit).collect();
 
-    for i in 2u .. limit {
-        result[i] = i * result[i-1];
+    for i in 2 .. limit {
+        result[i] = i as u64 * result[i-1];
     }
 
     result

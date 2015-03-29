@@ -26,27 +26,27 @@ use sieve::Factor;
 
 define_problem!(pr029, 29, 9183);
 
-fn pr029() -> uint {
+fn pr029() -> u64 {
     let mut primes = Sieve::new();
     let mut values = HashSet::new();
 
-    for a in 2u .. 101 {
+    for a in 2 .. 101 {
         let base = primes.factorize(a);
 
-        for b in 2u .. 101 {
+        for b in 2 .. 101 {
             let elt = power(&base, b);
             values.insert(elt);
         }
     }
 
-    values.len()
+    values.len() as u64
 }
 
-fn power(base: &Vec<Factor>, exp: uint) -> Vec<Factor> {
+fn power(base: &Vec<Factor>, exp: u64) -> Vec<Factor> {
     let mut result = vec![];
 
     for f in base.iter() {
-        result.push(Factor {prime: f.prime, power: f.power * exp});
+        result.push(Factor {prime: f.prime, power: f.power * exp as usize});
     }
 
     result

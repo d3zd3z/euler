@@ -35,13 +35,13 @@
 
 define_problem!(pr011, 11, 70600674);
 
-fn pr011() -> uint {
-    let mut max = 0u;
+fn pr011() -> u64 {
+    let mut max = 0;
     let deltas = &[Delta {dx: 0, dy: 1}, Delta {dx: 1, dy: 0},
                    Delta {dx: 1, dy: 1}, Delta {dx: 1, dy: -1}];
     let src = source();
-    for x in 0i .. 20 {
-        for y in 0i .. 20 {
+    for x in 0 .. 20 {
+        for y in 0 .. 20 {
             for delta in deltas.iter() {
                 let prod = product(&src, x, y, delta);
                 if prod > max {
@@ -53,24 +53,24 @@ fn pr011() -> uint {
     max
 }
 
-struct Delta {dx: int, dy: int}
+struct Delta {dx: i64, dy: i64}
 
-fn product(ary: &Vec<[uint; 20]>, x: int, y: int, d: &Delta) -> uint {
+fn product(ary: &Vec<[u32; 20]>, x: i64, y: i64, d: &Delta) -> u64 {
     let mut px = x;
     let mut py = y;
-    let mut prod = 1u;
-    let mut count = 0u;
-    while count < 4u {
-        count += 1u;
-        if px >= 20 || py >= 20 || px < 0 || py < 0 { prod = 0u; break; }
-        prod *= ary[py as uint][px as uint];
+    let mut prod = 1;
+    let mut count = 0;
+    while count < 4 {
+        count += 1;
+        if px >= 20 || py >= 20 || px < 0 || py < 0 { prod = 0; break; }
+        prod *= ary[py as usize][px as usize] as u64;
         px += d.dx;
         py += d.dy;
     }
     prod
 }
 
-fn source() -> Vec<[uint; 20]> {
+fn source() -> Vec<[u32; 20]> {
     vec![
         [08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08],
         [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 04, 56, 62, 00],

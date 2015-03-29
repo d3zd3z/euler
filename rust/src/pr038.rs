@@ -25,7 +25,7 @@ define_problem!(pr038, 38, 932718654);
 
 fn pr038() -> u64 {
     let mut largest = 0u64;
-    for i in 1u .. 10000 {
+    for i in 1 .. 10000 {
         let sum = large_sum(i);
         if sum > largest && is_pandigital(sum) {
             largest = sum;
@@ -36,7 +36,7 @@ fn pr038() -> u64 {
 
 // Given a 'base' according to the problem, multiple successively by
 // the digits starting with 1 until we reach >= 9 digits.
-fn large_sum(base: uint) -> u64 {
+fn large_sum(base: u64) -> u64 {
     let base = base as u64;
     let mut result = 0u64;
     let mut x = 1u64;
@@ -52,12 +52,12 @@ fn large_sum(base: uint) -> u64 {
 // a value, making sure no bits are set twice, and at the end that all
 // of the desired bits are set.
 fn is_pandigital(number: u64) -> bool {
-    let mut bits = 0u;
+    let mut bits = 0;
     let mut number = number;
 
     while number > 0 {
         let m = number % 10;
-        let bit = 1 << m as uint;
+        let bit = 1 << m as u64;
         if (bits & bit) != 0 {
             return false;
         }
