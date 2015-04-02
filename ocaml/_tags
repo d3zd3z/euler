@@ -26,4 +26,4 @@ true: thread
 <pr054.ml>: syntax(camlp4o)
 <pr054.ml>: package(sexplib.syntax,comparelib.syntax)
 
-<*.native> or <*.byte>: package(batteries)
+<*.native> or <*.byte>: package(num)
