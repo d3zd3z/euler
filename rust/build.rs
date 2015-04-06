@@ -1,19 +1,14 @@
 // Generate the problem list based on available modules.
 
-#![feature(fs)]
-#![feature(io)]
-#![feature(os)]
-#![feature(path)]
-
-extern crate glob;
-
 use std::env;
 use std::fs;
 use std::io::prelude::*;
 use std::fs::File;
 use std::path::Path;
 
-use glob::glob;
+use regex::Regex;
+
+extern crate regex;
 
 fn main() {
     let odir = env::var("OUT_DIR").unwrap();
@@ -58,11 +53,22 @@ fn main() {
 fn get_problems() -> Vec<u32> {
     let mut result = vec![];
 
-    for path in glob("src/pr[0-9][0-9][0-9].rs").unwrap() {
-        let path = path.unwrap();
-        let path = path.file_name().unwrap();
-        let name = path.to_str().unwrap();
-        result.push(name[2..5].parse().unwrap());
+    let re = Regex::new(r"^.*/pr(\d\d\d)\.rs$").unwrap();
+    for entry in fs::read_dir(&Path::new("src")).unwrap() {
+        let entry = entry.unwrap();
+        let p = entry.path();
+        let n = p.as_os_str().to_str();
+        let name = match n {
+            Some(n) => n,
+            None => continue,
+        };
+        match re.captures(name) {
+            None => continue,
+            Some(cap) => {
+                let num: u32 = cap.at(1).unwrap().parse().unwrap();
+                result.push(num);
+            },
+        }
     }
 
     result.sort();

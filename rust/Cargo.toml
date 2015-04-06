@@ -9,7 +9,7 @@ num = "0.1.0"
 rand = "*"
 
 [build-dependencies]
-glob = "0.1.0"
+regex = "*"
 
 [[bin]]
 name = "euler"
