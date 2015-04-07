@@ -1,19 +1,16 @@
 // A simple prime number sieve.
 
-// extern mod extra;
-use collections::bitv::Bitv;
-// use extra::bitv::*;
-// use extra::sort;
+use collections::BitVec;
 
 static DEFAULT_SIZE: usize = 8192usize;
 
 pub struct Sieve {
-    vec: Bitv, limit: usize
+    vec: BitVec, limit: usize
 }
 
 impl Sieve {
     pub fn new() -> Sieve {
-        let mut result = Sieve { vec: Bitv::from_elem(DEFAULT_SIZE + 1, true),
+        let mut result = Sieve { vec: BitVec::from_elem(DEFAULT_SIZE + 1, true),
             limit: DEFAULT_SIZE };
         result.fill();
         result
@@ -55,7 +52,7 @@ impl Sieve {
                 new_limit *= 8;
             }
 
-            self.vec = Bitv::from_elem(new_limit + 1, true);
+            self.vec = BitVec::from_elem(new_limit + 1, true);
             self.limit = new_limit;
             self.fill();
         }
