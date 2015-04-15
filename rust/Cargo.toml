@@ -5,7 +5,7 @@ authors = ["David Brown <davidb@davidb.org>"]
 build = "build.rs"
 
 [dependencies]
-num = "0.1.0"
+num = "*"
 rand = "*"
 
 [build-dependencies]

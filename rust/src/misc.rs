@@ -1,20 +1,21 @@
 // Miscellaneous Euler utilities.
 
-use std::num::Int;
+use num::Num;
+use num::PrimInt;
 
-use std::num::FromPrimitive;
-use std::num::ToPrimitive;
+use num::FromPrimitive;
+use num::ToPrimitive;
 
 #[allow(dead_code)]
-pub fn is_palindrome<T: Int + Ord + Clone> (n: T, base: T) -> bool {
+pub fn is_palindrome<T: Num + Ord + Clone> (n: T, base: T) -> bool {
     n == reverse_number(n.clone(), base)
 }
 
 #[allow(dead_code)]
-pub fn reverse_number<T: Int + Ord + Clone>(number: T, base: T) -> T {
-    let z: T = Int::zero();
+pub fn reverse_number<T: Num + Ord + Clone>(number: T, base: T) -> T {
+    let z: T = T::zero();
     let mut n = number;
-    let mut result: T = Int::zero();
+    let mut result: T = T::zero();
     while n.clone() > z {
         result = result * base.clone() + n.clone() % base.clone();
         n = n / base.clone();
@@ -47,9 +48,9 @@ pub fn decode_words(line: &str) -> Vec<String> {
 }
 
 // Integer square root.  Returns the floor of the sqrt of n.
-pub fn isqrt<T: Int + FromPrimitive>(n: T) -> T {
-    let z: T = Int::zero();
-    let one: T = Int::one();
+pub fn isqrt<T: PrimInt + FromPrimitive + ToPrimitive>(n: T) -> T {
+    let z = T::zero();
+    let one = T::one();
     let two = one + one;
 
     if n == z {
