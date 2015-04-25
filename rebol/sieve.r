@@ -15,12 +15,12 @@ sieve-proto: make object! [
 
 	pos: 2
 	while [pos <= limit] [
-	    either composites/(pos) [
+	    either composites/:pos [
 		pos: pos + 1
 	    ] [
 		n: pos + pos
 		while [n <= limit] [
-		    composites/(n): true
+		    composites/:n: true
 		    n: n + pos
 		]
 		either pos == 2 [
