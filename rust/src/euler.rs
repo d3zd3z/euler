@@ -1,7 +1,7 @@
 // Project euler
 
 // Features still considered unstable that need to be explicitly enabled.
-#![feature(slice_patterns)]
+// #![feature(slice_patterns)]
 #![feature(collections)]
 
 // Needed to allow max_by() and the num::Int trait.
@@ -82,13 +82,23 @@ impl Problems {
 fn main() {
     let mut probs = Problems::new();
     let args: Vec<String> = env::args().skip(1).collect();
-    match &args[..] {
-        [ref all] if &all[..] == "all" => probs.run_all(),
-        [] => panic!("Usage: euler {{all | n1 n2 n3}}"),
-        pns => {
-            for p in pns.iter() {
-                probs.run(p.parse().unwrap())
-            }
+    if args.len() == 0 {
+        panic!("Usage: euler {{all | n1 n2 n3}}");
+    } else if args.len() == 1 && args[0] == "all" {
+        probs.run_all();
+    } else {
+        for p in args.iter() {
+            probs.run(p.parse().unwrap());
         }
     }
+    // TODO: Use the slice patterns when they stabilize.
+    // match &args[..] {
+    //     [ref all] if &all[..] == "all" => probs.run_all(),
+    //     [] => panic!("Usage: euler {{all | n1 n2 n3}}"),
+    //     pns => {
+    //         for p in pns.iter() {
+    //             probs.run(p.parse().unwrap())
+    //         }
+    //     }
+    // }
 }
