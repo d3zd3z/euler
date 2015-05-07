@@ -86,3 +86,11 @@
 (define (euler-67)
   (define triangle (read-triangle "../haskell/triangle.txt"))
   (reduce-table (reverse triangle)))
+
+(module* main #f
+  (display "Problem 18: ")
+  (display (euler-18))
+  (newline)
+  (display "Problem 67: ")
+  (display (euler-67))
+  (newline))

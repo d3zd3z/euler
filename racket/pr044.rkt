@@ -35,3 +35,6 @@
         (and (pentagonal? (- pent-i pent-j))
              (pentagonal? (+ pent-i pent-j))
              (return (- pent-i pent-j)))))))
+
+(module* main #f
+  (euler-44))

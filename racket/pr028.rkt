@@ -24,3 +24,6 @@
 (define (euler-28)
   (add1 (for/sum ([i (in-range 3 1002 2)])
           (ring-sum i))))
+
+(module* main #f
+  (euler-28))

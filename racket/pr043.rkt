@@ -54,3 +54,6 @@
                   sum)
               (next-permutation digits <))
         sum)))
+
+(module* main #f
+  (euler-43))

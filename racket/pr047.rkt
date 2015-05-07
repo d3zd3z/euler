@@ -20,7 +20,7 @@
 ;;; factors. What is the first of these numbers?
 
 (require (only-in
-	   (planet soegaard/math:1:5/math)
+	   math/number-theory
 	   factorize))
 
 ;;; Given a list of factor lists, returns #t if they lists are all
@@ -55,4 +55,6 @@
 
 (define (euler-47)
   (solve 4))
-(time (euler-47))
+
+(module* main #f
+  (time (euler-47)))

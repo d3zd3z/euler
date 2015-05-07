@@ -10,16 +10,17 @@
 ;;; 
 ;;; What is the 10 001st prime number?
 ;;; 
+;;; 104743
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require (only-in
-	   (planet soegaard/math:1:5/math)
+	   math/number-theory
 	   nth-prime))
 (require "ssieve.rkt")
 
 ;; Ok, this is cheating a bit.
 (define (euler-7a)
-  (nth-prime 10001))
+  (nth-prime 10000))
 
 #|
 (define (euler-7b)
@@ -35,6 +36,6 @@
     ((= i 10000) p)))
 
 ;; For testing.
-(display (euler-7c))
-(newline)
-
+(module* main #f
+  (display (euler-7c))
+  (newline))

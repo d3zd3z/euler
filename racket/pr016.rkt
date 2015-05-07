@@ -12,3 +12,6 @@
 
 (define (euler-16)
   (digit-sum (expt 2 1000)))
+
+(module* main #f
+  (euler-16))

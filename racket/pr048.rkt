@@ -15,5 +15,6 @@
 	       (expt i i))
 	     10000000000))
 
-(display (euler-48))
-(newline)
+(module* main #f
+  (display (euler-48))
+  (newline))

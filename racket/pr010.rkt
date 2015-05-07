@@ -8,7 +8,7 @@
 ;;;
 ;;; Find the sum of all the primes below two million.
 
-(require (planet soegaard/math:1:5/math))
+(require math/number-theory)
 (require "sieve.rkt")
 
 (define (euler-10)
@@ -26,3 +26,7 @@
     (if (< p 2000000)
         (loop (+ sum p) (next-prime p))
         sum)))
+
+(module* main #f
+  (time (euler-10))
+  (time (euler-10b)))

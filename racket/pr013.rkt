@@ -112,3 +112,6 @@
 (define (euler-13)
   ;; Sigh.
   (string->number (substring (number->string (apply + numbers)) 0 10)))
+
+(module* main #f
+  (euler-13))

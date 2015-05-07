@@ -24,3 +24,6 @@
              (palindrome? i 2))
         i
         0)))
+
+(module* main #f
+  (euler-36))

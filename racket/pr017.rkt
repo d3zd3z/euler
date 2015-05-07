@@ -76,5 +76,6 @@
   (for/sum ([i (in-range 1 1001)])
     (letters-in-number i)))
 
-(display (euler-17))
-(newline)
+(module* main #f
+  (display (euler-17))
+  (newline))

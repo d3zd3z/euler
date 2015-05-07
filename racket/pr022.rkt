@@ -32,3 +32,6 @@
   (for/sum ([i (in-naturals 1)]
             [name (in-list names)])
     (* i (name->value name))))
+
+(module* main #f
+  (euler-22))

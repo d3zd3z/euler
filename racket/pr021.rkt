@@ -15,7 +15,7 @@
 ;;;
 ;;; Evaluate the sum of all the amicable numbers under 10000.
 
-(require (planet soegaard/math:1:5/math))
+(require math/number-theory)
 (require "euler.rkt")
 
 ;;; The positive-divisors function from soegaard/math isn't very
@@ -32,3 +32,6 @@
 (define (euler-21)
   (for/sum ([i (in-range 1 10000)])
     (if (amicable? i) i 0)))
+
+(module* main #f
+  (euler-21))

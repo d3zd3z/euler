@@ -34,3 +34,6 @@
                 (* result
                    (- ch
                       (char->integer #\0))))))))
+
+(module* main #f
+  (euler-40))

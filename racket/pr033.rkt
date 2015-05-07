@@ -33,3 +33,6 @@
                               [b (in-range (add1 a) 100)]
                               #:when (frac-a-p? a b))
                  (/ a b))))
+
+(module* main #f
+  (euler-33))

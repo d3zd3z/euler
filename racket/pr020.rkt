@@ -20,3 +20,6 @@
 
 (define (euler-20)
   (digit-sum (factorial 100)))
+
+(module* main #f
+  (euler-20))

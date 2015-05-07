@@ -13,7 +13,7 @@
 ;;; Since 1-9 sum to a multiple of 3, as well as 1-8, we know the
 ;;; result must be a 7 digit number (or possibly less).
 
-(require (planet soegaard/math:1:5/math))
+(require math/number-theory)
 (require "euler.rkt")
 
 (define (euler-41)
@@ -26,3 +26,6 @@
                     largest)
                 (string-next-permutation item)))
         largest)))
+
+(module* main #f
+  (euler-41))

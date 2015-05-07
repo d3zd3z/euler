@@ -36,3 +36,6 @@
 
 (define (euler-42)
   (count triangle? (map word-value (read-names "../haskell/words.txt"))))
+
+(module* main #f
+  (euler-42))

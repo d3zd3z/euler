@@ -88,5 +88,6 @@
       (append (find-pieces sieve i) result)))
   (make-result (first result)))
 
-(display (euler-49))
-(newline)
+(module* main #f
+  (display (euler-49))
+  (newline))

@@ -71,3 +71,6 @@
           (loop (sub1 offset)
                 (max largest new)))
         largest)))
+
+(module* main #f
+  (euler-8))

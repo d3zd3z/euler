@@ -13,5 +13,10 @@
 ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(provide euler-5)
+
 (define (euler-5)
   (apply lcm (stream->list (in-range 1 21))))
+
+(module* main #f
+  (euler-5))

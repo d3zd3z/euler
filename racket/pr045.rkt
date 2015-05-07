@@ -42,3 +42,6 @@
                  (add1 hn)
                  pentagonal
                  (+ hexagonal (- (* (add1 hn) 4) 3)))])))
+
+(module* main #f
+  (euler-45))

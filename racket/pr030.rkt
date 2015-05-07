@@ -35,3 +35,6 @@
 
 (define (euler-30)
   (count-summable 5))
+
+(module* main #f
+  (euler-30))

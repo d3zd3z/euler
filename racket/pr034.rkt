@@ -32,3 +32,6 @@
         (chain (+ (* number 10) i)
                (+ fact-sum (vector-ref factorials i))))))
   total)
+
+(module* main #f
+  (euler-34))

@@ -24,3 +24,6 @@
                            (= (+ (sqr a) (sqr b)) (sqr c)))
                   (return (* a b c))))))
     (error "No solution")))
+
+(module* main #f
+  (euler-9))

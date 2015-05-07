@@ -26,13 +26,16 @@
 ;;; What is the value of the first triangle number to have over five hundred
 ;;; divisors?
 
-(require (planet soegaard/math:1:5/math))
+(require math/number-theory)
 
 (define (euler-12)
   (let loop ([n 1]
              [triangle 1])
-    (define factors (factorization->divisors (factorize triangle)))
-    (if (> (length factors) 500)
+    (define divs (divisors triangle))
+    (if (> (length divs) 500)
         triangle
         (let ([next (add1 n)])
           (loop next (+ triangle next))))))
+
+(module* main #f
+  (euler-12))

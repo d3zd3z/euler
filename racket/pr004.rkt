@@ -40,3 +40,8 @@
 	  [else (let* ([product (* a b)]
 		       [next (if (palindrome? product) (max answer product) answer)])
 		  (loop a (+ b 1) next))])))
+
+(module* main #f
+  (time (euler-4))
+  (time (euler-4b))
+  )

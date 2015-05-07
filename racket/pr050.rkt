@@ -60,3 +60,6 @@
 	    (inner new-sum new-count (cdr items)))))
       (outer more)))
   largest)
+
+(module* main #f
+  (euler-50))

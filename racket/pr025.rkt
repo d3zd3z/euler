@@ -35,3 +35,6 @@
              [count 1])
     (if (>= a stop) count
         (loop b (+ a b) (add1 count)))))
+
+(module* main #f
+  (euler-25))

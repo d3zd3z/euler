@@ -30,3 +30,6 @@
 
 (define (euler-31)
   (rways 200 coins))
+
+(module* main #f
+  (euler-31))

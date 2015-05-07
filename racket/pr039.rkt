@@ -27,3 +27,6 @@
           (values count p)
           (values largest largest-value))))
   answer)
+
+(module* main #f
+  (euler-39))

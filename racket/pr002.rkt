@@ -16,8 +16,13 @@
 ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(provide euler-2)
+
 (define (euler-2)
   (let loop [(a 1) (b 2) (sum 0)]
     (cond [(< a 4000000)
 	   (loop b (+ a b) (if (even? a) (+ a sum) sum))]
 	  [else sum])))
+
+(module* main #f
+  (euler-2))

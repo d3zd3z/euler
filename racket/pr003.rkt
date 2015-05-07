@@ -11,8 +11,11 @@
 ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require (planet soegaard/math:1:5/math))
+(require math/number-theory)
 
 ;; Not particularly hard with these libraries.
 (define (euler-3)
   (first (last (factorize 600851475143))))
+
+(module* main #f
+  (euler-3))

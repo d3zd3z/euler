@@ -86,3 +86,6 @@
        [delta (in-list '((0 . 1) (1 . 0) (1 . 1) (1 . -1)))])
     (define current (multiply-out row col delta))
     (max largest current)))
+
+(module* main #f
+  (euler-11))

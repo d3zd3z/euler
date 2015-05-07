@@ -32,3 +32,6 @@
 (define (euler-6)
   (- (square-of-sum 100)
      (sum-of-squares 100)))
+
+(module* main #f
+  (euler-6))

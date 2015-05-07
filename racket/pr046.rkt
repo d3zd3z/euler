@@ -44,3 +44,6 @@
 	     (null? (gold sieve n)))
       n
       (loop (+ n 2)))))
+
+(module* main #f
+  (euler-46))

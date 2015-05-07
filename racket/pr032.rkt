@@ -44,3 +44,6 @@
                                (string-next-permutation digits))
                          result)))
   (foldl + 0 (remove-duplicates (flatten products))))
+
+(module* main #f
+  (euler-32))

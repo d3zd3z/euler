@@ -29,3 +29,6 @@
   (for*/sum ([year (in-range 1901 2001)]
              [month (in-range 1 13)])
     (if (zero? (day-of-week year month)) 1 0)))
+
+(module* main #f
+  (euler-19))

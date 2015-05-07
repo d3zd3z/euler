@@ -12,7 +12,7 @@
 ;;;
 ;;; How many circular primes are there below one million?
 
-(require (planet soegaard/math:1:5/math))
+(require math/number-theory)
 
 (define (number-of-digits number)
   (add1 (order-of-magnitude number)))
@@ -42,3 +42,6 @@
         (loop (next-prime prime)
               (if (andmap prime? (number-rotations prime))
                   (add1 count) count)))))
+
+(module* main #f
+  (euler-35))

@@ -62,3 +62,7 @@
     (sub (+ a b)))
   (for/sum ([i (in-range 1 nlimit)])
     (if (vector-ref tagged i) i 0)))
+
+(module* main #f
+  (time (euler-23))
+  (time (euler-23b)))

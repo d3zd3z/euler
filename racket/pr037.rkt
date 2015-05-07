@@ -14,7 +14,7 @@
 ;;;
 ;;; NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
 
-(require (planet soegaard/math:1:5/math))
+(require math/number-theory)
 (require "euler.rkt")
 
 ;;; Given a list of numbers, return an augmented list of the numbers
@@ -50,3 +50,6 @@
   (for/sum ([p (in-list (right-truncatable-primes))]
             #:when (and (> p 9) (left-truncatable? p)))
     p))
+
+(module* main #f
+  (euler-37))

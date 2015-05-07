@@ -23,3 +23,6 @@
   (for/fold ([answer 0])
       ([digit (in-vector vec)])
     (+ (* answer 10) digit)))
+
+(module* main #f
+  (euler-24))

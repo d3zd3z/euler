@@ -29,3 +29,6 @@
 (define (euler-15)
   (define r (routes 20))
   (vector-ref r (sub1 (vector-length r))))
+
+(module* main #f
+  (euler-15))

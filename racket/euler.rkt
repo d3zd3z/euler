@@ -1,6 +1,6 @@
 #lang racket
 
-(require (planet soegaard/math:1:5/math))
+(require math/number-theory)
 
 ;;; Utilities shared by multiple problems, but not worth of their own module.
 

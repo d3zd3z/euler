@@ -52,3 +52,6 @@
             (if (> temp largest)
                 (loop temp n (add1 n))
                 (loop largest largest-value (add1 n))))))))
+
+(module* main #f
+  (euler-14))

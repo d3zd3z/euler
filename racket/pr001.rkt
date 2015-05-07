@@ -5,7 +5,7 @@
 ;;;
 ;;; Find the sum of all the multiples of 3 or 5 below 1000.
 
-(require (planet soegaard/math:1:4/math))
+(require math/number-theory)
 
 ;;; Direct solution, with my own loop.
 (define (sol1 limit)
@@ -35,4 +35,8 @@
       (error "Result mismatch"))
     (printf "~a~n" b)))
 
-(show 1000)
+(define (euler-1)
+  (show 1000))
+
+(module* main #f
+  (euler-1))

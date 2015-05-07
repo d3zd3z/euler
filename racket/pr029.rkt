@@ -37,3 +37,7 @@
                      [b (in-range 2 101)])
                   (set-add table (expt a b))))
   (set-count table))
+
+(module* main #f
+  (time (euler-29-old))
+  (time (euler-29)))

@@ -23,7 +23,7 @@
 ;;; Find the value of d < 1000 for which ^1/[d] contains the longest recurring
 ;;; cycle in its decimal fraction part.
 
-(require (planet soegaard/math:1:5/math))
+(require math/number-theory)
 
 ;;; We only need to search primes.
 
@@ -46,3 +46,6 @@
           (if (> digits largest)
               (loop next-p digits p)
               (loop next-p largest largest-p))))))
+
+(module* main #f
+  (euler-26))

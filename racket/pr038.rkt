@@ -54,3 +54,6 @@
        [sum (in-value (large-sum a))]
        #:when (pandigital? sum))
     (max largest sum)))
+
+(module* main #f
+  (euler-38))

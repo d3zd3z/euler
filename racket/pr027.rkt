@@ -28,7 +28,7 @@
 ;;; expression that produces the maximum number of primes for consecutive
 ;;; values of n, starting with n = 0.
 
-(require (planet soegaard/math:1:5/math))
+(require math/number-theory)
 
 (define (count-primes a b)
   (let loop ([n 0])
@@ -48,3 +48,6 @@
           (values count (* a b))
           (values largest largest-result))))
   result)
+
+(module* main #f
+  (euler-27))
