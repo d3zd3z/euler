@@ -30,7 +30,7 @@ fn rways(remaining: u64, coins: &[u64]) -> u64 {
         if remaining == 0 { 1 } else { 0 }
     } else {
         let coin = coins[0];
-        let others = coins.tail();
+        let others = &coins[1..];
 
         let mut total = 0;
         let mut r = remaining as i64;

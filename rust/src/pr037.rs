@@ -46,11 +46,13 @@ fn add_primes(numbers: &[u64]) -> Vec<u64> {
 
 // Generate a list of all right-truncatable primes.
 fn right_truncatable_primes() -> Vec<u64> {
-    let mut result = vec![];
+    let mut result: Vec<u64> = vec![];
     let mut set = vec![2, 3, 5, 7];
 
     while set.len() > 0 {
-        result.push_all(&set[..]);
+        for &i in set.iter() {
+            result.push(i);
+        }
         set = add_primes(&set[..]);
     }
     result

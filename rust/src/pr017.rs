@@ -66,7 +66,7 @@ impl Converter {
 
         if work > 1000 { panic!("Number too large") }
 
-        if work == 1000 { return String::from_str("one thousand") }
+        if work == 1000 { return "one thousand".to_string() }
 
         if work >= 100 {
             self.add_ones(work/100);
@@ -98,13 +98,11 @@ impl Converter {
     }
 
     fn add_ones(&mut self, n: u64) {
-        let piece = String::from_str(ONES[n as usize - 1]);
-        self.add(&piece[..]);
+        self.add(ONES[n as usize - 1]);
     }
 
     fn add_tens(&mut self, n: u64) {
-        let piece = String::from_str(TENS[n as usize - 1]);
-        self.add(&piece[..]);
+        self.add(TENS[n as usize - 1]);
     }
 
     fn add(&mut self, text: &str) {

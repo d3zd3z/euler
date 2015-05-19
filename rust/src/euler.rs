@@ -1,16 +1,9 @@
 // Project euler
 
-// Features still considered unstable that need to be explicitly enabled.
-// #![feature(slice_patterns)]
-#![feature(collections)]
-
-// Needed to allow max_by() and the num::Int trait.
-#![feature(core)]
-
 // Testing is unstable, so bring it in when testing.
 #![cfg_attr(test, feature(test))]
 
-extern crate collections;
+// extern crate collections;
 extern crate num;
 extern crate rand;
 

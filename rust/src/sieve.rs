@@ -1,17 +1,20 @@
 // A simple prime number sieve.
 
-use collections::BitVec;
+use std::iter;
 
 static DEFAULT_SIZE: usize = 8192usize;
 
 pub struct Sieve {
-    vec: BitVec, limit: usize
+    vec: Vec<bool>,
+    limit: usize
 }
 
 impl Sieve {
     pub fn new() -> Sieve {
-        let mut result = Sieve { vec: BitVec::from_elem(DEFAULT_SIZE + 1, true),
-            limit: DEFAULT_SIZE };
+        let mut result = Sieve {
+            vec: iter::repeat(true).take(DEFAULT_SIZE + 1).collect(),
+            limit: DEFAULT_SIZE,
+        };
         result.fill();
         result
     }
@@ -19,9 +22,9 @@ impl Sieve {
 
 impl Sieve {
     fn fill(&mut self) {
-        self.vec.set_all();
-        self.vec.set(0, false);
-        self.vec.set(1, false);
+        // self.vec.set_all();
+        self.vec[0] = false;
+        self.vec[1] = false;
 
         let mut pos = 2;
         let limit = self.limit;
@@ -31,7 +34,7 @@ impl Sieve {
             } else {
                 let mut n = pos + pos;
                 while n <= limit {
-                    self.vec.set(n, false);
+                    self.vec[n] = false;
                     n += pos;
                 }
                 if pos == 2 {
@@ -52,7 +55,7 @@ impl Sieve {
                 new_limit *= 8;
             }
 
-            self.vec = BitVec::from_elem(new_limit + 1, true);
+            self.vec = iter::repeat(true).take(new_limit + 1).collect();
             self.limit = new_limit;
             self.fill();
         }

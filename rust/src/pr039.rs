@@ -28,8 +28,13 @@ fn pr039() -> u32 {
     }
 
     // TODO: Leave this as max_by for now, until this settles.
-    match map.iter().max_by(|p| p.1) {
-        None => panic!("No solution found"),
-        Some((&k, _)) => k
+    let mut biggest = 0;
+    let mut biggest_key = 0;
+    for (&k, &v) in map.iter() {
+        if v > biggest {
+            biggest = v;
+            biggest_key = k;
+        }
     }
+    biggest_key
 }
