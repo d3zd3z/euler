@@ -110,6 +110,33 @@ impl Sieve {
         }
         next
     }
+
+    pub fn primes_upto<'a>(&'a mut self, n: usize) -> PrimeIter<'a> {
+        PrimeIter {
+            sieve: self,
+            cur: 2,
+            stop: n,
+        }
+    }
+}
+
+pub struct PrimeIter<'a> {
+    sieve: &'a mut Sieve,
+    cur: usize,
+    stop: usize,
+}
+
+impl<'a> Iterator for PrimeIter<'a> {
+    type Item = usize;
+
+    fn next(&mut self) -> Option<usize> {
+        let result = self.cur;
+        if result >= self.stop {
+            return None;
+        }
+        self.cur = self.sieve.next_prime(result);
+        Some(result)
+    }
 }
 
 #[test]
