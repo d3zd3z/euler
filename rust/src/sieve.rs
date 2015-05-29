@@ -73,6 +73,7 @@ fn test_basic() {
     assert!(sieve.is_prime(65537));
 }
 
+/*
 #[bench]
 fn bench_sieve(b: &mut ::test::Bencher) {
     b.iter(|| {
@@ -80,6 +81,7 @@ fn bench_sieve(b: &mut ::test::Bencher) {
         assert_eq!(sieve.next_prime(100001), 100003);
     });
 }
+*/
 
 impl Sieve {
     #[allow(dead_code)]

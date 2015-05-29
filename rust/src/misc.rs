@@ -90,6 +90,6 @@ fn log2(n: u64) -> u64 {
 fn test_isqrt() {
     assert!(log2(0) == 0);
     assert!(isqrt(10204 * 10204) == 10204);
-    assert!(isqrt(65535 * 65535 - 1) == 65534);
-    assert!(isqrt(65535 * 65535 + 1) == 65535);
+    assert!(isqrt(65535u64 * 65535 - 1) == 65534);
+    assert!(isqrt(65535u64 * 65535 + 1) == 65535);
 }

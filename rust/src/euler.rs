@@ -1,13 +1,13 @@
 // Project euler
 
 // Testing is unstable, so bring it in when testing.
-#![cfg_attr(test, feature(test))]
+// #![cfg_attr(test, feature(test))]
 
 // extern crate collections;
 extern crate num;
 extern crate rand;
 
-#[cfg(test)]
+#[cfg(not_test)]
 extern crate test;
 
 use std::io;

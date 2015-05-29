@@ -153,7 +153,7 @@ fn swap(items: &mut [u8], a: usize, b: usize) {
 /// Also, some of the euler problems require the permutation to be done
 /// strictly in lexicographical order, which the `permutation()` method does
 /// not do.
-#[cfg(test)]
+#[cfg(not_test)]
 mod bench {
     use super::*;
     const BENCH_SIZE: u8 = 6;
