@@ -19,7 +19,7 @@ def generate(problem, contents):
 define_problem!(pr{0:03}, {0}, 42);
 
 fn pr{0:03}() -> u64 {{
-    42u
+    42
 }}'''.format(problem), file=f)
 
         # os.chmod(name, 0o755)

@@ -30,11 +30,11 @@ fn pr043() -> u64 {
     let mut total = 0u64;
 
     loop {
-        if check(&work[..]) {
-            total += digits_value(&work[..]);
+        if check(&work) {
+            total += digits_value(&work);
         }
 
-        next_permutation(&mut work[..], &mut done);
+        next_permutation(&mut work, &mut done);
         if done { break; }
     }
 
