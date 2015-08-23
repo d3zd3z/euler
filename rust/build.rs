@@ -12,6 +12,7 @@ extern crate regex;
 
 fn main() {
     let odir = env::var("OUT_DIR").unwrap();
+    let cwd = env::current_dir().unwrap().to_str().unwrap().to_owned();
     let dst = Path::new(&odir);
     let gen_name = dst.join("plist.rs");
     let mut f = File::create(&gen_name).unwrap();
@@ -24,7 +25,7 @@ fn main() {
 
     // Generate the inputs.
     for &p in problems.iter() {
-        writeln!(&mut f, "#[path=\"pr{0:03}.rs\"] mod pr{0:03};", p).unwrap();
+        writeln!(&mut f, "#[path=\"{1}/src/pr{0:03}.rs\"] mod pr{0:03};", p, cwd).unwrap();
     }
     writeln!(&mut f, "").unwrap();
 
@@ -38,14 +39,6 @@ fn main() {
     writeln!(&mut f, "}}").unwrap();
 
     drop(f);
-
-    // Unfortunately, this file can't be include!() into the outer source (macros can't expand to
-    // 'mod' or 'use' declarations).  To work around this, make a symlink to the generated file.
-    // We'll ignore it, and always replace it for each checkout.  It's a little better than just
-    // dropping the generated file into the tree (but not much better).
-    let src_name = Path::new("src/plist.rs");
-    fs::remove_file(&src_name).unwrap();
-    fs::soft_link(&gen_name, &src_name).unwrap();
 }
 
 // Get all of the problems, based on standard filenames of "src/prxxx.rs" where xxx is the problem
