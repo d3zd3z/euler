@@ -1,0 +1,32 @@
+* Problem 5
+* 
+* 30 November 2001
+* 
+* 2520 is the smallest number that can be divided by each of the numbers
+* from 1 to 10 without any remainder.
+* 
+* What is the smallest positive number that is evenly divisible by all of
+* the numbers from 1 to 20?
+*
+* 232792560
+
+	define('gcd(a,b)tmp')
+	define('lcm(a,b)')
+
+	total = 1
+	a = 2
+loop
+	total = lcm(total,a)
+	a = le(a,20) a + 1	:s(loop)
+
+	output = total
+	:(end)
+
+gcd	gcd = eq(b,0) a		:s(return)
+	tmp = remdr(a,b)
+	a = b
+	b = tmp			:(gcd)
+
+lcm	lcm = (a / gcd(a,b)) * b	:(return)
+
+end
