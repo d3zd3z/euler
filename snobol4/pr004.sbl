@@ -1,0 +1,47 @@
+* vim: ft=snobol4
+* Problem 4
+*
+* 16 November 2001
+*
+* A palindromic number reads the same both ways. The largest palindrome made
+* from the product of two 2-digit numbers is 9009 = 91 × 99.
+*
+* Find the largest palindrome made from the product of two 3-digit numbers.
+*
+* 906609
+
+	define('pal(str)ch,s1,s2')
+
+* Outer loop
+	a = 100
+outloop
+	le(a,999)		:f(outstop)
+
+	b = a
+inloop
+	le(b,999)		:f(instop)
+
+	tmp = a * b
+	pal(trim(tmp))		:f(notpal)
+
+	biggest = gt(tmp,biggest) tmp
+notpal
+
+	b = b + 1		:(inloop)
+instop
+	a = a + 1		:(outloop)
+outstop
+
+	output = biggest
+
+	:(end)
+
+* Palindrome test, right out of the Snobol4 manual.
+* However, it doesn't work if given a numeric value.  Above, trim()
+* seems to force the result into a string.
+pal	s1 = str
+pall	s1 len(1) . ch =	:f(ptest)
+	s2 = ch s2		:(pall)
+ptest	ident(str,s2)		:f(freturn)s(return)
+
+end
