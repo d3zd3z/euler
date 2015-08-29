@@ -44,6 +44,6 @@ revnum.loop
 	n = n / 10					:(revnum.loop)
 
 * Determine if the given number is a palindrome
-pal	ident(num,revnum(num))	:f(freturn)s(return)
+pal	eq(num,revnum(num))	:f(freturn)s(return)
 
 end
