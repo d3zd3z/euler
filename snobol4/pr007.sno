@@ -1,0 +1,57 @@
+* Problem 7
+*
+* 28 December 2001
+*
+* By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see
+* that the 6th prime is 13.
+*
+* What is the 10 001st prime number?
+*
+* 104743
+
+	define('show.sieve(sieve)i')
+
+* A prime sieve of size 'size'
+	sieve.size = 120000
+	sieve = array(sieve.size, 1)
+	sieve[1] = 0
+
+	p = 2
+sieve.oloop
+	gt(p,sieve.size)		:s(donegen)
+	eq(sieve[p],0)			:s(inner.done)
+	n = p + p
+sieve.iloop
+	gt(n,sieve.size)		:s(inner.done)
+	sieve[n] = 0
+	n = n + p			:(sieve.iloop)
+inner.done
+	p = eq(p,2) 3			:s(sieve.oloop)
+	p = p + 2			:(sieve.oloop)
+
+donegen
+* Find the 10,001st prime.
+	count = 1
+	p = 2
+find.loop
+	eq(count,10001)			:s(solved)
+
+	p = eq(p,2) 3			:s(not.two)
+	p = p + 2
+not.two
+
+	eq(sieve[p],0)			:s(find.loop)
+	count = count + 1		:(find.loop)
+
+solved
+	output = p
+
+	:(end)
+
+show.sieve
+	i = 1
+loop
+	output = i '=' sieve[i]		:f(return)
+	i = i + 1			:(loop)
+
+end
