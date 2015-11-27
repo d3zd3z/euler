@@ -56,3 +56,11 @@ type Permuter<'t when 't : comparison> (start : 't array) =
 
 let stringPermute (text : string) =
     new Permuter<char> (text.ToCharArray ())
+
+let expt b power =
+    let rec loop result b power =
+        if power = 0 then result else
+            let result = if (power &&& 1) <> 0 then result * b else result
+            let b = b * b
+            loop result b (power >>> 1)
+    loop 1 b power

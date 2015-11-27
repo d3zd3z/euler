@@ -13,3 +13,5 @@ type Permuter<'t when 't : comparison> =
     interface IEnumerable<'t array>
 
 val stringPermute : text:string -> Permuter<char>
+
+val expt : int -> int -> int

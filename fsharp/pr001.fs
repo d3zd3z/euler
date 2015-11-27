@@ -10,10 +10,16 @@
 //
 // 233168
 
+module Pr001
+
 let mult n = n % 5 = 0 || n % 3 = 0
 
 let pr1 () =
   let fnums = seq { for i in 1 .. 999 do if mult i then yield i }
   Seq.fold (+) 0 fnums
 
-printfn "%A" (pr1 ())
+let run () = printfn "%A" (pr1 ())
+
+#if COMPILED
+run ()
+#endif
