@@ -2,8 +2,11 @@
 
 SRC = $(wildcard *.swift)
 
+SWIFTC = swiftc
+SWIFT_FLAGS = -O
+
 euler: $(SRC)
-	swiftc -o $@ $(SRC)
+	$(SWIFTC) $(SWIFT_FLAGS) -o $@ $(SRC)
 
 clean:
 	rm -f euler
