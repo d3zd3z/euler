@@ -26,6 +26,7 @@ func genProblems() -> [Int: () -> String] {
     result[9] = runIt(pr009)
     result[10] = runIt(pr010)
     result[11] = runIt(pr011)
+    result[12] = runIt(pr012)
     return result
 }
 let problems: [Int: () -> String] = genProblems()
