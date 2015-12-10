@@ -30,6 +30,7 @@ func genProblems() -> [Int: () -> String] {
     result[13] = runIt(pr013)
     result[14] = runIt(pr014)
     result[15] = runIt(pr015)
+    result[16] = runIt(pr016)
     return result
 }
 let problems: [Int: () -> String] = genProblems()
