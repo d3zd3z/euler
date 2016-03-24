@@ -28,7 +28,7 @@ fn pr047() -> usize {
     let mut sieve = Sieve::new();
 
     let mut count = 0;
-    for i in (2..) {
+    for i in 2.. {
         let factors = sieve.factorize(i);
         if factors.len() == EXPECT {
             count += 1;

@@ -103,7 +103,7 @@ impl Iterator for NumberSequence {
 // iterators return increasing sequences, returns the elements that are the
 // same from both.
 
-struct Sames<'a, T> {
+struct Sames<'a, T> where T: 'a {
     aiter: &'a mut Iterator<Item=T>,
     biter: &'a mut Iterator<Item=T>,
     acur: Option<T>,
