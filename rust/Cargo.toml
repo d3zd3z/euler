@@ -5,11 +5,12 @@ authors = ["David Brown <davidb@davidb.org>"]
 build = "build.rs"
 
 [dependencies]
-num = "*"
-rand = "*"
+num = "0.1.31"
+rand = "0.3.14"
+itertools = "0.4.11"
 
 [build-dependencies]
-regex = "*"
+regex = "0.1.58"
 
 [[bin]]
 name = "euler"
