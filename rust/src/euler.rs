@@ -4,6 +4,7 @@
 // #![cfg_attr(test, feature(test))]
 
 // extern crate collections;
+extern crate itertools;
 extern crate num;
 extern crate rand;
 

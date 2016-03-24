@@ -93,3 +93,30 @@ fn test_isqrt() {
     assert!(isqrt(65535u64 * 65535 - 1) == 65534);
     assert!(isqrt(65535u64 * 65535 + 1) == 65535);
 }
+
+// Get the individual digits of the number.  The result is reversed, since
+// that is faster, and often quite useful in that form.
+pub fn digits_of_rev(mut number: u64) -> Vec<u8> {
+    let mut result = vec![];
+
+    while number > 0 {
+        result.push((number % 10) as u8);
+        number /= 10;
+    }
+
+    if result.len() == 0 {
+        result.push(0);
+    }
+
+    result
+}
+
+// Convert a vector of digits back to a number.
+pub fn of_digits(digits: &[u8]) -> u64 {
+    let mut result = 0;
+
+    for &digit in digits {
+        result = result * 10 + digit as u64;
+    }
+    result
+}
