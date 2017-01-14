@@ -6,6 +6,8 @@ import re
 # Generate the src/run/problems.go file based on the available
 # problems.
 
+base = 'github.com/d3zd3z/euler/go'
+
 package_re = re.compile(r'^package ([a-zA-Z0-9]+)$')
 
 def main():
@@ -35,7 +37,7 @@ def main():
         print('import (', file=out)
 
         for p in packages:
-            print('\t"{}"'.format(p), file=out)
+            print('\t"{}/{}"'.format(base, p), file=out)
         print(')', file=out)
         print('', file=out)
 
