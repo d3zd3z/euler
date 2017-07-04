@@ -22,6 +22,9 @@
 #
 # 16695334890
 
+using Primes
+using Combinatorics
+
 const divisors = primes(17)
 
 function undigits{T<:Integer}(a::Vector{T})

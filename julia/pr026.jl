@@ -24,6 +24,8 @@
 #
 # 983
 
+using Primes
+
 # Solve the discrete log problem.
 # k for 10^k = 1 (mod n)
 # For a composite number, the length will merely be the longest length

@@ -67,4 +67,4 @@ function solve()
    count
 end
 
-# println(solve())
+println(solve())

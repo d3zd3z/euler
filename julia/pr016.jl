@@ -17,6 +17,7 @@ function digitsum(n)
 end
 
 function solve()
+    digitsum(BigInt(2)^1000)
 end
 
 println(solve())

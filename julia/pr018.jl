@@ -30,7 +30,7 @@ type Row
    elts :: Array{Int64, 1}
 end
 
-problem = flipud([
+problem = flipdim([
    Row([75]),
    Row([95, 64]),
    Row([17, 47, 82]),
@@ -46,7 +46,7 @@ problem = flipud([
    Row([91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48]),
    Row([63, 66, 04, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31]),
    Row([04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23])
-   ])
+   ], 1)
 
 function combine{T}(a :: Vector{T}, b :: Vector{T})
    result = Array(T, length(b))

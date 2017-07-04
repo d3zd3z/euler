@@ -35,7 +35,7 @@ end
 
 function solve()
    count = 0
-   s = bigint"1" + 1//2
+   s = BigInt(1) + 1//2
    for i = 1:999
       s = 1//(s+1) + 1
       if digit_count(num(s)) > digit_count(den(s))

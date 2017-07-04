@@ -14,12 +14,14 @@
 # This is actually a bit of a well known property of the expansion of
 # 1/7.  But, it is interesting to solve by searching, anyway.
 
+using Primes
+
 # We'll use the same trick as problem 49 to compute a 'number' value
 # describing the bag of digits present.
 early_primes = primes(29)
 
 function number_value(num)
-   result = int64(1)
+   result = Int64(1)
    while num > 0
       result *= early_primes[1 + mod(num, 10)]
       num = div(num, 10)

@@ -15,6 +15,10 @@
 #
 # HINT: Some products can be obtained in more than one way so be sure to
 # only include it once in your sum.
+#
+# 45228
+
+using Combinatorics
 
 # Extract digits out of the number.
 function ofdigits(digits)
@@ -40,10 +44,10 @@ end
 
 function solve()
    rset = Set{Int64}()
-   for perm in permutations(Int8[1:9])
+   for perm in permutations([Int8(i) for i in 1:9])
       make_groupings!(rset, perm)
    end
    sum(rset)
 end
 
-# println(solve())
+println(solve())

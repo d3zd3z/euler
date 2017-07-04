@@ -27,6 +27,8 @@
 #
 # 76576500
 
+using Primes
+
 function divisorcount(n)
    result = 1
    for (b, power) in factor(n)

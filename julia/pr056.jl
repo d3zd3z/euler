@@ -15,7 +15,7 @@
 function digit_sum(n)
    result = 0
    while n > 0
-      result += int(mod(n, 10))
+      result += mod(n, 10)
       n = div(n, 10)
    end
    result

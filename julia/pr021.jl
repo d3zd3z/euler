@@ -18,6 +18,8 @@
 
 # TODO: This can be done by building a sieve directly of the divisors.
 
+using Primes
+
 function spread(facts)
    len = length(facts)
    if len == 0
@@ -26,7 +28,7 @@ function spread(facts)
       prime, power = facts[1]
       rest = spread(facts[2:end])
 
-      vec(rest * (prime .^ [0:power]'))
+      vec(rest * (prime .^ (0:power)'))
       #result = []
       #p = 1
       #for x = 0:power

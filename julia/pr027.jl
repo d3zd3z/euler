@@ -29,6 +29,8 @@
 #
 # -59231
 
+using Primes
+
 function prime_count(a, b)
    n = 0
    while true

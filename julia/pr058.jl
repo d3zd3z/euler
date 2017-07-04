@@ -25,6 +25,8 @@
 #
 # 26241
 
+using Primes
+
 function solve()
    primes = 0
    non_primes = 1

@@ -12,6 +12,8 @@
 #
 # 840
 
+import Base: *
+
 # Triangle support.
 immutable Triple{T}
    nums :: Array{T, 1}
@@ -80,7 +82,7 @@ using DataStructures
 function solve()
    ac = counter(Int64)
    for (tri, circ) in @task generate_triples(1000)
-      add!(ac, circ)
+      push!(ac, circ)
    end
 
    # Find which circumference has the largest number of solutions.

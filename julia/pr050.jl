@@ -18,6 +18,8 @@
 #
 # 997651
 
+using Primes
+
 function solve()
    cap = 1000000
 

@@ -35,7 +35,7 @@ end
 
 function solve()
    block = open("../haskell/words.txt") do fd
-      readall(fd)
+      readstring(fd)
    end
    words = split(block, ',')
    map!(x->strip(x, '"'), words)

@@ -18,7 +18,8 @@
 # To find a circular prime, we need to be able to go through all
 # rotations of a number.
 
-import Base.start, Base.done, Base.next
+using Primes
+import Base: start, done, next
 
 immutable Rotator{T}
    num :: T

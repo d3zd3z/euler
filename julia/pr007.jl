@@ -10,6 +10,8 @@
 #
 # 104743
 
+using Primes
+
 function solve()
    size = 1000
    p = []

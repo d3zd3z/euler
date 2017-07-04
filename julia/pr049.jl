@@ -17,6 +17,9 @@
 #
 # 296962999629
 
+using Primes
+using Combinatorics
+
 # The first 10 primes are used to track the non-permutatable value of
 # a number.
 early_primes = primes(29)
@@ -26,7 +29,7 @@ early_primes = primes(29)
 # It does this by multiplying in primes for each digit, using the
 # first 10 primes for the digits 0-9.
 function number_value(num)
-   result = int64(1)
+   result = Int64(1)
    while num > 0
       result *= early_primes[1 + mod(num, 10)]
       num = div(num, 10)
@@ -69,7 +72,7 @@ function solve()
    @assert length(solutions) == 1
 
    result = solutions[1]
-   int64(result[1]) * 10^8 + result[2] * 10^4 + result[3]
+   Int64(result[1]) * 10^8 + result[2] * 10^4 + result[3]
 end
 
 println(solve())

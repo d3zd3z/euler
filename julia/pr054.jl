@@ -69,7 +69,7 @@ immutable Card
    value :: Int8
    suit  :: Char
 
-   function Card(text :: String)
+   function Card(text :: AbstractString)
       if length(text) != 2
          error("Invalid card: Expecting 2 characters")
       end
@@ -79,7 +79,7 @@ end
 
 # Ranks.
 RoyalFlush, StraightFlush, FourOfAKind, FullHouse, Flush,
-    Straight, ThreeOfAKind, TwoPairs, OnePair, HighCard = [1:10]
+    Straight, ThreeOfAKind, TwoPairs, OnePair, HighCard = 1:10
 
 # Each test takes a hand, sorted by value in descending order, and
 # returns either 'nothing', indicating that the hand doesn't match, or
@@ -259,7 +259,7 @@ function winner(a, b)
     error("No clear winner")
 end
 
-typealias HandInfo (Int, Card, Vector{Card})
+typealias HandInfo(Int, Card, Vector{Card})
 
 # Utility, map the cards.  For testing.
 # It's also interesting that the highest 4 hand rankings are not
@@ -284,7 +284,7 @@ function cards_decode(text)
 end
 
 function load_cards()
-   result = (Vector{Card}, Vector{Card})[]
+   result = Vector{Tuple{Vector{Card}, Vector{Card}}}()
    open("../haskell/poker.txt") do fd
       for line in eachline(fd)
          line = chomp(line)

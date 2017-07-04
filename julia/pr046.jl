@@ -20,6 +20,8 @@
 #
 # 5777
 
+using Primes
+
 pcache = primes(1024)
 function cachedprimes(n)
    global pcache

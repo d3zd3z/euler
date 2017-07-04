@@ -20,6 +20,8 @@
 #
 # 134043
 
+using Primes
+
 const expect = 4
 function solve()
    count = 0

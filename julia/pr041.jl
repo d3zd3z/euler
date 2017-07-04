@@ -11,6 +11,8 @@
 #
 # 7652413
 
+using Primes
+
 function is_pandigital(num)
    digits = zeros(Int64, 10)
    count = 0

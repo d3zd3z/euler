@@ -29,6 +29,9 @@
 # possibility of not hitting a multiple of 3 is is a multiple of 3
 # digits.  We'll start by just doing groups of 3.
 
+using Primes
+using Combinatorics
+
 # Build a number out of the given string, substituting all of the
 # digits in 'places' with 'replacement'.
 function build(text, places, replacement)

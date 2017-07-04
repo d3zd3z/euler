@@ -15,6 +15,8 @@
 #
 # 748317
 
+using Primes
+
 # Given a list of numbers, return a list of the numbers that are still
 # prime when a single digit as appended to the right.
 function add_primes{T}(numbers::Vector{T})

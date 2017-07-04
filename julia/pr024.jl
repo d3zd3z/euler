@@ -15,12 +15,14 @@
 #
 # 2783915460
 
+using Combinatorics
+
 function solve()
    count = 0
    for perm in permutations("0123456789")
       count += 1
       if count == 1_000_000
-         return perm
+         return string(perm...)
       end
    end
 end

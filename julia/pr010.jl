@@ -9,6 +9,8 @@
 #
 # 142913828922
 
+using Primes
+
 function solve()
    p = primes(2_000_000)
    sum(p)

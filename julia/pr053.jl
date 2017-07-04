@@ -32,7 +32,7 @@ immutable SatNorm
 end
 immutable Overflow
 end
-Saturated = Union(SatNorm, Overflow)
+Saturated = Union{SatNorm, Overflow}
 
 zero(::Type{Saturated}) = SatNorm(0)
 one(::Type{Saturated}) = SatNorm(1)
