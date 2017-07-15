@@ -36,34 +36,34 @@
 :- import_module int.
 :- import_module list.
 :- import_module string.
-:- import_module sieve.
 
 main(!IO) :-
-    Sieve = new_sieve(1024),
-    solve(1, 1, Sieve, _, Answer),
+    solve(1, 1, Answer),
     io.print(Answer, !IO),
     io.nl(!IO).
 
-:- pred solve(int::in, int::in, sieve::in, sieve::out, int::out) is det.
-solve(N, Tri, !S, Result) :-
-    divisor_count(Tri, !S, Count),
+:- pred solve(int::in, int::in, int::out) is det.
+solve(N, Tri, Result) :-
+    trace [ io(!IO), compile_time(grade(debug)) ] (
+        io.format("solve N=%d, Tri=%d\n", [i(N), i(Tri)], !IO)
+    ),
+    divisor_count(Tri, Count),
     % trace [io(!IO)] (io.format("solve N:%d Tri:%d, Count:%d\n", [i(N), i(Tri), i(Count)], !IO)),
     ( if Count > 500 then
         Result = Tri
     else
         N2 = N + 1,
-        solve(N2, Tri + N2, !S, Result)
+        solve(N2, Tri + N2, Result)
     ).
 
 % Given a prime sieve, count the number of positive divisors of the number 'N'.
 % Returns a new sieve, because the sieve may need to be grown.
-:- pred divisor_count(int::in, sieve::in, sieve::out, int::out) is det.
-divisor_count(N, !S, Result) :-
-    ensure_size(N+1, !S),
-    Result = dcloop(!.S, N, 2, 1).
+:- pred divisor_count(int::in, int::out) is det.
+divisor_count(N, Result) :-
+    Result = dcloop(N, 2, 1).
 
-:- func dcloop(sieve, int, int, int) = int.
-dcloop(S, N, P, Work) = Res :-
+:- func dcloop(int, int, int) = int.
+dcloop(N, P, Work) = Res :-
     % trace [io(!IO)] (io.format("dcloop N:%d P:%d Work:%d\n", [i(N), i(P), i(Work)], !IO)),
     ( if N = 1 then
         Res = Work
@@ -71,15 +71,18 @@ dcloop(S, N, P, Work) = Res :-
         {N2, Count} = multi_divide(N, P, 0),
         % The extra complexity to keep the primes from running past 'N'.
         ( if N2 > 1 then
-            P2 = next_prime(S, P),
-            Res = dcloop(S, N2, P2, Work * (Count + 1))
+            P2 = next(P),
+            Res = dcloop(N2, P2, Work * (Count + 1))
         else
             Res = Work * (Count + 1)
         )
     else
-        P2 = next_prime(S, P),
-        Res = dcloop(S, N, P2, Work)
+        P2 = next(P),
+        Res = dcloop(N, P2, Work)
     ).
+
+:- func next(int) = int.
+next(N) = (if N = 2 then 3 else N + 2).
 
 :- func multi_divide(int, int, int) = {int, int}.
 multi_divide(N, P, Count) = Result :-
