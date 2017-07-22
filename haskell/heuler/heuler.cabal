@@ -22,9 +22,11 @@ library
   other-modules:
         Euler.Problem,
         Euler.Primes,
+        Euler.Nums,
         Euler.Pr001,
         Euler.Pr002,
-        Euler.Pr003
+        Euler.Pr003,
+        Euler.Pr004
 
 executable heuler
   hs-source-dirs:      app
