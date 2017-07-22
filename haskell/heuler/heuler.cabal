@@ -26,7 +26,8 @@ library
         Euler.Pr001,
         Euler.Pr002,
         Euler.Pr003,
-        Euler.Pr004
+        Euler.Pr004,
+        Euler.Pr005
 
 executable heuler
   hs-source-dirs:      app
