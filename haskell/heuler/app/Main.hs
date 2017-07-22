@@ -7,7 +7,7 @@ import Text.Read (readMaybe)
 import qualified Data.IntMap as M
 import Data.IntMap (IntMap)
 
-import Lib
+import Euler
 
 main :: IO ()
 main = do
