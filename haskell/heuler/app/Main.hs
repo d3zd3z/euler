@@ -5,7 +5,6 @@ import System.Environment (getArgs)
 import System.IO (hFlush, stdout)
 import Text.Read (readMaybe)
 import qualified Data.IntMap as M
-import Data.IntMap (IntMap)
 
 import Euler
 
@@ -13,7 +12,7 @@ main :: IO ()
 main = do
    args <- getArgs
    case decode args of
-      Left problems -> mapM_ runOne problems
+      Left prob -> mapM_ runOne prob
       Right message -> putStrLn $ "error: " ++ message
 
 allProblems :: [Int]
