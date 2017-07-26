@@ -2,7 +2,11 @@
 -- Various utilities associated with prime numbers.
 
 module Euler.Primes (
-   lazyPrimes
+   lazyPrimes,
+   divisors,
+   primes2,
+   fprimes,
+   Sieve, initial, nextPrime
 ) where
 
 import Data.List (group, foldl')

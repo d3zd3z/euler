@@ -5,8 +5,8 @@
 module Euler.Pr008 (pr008) where
 
 import Euler.Problem
-import Data.Char (digitToInt)
-import Data.List (tails)
+-- import Data.Char (digitToInt)
+-- import Data.List (tails)
 
 pr008 :: Problem
 pr008 = Problem { prNumber = 8, prOp = return largest, prCorrect = 40824 }
