@@ -58,7 +58,7 @@ fn get_problems() -> Vec<u32> {
         match re.captures(name) {
             None => continue,
             Some(cap) => {
-                let num: u32 = cap.at(1).unwrap().parse().unwrap();
+                let num: u32 = cap.get(1).unwrap().as_str().parse().unwrap();
                 result.push(num);
             },
         }

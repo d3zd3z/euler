@@ -1,16 +1,20 @@
 [project]
 name = "euler"
-version = "0.0.1"
+version = "0.1.0"
 authors = ["David Brown <davidb@davidb.org>"]
 build = "build.rs"
 
 [dependencies]
-num = "0.1.31"
-rand = "0.3.14"
-itertools = "0.4.11"
+num = "0.2"
+
+# Using 0.5 because 0.6 seems to not be building due to a missing call
+# in libc.
+rand = "0.5.0"
+itertools = "0.8"
 
 [build-dependencies]
-regex = "0.1.58"
+regex = "1.1.6"
 
 [[bin]]
 name = "euler"
+path = "src/euler.rs"

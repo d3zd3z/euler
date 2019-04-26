@@ -34,7 +34,7 @@ fn pr049() -> u64 {
         }
 
         let perms = all_permutations(base);
-        for sel in perms.iter().cloned().combinations_n(3) {
+        for sel in perms.iter().cloned().combinations(3) {
             if is_valid(&mut primes, &sel) {
                 return sel[0] * 1_0000_0000 + sel[1] * 1_0000 + sel[2];
             }
