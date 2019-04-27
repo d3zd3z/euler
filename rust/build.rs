@@ -8,8 +8,6 @@ use std::path::Path;
 
 use regex::Regex;
 
-extern crate regex;
-
 fn main() {
     let odir = env::var("OUT_DIR").unwrap();
     let cwd = env::current_dir().unwrap().to_str().unwrap().to_owned();

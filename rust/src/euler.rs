@@ -3,11 +3,6 @@
 // Testing is unstable, so bring it in when testing.
 // #![cfg_attr(test, feature(test))]
 
-// extern crate collections;
-extern crate itertools;
-extern crate num;
-extern crate rand;
-
 #[cfg(not_test)]
 extern crate test;
 
@@ -33,7 +28,7 @@ pub trait Problem {
 }
 
 struct Problems {
-    probs: HashMap<usize, Box<Problem + 'static>>
+    probs: HashMap<usize, Box<dyn Problem + 'static>>
 }
 
 impl Problems {
