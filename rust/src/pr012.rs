@@ -27,7 +27,7 @@
 //
 // 76576500
 
-use sieve::Sieve;
+use crate::sieve::Sieve;
 
 define_problem!(pr012, 12, 76576500);
 

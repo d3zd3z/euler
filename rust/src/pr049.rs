@@ -15,9 +15,9 @@
 // sequence?
 
 use itertools::Itertools;
-use misc;
-use permute;
-use sieve::Sieve;
+use crate::misc;
+use crate::permute;
+use crate::sieve::Sieve;
 
 define_problem!(pr049, 49, 296962999629);
 

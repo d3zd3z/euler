@@ -28,8 +28,8 @@
 // values of n, starting with n = 0.
 // -59231
 
-use sieve;
-use sieve::Sieve;
+use crate::sieve;
+use crate::sieve::Sieve;
 
 define_problem!(pr027, 27, -59231);
 

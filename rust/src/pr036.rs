@@ -14,7 +14,7 @@
 //
 // 872187
 
-use misc;
+use crate::misc;
 
 define_problem!(pr036, 36, 872187);
 

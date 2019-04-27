@@ -11,7 +11,7 @@
 
 // extern mod extra;
 
-use sieve::Sieve;
+use crate::sieve::Sieve;
 
 define_problem!(pr007, 7, 104743);
 

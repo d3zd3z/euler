@@ -20,7 +20,7 @@
 //
 // Find the sum of all 0 to 9 pandigital numbers with this property.
 
-use permute::next_permutation;
+use crate::permute::next_permutation;
 
 define_problem!(pr043, 43, 16695334890);
 

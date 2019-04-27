@@ -21,7 +21,7 @@ use std::cmp;
 use std::fs;
 use std::path::Path;
 use std::io::prelude::*;
-use misc::decode_words;
+use crate::misc::decode_words;
 
 define_problem!(pr022, 22, 871198282);
 

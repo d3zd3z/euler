@@ -12,7 +12,7 @@
 //
 // 840
 
-use triangle;
+use crate::triangle;
 use std::collections::HashMap;
 use std::collections::hash_map::Entry::{Occupied, Vacant};
 

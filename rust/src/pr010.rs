@@ -8,7 +8,7 @@
 //
 // 142913828922
 
-use sieve::Sieve;
+use crate::sieve::Sieve;
 
 define_problem!(main, 10, 142913828922);
 

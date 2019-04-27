@@ -16,7 +16,7 @@
 // least one 7 digit pandigital prime, it will be larger than any
 // smaller pandigital primes.
 
-use sieve::Sieve;
+use crate::sieve::Sieve;
 
 define_problem!(pr041, 41, 7652413);
 

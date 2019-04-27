@@ -22,7 +22,7 @@
 use std::fs::File;
 use std::path::Path;
 use std::io::prelude::*;
-use misc::{decode_words, isqrt};
+use crate::misc::{decode_words, isqrt};
 
 define_problem!(pr042, 42, 162);
 

@@ -18,8 +18,8 @@
 // What is the smallest odd composite that cannot be written as the sum of a
 // prime and twice a square?
 
-use misc;
-use sieve::Sieve;
+use crate::misc;
+use crate::sieve::Sieve;
 
 define_problem!(pr046, 46, 5777);
 

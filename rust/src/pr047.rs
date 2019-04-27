@@ -18,7 +18,7 @@
 // Find the first four consecutive integers to have four distinct primes
 // factors. What is the first of these numbers?
 
-use sieve::Sieve;
+use crate::sieve::Sieve;
 
 define_problem!(pr047, 47, 134043);
 

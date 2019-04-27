@@ -101,7 +101,7 @@ mod imp {
 
 #[cfg(test)]
 mod test {
-    use super::{exp_mod, is_prime};
+    use super::{is_prime};
     // use super::*;
 
     #[test]

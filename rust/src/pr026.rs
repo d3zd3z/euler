@@ -24,7 +24,7 @@
 //
 // 983
 
-use sieve::Sieve;
+use crate::sieve::Sieve;
 
 define_problem!(pr026, 26, 983);
 

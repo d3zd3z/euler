@@ -21,8 +21,8 @@
 // 9183
 
 use std::collections::HashSet;
-use sieve::Sieve;
-use sieve::Factor;
+use crate::sieve::Sieve;
+use crate::sieve::Factor;
 
 define_problem!(pr029, 29, 9183);
 

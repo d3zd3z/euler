@@ -15,7 +15,7 @@
 // and difference is pentagonal and D = |P[k] − P[j]| is minimised; what is
 // the value of D?
 
-use misc::isqrt;
+use crate::misc::isqrt;
 
 define_problem!(pr044, 44, 5482660);
 

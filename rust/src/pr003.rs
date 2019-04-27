@@ -8,7 +8,7 @@
 //
 // 6857
 
-use sieve::Sieve;
+use crate::sieve::Sieve;
 
 define_problem!(pr003, 3, 6857);
 

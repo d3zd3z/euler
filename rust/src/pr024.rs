@@ -17,7 +17,7 @@
 
 // TODO: With rust 0.5, this produces the wrong result.
 
-use permute;
+use crate::permute;
 
 define_problem!(pr024, 24, 2783915460);
 

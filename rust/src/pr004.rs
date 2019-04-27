@@ -7,7 +7,7 @@
 //
 // Find the largest palindrome made from the product of two 3-digit numbers.
 
-use misc;
+use crate::misc;
 
 define_problem!(pr004, 4, 906609);
 

@@ -13,7 +13,7 @@
 //
 // 55
 
-use sieve::Sieve;
+use crate::sieve::Sieve;
 
 define_problem!(pr035, 35, 55);
 

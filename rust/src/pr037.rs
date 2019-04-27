@@ -15,8 +15,8 @@
 //
 // 748317
 
-use miller;
-use misc;
+use crate::miller;
+use crate::misc;
 
 define_problem!(pr037, 37, 748317);
 

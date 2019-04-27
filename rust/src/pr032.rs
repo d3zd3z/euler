@@ -19,7 +19,7 @@
 // 45228
 
 use std::collections::HashSet;
-use permute;
+use crate::permute;
 
 define_problem!(pr032, 32, 45228);
 
