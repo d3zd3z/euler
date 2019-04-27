@@ -27,6 +27,7 @@ github_username:  d3zd3z
 # Build settings
 markdown: kramdown
 # theme: minima
+# theme: jekyll-theme-cayman
 theme: jekyll-theme-modernist
 plugins:
   - jekyll-feed
