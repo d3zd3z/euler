@@ -11,12 +11,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defpackage #:pr010
-  (:use #:cl #:iterate #:euler.sieve)
+  (:use #:cl #:iterate #:euler.big-sieve)
   (:export #:euler-10))
 (in-package #:pr010)
 
 (defun euler-10 ()
   (iter (with sieve = (make-sieve))
-	(for p = (sieve-next sieve))
+	(for p first 2 then (next-prime sieve p))
+	(until (>= p 2000000))
+	(sum p)))
+
+;;; Alternate implementation using the other euler-sieve
+#+(or)
+(defun euler-10b ()
+  (iter (with sieve = (euler.sieve:make-sieve))
+	(for p = (euler.sieve:sieve-next sieve))
 	(until (>= p 2000000))
 	(sum p)))
