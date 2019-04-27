@@ -49,7 +49,7 @@ problem = flipdim([
    ], 1)
 
 function combine{T}(a :: Vector{T}, b :: Vector{T})
-   result = Array(T, length(b))
+   result = Array{T}(length(b))
    for i = 1:endof(b)
       result[i] = b[i] + max(a[i], a[i+1])
    end

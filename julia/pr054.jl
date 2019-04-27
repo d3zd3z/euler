@@ -259,7 +259,8 @@ function winner(a, b)
     error("No clear winner")
 end
 
-typealias HandInfo(Int, Card, Vector{Card})
+# typealias HandInfo(Int, Card, Vector{Card})
+const Handinfo = (Int, Card, Vector{Card})
 
 # Utility, map the cards.  For testing.
 # It's also interesting that the highest 4 hand rankings are not

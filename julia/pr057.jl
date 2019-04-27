@@ -38,7 +38,7 @@ function solve()
    s = BigInt(1) + 1//2
    for i = 1:999
       s = 1//(s+1) + 1
-      if digit_count(num(s)) > digit_count(den(s))
+      if digit_count(numerator(s)) > digit_count(denominator(s))
          count += 1
       end
    end
