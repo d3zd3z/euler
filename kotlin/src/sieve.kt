@@ -50,6 +50,50 @@ class Sieve: Iterable<Int> {
         }
     }
 
+    // When factoring, a Factor represents a factor of the number,
+    // along with the power.
+    data class Factor(val prime: Int, val power: Int)
+
+    // Straightforward factorization.
+    fun factorize(n: Int): ArrayList<Factor> {
+        val result = ArrayList<Factor>()
+
+        var tmp = n
+        var prime = 2
+        var count = 0
+
+        while (tmp > 1) {
+            if (tmp % prime == 0) {
+                tmp /= prime
+                count++
+            } else {
+                if (count > 0) {
+                    result.add(Factor(prime, count))
+                    count = 0
+                }
+
+                if (tmp > 1) {
+                    prime = nextPrime(prime)
+                }
+            }
+        }
+
+        if (count > 0) {
+            result.add(Factor(prime, count))
+        }
+
+        return result
+    }
+
+    // Return all divisors of a given number
+    fun divisors(n: Int): ArrayList<Int> {
+        val factors = factorize(n)
+        val result = ArrayList<Int>()
+        spread(factors, result)
+        result.sort()
+        return result
+    }
+
     private fun fill() {
         vec[0] = false
         vec[1] = false
@@ -71,6 +115,28 @@ class Sieve: Iterable<Int> {
                 } else {
                     pos += 2
                 }
+            }
+        }
+    }
+}
+
+// Spread out the result of these factors.  The 'start' value is the
+// first factor to be considered.
+private fun spread(factors: ArrayList<Sieve.Factor>, result: ArrayList<Int>, start: Int = 0) {
+    if (start >= factors.size) {
+        result.add(1)
+    } else {
+        val rest = ArrayList<Int>()
+        val x = factors[start]
+        spread(factors, rest, start + 1)
+
+        var power = 1
+        for (i in 0 .. x.power) {
+            for (elt in rest) {
+                result.add(elt * power)
+            }
+            if (i < power) {
+                power *= x.prime
             }
         }
     }

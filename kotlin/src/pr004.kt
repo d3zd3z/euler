@@ -35,7 +35,8 @@ class Pr004: EulerSolution<Int>() {
     }
 
     override fun solve() = (100 .. 999)
-        .flatMap { a -> (a .. 999).map { b -> a * b } }
-        .filter({ isPalindrome(it) })
+        .asSequence()
+        .flatMap { a -> (a .. 999).asSequence().map { b -> a * b } }
+        .filter { isPalindrome(it) }
         .max()!!
 }

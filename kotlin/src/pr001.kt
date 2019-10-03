@@ -14,15 +14,13 @@ package org.davidb.euler
 //////////////////////////////////////////////////////////////////////
 
 class Pr001: EulerSolution<Int>() {
-    override fun solve(): Int {
+    override fun solve() = (1..999).filter { it % 3 == 0 || it % 5 == 0 }.sum()
         // var total = 0
         // for (i in 1..999) {
         //     if (i % 3 == 0 || i % 5 == 0) {
         //         total += i
         //     }
         // }
-        return (1..999).filter { it % 3 == 0 || it % 5 == 0 }.sum()
-    }
 
     override val answer = 233168
     override val num = 1

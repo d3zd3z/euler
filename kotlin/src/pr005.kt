@@ -26,9 +26,7 @@ class Pr005: EulerSolution<Int>() {
         }
     }
 
-    private fun lcm(a: Int, b: Int): Int {
-        return a * (b / gcd(a, b))
-    }
+    private fun lcm(a: Int, b: Int) = a * (b / gcd(a, b))
 
     override fun solve() = (1 .. 20).reduce { a, b -> lcm(a, b) }
 }
