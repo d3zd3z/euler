@@ -10,7 +10,7 @@
 ;;;
 ;;; 232792560
 
-(use srfi-1)
+(import srfi-1)
 
 (define (euler-5)
   (fold lcm 1 (iota 20 1)))

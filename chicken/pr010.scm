@@ -11,8 +11,6 @@
 ;;; Note that the result is larger than a 32-bit number.  The primes
 ;;; are not, though.
 
-(require-extension numbers)
-
 (declare (uses sieve))
 (import sieve)
 (define (euler-10)
@@ -23,5 +21,5 @@
       sum
       (loop (next-prime s p) (+ sum p)))))
 
-(display (euler-10))
+(display (time (euler-10)))
 (newline)

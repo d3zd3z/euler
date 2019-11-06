@@ -11,7 +11,7 @@
 ;;;
 ;;; 137846528820
 
-(require-extension numbers)
+;(require-extension numbers)
 
 (define (base n)
   (make-vector (add1 n) 1))

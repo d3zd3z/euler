@@ -33,7 +33,7 @@
 ;;;
 ;;; 70600674
 
-(use srfi-1)
+(import srfi-1)
 
 (define grid
   '#(

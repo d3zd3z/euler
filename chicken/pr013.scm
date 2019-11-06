@@ -10,8 +10,7 @@
 ;;; Chicken by default doesn't use a reader capable of reading these
 ;;; large numbers, so convert from strings.
 
-(require-extension numbers)
-(use srfi-1)
+(import srfi-1)
 
 (define the-numbers
   (map string->number

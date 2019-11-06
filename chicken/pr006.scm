@@ -18,7 +18,7 @@
 ;;;
 ;;; 25164150
 
-(use srfi-1)
+(import srfi-1)
 
 (define (solve limit)
   (define (sqsum a b)

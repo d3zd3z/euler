@@ -11,7 +11,7 @@
 ;;; The starting number is larger than 31 bits, so for portability,
 ;;; use the bignum extensions.
 
-(require-extension numbers)
+; (import numbers)
 
 (define start-number (string->number "600851475143"))
 

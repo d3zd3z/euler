@@ -12,8 +12,6 @@
 ;;;
 ;;; 648
 
-(require-extension numbers)
-
 ;;; TOOD: Move this into "euler" module.
 (define (digit-sum number)
   (let loop ((number number)

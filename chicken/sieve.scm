@@ -5,12 +5,10 @@
 ;;; TODO: Figure out how to build this if we make it as a module.
 ;;; Right now, we'll just use the top-level namespace.
 
-(use srfi-17)
-
 (declare (unit sieve))
 
 (module sieve (prime? next-prime make-sieve)
-  (import scheme chicken)
+  (import scheme (chicken base))
   (define-record %sieve (setter size) (setter data))
 
   (define (advance n)

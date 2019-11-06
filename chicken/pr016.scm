@@ -8,8 +8,6 @@
 ;;;
 ;;; 1366
 
-(require-extension numbers)
-
 (define (sum-digits n)
   (let loop ((n n)
              (total 0))
