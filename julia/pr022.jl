@@ -37,7 +37,7 @@ end
 function solve()
    names = get_names()
    total = 0
-   for i = 1:endof(names)
+   for i = 1:lastindex(names)
       total += i * name_value(names[i])
    end
    total

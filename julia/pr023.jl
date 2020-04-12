@@ -46,13 +46,13 @@ function make_abundants(limit)
 end
 
 function solve()
-   notadd = IntSet()
+   notadd = BitSet()
    limit = 28124
    abundants = make_abundants(limit)
 
-   for ai = 1:endof(abundants)
+   for ai = 1:lastindex(abundants)
       a = abundants[ai]
-      for bi = ai:endof(abundants)
+      for bi = ai:lastindex(abundants)
          sum = a + abundants[bi]
          if sum > limit
             break

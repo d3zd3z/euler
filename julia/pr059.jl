@@ -35,7 +35,7 @@
 function decode(key)
     key = map(UInt8, collect(key))
     key = collect(Iterators.take(Iterators.cycle(key), length(ciphertext)))
-    convert(String, xor.(ciphertext, key))
+    transcode(String, xor.(ciphertext, key))
 end
 
 # Make sure every character is printable.
@@ -48,7 +48,7 @@ function solve()
         text = decode(key)
         # It seems to be sufficient to find a key where the entire
         # text is printable, and contains "and" and "the".
-        if printable(text) && contains(text, "and") && contains(text, "the")
+        if printable(text) && occursin("and", text) && occursin("the", text)
             # println("key = $(convert(String, key))")
             result = text
             break
