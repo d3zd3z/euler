@@ -17,18 +17,19 @@ let concatnum a b =
   let digits = Misc.number_of_digits b in
   (Misc.expt 10 digits) * a + b
 
-let goodpair sv a b =
-  Sieve.is_prime sv (concatnum a b) &&
-    Sieve.is_prime sv (concatnum b a)
+let cache = ref Int.Map.empty
+let cached_is_prime n =
+  match Int.Map.find !cache n with
+    | None ->
+        let is = Misc.MillerRabin.is_prime_int n in
+        cache := Int.Map.add_exn !cache ~key:n ~data:is;
+        is
+    | Some is -> is
 
-(* This search builds up mappings of pairs, and looks for chains
- * through that map having at least the given length.  This search
- * works, although it needs quite a bit of memory (>2GB), and seems
- * not very efficient.
- * TODO: Can we do better than this?  As a reference, the haskell
- * implementation runs in about 2.5 seconds, and seems to use about
- * 15mb of RAM.  This version takes 8.7 seconds, and uses 2.4GB of
- * RAM. *)
+let goodpair a b =
+  cached_is_prime (concatnum a b) &&
+    cached_is_prime (concatnum b a)
+
 module Searcher = struct
   type t = {
     sieve : Sieve.t;
@@ -60,7 +61,7 @@ module Searcher = struct
   let add_prime t =
     let prime = Sieve.next_prime t.sieve t.prime in
     let groups = List.concat_map t.groups ~f:(fun gr ->
-      if List.for_all gr ~f:(fun p -> goodpair t.sieve prime p) then
+      if List.for_all gr ~f:(fun p -> goodpair prime p) then
         [(prime :: gr); gr]
       else
         [gr]) in
@@ -78,7 +79,7 @@ let solve () =
   let sv = Sieve.create () in
   let rec loop sr =
     let sr = Searcher.add_prime sr in
-    (* Searcher.print_info sr; *)
+    (*Searcher.print_info sr; *)
     match Searcher.scan sr 5 with
       | Some answer -> answer
       | None -> loop sr in
