@@ -64,6 +64,13 @@ module Searcher = struct
     pairto = Int.Map.empty;
   }
 
+  let print_info t =
+    let primes = List.length t.primes in
+    let pairs = Int.Map.data t.pairto in
+    let pairs = List.map pairs ~f:Int.Set.length in
+    let pairs = List.fold pairs ~init:0 ~f:(+) in
+    printf "Searcher %d primes, %d pairs\n%!" primes pairs
+
   let add_prime t =
     let primes, pairs = next_pairs t.sieve t.primes in
     let add_pair m a b =
@@ -71,8 +78,7 @@ module Searcher = struct
         | None -> Some (Int.Set.singleton b)
         | Some s -> Some (Int.Set.add s b)) in
     let pairto = List.fold ~init:t.pairto pairs ~f:(fun m (a, b) ->
-      let m = add_pair m a b in
-      add_pair m b a) in
+      add_pair m a b) in
     { t with primes; pairto }
 
   (* Search the current data, looking for a chain of length 'len'. *)
@@ -110,6 +116,7 @@ let solve () =
   let sv = Sieve.create () in
   let rec loop sr =
     let sr = Searcher.add_prime sr in
+    (* Searcher.print_info sr; *)
     match Searcher.scan sr 5 with
       | Some answer -> answer
       | None -> loop sr in
