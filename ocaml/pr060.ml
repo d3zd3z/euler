@@ -17,7 +17,7 @@ let concatnum a b =
   let digits = Misc.number_of_digits b in
   (Misc.expt 10 digits) * a + b
 
-module Searcher = struct
+module SimpleSearcher = struct
   type t = {
     sieve : Sieve.t;
     cache : bool Int.Map.t ref;
@@ -73,6 +73,96 @@ module Searcher = struct
       | [g] -> Some g
       | [] -> None
       | _ -> failwith "Found multiple groups, need to select smallest"
+end
+
+(* A much more complicated search that stores the pairs instead of
+ * just the groups.  It uses less memory than the primality cache of
+ * the SimpleSearcher, but the search code is much more complex. *)
+module Searcher = struct
+  let goodpair a b =
+    Misc.MillerRabin.is_prime_int (concatnum a b) &&
+    Misc.MillerRabin.is_prime_int (concatnum b a)
+
+  (* Given a list of primes (descending order), add the next prime, and
+   * produce a list of prime pairs with that new prime.  Returns the new
+   * prime list, and a list of the pairs that are valid according to the
+   * rules. *)
+  let next_pairs sv = function
+    | [] -> (2, [2], [])
+    | (a::_) as aa ->
+        let n = Sieve.next_prime sv a in
+        let pairs = List.filter_map aa ~f:(fun p ->
+          if goodpair n p then Some p else None) in
+        (n, n :: aa, pairs)
+
+  type t = {
+    sieve : Sieve.t;
+    primes : int list;
+    pairto : Int.Set.t Int.Map.t;
+  }
+
+  type intlist = int list [@@deriving show]
+  type pairlist = (int * int list) list [@@deriving show]
+
+  let show t =
+    let pairto = Int.Map.map t.pairto ~f:Int.Set.to_list in
+    let pairto = Int.Map.to_alist pairto in
+    sprintf "{ primes = %s; pairto = %s }"
+      (show_intlist t.primes)
+      (show_pairlist pairto)
+
+  let init sieve = {
+    sieve;
+    primes = [];
+    pairto = Int.Map.empty;
+  }
+
+  let print_info t =
+    let primes = List.length t.primes in
+    let pairs = Int.Map.data t.pairto in
+    let pairs = List.map pairs ~f:Int.Set.length in
+    let pairs = List.fold pairs ~init:0 ~f:(+) in
+    printf "Searcher %d primes, %d pairs\n%!" primes pairs
+
+  let add_prime t =
+    let new_prime, primes, pairs = next_pairs t.sieve t.primes in
+    let add_pair m a b =
+      Int.Map.change m a ~f:(function
+        | None -> Some (Int.Set.singleton b)
+        | Some s -> Some (Int.Set.add s b)) in
+    let pairto = List.fold ~init:t.pairto pairs ~f:(fun m a ->
+      add_pair m a new_prime) in
+    { t with primes; pairto }
+
+  (* Search the current data, looking for a chain of length 'len'. *)
+  exception Scan_result of int list
+  let scan t len =
+    let rec subscan seen to_check =
+      if Int.Set.length seen = len then
+        raise (Scan_result (Int.Set.to_list seen))
+      else
+        let rec loop = function
+          | [] -> ()
+          | (p2 :: rest) ->
+              (* Ensure that p2 references all of the others. *)
+              let p2_set =
+                match Int.Map.find t.pairto p2 with
+                  | None -> Int.Set.empty
+                  | Some x -> x in
+              if Int.Set.for_all seen ~f:(fun x -> Int.Set.mem p2_set x) then
+                subscan (Int.Set.add seen p2) rest;
+              loop rest
+        in loop to_check
+    in
+    match t.primes with
+      | [] -> failwith "Cannot scan without primes"
+      | (n :: rest) ->
+          let start_set = Int.Set.singleton n in
+          subscan start_set rest
+
+  let scan t len =
+    try (scan t len; None) with
+      | Scan_result x -> Some x
 end
 
 let solve () =
