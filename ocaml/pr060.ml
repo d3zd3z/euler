@@ -17,22 +17,10 @@ let concatnum a b =
   let digits = Misc.number_of_digits b in
   (Misc.expt 10 digits) * a + b
 
-let cache = ref Int.Map.empty
-let cached_is_prime n =
-  match Int.Map.find !cache n with
-    | None ->
-        let is = Misc.MillerRabin.is_prime_int n in
-        cache := Int.Map.add_exn !cache ~key:n ~data:is;
-        is
-    | Some is -> is
-
-let goodpair a b =
-  cached_is_prime (concatnum a b) &&
-    cached_is_prime (concatnum b a)
-
 module Searcher = struct
   type t = {
     sieve : Sieve.t;
+    cache : bool Int.Map.t ref;
     prime : int;
     groups : int list list;
   }
@@ -47,9 +35,21 @@ module Searcher = struct
 
   let init sieve = {
     sieve;
+    cache = ref Int.Map.empty;
     prime = 2;
     groups = [[]; [2]];
   }
+
+  let is_prime t n =
+    match Int.Map.find !(t.cache) n with
+      | None ->
+          let is = Misc.MillerRabin.is_prime_int n in
+          t.cache := Int.Map.add_exn !(t.cache) ~key:n ~data:is;
+          is
+      | Some is -> is
+
+  let goodpair t a b =
+    is_prime t (concatnum a b) && is_prime t (concatnum b a)
 
   let print_info t =
     let groups = List.map t.groups ~f:List.length in
@@ -61,7 +61,7 @@ module Searcher = struct
   let add_prime t =
     let prime = Sieve.next_prime t.sieve t.prime in
     let groups = List.concat_map t.groups ~f:(fun gr ->
-      if List.for_all gr ~f:(fun p -> goodpair prime p) then
+      if List.for_all gr ~f:(fun p -> goodpair t prime p) then
         [(prime :: gr); gr]
       else
         [gr]) in
