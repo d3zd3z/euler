@@ -22,7 +22,7 @@
  * 171
  *)
 
-open! Core.Std
+open Core
 
 let old_euler19 () =
   let count = ref 0 in
@@ -49,7 +49,7 @@ let euler19 () =
   for year = 1901 to 2000 do
     for month = 1 to 12 do
       let dt = Date.create_exn ~y:year ~m:(Month.of_int_exn month) ~d:1 in
-      if Date.day_of_week dt = Day_of_week.Sun then
+      if Day_of_week.(Date.day_of_week dt = Day_of_week.Sun) then
         count := !count + 1
     done
   done;

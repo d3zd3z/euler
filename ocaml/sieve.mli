@@ -1,6 +1,6 @@
 (* Numeric sieve, based on Core *)
 
-open! Core.Std
+open Core
 
 (* Pure, immutable primes. *)
 module type S = sig

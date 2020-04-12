@@ -19,13 +19,13 @@
  * 871198282
  *)
 
-open! Core.Std
+open Core
 
 let get_names path =
   match In_channel.read_lines path with
     | [names] ->
 	let names = String.split names ~on:',' in
-	List.map ~f:(String.strip ~drop:(fun ch -> ch = '\"')) names
+	List.map ~f:(String.strip ~drop:(fun ch -> Char.(ch = '"'))) names
     | _ -> failwith "Unexpected names list"
 
 let letter_A = Char.to_int 'A'
@@ -39,7 +39,7 @@ let name_value name =
 
 let euler22 () =
   let names = get_names "../haskell/names.txt" in
-  let names = List.sort ~cmp:compare names in
+  let names = List.sort ~compare:String.compare names in
   let values = List.map ~f:name_value names in
   let v = List.mapi ~f:(fun index value -> (index + 1) * value) values in
   (* List.fold ~init:0 ~f:(+) v *)

@@ -13,19 +13,19 @@
  * 7652413
  *)
 
-open! Core.Std
+open Core
 
 let run () =
-  let base = String.copy "1234567" in
+  let base = Bytes.of_string "1234567" in
   let sieve = Sieve.create () in
   let rec loop perm largest =
     match perm with
 	None -> largest
       | Some perm ->
-	let num = int_of_string perm in
+	let num = Int.of_string (Bytes.to_string perm) in
 	let next =
 	  try Some (Misc.bytes_next_permutation perm)
-	  with Not_found -> None in
+	  with Misc.Last_permutation -> None in
 	if Sieve.is_prime sieve num && num > largest then
 	  loop next num
 	else

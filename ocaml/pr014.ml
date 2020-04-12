@@ -28,7 +28,7 @@
  * 837799
  **********************************************************************)
 
-open Core.Std
+open Core
 
 let even n = (n land 1) = 0
 
@@ -82,7 +82,7 @@ module Map_cache : CHAIN = struct
           | None ->
               let answer = if even n then chain_len (n/2)
                 else chain_len (3*n + 1) in
-              known := IM.add ~key:n ~data:answer !known;
+              known := IM.add_exn ~key:n ~data:answer !known;
               answer
 end
 

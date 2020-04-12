@@ -18,7 +18,7 @@
  * 1533776805
  *)
 
-open! Core.Std
+open Core
 
 let solve () =
   let rec loop pn hn pentagonal hexagonal =

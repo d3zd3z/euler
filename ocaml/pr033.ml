@@ -22,7 +22,7 @@
  * 100
  *)
 
-open! Core.Std
+open Core
 
 let is_frac a b =
   let an = a / 10 in

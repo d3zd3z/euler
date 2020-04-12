@@ -18,7 +18,7 @@
  * 5482660
  *)
 
-open! Core.Std
+open Core
 
 let nth_pentagonal n =
   (n * (n * 3 - 1)) / 2

@@ -27,7 +27,7 @@
  * 983
  *)
 
-open! Core.Std
+open Core
 
 (*
 let one = num_of_int 1

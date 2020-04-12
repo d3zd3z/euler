@@ -38,7 +38,7 @@
  * 107359
  *)
 
-open! Core.Std
+open Core
 
 let cipher = [|
    79; 59; 12; 2; 79; 35; 8; 28; 20; 2; 3; 68; 8; 9; 68; 45; 0; 12; 9;
@@ -130,7 +130,7 @@ let solve () =
     for b = Char.to_int 'a' to Char.to_int 'z' do
       for c = Char.to_int 'a' to Char.to_int 'z' do
         let buf = decode [|a; b; c|] in
-        if String.Search_pattern.index search ~in_:buf <> None
+        if Option.is_some (String.Search_pattern.index search ~in_:buf)
         then
           Result.save res buf
       done

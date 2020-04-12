@@ -56,11 +56,11 @@
  * 376
  *)
 
-open! Core.Std
+open Core
 
 module Card :
   sig
-    type t = { value : int; suit : char } with sexp
+    type t = { value : int; suit : char } [@@deriving sexp]
     val of_string : string -> t
     val to_string : t -> string
     val decode_hands : string -> (t list * t list)
@@ -69,10 +69,10 @@ module Card :
     let names = [| '2'; '3'; '4'; '5'; '6'; '7'; '8'; '9'; 'T'; 'J'; 'Q'; 'K'; 'A' |]
     let name_value =
       let map = Array.foldi names ~init:Int.Map.empty
-        ~f:(fun i m s -> Int.Map.add m ~key:(Char.to_int s) ~data:i) in
+        ~f:(fun i m s -> Int.Map.add_exn m ~key:(Char.to_int s) ~data:i) in
       fun k -> Int.Map.find_exn map (Char.to_int k)
 
-    type t = { value : int; suit : char }
+    type t = { value : int; suit : char } [@@deriving ord]
 
     let sexp_of_t { value; suit } =
       Sexp.List [Sexp.List [Sexp.Atom "value"; Sexp.Atom (String.of_char names.(value))];
@@ -93,8 +93,8 @@ module Card :
       let cards = List.map cards ~f:of_string in
       let p1, p2 = List.split_n cards 5 in
       let swcomp a b = compare b a in  (* TODO: Non poly compare *)
-      let p1 = List.sort ~cmp:swcomp p1 in
-      let p2 = List.sort ~cmp:swcomp p2 in
+      let p1 = List.sort ~compare:swcomp p1 in
+      let p2 = List.sort ~compare:swcomp p2 in
       (p1, p2)
 
     let hand_to_string hand =
@@ -104,7 +104,7 @@ module Card :
 
 module Rank :
   sig
-    type rank
+    type rank [@@deriving ord]
     val rank_of : Card.t list -> rank
     val get_nums : Card.t list -> int list
   end = struct
@@ -122,12 +122,12 @@ module Rank :
       | FourOfAKind of int list
       | StraightFlush of int list
       | RoyalFlush of int list
-      with sexp
+      [@@deriving sexp, ord]
 
     let same_suit = function
       | [] -> failwith "empty"
       | ({ Card.suit = suit; _ } :: ar) ->
-          List.for_all ar ~f:(fun { Card.suit = suitb; _ } -> suit = suitb)
+          List.for_all ar ~f:(fun { Card.suit = suitb; _ } -> Char.(suit = suitb))
 
     let rec decreasing = function
       | [] -> true
@@ -220,6 +220,9 @@ module Rank :
   end
   (* So, it's wrong, but nifty *)
 
+(* Type for comparing rank *)
+type rankint = (Rank.rank * int list) [@@deriving ord]
+
 let solve () =
   let lines = In_channel.read_lines "../haskell/poker.txt" in
   (* let lines = In_channel.read_lines "tpoker.txt" in *)
@@ -235,7 +238,7 @@ let solve () =
       (Rank.rank_of p2 |> Rank.sexp_of_rank |> Sexp.to_string)
       (compare r1 r2);
     *)
-    (r1, Rank.get_nums p1) > (r2, Rank.get_nums p2)) in
+    compare_rankint (r1, Rank.get_nums p1) (r2, Rank.get_nums p2) > 0) in
     printf "%d\n" wins
 
 let run () =

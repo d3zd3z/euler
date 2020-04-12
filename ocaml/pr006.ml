@@ -21,7 +21,7 @@
  * 25164150
  **********************************************************************)
 
-open! Core.Std
+open Core
 
 let solve' count =
   let nums = List.init count ~f:(fun x -> x + 1) in

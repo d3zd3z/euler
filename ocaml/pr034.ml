@@ -14,7 +14,7 @@
  * 40730
  *)
 
-open! Core.Std
+open Core
 
 let factorial =
   let facts = Array.create ~len:10 1 in

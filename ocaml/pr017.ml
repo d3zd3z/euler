@@ -19,7 +19,7 @@
  * 21124
  *)
 
-open! Core.Std
+open Core
 
 (* Blort *)
 let one_names = [|

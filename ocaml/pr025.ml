@@ -31,7 +31,7 @@
  * 4782
  *)
 
-open! Core.Std
+open Core
 open Num
 
 let euler25 () =

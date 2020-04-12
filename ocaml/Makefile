@@ -1,10 +1,12 @@
-all: euler.byte
-native: euler.native
+all: _build/default/euler.exe
 
-euler.%: FORCE
-	ocamlbuild -j 16 $@
+run: all
+	./_build/default/euler.exe all
 
-.PHONY: FORCE
+.PHONY: all run FORCE
+
+_build/default/euler.exe: FORCE
+	dune build
 
 clean:
-	ocamlbuild -clean
+	dune clean

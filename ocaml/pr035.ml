@@ -14,7 +14,7 @@
  * 55
  *)
 
-open! Core.Std
+open Core
 
 let number_of_digits num =
   let rec loop count num =

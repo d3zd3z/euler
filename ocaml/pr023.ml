@@ -26,7 +26,7 @@
  * 4179871
  *)
 
-open! Core.Std
+open Core
 
 (*
 module S = Set.IntSet

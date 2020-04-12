@@ -14,7 +14,7 @@
  * 648
  *)
 
-open! Core.Std
+open Core
 open Num
 
 let fact n =

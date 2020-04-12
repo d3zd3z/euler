@@ -13,7 +13,7 @@
  * 232792560
  **********************************************************************)
 
-open! Core.Std
+open Core
 module S = Sequence
 
 let rec gcd a b =

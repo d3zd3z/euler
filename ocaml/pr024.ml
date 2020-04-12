@@ -18,12 +18,12 @@
  * 2783915460
  *)
 
-open! Core.Std
+open Core
 
 let euler24 () =
   let rec loop text count =
     if count = 1_000_000 then text
     else loop (Misc.bytes_next_permutation text) (count+1) in
-  loop (String.copy "0123456789") 1
+  loop (Bytes.of_string "0123456789") 1
 
-let run () = printf "%s\n" (euler24 ())
+let run () = printf "%s\n" (Bytes.to_string (euler24 ()))

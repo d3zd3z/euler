@@ -19,7 +19,7 @@
  * 296962999629
  *)
 
-open! Core.Std
+open Core
 
 (* The first 10 primes. *)
 let early_primes =
@@ -57,7 +57,7 @@ let gen_primes () =
 let value_group nums =
   let add m num =
     let value = number_value num in
-    Int.Map.change m value (function
+    Int.Map.change m value ~f:(function
       | None -> Some [num]
       | Some l -> Some (num :: l)) in
   List.fold nums ~init:Int.Map.empty ~f:add

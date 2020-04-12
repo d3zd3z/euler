@@ -29,7 +29,7 @@
  * 76576500
  **********************************************************************)
 
-open! Core.Std
+open Core
 
 let euler12 () =
   let sieve = Sieve.create () in

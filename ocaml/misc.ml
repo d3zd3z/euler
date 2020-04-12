@@ -1,6 +1,8 @@
 (* Core based utilities. *)
 
-open! Core.Std
+open Core
+
+exception Last_permutation
 
 (* A general vector type. *)
 module type VEC = sig
@@ -49,7 +51,7 @@ module Make_permuter (Vec : VEC) (Cmp : CMP with type t = Vec.elt) : PERM with t
       if Cmp.compare text.(x) text.(x+1) < 0 then
         k := x
     done;
-    if !k < 0 then raise Not_found;
+    if !k < 0 then raise Last_permutation;
     let l = ref (-1) in
     for x = !k+1 to len-1 do
       if Cmp.compare text.(!k) text.(x) < 0 then
@@ -60,7 +62,13 @@ module Make_permuter (Vec : VEC) (Cmp : CMP with type t = Vec.elt) : PERM with t
     text
 end
 
-module Bytes_permuter = Make_permuter (String) (Char)
+(* Bytes doesn't define elt, so make that so. *)
+module Bytes = struct
+  include Bytes
+  type elt = char
+end
+
+module Bytes_permuter = Make_permuter (Bytes) (Char)
 
 let bytes_next_permutation = Bytes_permuter.next_permutation
 

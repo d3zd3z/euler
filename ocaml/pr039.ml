@@ -14,12 +14,12 @@
  * 840
  *)
 
-open! Core.Std
+open Core
 
 let all_triples limit =
   let result = ref Int.Map.empty in
   let add _triple p =
-    result := Int.Map.change !result p (function
+    result := Int.Map.change !result p ~f:(function
       | None -> Some 1
       | Some x -> Some (x + 1)) in
   Triangle.generate_triples limit add;

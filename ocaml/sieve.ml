@@ -14,7 +14,7 @@
 
    The sieve is in a functor over a general numeric type. *)
 
-open! Core.Std
+open Core
 
 module type S = sig
   type elt
@@ -46,7 +46,7 @@ module Make (Num : Int_intf.S) = struct
     let ch = function
       | None -> Some { next = next; steps = [step] }
       | Some node -> Some { next = next; steps = step :: node.steps } in
-    EltMap.change nexts next ch
+    EltMap.change nexts next ~f:ch
 
   (* Take the given 'next' node, remove it from the map, and advance
    * it''s divisor values. *)
@@ -163,7 +163,7 @@ let rec spread = function
           (pow * prime) (i + 1) in
       loop [] 1 0
 
-let divisors sieve n = List.sort ~cmp:compare (spread (factorize sieve n))
+let divisors sieve n = List.sort ~compare:compare (spread (factorize sieve n))
 
 let proper_divisor_sum sieve n =
   (List.fold ~init:0 ~f:(+) (divisors sieve n)) - n

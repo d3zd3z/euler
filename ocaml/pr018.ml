@@ -42,7 +42,7 @@
  * 67: 7273
  *)
 
-open! Core.Std
+open Core
 
 let source = List.rev [
   [75];

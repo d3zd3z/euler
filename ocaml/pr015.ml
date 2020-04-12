@@ -14,7 +14,7 @@
  * 137846528820
  **********************************************************************)
 
-open! Core.Std
+open Core
 
 (* Answer needs to be in an int64 so that the result fits. *)
 

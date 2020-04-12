@@ -22,7 +22,7 @@
  * 5777
  *)
 
-open! Core.Std
+open Core
 
 (* Determine if this number can be composed of a Goldbach number. *)
 let goldbach sv n =

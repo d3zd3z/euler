@@ -1,12 +1,11 @@
 (* Invoke the project euler problems. *)
 
-open! Core.Std
+open! Core
 
 let problems = Problems.problems
 
 let run (num, thunk) =
-  printf "%d: " num;
-  flush stdout;
+  printf "%d: %!" num;
   thunk ()
 
 let run_all problems =
@@ -19,7 +18,7 @@ let lookup_problems problems =
     (pnum, Int.Map.find_exn m pnum)
 
 let () =
-  let args = Array.to_list (Sys.argv) in
+  let args = Array.to_list (Sys.get_argv ()) in
   match args with
       [_; "all"] -> run_all problems
     | [_] -> failwith "Usage: ./euler all  or ./euler 2 5"

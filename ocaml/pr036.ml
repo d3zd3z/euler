@@ -16,7 +16,7 @@
  * 872187
  *)
 
-open! Core.Std
+open Core
 
 let is_palindrome ?(base=10) number =
   number = Misc.reverse_number ~base:base number

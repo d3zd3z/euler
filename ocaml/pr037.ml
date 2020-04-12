@@ -17,7 +17,7 @@
  * 748317
  *)
 
-open! Core.Std
+open Core
 
 (*
 module P = Sieve.Int64Factory
@@ -45,7 +45,7 @@ let add_primes numbers =
 let right_truncatable_primes () =
   let rec loop set result =
     (* printf "%s\n%!" (Show.show<int list> set); *)
-    if set = [] then result else begin
+    if List.is_empty set then result else begin
       loop (add_primes set) (List.append set result)
     end in
   loop [2; 3; 5; 7] []

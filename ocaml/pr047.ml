@@ -23,7 +23,7 @@
  * 134043
  *)
 
-open! Core.Std
+open Core
 
 let expect = 4
 

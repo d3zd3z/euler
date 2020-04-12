@@ -31,7 +31,7 @@
  * -59231
  *)
 
-open! Core.Std
+open Core
 
 let prime_length sieve a b =
   let rec loop n =

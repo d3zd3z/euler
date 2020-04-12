@@ -22,7 +22,7 @@
  * 162
  *)
 
-open! Core.Std
+open Core
 
 (* Read the contents of a single line file. *)
 let get_file_line path =
@@ -32,7 +32,7 @@ let get_file_line path =
 let get_words () =
   let line = get_file_line "../haskell/words.txt" in
   let names = String.split line ~on:',' in
-  List.map names ~f:(String.strip ~drop:(fun ch -> ch = '"'))
+  List.map names ~f:(String.strip ~drop:(fun ch -> Char.(ch = '"')))
 
 let name_value name =
   let chval sum ch = sum + Char.to_int ch - Char.to_int 'A' + 1 in

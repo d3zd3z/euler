@@ -2,7 +2,7 @@
 
 let repeat thunk n =
   let start = Unix.gettimeofday () in
-  for i = 1 to n do
+  for _ = 1 to n do
     thunk ()
   done;
   (Unix.gettimeofday ()) -. start

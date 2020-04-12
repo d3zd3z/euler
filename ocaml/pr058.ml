@@ -28,7 +28,7 @@
  * 26241
  *)
 
-open! Core.Std
+open Core
 
 let solve () =
   (* let sieve = Sieve.create () in *)
@@ -78,4 +78,8 @@ let solve2 () =
   loop 2 { primes = 0; non_primes = 0; size = 1 }
 
 let run () =
+  printf "%d\n" (solve ())
+  (*
+   * TODO: solve2 generates the wrong answer.
   printf "%d\n" (solve2 ())
+  *)

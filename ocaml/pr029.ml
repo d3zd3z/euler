@@ -23,7 +23,7 @@
  * 9183
  *)
 
-open! Core.Std
+open Core
 
 module CNum = struct
   type t = Num.num

@@ -22,7 +22,7 @@
  * 669171001
  *)
 
-open! Core.Std
+open Core
 
 let ring_sum n = 4*n*n - 6*n + 6
 

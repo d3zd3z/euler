@@ -21,16 +21,16 @@
  * 45228
  *)
 
-open! Core.Std
+open Core
 
 (* Return all groupings (as a list) that can be built out of this
    group of digits. *)
 let make_groupings digits =
-  let len = String.length digits in
+  let len = Bytes.length digits in
   let result = ref [] in
   for i = 1 to len-3 do
     for j = i+1 to len-1 do
-      let piece a b = int_of_string (String.sub digits ~pos:a ~len:(b-a)) in
+      let piece a b = int_of_string (Bytes.To_string.sub digits ~pos:a ~len:(b-a)) in
       let a = piece 0 i in
       let b = piece i j in
       let c = piece j len in
@@ -45,8 +45,8 @@ let euler32 () =
   let rec loop text =
     products := (make_groupings text) :: !products;
     loop (Misc.bytes_next_permutation text) in
-  (try loop (String.copy "123456789")
-   with Not_found -> ());
-  List.sum (module Int) ~f:ident (List.dedup ~compare:Int.compare (List.concat !products))
+  (try loop (Bytes.of_string "123456789")
+   with Misc.Last_permutation -> ());
+  List.sum (module Int) ~f:ident (List.dedup_and_sort ~compare:Int.compare (List.concat !products))
 
 let run () = printf "%d\n" (euler32 ())

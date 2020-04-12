@@ -20,7 +20,7 @@
  * 997651
  *)
 
-open! Core.Std
+open Core
 
 let primes_to n =
   let sieve = Sieve.create () in
@@ -36,6 +36,12 @@ let primes_to n =
 let rec left_inits f a0 = function
   | [] -> a0
   | (_::br) as ba -> left_inits f (f a0 ba) br
+
+let max_pair ((a, b) as left) ((c, d) as right) =
+  if a > c then left
+  else if a < c then right
+  else if b > d then left
+  else right
 
 let solve () =
   let limit = 1_000_000 in
@@ -56,7 +62,7 @@ let solve () =
   in
   let best_prime sofar primes =
     let pieces = primesum [] 0 0 primes in
-    List.fold pieces ~f:max ~init:sofar in
+    List.fold pieces ~f:max_pair ~init:sofar in
 
   let primes = primes_to limit in
   let (_, best) = left_inits best_prime (0,0) primes in

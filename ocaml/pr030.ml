@@ -21,7 +21,7 @@
  * 443839
  *)
 
-open! Core.Std
+open Core
 
 let expt base power =
   let rec loop result base power =

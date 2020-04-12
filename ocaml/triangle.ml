@@ -1,6 +1,6 @@
 (* Triangle utilities. *)
 
-open! Core.Std
+open Core
 
 type box = { p1 : int; p2 : int; q1 : int; q2 : int }
 
@@ -15,10 +15,10 @@ let children box =
     make_box x     y (x+y) (x*2 + y);
     make_box y     x (y+x) (y*2 + x) ]
 
-type triple = { a : int; b : int; c : int }
+type triple = { a : int; b : int; c : int } [@@deriving ord]
 type t = triple
 
-let compare = compare
+let compare = compare_triple
 
 let circumference triangle = triangle.a + triangle.b + triangle.c
 

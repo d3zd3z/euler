@@ -17,7 +17,7 @@
  * 31626
  *)
 
-open! Core.Std
+open Core
 
 let is_amicable sieve num =
   let other = Sieve.proper_divisor_sum sieve num in

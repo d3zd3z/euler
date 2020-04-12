@@ -20,7 +20,7 @@
  * describing the bag of digits present.
  *)
 
-open! Core.Std
+open Core
 
 let early_primes =
   let buf = Array.create ~len:10 0 in

@@ -13,7 +13,7 @@
 
 (* open Printf *)
 
-open! Core.Std
+open! Core
 
 let mult n = n mod 5 = 0 || n mod 3 = 0
 

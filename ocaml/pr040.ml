@@ -19,7 +19,7 @@
  * 210
  *)
 
-open! Core.Std
+open Core
 
 let digits n =
   let rec loop accum = function

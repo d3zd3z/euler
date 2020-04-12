@@ -14,7 +14,7 @@
  * 906609
  **********************************************************************)
 
-open! Core.Std
+open Core
 
 let reverse_digits number =
   let rec loop number result =

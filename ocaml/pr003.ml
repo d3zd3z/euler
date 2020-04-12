@@ -11,7 +11,7 @@
  * 6857
  **********************************************************************)
 
-open! Core.Std
+open Core
 
 let testing_dump () =
   let rec loop s count =
@@ -25,11 +25,11 @@ let testing_dump () =
 
 let factors number =
   let rec loop s number so_far =
-    if number = 1L then so_far else
+    if Int64.(number = 1L) then so_far else
       (* TODO: We recompute s' for each factor, which is inefficient
 	 for large powers. *)
       let (next, s') = Sieve.Int64Sieve.next s in
-      if Int64.rem number next = 0L then
+      if Int64.(rem number next = 0L) then
         loop s (Int64.(/) number next) (next :: so_far)
       else
 	loop s' number so_far in

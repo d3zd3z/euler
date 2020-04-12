@@ -1,6 +1,8 @@
 (* Core-based utilities for euler problems. *)
 
-open! Core.Std
+(* open Core *)
+
+exception Last_permutation
 
 (* A general vector type. *)
 module type VEC = sig
@@ -24,7 +26,7 @@ end
 
 module Make_permuter (Vec : VEC) (Cmp : CMP with type t = Vec.elt) : PERM with type t = Vec.t
 
-val bytes_next_permutation : string -> string
+val bytes_next_permutation : bytes -> bytes
 
 val expt : int -> int -> int
 val reverse_number : ?base:int -> int -> int

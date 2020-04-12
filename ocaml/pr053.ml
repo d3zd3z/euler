@@ -24,7 +24,7 @@
  * 4075
  *)
 
-open! Core.Std
+open Core
 
 (* The answer is just Pascal's triangle.  To make this easier to
  * implement, build it from a saturating arithmetic type. *)

@@ -12,7 +12,7 @@
  * 9110846700
  *)
 
-open! Core.Std
+open Core
 
 (* This should probably use explicit Int64, since the intermediate
  * result doesn't fit in a 32-bit int.  However, this constant will

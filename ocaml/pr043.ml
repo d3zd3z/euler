@@ -24,7 +24,7 @@
  * 16695334890
  *)
 
-open! Core.Std
+open Core
 
 let low_primes = [ 2; 3; 5; 7; 11; 13; 17 ]
 
@@ -33,7 +33,7 @@ let valid digits =
     match primes with
 	[] -> true
       | (p::ps) ->
-	let num = int_of_string (String.sub digits ~pos:offset ~len:3) in
+	let num = int_of_string (Bytes.To_string.sub digits ~pos:offset ~len:3) in
 	if num mod p = 0 then
 	  loop (offset + 1) ps
 	else
@@ -41,13 +41,13 @@ let valid digits =
   loop 1 low_primes
 
 let run () =
-  let base = Bytes.copy "0123456789" in
+  let base = Bytes.of_string "0123456789" in
   let next s =
     let s' = Bytes.copy s in
     try Some (s, (Misc.bytes_next_permutation s'))
-    with Not_found -> None in
+    with Misc.Last_permutation -> None in
   let numbers = Sequence.unfold ~init:base ~f:next in
   let nifty = Sequence.filteri numbers ~f:(fun _ x -> valid x) in
-  let nifty = Sequence.map nifty ~f:Int64.of_string in
+  let nifty = Sequence.map nifty ~f:(fun x -> Int64.of_string (Bytes.to_string x)) in
   let result = Sequence.sum (module Int64) nifty ~f:ident in
   printf "%Ld\n" result

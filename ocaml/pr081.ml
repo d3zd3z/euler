@@ -20,12 +20,14 @@
  * Find the minimal path sum, in matrix.txt (right click and 'Save Link
  * /Target As...'), a 31K text file containing a 80 by 80 matrix, from
  * the top left to the bottom right by only moving right and down.
+ *
+ * 427337
  *)
 
-open! Core.Std
+open Core
 
 module Node = struct
-  type t = int * int with sexp, compare
+  type t = int * int [@@deriving sexp, ord]
 end
 type node = Node.t
 
@@ -81,7 +83,7 @@ let build_graph matrix =
   let init_node = ((-1, -1), { weight = matrix.(0).(0); next = (0, 0) }) in
   let edges = List.append edge1 edge2 in
   let edges = init_node :: edges in
-  let combine map (k, v) = EM.change map k (function
+  let combine map (k, v) = EM.change map k ~f:(function
     | None -> Some [v]
     | Some x -> Some (v :: x)) in
   List.fold edges ~init: EM.empty ~f:combine
@@ -106,9 +108,9 @@ let update_cost costs unvisited cur_weight edges =
     if ES.mem unvisited edge.next then begin
       let new_cost = cur_weight + edge.weight in
       match EM.find !costs edge.next with
-	| None -> costs := EM.add !costs ~key:edge.next ~data:new_cost
+	| None -> costs := EM.add_exn !costs ~key:edge.next ~data:new_cost
 	| Some w when new_cost < w ->
-	    costs := EM.add !costs ~key:edge.next ~data:new_cost
+	    costs := EM.add_exn !costs ~key:edge.next ~data:new_cost
 	| _ -> ()
     end in
   List.iter edges ~f:visit
@@ -121,8 +123,10 @@ let bcmp (_, a) (_, b) = Int.compare a b
 let compute_unvisited graph =
   let result = ref ES.empty in
   let each ~key ~data = (ignore key; List.iter data ~f:(fun edge -> result := ES.add !result edge.next)) in
-  EM.iter graph ~f:each;
+  EM.iteri graph ~f:each;
   !result
+
+type intpair = (int * int) [@@deriving eq]
 
 let dijkstra (graph : edge_map) start final =
   let costs = ref (EM.singleton start 0) in
@@ -131,7 +135,7 @@ let dijkstra (graph : edge_map) start final =
   let rec loop (current, current_cost) =
     (* printf "Visit %s\n" (Show.show<node> current); *)
     (* printf "  unvisited: %s\n" (Show.show<node list> (List.of_enum (ES.enum !unvisited))); *)
-    if current = final then uw @@ EM.find !costs current
+    if equal_intpair current final then uw @@ EM.find !costs current
     else begin
       let edges = EM.find_exn graph current in
       (* printf "  edges: %s\n" (Show.show<edge list> edges); *)
@@ -144,7 +148,7 @@ let dijkstra (graph : edge_map) start final =
       unvisited := ES.remove !unvisited current;
 
       (* Select the lowest cost node. *)
-      let min_elt = uw @@ Sequence.min_elt (EM.to_sequence !costs) ~cmp:bcmp in
+      let min_elt = uw @@ Sequence.min_elt (EM.to_sequence !costs) ~compare:bcmp in
 
       (* And, select the lowest cost node to visit. *)
       loop min_elt

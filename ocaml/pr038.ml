@@ -25,7 +25,7 @@
  * 932718654
  *)
 
-open! Core.Std
+open Core
 
 (* Is this number a full 9-element pandigital number. *)
 let is_pandigital number =

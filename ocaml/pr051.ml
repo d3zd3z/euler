@@ -31,7 +31,7 @@
  * possibility of not hitting a multiple of 3 is a multiple of 3
  * digits.  We'll start by just doing groups of 3. *)
 
-open! Core.Std
+open Core
 
 (* Explode a number into a list of digits. *)
 let rec explode num =
