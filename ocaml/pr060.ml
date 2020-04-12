@@ -26,12 +26,12 @@ let goodpair sv a b =
  * prime list, and a list of the pairs that are valid according to the
  * rules. *)
 let next_pairs sv = function
-  | [] -> ([2], [])
+  | [] -> (2, [2], [])
   | (a::_) as aa ->
       let n = Sieve.next_prime sv a in
       let pairs = List.filter_map aa ~f:(fun p ->
-        if goodpair sv n p then Some (p, n) else None) in
-      (n :: aa, pairs)
+        if goodpair sv n p then Some p else None) in
+      (n, n :: aa, pairs)
 
 (* This search builds up mappings of pairs, and looks for chains
  * through that map having at least the given length.  This search
@@ -72,13 +72,13 @@ module Searcher = struct
     printf "Searcher %d primes, %d pairs\n%!" primes pairs
 
   let add_prime t =
-    let primes, pairs = next_pairs t.sieve t.primes in
+    let new_prime, primes, pairs = next_pairs t.sieve t.primes in
     let add_pair m a b =
       Int.Map.change m a ~f:(function
         | None -> Some (Int.Set.singleton b)
         | Some s -> Some (Int.Set.add s b)) in
-    let pairto = List.fold ~init:t.pairto pairs ~f:(fun m (a, b) ->
-      add_pair m a b) in
+    let pairto = List.fold ~init:t.pairto pairs ~f:(fun m a ->
+      add_pair m a new_prime) in
     { t with primes; pairto }
 
   (* Search the current data, looking for a chain of length 'len'. *)
