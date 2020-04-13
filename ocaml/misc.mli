@@ -37,6 +37,9 @@ module MillerRabin : sig
   val is_prime_int : ?k:int -> int -> bool
 end
 
+(* Integer-only primarlity test. Currently broken, do not use. *)
+val int_is_prime : ?k:int -> int -> bool
+
 val isqrt : int -> int
 
 (* A simple result container.  It can hold a single result, and makes sure

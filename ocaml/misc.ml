@@ -162,7 +162,7 @@ module MillerRabin = struct
     num_of_big_int (mod_big_int !base n)
 
   (* Compute one round of Miller-Rabin.  Returns true if this number
-     might be prime, or false if it is definitely not. *)
+   * might be prime, or false if it is definitely not. *)
   let mr_round n s d =
     let n_minus_one = n -/ one in
     let a = (random (n -/ three)) +/ two in
@@ -180,8 +180,8 @@ module MillerRabin = struct
       loop s
     end
 
-     (* Miller-Rabin primality test.  If returns true, probability will
-	be (1/4)^k. *)
+  (* Miller-Rabin primality test.  If returns true, probability will
+   * be (1/4)^k. *)
   let is_prime ?(k=20) n =
     let (s, d) = compute_s_d n in
     let rec loop k =
@@ -205,6 +205,68 @@ module MillerRabin = struct
 
   let is_prime_int ?(k=20) n = is_prime ~k:k (num_of_int n)
 end
+
+module IntegerMillerRabin = struct
+  let exp_mod base power modulus =
+    let rec loop result base power =
+      if power = 0 then result else begin
+        let result = if (power land 1) <> 0
+          then (result * base) mod modulus
+          else result in
+        let base = (base * base) mod modulus in
+        loop result base (power lsl 1)
+      end in
+    loop 1 base power
+
+  (* Given a number n, compute the largest 'd' such that 2^d * s = n *)
+  let compute_s_d n =
+    let n = n - 1 in
+    let rec loop bit index =
+      if (n land bit) <> 0 then (index, n lsr index)
+      else loop (bit lsl 1) (index + 1) in
+    loop 1 0
+
+  (* Generate a (not very good) random number between 0 and n-1 *)
+  let random n = Random.int n
+
+  (* Compute one round of Miller-Rabin.  Returns true if this number
+   * might be prime, or false if it is definitly not. *)
+  let mr_round n s d =
+    let n_minus_one = n - 1 in
+    let a = (random (n - 3)) + 2 in
+    let x = ref (exp_mod a d n) in
+    if !x = 1 || !x = (-1) then true
+    else begin
+      let rec loop s =
+        if s = 0 then false
+        else begin
+          x := (!x * !x) mod n;
+          if !x = 1 then false
+          else if !x = n_minus_one then true
+          else loop (s-1)
+        end in
+      loop s
+    end
+
+  (* Miller-Rabin primality test.  If returns true, probability will
+   * be (1/4)^k. *)
+  let is_prime ?(k=20) n =
+    let (s, d) = compute_s_d n in
+    let rec loop k =
+      if k = 0 then true
+      else begin
+        if mr_round n s d then loop (k-1)
+        else false
+      end in
+    loop k
+
+  let is_prime ?(k=20) n =
+    if n = 2 || n = 3 || n = 5 || n = 7 then true
+    else if n mod 2 = 0 || n mod 3 = 0 || n mod 5 = 0 || n mod 7 = 0 then false
+    else is_prime ~k n
+end
+
+let int_is_prime = IntegerMillerRabin.is_prime
 
 (* Translation of imperative solution. *)
 let isqrt num =
