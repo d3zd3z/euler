@@ -4,6 +4,24 @@
 
 exception Last_permutation
 
+(* This module contains fixes for Z and Q from zarith that provide a
+ * non-polymorphic equal, to fit better with Core. *)
+module Fix_zarith : sig
+  module Z : sig
+    include (module type of Z)
+    val (=) : Z.t -> Z.t -> bool
+    val (<>) : Z.t -> Z.t -> bool
+  end
+  with type t = Z.t
+
+  module Q : sig
+    include (module type of Q)
+    val (=) : Q.t -> Q.t -> bool
+    val (<>) : Q.t -> Q.t -> bool
+  end
+  with type t = Q.t
+end
+
 (* A general vector type. *)
 module type VEC = sig
   type t

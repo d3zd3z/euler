@@ -2,6 +2,20 @@
 
 open Core
 
+module Fix_zarith = struct
+  module Z = struct
+    include Z
+    let (=) = Z.equal
+    let (<>) a b = not (a = b)
+  end
+
+  module Q = struct
+    include Q
+    let (=) = Q.equal
+    let (<>) a b = not (a = b)
+  end
+end
+
 exception Last_permutation
 
 (* A general vector type. *)
