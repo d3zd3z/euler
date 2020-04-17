@@ -37,14 +37,14 @@ let sqrt_series s =
     (m, d, a)
   in
   let (m1, d1, a1) as first = step 0 1 a0 in
-  let rec steps m d a =
-    if d = 0 then []
+  let rec steps res m d a =
+    if d = 0 then List.rev res
     else
-      let (m, d, a) as this = step m d a in
-      if equal_triple this first then [a]
-      else a :: steps m d a
+      let (m, d, a') as this = step m d a in
+      if equal_triple this first then List.rev (a :: res)
+      else steps (a::res) m d a'
   in
-  a0 :: steps m1 d1 a1
+  a0 :: steps [] m1 d1 a1
 
 let is_even n = (n land 1) = 0
 
