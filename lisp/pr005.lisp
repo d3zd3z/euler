@@ -13,10 +13,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defpackage #:pr005
-  (:use #:cl #:iterate)
+  (:use #:cl)
   (:export #:euler-5))
 (in-package #:pr005)
 
 (defun euler-5 ()
-  (apply #'lcm (iter (for i from 1 to 20)
-		     (collect i))))
+  (apply #'lcm (loop for i from 1 to 20 collect i)))
+
+(euler/problem-set:register-problem 5 #'euler-5 232792560)

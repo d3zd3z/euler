@@ -1,0 +1,66 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+(progn ;;init forms
+  (ros:ensure-asdf)
+  #+quicklisp(ql:quickload '() :silent t)
+  )
+
+(defpackage :ros.script.main.3815159910
+  (:use :cl))
+(in-package :ros.script.main.3815159910)
+
+;; For now, just assume we're in the directory the script is in.
+;; TODO: figure out how to find the script directory and load the
+;; system from there.
+(push *default-pathname-defaults* asdf:*central-registry*)
+(asdf:load-system "euler")
+
+;; TODO: UIOP should provide some tools we can use to discover this.
+(defvar *problems*
+  '((1 . pr001:euler-1)
+    (2 . pr002:euler-2)
+    (3 . pr003:euler-3)
+    (4 . pr004:euler-4)
+    (5 . pr005:euler-5)
+    (6 . pr006:euler-6)
+    (7 . pr007:euler-7)
+    (8 . pr008:euler-8)
+    (9 . pr009:euler-9)
+    (10 . pr010:euler-10)
+    (11 . pr011:euler-11)
+    (12 . pr012:euler-12)
+    (13 . pr013:euler-13)
+    (14 . pr014:euler-14)
+    (15 . pr015:euler-15)
+    (16 . pr016:euler-16)
+    (17 . pr017:euler-17)
+    (18 . pr018:euler-18)
+    (19 . pr019:euler-19)
+    (20 . pr020:euler-20)
+    (21 . pr021:euler-21)
+    (22 . pr022:euler-22)
+    (23 . pr023:euler-23)
+    (24 . pr024:euler-24)
+    (25 . pr025:euler-25)
+    ))
+
+(defvar *time-tests* nil)
+
+(defun run-one (num fun)
+  (format t "~&~a: " num)
+  (let ((result (if *time-tests*
+                    (time (funcall fun))
+                    (funcall fun))))
+    (format t "~a~%" result)))
+
+(defun run-all ()
+  (loop for (num . fun) in *problems*
+        do (run-one num fun)))
+
+(defun main (&rest argv)
+  (declare (ignorable argv))
+  (euler/problem-set::run-all))
+;;; vim: set ft=lisp lisp:

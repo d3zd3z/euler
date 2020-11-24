@@ -47,3 +47,5 @@
 	(for index from 1)
 	(while (< (log a 10) 999))
 	(finally (return index))))
+
+(euler/problem-set:register-problem 25 #'euler-25 4782)

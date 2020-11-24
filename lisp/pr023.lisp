@@ -52,3 +52,5 @@
     (iter (for x from 1 to limit)
 	  (when (zerop (aref tagged x))
 	    (sum x)))))
+
+(euler/problem-set:register-problem 23 #'euler-23 4179871)

@@ -33,3 +33,5 @@
 
 (defun euler-15 ()
   (routes 20))
+
+(euler/problem-set:register-problem 15 #'euler-15 137846528820)

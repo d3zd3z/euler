@@ -41,3 +41,5 @@
 	(for triangle first 1 then (+ triangle i))
 	(when (> (num-divisors triangle) 500)
 	  (return-from euler-12 triangle))))
+
+(euler/problem-set:register-problem 12 #'euler-12 76576500)

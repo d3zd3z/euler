@@ -12,7 +12,7 @@
 ;; By considering the terms in the Fibonacci sequence whose values do
 ;; not exceed four million, find the sum of the even-valued terms.
 ;;
-;; 4194302
+;; 4613732
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defpackage #:pr002
@@ -22,8 +22,10 @@
 (in-package #:pr002)
 
 (defun euler-2 ()
-  (iter (for a initially 1 then b)
-	(for b initially 1 then (+ a b))
-	(while (< b 4000000))
-	(when (evenp b)
-	  (sum b))))
+  (loop
+    for a = 1 then b
+    and b = 1 then (+ a b)
+    while (< b 4000000)
+    when (evenp b) summing b))
+
+(euler/problem-set:register-problem 2 #'euler-2 4613732)

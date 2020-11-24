@@ -12,12 +12,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defpackage #:pr007
-  (:use #:cl #:iterate #:euler.sieve)
+  (:use #:cl #:euler.sieve)
   (:export #:euler-7))
 (in-package #:pr007)
 
 (defun euler-7 ()
-  (iter (with sieve = (make-sieve))
-	(for i from 1 to 10001)
-	(for p = (sieve-next sieve))
-	(finally (return p))))
+  (loop with sieve = (make-sieve)
+        for i from 1 to 10001
+        for p = (sieve-next sieve)
+        finally (return p)))
+
+(euler/problem-set:register-problem 7 #'euler-7 104743)

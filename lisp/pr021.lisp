@@ -34,3 +34,5 @@
   (iter (for i from 1 to 10000)
 	(when (amicablep i)
 	  (sum i))))
+
+(euler/problem-set:register-problem 21 #'euler-21 31626)

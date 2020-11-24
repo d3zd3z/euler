@@ -34,3 +34,5 @@
   (iter outer
 	(for year from 1901 to 2000)
 	(sum (sunday-months-in-year year))))
+
+(euler/problem-set:register-problem 19 #'euler-19 171)

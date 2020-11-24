@@ -68,3 +68,5 @@ result will have the length of A."
 
 (defun euler-18 ()
   (first (reduce #'combine-rows (reverse *triangle*))))
+
+(euler/problem-set:register-problem 18 #'euler-18 1074)

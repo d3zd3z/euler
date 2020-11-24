@@ -17,5 +17,11 @@
   (:export #:euler-20))
 (in-package #:pr020)
 
+;; Admittedly, this is probably not what they are looking for,
+;; probably assuming something more complex done, but that is
+;; unnecessary with arbitrary precision numbers.
+
 (defun euler-20 ()
   (sum-digits (factorial 100)))
+
+(euler/problem-set:register-problem 20 #'euler-20 648)

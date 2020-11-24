@@ -123,3 +123,5 @@
 	 (digits (ceiling (log total 10)))
 	 (end (floor total (expt 10 (- digits 10)))))
     end))
+
+(euler/problem-set:register-problem 13 #'euler-13 5537376230)

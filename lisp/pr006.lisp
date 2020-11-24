@@ -21,20 +21,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defpackage #:pr006
-  (:use #:cl #:iterate)
+  (:use #:cl)
   (:export #:euler-6))
 (in-package #:pr006)
 
 (defun sum-of-squares (limit)
-  (iter (for i from 1 to limit)
-	(sum (* i i))))
+  (loop for i from 1 to limit
+        sum (* i i)))
 
 (defun square-of-sums (limit)
-  (iter (for i from 1 to limit)
-	(sum i into accum)
-	(finally (return (* accum accum)))))
+  (loop for i from 1 to limit
+        sum i into accum
+        finally (return (* accum accum))))
 
 (defun euler-6 ()
   (let ((limit 100))
     (- (square-of-sums limit)
        (sum-of-squares limit))))
+
+(euler/problem-set:register-problem 6 #'euler-6 25164150)

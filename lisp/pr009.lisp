@@ -24,7 +24,7 @@
   (:export #:euler-9))
 (in-package #:pr009)
 
-(defun euler-9 ()
+(defun euler-9-iter ()
   (iter outer
 	(for a from 1 to 999)
 	(iter (for b from a to 999)
@@ -33,3 +33,14 @@
 			 (= (+ (* a a) (* b b))
 			    (* c c)))
 		(in outer (maximize (* a b c)))))))
+
+(defun euler-9 ()
+  (loop for a from 1 to 999
+        maximize (loop for b from a to 999
+                       for c = (- 1000 a b)
+                       when (and (> c b)
+                                 (= (+ (* a a) (* b b))
+                                    (* c c)))
+                       maximize (* a b c))))
+
+(euler/problem-set:register-problem 9 #'euler-9 31875000)

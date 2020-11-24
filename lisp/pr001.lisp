@@ -22,6 +22,13 @@
       (zerop (mod num 5))))
 
 (defun euler-1 ()
-  (iter (for i from 1 to 1000)
-	(when (proper i)
-	  (sum i))))
+  (loop
+    for i from 1 to 1000
+    when (proper i) summing i
+    )
+;;   (iter (for i from 1 to 1000)
+;; 	(when (proper i)
+;; 	  (sum i)))
+  )
+
+(euler/problem-set:register-problem 1 #'euler-1 234168)

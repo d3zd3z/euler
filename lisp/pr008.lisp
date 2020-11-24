@@ -31,13 +31,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defpackage #:pr008
-  (:use #:cl #:iterate #:euler.sieve)
+  (:use #:cl #:iterate)
   (:export #:euler-8))
 (in-package #:pr008)
 
 ;;; There are two ways we can solve this.  First, we will treat the
 ;;; number as a large string, and break it into nice chunks.
-(defconstant +number+
+(defvar +number+
   (concatenate 'string
 	       "73167176531330624919225119674426574742355349194934"
 	       "96983520312774506326239578318016984801869478851843"
@@ -61,31 +61,36 @@
 	       "71636269561882670428252483600823257530420752963450"))
 
 (defun multiply-digits (number)
-  "Multiple the digits of the string NUMBER, returning their produce."
-  (iter (for ch in-sequence number)
-	(multiply (- (char-code ch) (char-code #\0)))))
+  "Multiple the digits of the string NUMBER, returning their product."
+  (loop with total = 1
+        for ch across number
+        do (setf total (* total (- (char-code ch) (char-code #\0))))
+        finally (return total)))
 
 (defun euler-8a ()
-  (iter (with stop = (length +number+))
-	(for a from 0)
-	(for b = (+ a 5))
-	(until (> b stop))
-	(maximize (multiply-digits (subseq +number+ a b)))))
+  (loop with stop = (length +number+)
+        for a from 0
+        for b = (+ a 5)
+        until (> b stop)
+        maximize (multiply-digits (subseq +number+ a b))))
 
 ;;; Now do using bignums.  This is probably a lot slower.
 
 (defun digit-product (number digits)
   "Multiple the digits of NUMBER, assuming there are DIGITS digits."
-  (iter (repeat digits)
-	(for (values num den) = (truncate number 10))
-	(multiply den)
-	(setf number num)))
+  (loop with total = 1
+        repeat digits
+        for (num den) = (multiple-value-list (truncate number 10))
+        do (setf total (* total den))
+        do (setf number num)
+        finally (return total)))
 
 (defun euler-8b ()
-  (iter (repeat (- (length +number+) 5))
-	(for number first (parse-integer +number+)
-	     then (truncate number 10))
-	(maximize (digit-product (mod number 100000) 5))))
+  (loop repeat (- (length +number+) 5)
+        for number = (parse-integer +number+) then (truncate number 10)
+        maximize (digit-product (mod number 100000) 5)))
 
 (defun euler-8 ()
   (values (euler-8a) (euler-8b)))
+
+(euler/problem-set:register-problem 8 #'euler-8 40824)
