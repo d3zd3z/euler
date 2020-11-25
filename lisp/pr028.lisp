@@ -29,5 +29,4 @@
 (defun euler-28 ()
   (1+ (loop for i from 3 to 1001 by 2
             sum (ring-sum i))))
-
-(euler/problem-set:register-problem 28 #'euler-28 669171001)
+(setf (get 'euler-28 :euler-answer) 669171001)

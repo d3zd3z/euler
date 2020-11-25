@@ -37,5 +37,4 @@
 
 (defun euler-30 ()
   (count-summable 5))
-
-(euler/problem-set:register-problem 30 #'euler-30 443839)
+(setf (get 'euler-30 :euler-answer) 443839)

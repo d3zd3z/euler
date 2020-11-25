@@ -38,5 +38,4 @@
   (let ((limit 100))
     (- (square-of-sums limit)
        (sum-of-squares limit))))
-
-(euler/problem-set:register-problem 6 #'euler-6 25164150)
+(setf (get 'euler-6 :euler-answer) 25164150)

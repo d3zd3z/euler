@@ -74,5 +74,4 @@ the last permutation."
           while digits
           do (setf products (nunion products (make-groupings digits))))
     (reduce #'+ products)))
-
-(euler/problem-set:register-problem 32 #'euler-32 45228)
+(setf (get 'euler-32 :euler-answer) 45228)

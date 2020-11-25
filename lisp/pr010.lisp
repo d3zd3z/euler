@@ -28,5 +28,4 @@
 	(for p = (euler.sieve:sieve-next sieve))
 	(until (>= p 2000000))
 	(sum p)))
-
-(euler/problem-set:register-problem 10 #'euler-10 142913828922)
+(setf (get 'euler-10 :euler-answer) 142913828922)

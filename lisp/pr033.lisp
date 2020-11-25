@@ -40,5 +40,4 @@
                               when (frac-a-p a b)
                               do (setf total (* total (/ a b))))
                      finally (return total))))
-
-(euler/problem-set:register-problem 33 #'euler-33 100)
+(setf (get 'euler-33 :euler-answer) 100)

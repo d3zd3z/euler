@@ -92,5 +92,4 @@
 
 (defun euler-8 ()
   (values (euler-8a) (euler-8b)))
-
-(euler/problem-set:register-problem 8 #'euler-8 40824)
+(setf (get 'euler-8 :euler-answer) 40824)

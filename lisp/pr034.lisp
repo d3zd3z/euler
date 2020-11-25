@@ -37,5 +37,4 @@
                                  (+ fact-sum (aref facts i)))))))
       (chain 0 0))
     total))
-
-(euler/problem-set:register-problem 34 #'euler-34 40730)
+(setf (get 'euler-34 :euler-answer) 40730)

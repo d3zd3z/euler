@@ -51,5 +51,4 @@
         when (and (palindromep i 10)
                   (palindromep i 2))
         sum i))
-
-(euler/problem-set:register-problem 36 #'euler-36 872187)
+(setf (get 'euler-36 :euler-answer) 872187)

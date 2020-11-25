@@ -85,5 +85,4 @@
   (iter (repeat 1000000)
 	(for num first (copy-seq "0123456789") then (next-permutation num :less #'char<))
 	(finally (return num))))
-
-(euler/problem-set:register-problem 24 #'euler-24 "2783915460")
+(setf (get 'euler-24 :euler-answer) "2783915460")

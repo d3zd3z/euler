@@ -78,5 +78,4 @@
 (defun euler-14b ()
   (iter (for i from 1 below 1000000)
 	(finding i maximizing (chain-length2 i))))
-
-(euler/problem-set:register-problem 14 #'euler-14 837799)
+(setf (get 'euler-14 :euler-answer) 837799)

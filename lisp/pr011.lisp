@@ -86,5 +86,4 @@
 	(iter (for col from 0 below 20)
 	      (iter (for (dy . dx) in *directions*)
 		    (in outer (maximize (get-product col row dy dx)))))))
-
-(euler/problem-set:register-problem 11 #'euler-11 70600674)
+(setf (get 'euler-11 :euler-answer) 70600674)

@@ -59,5 +59,4 @@
              until (plusp r)
              do (setf number n))
     when (= number 1) return p))
-
-(euler/problem-set:register-problem 3 #'euler-3 6857)
+(setf (get 'euler-3 :euler-answer) 6857)

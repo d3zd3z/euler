@@ -35,5 +35,4 @@
   (iter (for word in (sort (get-words) #'string<))
 	(for index from 1)
 	(sum (* index (word-value word)))))
-
-(euler/problem-set:register-problem 22 #'euler-22 871198282)
+(setf (get 'euler-22 :euler-answer) 871198282)

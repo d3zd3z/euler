@@ -72,5 +72,4 @@
         maximize (loop for b from a to 999
                        for prod = (* a b)
                        when (palindromep prod) maximize prod)))
-
-(euler/problem-set:register-problem 4 #'euler-4 906609)
+(setf (get 'euler-4 :euler-answer) 906609)

@@ -78,5 +78,4 @@ function.")
 (defun euler-31 (&optional (limit 200))
   (let ((*coin-cache* (make-hash-table :test 'equal)))
     (memways limit *coins*)))
-
-(euler/problem-set:register-problem 31 #'euler-31 73682)
+(setf (get 'euler-31 :euler-answer) 73682)

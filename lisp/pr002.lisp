@@ -27,5 +27,4 @@
     and b = 1 then (+ a b)
     while (< b 4000000)
     when (evenp b) summing b))
-
-(euler/problem-set:register-problem 2 #'euler-2 4613732)
+(setf (get 'euler-2 :euler-answer) 4613732)

@@ -123,5 +123,4 @@
 	 (digits (ceiling (log total 10)))
 	 (end (floor total (expt 10 (- digits 10)))))
     end))
-
-(euler/problem-set:register-problem 13 #'euler-13 5537376230)
+(setf (get 'euler-13 :euler-answer) 5537376230)

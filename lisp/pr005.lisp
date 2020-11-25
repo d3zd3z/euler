@@ -19,5 +19,4 @@
 
 (defun euler-5 ()
   (apply #'lcm (loop for i from 1 to 20 collect i)))
-
-(euler/problem-set:register-problem 5 #'euler-5 232792560)
+(setf (get 'euler-5 :euler-answer) 232792560)

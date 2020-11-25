@@ -15,5 +15,4 @@
 
 (defun euler-16 ()
   (sum-digits (expt 2 1000)))
-
-(euler/problem-set:register-problem 16 #'euler-16 1366)
+(setf (get 'euler-16 :euler-answer) 1366)

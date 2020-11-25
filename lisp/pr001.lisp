@@ -25,5 +25,4 @@
   (loop
     for i from 1 to 1000
     when (proper i) summing i))
-
-(euler/problem-set:register-problem 1 #'euler-1 234168)
+(setf (get 'euler-1 :euler-answer) 234168)

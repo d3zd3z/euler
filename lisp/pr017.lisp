@@ -52,5 +52,4 @@ rest of the number?"
 (defun euler-17 ()
   (iter (for i from 1 to 1000)
 	(sum (textual-length i))))
-
-(euler/problem-set:register-problem 17 #'euler-17 21124)
+(setf (get 'euler-17 :euler-answer) 21124)

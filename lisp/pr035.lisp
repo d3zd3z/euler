@@ -51,5 +51,4 @@
 (defun euler-35 ()
   (loop for pbase in (primes-upto 1000000)
         count (all-prime (number-rotations pbase))))
-
-(euler/problem-set:register-problem 35 #'euler-35 55)
+(setf (get 'euler-35 :euler-answer) 55)

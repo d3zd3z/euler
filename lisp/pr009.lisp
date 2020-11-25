@@ -42,5 +42,4 @@
                                  (= (+ (* a a) (* b b))
                                     (* c c)))
                        maximize (* a b c))))
-
-(euler/problem-set:register-problem 9 #'euler-9 31875000)
+(setf (get 'euler-9 :euler-answer) 31875000)

@@ -23,5 +23,4 @@
 
 (defun euler-20 ()
   (sum-digits (factorial 100)))
-
-(euler/problem-set:register-problem 20 #'euler-20 648)
+(setf (get 'euler-20 :euler-answer) 648)

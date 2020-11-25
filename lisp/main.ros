@@ -35,11 +35,11 @@ exec ros -Q -- $0 "$@"
   (mapcar #'parse-integer args))
 
 (defun main (&rest argv)
-  (declare (ignorable argv))
+  (euler/problem-set:find-problems)
   (cond ((equalp argv '("all"))
-         (time (euler/problem-set::run-all)))
+         (time (euler/problem-set:run-all)))
         ((null argv)
          (format t "~&Usage: main {all | 1 2 3 etc}~%"))
         (t
-         (time (euler/problem-set::run-multiple (decode-args argv))))))
+         (time (euler/problem-set:run-multiple (decode-args argv))))))
 ;;; vim: set ft=lisp lisp:

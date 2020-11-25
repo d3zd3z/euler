@@ -42,5 +42,4 @@
   (loop for p in (right-truncatable-primes)
         when (and (> p 9) (left-truncatable-p p))
         sum p))
-
-(euler/problem-set:register-problem 37 #'euler-37 748317)
+(setf (get 'euler-37 :euler-answer) 748317)

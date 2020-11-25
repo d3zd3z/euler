@@ -39,5 +39,4 @@
         for p in (nthcdr 3 (primes-upto 1000))
         do (maximizer-update maxer (dlog p) p)
         finally (return (maximizer-value maxer))))
-
-(euler/problem-set:register-problem 26 #'euler-26 983)
+(setf (get 'euler-26 :euler-answer) 983)

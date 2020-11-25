@@ -21,5 +21,4 @@
         for i from 1 to 10001
         for p = (sieve-next sieve)
         finally (return p)))
-
-(euler/problem-set:register-problem 7 #'euler-7 104743)
+(setf (get 'euler-7 :euler-answer) 104743)

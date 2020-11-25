@@ -30,5 +30,4 @@
           do (loop for b from 2 to 100
                    do (setf (gethash (expt a b) table) t)))
     (hash-table-count table)))
-
-(euler/problem-set:register-problem 29 #'euler-29 9183)
+(setf (get 'euler-29 :euler-answer) 9183)
