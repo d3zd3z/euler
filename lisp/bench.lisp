@@ -4,7 +4,7 @@
   (:use #:cl #:iterate))
 (in-package #:bench)
 
-(let ((fasls (iter (for src in '("heap.lisp" "sieve.lisp" "pr10.lisp"))
+(let ((fasls (iter (for src in '("heap.lisp" "sieve.lisp" "pr023.lisp"))
 		   (format t "compiling ~S~%" src)
 		   (for (values fasl warns errors) = (compile-file src :verbose nil))
 		   (declare (ignorable warns))
@@ -16,6 +16,6 @@
 	(delete-file fasl)))
 
 (format t "Benchmark of euler10 on ~S~%" (lisp-implementation-type))
-(time (pr10:euler-10))
-(time (pr10:euler-10))
-(time (pr10:euler-10))
+(time (pr023:euler-23))
+(time (pr023:euler-23))
+(time (pr023:euler-23))
