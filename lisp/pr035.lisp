@@ -13,14 +13,14 @@
 ;;; 55
 
 (defpackage #:pr035
-  (:use #:cl #:iterate #:euler.sieve)
+  (:use #:cl #:euler.sieve)
   (:export #:euler-35))
 (in-package #:pr035)
 
 (defun number-of-digits (number)
-  (iter (while (plusp number))
-	(setf number (truncate number 10))
-	(counting t)))
+  (loop while (plusp number)
+        do (setf number (truncate number 10))
+        counting t))
 
 #|
 ;;; SBCL gives a warning that the (mod number 10) is unreachable.  It
@@ -36,11 +36,11 @@
 |#
 
 (defun number-rotations (number)
-  (iter (for right from (1- (number-of-digits number)) downto 0)
-	(for left from 0)
-	(for accum first 0 then (+ accum (* (expt 10 left) (mod n 10))))
-	(for n first number then (truncate n 10))
-	(collect (+ n (* (expt 10 right) accum)))))
+  (loop for right from (1- (number-of-digits number)) downto 0
+        for left from 0
+        for accum = 0 then (+ accum (* (expt 10 left) (mod n 10)))
+        for n = number then (truncate n 10)
+        collect (+ n (* (expt 10 right) accum))))
 
 (defun all-prime (numbers)
   (dolist (p numbers)
@@ -49,5 +49,7 @@
   t)
 
 (defun euler-35 ()
-  (iter (for pbase in (primes-upto 1000000))
-	(counting (all-prime (number-rotations pbase)))))
+  (loop for pbase in (primes-upto 1000000)
+        count (all-prime (number-rotations pbase))))
+
+(euler/problem-set:register-problem 35 #'euler-35 55)

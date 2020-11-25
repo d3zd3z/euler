@@ -44,9 +44,9 @@
   (if (null coins)
       (if (zerop remaining) 1 0)
       (let ((coin (first coins))
-	    (other-coins (rest coins)))
-	(iter (for r from remaining downto 0 by coin)
-	      (sum (rways r other-coins))))))
+            (other-coins (rest coins)))
+        (loop for r from remaining downto 0 by coin
+              sum (rways r other-coins)))))
 
 (defvar *coin-cache* (make-hash-table :test 'equal)
   "A cache of answers to memways.  The keys are the cons of the
@@ -61,8 +61,8 @@ function.")
 	  (if ok answer
 	      (let ((answer (let ((coin (first coins))
 				  (other-coins (rest coins)))
-			      (iter (for r from remaining downto 0 by coin)
-				    (sum (memways r other-coins))))))
+                              (loop for r from remaining downto 0 by coin
+                                    sum (memways r other-coins)))))
 		(setf (gethash key *coin-cache*)
 		      answer)
 		answer))))))
@@ -78,3 +78,5 @@ function.")
 (defun euler-31 (&optional (limit 200))
   (let ((*coin-cache* (make-hash-table :test 'equal)))
     (memways limit *coins*)))
+
+(euler/problem-set:register-problem 31 #'euler-31 73682)

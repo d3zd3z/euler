@@ -24,17 +24,20 @@
 ;;; 983
 
 (defpackage #:pr026
-  (:use #:cl #:iterate #:euler.sieve)
+  (:use #:cl #:iterate #:euler.sieve #:euler)
   (:export #:euler-26))
 (in-package #:pr026)
 
 (defun dlog (n)
   "Solve 10^K = 1 (mod N)."
-  (iter (for k from 1)
-	(when (= 1 (mod (expt 10 k) n))
-	  (return k))))
+  (loop for k from 1
+        when (= 1 (mod (expt 10 k) n))
+        do (return k)))
 
 (defun euler-26 ()
-  (iter
-    (for p in (nthcdr 3 (primes-upto 1000)))
-    (finding p maximizing (dlog p))))
+  (loop with maxer = (make-maximizer)
+        for p in (nthcdr 3 (primes-upto 1000))
+        do (maximizer-update maxer (dlog p) p)
+        finally (return (maximizer-value maxer))))
+
+(euler/problem-set:register-problem 26 #'euler-26 983)

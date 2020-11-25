@@ -19,13 +19,14 @@
 (in-package #:pr036)
 
 (defun reverse-number (number base)
-  (iter (with result = 0)
-	(with n = number)
-	(while (plusp n))
-	(for (values num den) = (truncate n base))
-	(setf n num)
-	(setf result (+ (* result base) den))
-	(finally (return result))))
+  (loop with result = 0
+        with n = number
+        while (plusp n)
+        for (num den) = (multiple-value-list (truncate n base))
+        do (setf n num)
+        do (setf result (+ (* result base) den))
+        finally (return result)))
+
 #|
 (defun reverse-number (number base)
   (declare (fixnum number base)
@@ -46,7 +47,9 @@
   (= number (reverse-number number base)))
 
 (defun euler-36 ()
-  (iter (for i from 1 to 999999)
-	(when (and (palindromep i 10)
-		   (palindromep i 2))
-	  (sum i))))
+  (loop for i from 1 to 999999
+        when (and (palindromep i 10)
+                  (palindromep i 2))
+        sum i))
+
+(euler/problem-set:register-problem 36 #'euler-36 872187)

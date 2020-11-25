@@ -29,10 +29,10 @@
 
 (defun reverse-subseq (array i j)
   "Reverse the elements of array from i to j (inclusive)."
-  (iter (while (< i j))
-	(swap array i j)
-	(incf i)
-	(decf j)))
+  (loop while (< i j)
+        do (swap array i j)
+        do (incf i)
+        do (decf j)))
 
 ;;; This is right out of Wikipedia for permutations of a sequence.
 (defun next-permutation (array &key (less #'<))
@@ -41,14 +41,14 @@ permutation.  Returns the array if there was one, or NIL if this is
 the last permutation."
   (let ((last (1- (length array)))
 	k l)
-    (iter (for x from 0 below last)
-	  (when (funcall less (aref array x) (aref array (1+ x)))
-	    (setf k x)))
+    (loop for x from 0 below last
+          when (funcall less (aref array x) (aref array (1+ x)))
+          do (setf k x))
     (unless k
       (return-from next-permutation nil))
-    (iter (for x from (1+ k) to last)
-	  (when (funcall less (aref array k) (aref array x))
-	    (setf l x)))
+    (loop for x from (1+ k) to last
+          when (funcall less (aref array k) (aref array x))
+          do (setf l x))
     (swap array k l)
     (reverse-subseq array (1+ k) last)
     array))
@@ -56,19 +56,23 @@ the last permutation."
 ;;; Divide a number into all of the ways of making 3 groups of at
 ;;; least one digit.
 (defun make-groupings (digits)
-  (let ((length (length digits)))
-    (iter outer
-	  (for i from 1 below (- length 2))
-	  (iter (for j from (1+ i) below (1- length))
-		(let ((a (parse-integer digits :start 0 :end i))
-		      (b (parse-integer digits :start i :end j))
-		      (c (parse-integer digits :start j)))
-		  (when (= (* a b) c)
-		    (in outer (collect c))))))))
+  (let ((len (length digits))
+        (result '()))
+    (loop for i from 1 below (- len 2)
+          do (loop for j from (1+ i) below (1- len)
+                   for a = (parse-integer digits :start 0 :end i)
+                   for b = (parse-integer digits :start i :end j)
+                   for c = (parse-integer digits :start j)
+                   when (= (* a b) c)
+                   do (setf result (cons c result))))
+    result))
 
 (defun euler-32 ()
-  (let ((products (iter (for digits first (copy-seq "123456789")
-			     then (next-permutation digits :less #'char<))
-			(while digits)
-			(nunioning (make-groupings digits)))))
+  (let ((products '()))
+    (loop for digits = (copy-seq "123456789")
+          then (next-permutation digits :less #'char<)
+          while digits
+          do (setf products (nunion products (make-groupings digits))))
     (reduce #'+ products)))
+
+(euler/problem-set:register-problem 32 #'euler-32 45228)

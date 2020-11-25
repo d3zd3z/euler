@@ -15,29 +15,32 @@
 ;;; 748317
 
 (defpackage #:pr037
-  (:use #:cl #:mr-prime #:iterate #:euler)
+  (:use #:cl #:mr-prime #:euler)
   (:export #:euler-37))
 (in-package #:pr037)
 
 (defun add-primes (numbers)
-  (iter outer
-	(for n in numbers)
-	(iter (for d in '(1 3 7 9))
-	      (for new = (+ (* 10 n) d))
-	      (when (mr-prime-p new)
-		(in outer (collect new))))))
+  (loop with result = '()
+        for n in numbers
+        do (loop for d in '(1 3 7 9)
+                 for new = (+ (* 10 n) d)
+                 when (mr-prime-p new)
+                 do (setf result (cons new result)))
+        finally (return result)))
 
 (defun right-truncatable-primes ()
-  (iter (for set first '(2 3 5 7) then (add-primes set))
-	(while set)
-	(appending set)))
+  (loop for set = '(2 3 5 7) then (add-primes set)
+        while set
+        appending set))
 
 (defun left-truncatable-p (number)
-  (iter (while (plusp number))
-	(always (and (> number 1) (mr-prime-p number)))
-	(setf number (reverse-number (truncate (reverse-number number) 10)))))
+  (loop while (plusp number)
+        always (and (> number 1) (mr-prime-p number))
+        do (setf number (reverse-number (truncate (reverse-number number) 10)))))
 
 (defun euler-37 ()
-  (iter (for p in (right-truncatable-primes))
-	(when (and (> p 9) (left-truncatable-p p))
-	  (sum p))))
+  (loop for p in (right-truncatable-primes)
+        when (and (> p 9) (left-truncatable-p p))
+        sum p))
+
+(euler/problem-set:register-problem 37 #'euler-37 748317)

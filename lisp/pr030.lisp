@@ -25,15 +25,17 @@
 
 (defun largest-number (power)
   "Calculate the largest number this could possibly be."
-  (iter (for num first 9 then (+ (* num 10) 9))
-	(for sum = (sum-digits-power num power))
-	(when (> num sum)
-	  (return sum))))
+  (loop for num = 9 then (+ (* num 10) 9)
+        for sum = (sum-digits-power num power)
+        when (> num sum)
+        return sum))
 
 (defun count-summable (power)
-  (iter (for i from 2 to (largest-number power))
-	(when (= i (sum-digits-power i power))
-	  (sum i))))
+  (loop for i from 2 to (largest-number power)
+        when (= i (sum-digits-power i power))
+        sum i))
 
 (defun euler-30 ()
   (count-summable 5))
+
+(euler/problem-set:register-problem 30 #'euler-30 443839)

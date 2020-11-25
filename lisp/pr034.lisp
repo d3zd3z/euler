@@ -12,15 +12,16 @@
 ;;; 40730
 
 (defpackage #:pr034
-  (:use #:cl #:iterate #:alexandria)
+  (:use #:cl #:alexandria)
   (:export #:euler-34))
 (in-package #:pr034)
 
 (defun factorials (n)
   "Return a vector of the factorials indexed by n, with n at the top"
-  (iter (for i from 0 to n)
-	(for fact first 1 then (* fact i))
-	(collect fact result-type (vector fixnum))))
+  (loop for i from 0 to n
+        for fact = 1 then (* fact i)
+        collect fact into result
+        finally (return (coerce result '(vector fixnum)))))
 
 (defun euler-34 ()
   (let* ((total -3)			; To eliminate 1 and 2.
@@ -31,8 +32,10 @@
 		 ;; (format t "~S~%" number)
 		 (incf total number))
 	       (when (<= (* number 10) (+ fact-sum last-fact))
-		 (iter (for i from (if (plusp number) 0 1) to 9)
-		       (chain (+ (* number 10) i)
-			      (+ fact-sum (aref facts i)))))))
+                 (loop for i from (if (plusp number) 0 1) to 9
+                       do (chain (+ (* number 10) i)
+                                 (+ fact-sum (aref facts i)))))))
       (chain 0 0))
     total))
+
+(euler/problem-set:register-problem 34 #'euler-34 40730)

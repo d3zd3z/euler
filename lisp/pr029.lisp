@@ -26,7 +26,9 @@
 
 (defun euler-29 ()
   (let ((table (make-hash-table :test #'eql)))
-    (iter (for a from 2 to 100)
-	  (iter (for b from 2 to 100)
-		(setf (gethash (expt a b) table) t)))
+    (loop for a from 2 to 100
+          do (loop for b from 2 to 100
+                   do (setf (gethash (expt a b) table) t)))
     (hash-table-count table)))
+
+(euler/problem-set:register-problem 29 #'euler-29 9183)

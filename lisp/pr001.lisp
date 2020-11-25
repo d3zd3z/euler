@@ -12,7 +12,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defpackage #:pr001
-  (:use #:cl #:iterate)
+  (:use #:cl)
   (:export #:euler-1))
 
 (in-package #:pr001)
@@ -24,11 +24,6 @@
 (defun euler-1 ()
   (loop
     for i from 1 to 1000
-    when (proper i) summing i
-    )
-;;   (iter (for i from 1 to 1000)
-;; 	(when (proper i)
-;; 	  (sum i)))
-  )
+    when (proper i) summing i))
 
 (euler/problem-set:register-problem 1 #'euler-1 234168)

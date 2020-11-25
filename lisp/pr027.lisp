@@ -44,3 +44,5 @@
 	(for a from -999 to 999)
 	(iter (for b from -999 to 999)
 	      (in outer (finding (* a b) maximizing (count-primes a b))))))
+
+(euler/problem-set:register-problem 27 #'euler-27 -59231)

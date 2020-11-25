@@ -19,7 +19,7 @@
 ;;; 100
 
 (defpackage #:pr033
-  (:use #:cl #:iterate)
+  (:use #:cl)
   (:export #:euler-33))
 (in-package #:pr033)
 
@@ -34,8 +34,11 @@
 	       (= (/ an bm) (/ a b)))))))
 
 (defun euler-33 ()
-  (denominator (iter outer
-		     (for a from 10 to 99)
-		     (iter (for b from (1+ a) to 99)
-			   (and (frac-a-p a b)
-				(in outer (multiply (/ a b))))))))
+  (denominator (loop with total = 1
+                     for a from 10 to 99
+                     do (loop for b from (1+ a) to 99
+                              when (frac-a-p a b)
+                              do (setf total (* total (/ a b))))
+                     finally (return total))))
+
+(euler/problem-set:register-problem 33 #'euler-33 100)

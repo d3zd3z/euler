@@ -2,7 +2,7 @@
 
 (defpackage #:euler/problem-set
   (:use #:cl)
-  (:export #:register-problem #:run-all))
+  (:export #:register-problem #:run-all #:run-multiple))
 
 (in-package #:euler/problem-set)
 
@@ -38,3 +38,7 @@
          (skeys (sort keys #'<)))
     (loop for key in skeys
           do (run-single (gethash key *problems*)))))
+
+(defun run-multiple (nums)
+  (loop for num in nums
+        do (run-single (gethash num *problems*))))
