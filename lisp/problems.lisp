@@ -1,7 +1,7 @@
 ;;; Problem sets.
 
 (defpackage #:euler/problem-set
-  (:use #:cl #:cl-ppcre)
+  (:use #:cl)
   (:export #:find-problems #:run-all #:run-multiple))
 
 (in-package #:euler/problem-set)
@@ -17,17 +17,26 @@
 ;;; describes the problem.
 (defvar *problems* (make-hash-table :test 'eql))
 
+;; Try to decode a package name for an euler problem.  The package
+;; name should match the regexp PR\d{3}.  This will return a package
+;; number if the format is correct, otherwise, it will return NIL.
+(defun decode-package (text)
+  (and (= (length text) 5)
+       (string= (subseq text 0 2) "PR")
+       (loop with digits = (subseq text 2)
+             for ch across digits
+             always (digit-char-p ch)
+             finally (return (parse-integer digits)))))
+
 ;; To make problem discovery a little easier, we search through all of
 ;; the packages that start with "PR", and then look for any exported
 ;; symbol that has an 'euler-answer property.  The value of that
 ;; property will be used as the answer to the problem.
 (defun find-problems ()
-  (let ((packages (loop with pkgre = (create-scanner "^PR(\\d{3})$")
-                        for pkg in (list-all-packages)
+  (let ((packages (loop for pkg in (list-all-packages)
                         for name = (package-name pkg)
-                        for info = (register-groups-bind (num) (pkgre name)
-                                     (cons pkg (parse-integer num)))
-                        when info collect info into result
+                        for num = (decode-package name)
+                        when num collect (cons pkg num) into result
                         finally (return (sort result #'< :key #'cdr)))))
     (loop for (pkg . num) in packages
           do (loop for symb being each external-symbol of pkg

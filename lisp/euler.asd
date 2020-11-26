@@ -7,8 +7,7 @@
   :version "0.0.1"
   :author "David Brown <davidb@davidb.org>"
   :license "MIT"
-  :depends-on ("iterate" "alexandria" "simple-date" "split-sequence"
-               "cl-ppcre")
+  :depends-on ("iterate" "alexandria" "simple-date" "split-sequence")
   :components ((:file "pr001")
                (:file "pr002")
                (:file "pr003" :depends-on ("sieve"))
