@@ -17,21 +17,38 @@
 ;;; 210
 
 (defpackage #:pr040
-  (:use #:cl #:iterate)
+  (:use #:cl)
   (:export #:euler-40))
 (in-package #:pr040)
 
-;;; Naive, very memory hungry approach.
+;;; Each grouping of digits has 9, then 90, then 900, and so on numbers
+;;; in it.  The number of digits is multiplied by the length (1*9,
+;;; 2*90, 3*900, 4*9000, etc).  Given an index, this returns the number
+;;; we are in, and the digit offset within that number (with 0 being
+;;; the rightmost digit.
+(defun get-pos (n)
+  (loop for how-many = 9 then (* how-many 10)
+        for width from 1
+        for characters = (* how-many width)
+        for base = 1 then (* base 10)
+        when (< n characters)
+          do (multiple-value-bind (pos offset) (floor n width)
+               (return (values (+ base pos) offset)))
+        do (setf n (- n characters))))
 
-(defun digits (limit)
-  (with-output-to-string (stream)
-  (iter (for i from 1 to limit)
-	(princ i stream))))
+;;; Retrieve the digit in the magical number.
+(defun get-digit (n)
+  (multiple-value-bind (num digit) (get-pos n)
+    (let ((textual (write-to-string num)))
+      ;(format t "~&n=~a num=~a digit=~a textual=~a" n num digit textual)
+      (- (char-code (aref textual digit))
+         (char-code #\0)))))
 
+(setf (get 'euler-40 :euler-answer) 210)
 (defun euler-40 ()
-  (let ((all (digits 200000)))
-    (iter (for e first 1 then (* e 10))
-	  (repeat 7)
-	  (for ch = (aref all (1- e)))
-	  (multiply (- (char-code ch)
-		       (char-code #\0))))))
+  (loop with total = 1
+        for e = 1 then (* e 10)
+        repeat 7
+        ;do (format t "~&e=~a digit=~a" e (get-digit (1- e)))
+        do (setf total (* total (get-digit (1- e))))
+        finally (return total)))

@@ -15,7 +15,8 @@
 
 ;;; This kind of might be considered cheating.
 
+(setf (get 'euler-48 :euler-answer) 9110846700)
 (defun euler-48 ()
-  (iter (for i from 1 to 1000)
-	(sum (expt i i) into sum)
-	(finally (return (mod sum (expt 10 10))))))
+  (loop for i from 1 to 1000
+        sum (expt i i) into sum
+        finally (return (mod sum (expt 10 10)))))

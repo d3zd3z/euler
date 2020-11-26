@@ -22,13 +22,13 @@
 ;;; 16695334890
 
 (defpackage #:pr043
-  (:use #:cl #:iterate #:pr024)
+  (:use #:cl #:pr024)
   (:export #:euler-43))
 (in-package #:pr043)
 
 (defun decode-number (digits &aux (result 0))
-  (iter (for i in-vector digits)
-	(setf result (+ (* result 10) i)))
+  (loop for i across digits
+        do (setf result (+ (* result 10) i)))
   result)
 
 (defun valid-number (digits)
@@ -36,12 +36,12 @@
   (labels ((divisible (number div)
 	     (zerop (mod number div)))
 	   (get-digits (from to &aux (result 0))
-	     (iter (for i from from to to)
-		   (setf result (+ (* result 10)
-				   (aref digits (1- i)))))
+             (loop for i from from to to
+                   do (setf result (+ (* result 10)
+                                      (aref digits (1- i)))))
 	     result)
-	   (part (from to div)
-	     (divisible (get-digits from to) div)))
+           (part (from to div)
+             (divisible (get-digits from to) div)))
     (and (part 2 4 2)
 	 (part 3 5 3)
 	 (part 4 6 5)
@@ -54,9 +54,10 @@
 ;;; considered a number.  This is most easily done by just starting
 ;;; with the first permutation not starting with a zero.
 
+(setf (get 'euler-43 :euler-answer) 16695334890)
 (defun euler-43 ()
-  (iter (for digits first (copy-seq #(1 0 2 3 4 5 6 7 8 9))
-	     then (next-permutation digits))
-	(while digits)
-	(when (valid-number digits)
-	  (sum (decode-number digits)))))
+  (loop for digits = (copy-seq #(1 0 2 3 4 5 6 7 8 9))
+          then (next-permutation digits)
+        while digits
+        when (valid-number digits)
+          sum (decode-number digits)))

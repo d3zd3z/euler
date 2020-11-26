@@ -16,6 +16,7 @@
   (:export #:euler-39))
 (in-package #:pr039)
 
+(setf (get 'euler-39 :euler-answer) 840)
 (defun euler-39 ()
   (let ((buckets (make-hash-table)))
     (generate-triples 1000

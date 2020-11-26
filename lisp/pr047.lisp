@@ -26,36 +26,36 @@
 (defun products (list)
   (mapcar #'(lambda (pair)
 	      (* (car pair) (cdr pair)))
-	  lis
-	  t))
+	  list))
 
 (defun all-unique (lists)
   "Given a list of lists, return T iff none of the elements of the sublists are EQL."
-  (iter (with table = (make-hash-table))
-	(for list in lists)
-	(iter (for elt in list)
-	      (when (gethash elt table)
-		(return-from all-unique nil))
-	      (setf (gethash elt table) t)))
+  (loop with table = (make-hash-table)
+        for list in lists
+        do (loop for elt in list
+                 when (gethash elt table)
+                   do (return-from all-unique nil)
+                 (setf (gethash elt table) t)))
   t)
 
 (defun all-len-n (n lists)
   "Return T if all of the lists have exactly N elements."
-  (iter (for list in lists)
-	(always (length= n list))))
+  (loop for list in lists
+        always (length= n list)))
 
+(setf (get 'euler-47 :euler-answer) 134043)
 (defun euler-47 ()
-  (iter (with span = 4)
-	(with factors = (iter (for i from 10 to (+ 10 span -1))
-			      (collect (products (factorize i)))))
-	(for base from 10)
-	(when (and (all-len-n span factors)
-		   (all-unique factors))
-	  (return base))
+  (loop with span = 4
+        with factors = (loop for i from 10 to (+ 10 span -1)
+                             collect (products (factorize i)))
+        for base from 10
+        when (and (all-len-n span factors)
+                  (all-unique factors))
+          do (return base)
 
-	;; Shift the factors down.
-	(setf factors (nconc (rest factors)
-			     (list (products (factorize (+ base span))))))))
+        ;; Shift the factors down.
+        do (setf factors (nconc (rest factors)
+                                (list (products (factorize (+ base span))))))))
 
 ;;; Bleh, this is very slow, as well as being ugly.
 #|

@@ -32,11 +32,12 @@
   (/ (* n (1- (* n 3)))
      2))
 
+(setf (get 'euler-44 :euler-answer) 5482660)
 (defun euler-44 ()
-  (iter (for i from 2)
-	(for pent-i = (nth-pentagonal i))
-	(iter (for j from 1 below i)
-	      (for pent-j = (nth-pentagonal j))
-	      (and (pentagonalp (- pent-i pent-j))
-		   (pentagonalp (+ pent-i pent-j))
-		   (return-from euler-44 (- pent-i pent-j))))))
+  (loop for i from 2
+        for pent-i = (nth-pentagonal i)
+        do (loop for j from 1 below i
+                 for pent-j = (nth-pentagonal j)
+                 do (and (pentagonalp (- pent-i pent-j))
+                         (pentagonalp (+ pent-i pent-j))
+                         (return-from euler-44 (- pent-i pent-j))))))

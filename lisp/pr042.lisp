@@ -19,7 +19,7 @@
 ;;; 162
 
 (defpackage #:pr042
-  (:use #:cl #:iterate #:split-sequence)
+  (:use #:cl #:split-sequence)
   (:export #:euler-42))
 (in-package #:pr042)
 
@@ -30,9 +30,9 @@
     (= (expt root 2) sqr)))
 
 (defun word-value (word)
-  (iter (for letter in-vector (string-upcase word))
-	(for value = (- (char-code letter) 64))
-	(sum value)))
+  (loop for letter across (string-upcase word)
+        for value = (- (char-code letter) 64)
+        sum value))
 
 ;;; TODO: Use the proper load path to help find the words.
 (defun get-words ()
@@ -42,6 +42,7 @@
 	 (words (mapcar #'read-from-string words)))
     (mapcar #'word-value words)))
 
+(setf (get 'euler-42 :euler-answer) 162)
 (defun euler-42 ()
-  (iter (for n in (get-words))
-	(counting (trianglep n))))
+  (loop for n in (get-words)
+        counting (trianglep n)))

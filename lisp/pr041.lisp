@@ -15,6 +15,7 @@
   (:export #:euler-41))
 (in-package #:pr041)
 
+(setf (get 'euler-41 :euler-answer) 7652413)
 (defun euler-41 ()
   (iter (for item first (copy-seq "1234567") then (next-permutation item :less #'char<))
 	(while item)

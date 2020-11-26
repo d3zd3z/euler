@@ -39,6 +39,7 @@ can't be written this way.  The NUMBER must be an odd composite."
 	  (when comp
 	    (return p)))))
 
+(setf (get 'euler-46 :euler-answer) 5777)
 (defun euler-46 ()
   (iter (for n from 9 by 2)
 	(when (primep n)

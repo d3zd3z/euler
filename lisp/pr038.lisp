@@ -34,15 +34,16 @@
 
 (defun large-sum (base)
   "Multiply the number by base, returning a resulting string that is >= 9 digits in length."
-  (iter (for i from 1)
-	(for piece = (princ-to-string (* base i)))
-	(sum (length piece) into total-length)
-	(while (<= total-length 9))
-	(collect piece into group)
-	(finally (return (apply #'concatenate 'string group)))))
+  (loop for i from 1
+        for piece = (princ-to-string (* base i))
+        sum (length piece) into total-length
+        while (<= total-length 9)
+        collect piece into group
+        finally (return (apply #'concatenate 'string group))))
 
+(setf (get 'euler-38 :euler-answer) 932718654)
 (defun euler-38 ()
-  (iter (for a from 1 to 9999)
-	(for sum = (large-sum a))
-	(when (pandigitalp sum)
-	  (maximize (parse-integer sum)))))
+  (loop for a from 1 to 9999
+        for sum = (large-sum a)
+        when (pandigitalp sum)
+          maximize (parse-integer sum)))

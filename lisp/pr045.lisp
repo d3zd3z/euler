@@ -24,6 +24,7 @@
   (:export #:euler-45))
 (in-package #:pr045)
 
+(setf (get 'euler-45 :euler-answer) 1533776805)
 (defun euler-45 ()
   (let ((pn 1)
 	(hn 1)
