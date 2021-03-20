@@ -78,7 +78,7 @@ impl Problems {
 fn main() {
     let mut probs = Problems::new();
     let args: Vec<String> = env::args().skip(1).collect();
-    if args.len() == 0 {
+    if args.is_empty() {
         panic!("{}", "Usage: euler {all | n1 n2 n3}");
     } else if args.len() == 1 && args[0] == "all" {
         probs.run_all();

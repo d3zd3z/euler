@@ -49,7 +49,7 @@ fn right_truncatable_primes() -> Vec<u64> {
     let mut result: Vec<u64> = vec![];
     let mut set = vec![2, 3, 5, 7];
 
-    while set.len() > 0 {
+    while !set.is_empty() {
         for &i in set.iter() {
             result.push(i);
         }

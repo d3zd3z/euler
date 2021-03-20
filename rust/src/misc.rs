@@ -105,7 +105,7 @@ pub fn digits_of_rev(mut number: u64) -> Vec<u8> {
         number /= 10;
     }
 
-    if result.len() == 0 {
+    if result.is_empty() {
         result.push(0);
     }
 
