@@ -113,7 +113,7 @@ impl Sieve {
         next
     }
 
-    pub fn primes_upto<'a>(&'a mut self, n: usize) -> PrimeIter<'a> {
+    pub fn primes_upto(&mut self, n: usize) -> PrimeIter {
         PrimeIter {
             sieve: self,
             cur: 2,
