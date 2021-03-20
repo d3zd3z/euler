@@ -11,7 +11,6 @@
 pub use self::imp::*;
 
 mod imp {
-    use rand;
     pub type T = u64;
 
     /// Miller/Rabin primailty test.  Determines if 'n' is prime.  If it
