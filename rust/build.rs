@@ -15,9 +15,9 @@ fn main() {
     let gen_name = dst.join("plist.rs");
     let mut f = File::create(&gen_name).unwrap();
     writeln!(&mut f, "// Auto-generated, do not edit.").unwrap();
-    writeln!(&mut f, "").unwrap();
+    writeln!(&mut f).unwrap();
     writeln!(&mut f, "pub use super::Problem;").unwrap();
-    writeln!(&mut f, "").unwrap();
+    writeln!(&mut f).unwrap();
 
     let problems = get_problems();
 
@@ -25,7 +25,7 @@ fn main() {
     for &p in problems.iter() {
         writeln!(&mut f, "#[path=\"{1}/src/pr{0:03}.rs\"] mod pr{0:03};", p, cwd).unwrap();
     }
-    writeln!(&mut f, "").unwrap();
+    writeln!(&mut f).unwrap();
 
     // Make the problem set.
     writeln!(&mut f, "pub fn make() -> Vec<Box<dyn Problem + 'static>> {{").unwrap();
