@@ -105,18 +105,18 @@ impl<'a> Iterator for Iter {
 pub fn next_permutation(items: &mut [u8], done: &mut bool) {
     let size = items.len();
     let mut k = usize::MAX;
-    for x in 0 .. size - 1 {
-        if items[x] < items[x+1] {
+    for x in 0..size - 1 {
+        if items[x] < items[x + 1] {
             k = x;
         }
     }
     if k == usize::MAX {
         *done = true;
-        return
+        return;
     }
 
     let mut l = usize::MAX;
-    for x in k + 1 .. size {
+    for x in k + 1..size {
         if items[k] < items[x] {
             l = x;
         }
@@ -155,12 +155,14 @@ mod bench {
     #[bench]
     fn bench_myperm(b: &mut ::test::Bencher) {
         b.iter(|| {
-            let mut nums: Vec<u8> = (0 .. BENCH_SIZE).collect();
+            let mut nums: Vec<u8> = (0..BENCH_SIZE).collect();
             let mut done = false;
 
             loop {
                 next_permutation(&mut nums[..], &mut done);
-                if done { break; }
+                if done {
+                    break;
+                }
             }
         });
     }
@@ -169,9 +171,8 @@ mod bench {
     #[bench]
     fn bench_stdperm(b: &mut ::test::Bencher) {
         b.iter(|| {
-            let nums: Vec<u8> = (0 .. BENCH_SIZE).collect();
-            for _pv in nums.permutations() {
-            }
+            let nums: Vec<u8> = (0..BENCH_SIZE).collect();
+            for _pv in nums.permutations() {}
         });
     }
 }

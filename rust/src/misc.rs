@@ -7,7 +7,7 @@ use num::FromPrimitive;
 use num::ToPrimitive;
 
 #[allow(dead_code)]
-pub fn is_palindrome<T: Num + Ord + Clone> (n: T, base: T) -> bool {
+pub fn is_palindrome<T: Num + Ord + Clone>(n: T, base: T) -> bool {
     n == reverse_number(n.clone(), base)
 }
 
@@ -36,7 +36,7 @@ pub fn decode_words(line: &str) -> Vec<String> {
             ',' => {
                 result.push(word);
                 word = String::new();
-            },
+            }
             ch => {
                 word.push(ch);
             }
@@ -60,7 +60,7 @@ pub fn isqrt<T: PrimInt + FromPrimitive + ToPrimitive>(n: T) -> T {
     let tmp: T = FromPrimitive::from_u64(log2(n.to_u64().unwrap())).unwrap();
     let a = tmp / two;
     let b = tmp % two;
-    let mut x = one << (a+b).to_usize().unwrap();
+    let mut x = one << (a + b).to_usize().unwrap();
     loop {
         let y = (x + n / x) / two;
         if y >= x {
@@ -74,16 +74,35 @@ pub fn isqrt<T: PrimInt + FromPrimitive + ToPrimitive>(n: T) -> T {
 // bits needed to encode this value.
 // TODO: Can we do this for a known size value?
 fn log2(n: u64) -> u64 {
-    if n == 0 { return 0; } // Needed, else it returns 64.
+    if n == 0 {
+        return 0;
+    } // Needed, else it returns 64.
 
     let mut result = 64;
     let mut n = n;
-    if n & 0xffffffff00000000 == 0 { result -= 32; n <<= 32; }
-    if n & 0xffff000000000000 == 0 { result -= 16; n <<= 16; }
-    if n & 0xff00000000000000 == 0 { result -=  8; n <<=  8; }
-    if n & 0xf000000000000000 == 0 { result -=  4; n <<=  4; }
-    if n & 0xc000000000000000 == 0 { result -=  2; n <<=  2; }
-    if n & 0x8000000000000000 == 0 { result -=  1; }
+    if n & 0xffffffff00000000 == 0 {
+        result -= 32;
+        n <<= 32;
+    }
+    if n & 0xffff000000000000 == 0 {
+        result -= 16;
+        n <<= 16;
+    }
+    if n & 0xff00000000000000 == 0 {
+        result -= 8;
+        n <<= 8;
+    }
+    if n & 0xf000000000000000 == 0 {
+        result -= 4;
+        n <<= 4;
+    }
+    if n & 0xc000000000000000 == 0 {
+        result -= 2;
+        n <<= 2;
+    }
+    if n & 0x8000000000000000 == 0 {
+        result -= 1;
+    }
     result
 }
 

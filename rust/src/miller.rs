@@ -27,7 +27,7 @@ mod imp {
             return true;
         }
 
-        if n%2 == 0 || n%3 == 0 || n%5 == 0 || n%7 == 0 {
+        if n % 2 == 0 || n % 3 == 0 || n % 5 == 0 || n % 7 == 0 {
             return false;
         }
 
@@ -36,7 +36,7 @@ mod imp {
 
     fn check(n: T, k: u64) -> bool {
         let (s, d) = compute_sd(n);
-        for _ in 0 .. k {
+        for _ in 0..k {
             if !round(n, s, d) {
                 return false;
             }
@@ -47,21 +47,20 @@ mod imp {
 
     #[allow(clippy::many_single_char_names)]
     fn round(n: T, s: T, d: T) -> bool {
-
         let a = rand::random::<T>() % (n - 3) + 2;
         let mut x = exp_mod(a, d, n);
 
-        if x == 1 || x == n-1 {
+        if x == 1 || x == n - 1 {
             return true;
         }
 
-        for _ in 1 .. s {
+        for _ in 1..s {
             x = (x * x) % n;
             if x == 1 {
                 return false;
             }
 
-            if x == n-1 {
+            if x == n - 1 {
                 return true;
             }
         }
@@ -101,7 +100,7 @@ mod imp {
 
 #[cfg(test)]
 mod test {
-    use super::{is_prime};
+    use super::is_prime;
     // use super::*;
 
     #[test]

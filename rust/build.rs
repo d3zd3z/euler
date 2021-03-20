@@ -2,8 +2,8 @@
 
 use std::env;
 use std::fs;
-use std::io::prelude::*;
 use std::fs::File;
+use std::io::prelude::*;
 use std::path::Path;
 
 use regex::Regex;
@@ -23,12 +23,21 @@ fn main() {
 
     // Generate the inputs.
     for &p in problems.iter() {
-        writeln!(&mut f, "#[path=\"{1}/src/pr{0:03}.rs\"] mod pr{0:03};", p, cwd).unwrap();
+        writeln!(
+            &mut f,
+            "#[path=\"{1}/src/pr{0:03}.rs\"] mod pr{0:03};",
+            p, cwd
+        )
+        .unwrap();
     }
     writeln!(&mut f).unwrap();
 
     // Make the problem set.
-    writeln!(&mut f, "pub fn make() -> Vec<Box<dyn Problem + 'static>> {{").unwrap();
+    writeln!(
+        &mut f,
+        "pub fn make() -> Vec<Box<dyn Problem + 'static>> {{"
+    )
+    .unwrap();
     writeln!(&mut f, "    let mut probs = Vec::new();").unwrap();
     for &p in problems.iter() {
         writeln!(&mut f, "    add_problem!(probs, pr{:03}::Solution);", p).unwrap();
@@ -58,7 +67,7 @@ fn get_problems() -> Vec<u32> {
             Some(cap) => {
                 let num: u32 = cap.get(1).unwrap().as_str().parse().unwrap();
                 result.push(num);
-            },
+            }
         }
     }
 

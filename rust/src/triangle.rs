@@ -4,7 +4,7 @@
 pub struct Triple {
     a: u32,
     b: u32,
-    c: u32
+    c: u32,
 }
 
 #[derive(Clone, Debug)]
@@ -12,10 +12,15 @@ struct Quad {
     p1: u32,
     p2: u32,
     q1: u32,
-    q2: u32
+    q2: u32,
 }
 
-static INITIAL_BOX: &Quad = &Quad { p1: 1, p2: 1, q1: 2, q2: 3 };
+static INITIAL_BOX: &Quad = &Quad {
+    p1: 1,
+    p2: 1,
+    q1: 2,
+    q2: 3,
+};
 
 impl Triple {
     fn circumference(&self) -> u32 {
@@ -26,7 +31,8 @@ impl Triple {
         Triple {
             a: self.a * k,
             b: self.b * k,
-            c: self.c * k }
+            c: self.c * k,
+        }
     }
 }
 
@@ -34,16 +40,34 @@ impl Quad {
     fn children(&self) -> Vec<Quad> {
         let x = self.p2;
         let y = self.q2;
-        vec![ Quad { p1: y-x, p2: x, q1:   y, q2: y*2 - x },
-            Quad { p1:   x, p2: y, q1: x+y, q2: x*2 + y },
-            Quad { p1:   y, p2: x, q1: y+x, q2: y*2 + x } ]
+        vec![
+            Quad {
+                p1: y - x,
+                p2: x,
+                q1: y,
+                q2: y * 2 - x,
+            },
+            Quad {
+                p1: x,
+                p2: y,
+                q1: x + y,
+                q2: x * 2 + y,
+            },
+            Quad {
+                p1: y,
+                p2: x,
+                q1: y + x,
+                q2: y * 2 + x,
+            },
+        ]
     }
 
     fn triangle(&self) -> Triple {
         Triple {
             a: self.q1 * self.p1 * 2,
             b: self.q2 * self.p2,
-            c: self.p1 * self.q2 + self.p2 * self.q1 }
+            c: self.p1 * self.q2 + self.p2 * self.q1,
+        }
     }
 }
 
@@ -77,14 +101,11 @@ impl Iterator for FibonacciIter {
                 let size = tri.circumference();
                 if size <= self.limit {
                     self.work.extend(abox.children().into_iter());
-                    Some(IterItem {
-                        tri,
-                        circ: size,
-                    })
+                    Some(IterItem { tri, circ: size })
                 } else {
                     self.next()
                 }
-            },
+            }
         }
     }
 }
@@ -130,9 +151,9 @@ impl Iterator for Iter {
                         return Some(IterItem {
                             tri: tri.mult(k1),
                             circ: kcirc,
-                        })
+                        });
                     }
-                },
+                }
             }
 
             // Otherwise, we've exhaused this particular root, clear it, and
@@ -146,8 +167,7 @@ impl Iterator for Iter {
 fn test_children() {
     let next = INITIAL_BOX.children();
     println!("next: {:?}", next);
-    let tris = next.iter().map(|x| {x.triangle()})
-        .collect::<Vec<Triple>>();
+    let tris = next.iter().map(|x| x.triangle()).collect::<Vec<Triple>>();
     println!("tris: {:?}", tris);
 
     /*

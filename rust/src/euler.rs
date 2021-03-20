@@ -2,7 +2,6 @@
 
 // I'm not sure this warning is ever right.
 #![allow(clippy::suspicious_operation_groupings)]
-
 // Yes, I do understand that 0 doesn't make for octal in Rust. There are lots of two digit
 // constants in the examples, and it would be silly to try to fix them.
 #![allow(clippy::zero_prefixed_literal)]
@@ -13,19 +12,21 @@
 #[cfg(not_test)]
 extern crate test;
 
-use std::io;
-use std::env;
 use std::collections::HashMap;
+use std::env;
+use std::io;
 use std::io::prelude::*;
 
+// Needed for macros, must be early.
 mod problem;
+
 mod plist;
 
-mod sieve;
-mod misc;
-mod triangle;
-mod permute;
 mod miller;
+mod misc;
+mod permute;
+mod sieve;
+mod triangle;
 
 // TODO: Maybe there is a way of doing function pointers.  But, this
 // seems to be easier for now.
@@ -35,7 +36,7 @@ pub trait Problem {
 }
 
 struct Problems {
-    probs: HashMap<usize, Box<dyn Problem + 'static>>
+    probs: HashMap<usize, Box<dyn Problem + 'static>>,
 }
 
 impl Problems {

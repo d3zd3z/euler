@@ -6,7 +6,7 @@ static DEFAULT_SIZE: usize = 8192usize;
 
 pub struct Sieve {
     vec: Vec<bool>,
-    limit: usize
+    limit: usize,
 }
 
 impl Sieve {
@@ -91,7 +91,7 @@ impl Sieve {
         }
 
         let mut next = n + 2;
-        while ! self.is_prime(next) {
+        while !self.is_prime(next) {
             next += 2;
         }
         next
@@ -161,7 +161,10 @@ impl Sieve {
                 count += 1;
             } else {
                 if count > 0 {
-                    result.push(Factor{prime, power: count});
+                    result.push(Factor {
+                        prime,
+                        power: count,
+                    });
                     count = 0;
                 }
 
@@ -172,7 +175,10 @@ impl Sieve {
         }
 
         if count > 0 {
-            result.push(Factor {prime, power: count});
+            result.push(Factor {
+                prime,
+                power: count,
+            });
         }
 
         result
@@ -192,14 +198,14 @@ impl Sieve {
 #[test]
 fn test_factorize() {
     let mut sieve = Sieve::new();
-    let f = sieve.divisors(138*2);
+    let f = sieve.divisors(138 * 2);
     println!("{:?}\n", f);
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct Factor {
     pub prime: usize,
-    pub power: usize
+    pub power: usize,
 }
 
 #[allow(dead_code)]
@@ -210,10 +216,10 @@ fn spread(factors: &[Factor], result: &mut Vec<usize>) {
     } else {
         let mut rest = vec![];
         let x = factors[0].clone();
-        spread(&factors[1 .. len], &mut rest);
+        spread(&factors[1..len], &mut rest);
 
         let mut power = 1;
-        for i in 0 .. x.power + 1 {
+        for i in 0..x.power + 1 {
             for elt in rest.iter() {
                 result.push(*elt * power);
             }
