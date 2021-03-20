@@ -122,7 +122,7 @@ pub fn next_permutation(items: &mut [u8], done: &mut bool) {
         }
     }
 
-    swap(items, k, l);
+    items.swap(k, l);
     flip(items, k + 1, size - 1);
 
     *done = false;
@@ -132,16 +132,10 @@ fn flip(items: &mut [u8], a: usize, b: usize) {
     let mut aa = a;
     let mut bb = b;
     while aa < bb {
-        swap(items, aa, bb);
+        items.swap(aa, bb);
         aa += 1;
         bb -= 1;
     }
-}
-
-fn swap(items: &mut [u8], a: usize, b: usize) {
-    let tmp = items[a];
-    items[a] = items[b];
-    items[b] = tmp;
 }
 
 /// A basic benchmark of the permutations
