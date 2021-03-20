@@ -7,7 +7,7 @@ use num::FromPrimitive;
 use num::ToPrimitive;
 
 #[allow(dead_code)]
-pub fn is_palindrome<T: Num + Ord + Clone> (n: T, base: T) -> bool {
+pub fn is_palindrome<T: Num + Ord + Clone>(n: T, base: T) -> bool {
     n == reverse_number(n.clone(), base)
 }
 
@@ -60,7 +60,7 @@ pub fn isqrt<T: PrimInt + FromPrimitive + ToPrimitive>(n: T) -> T {
     let tmp: T = FromPrimitive::from_u64(log2(n.to_u64().unwrap())).unwrap();
     let a = tmp / two;
     let b = tmp % two;
-    let mut x = one << (a+b).to_usize().unwrap();
+    let mut x = one << (a + b).to_usize().unwrap();
     loop {
         let y = (x + n / x) / two;
         if y >= x {

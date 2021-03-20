@@ -91,7 +91,7 @@ impl Sieve {
         }
 
         let mut next = n + 2;
-        while ! self.is_prime(next) {
+        while !self.is_prime(next) {
             next += 2;
         }
         next
@@ -216,10 +216,10 @@ fn spread(factors: &[Factor], result: &mut Vec<usize>) {
     } else {
         let mut rest = vec![];
         let x = factors[0].clone();
-        spread(&factors[1 .. len], &mut rest);
+        spread(&factors[1..len], &mut rest);
 
         let mut power = 1;
-        for i in 0 .. x.power + 1 {
+        for i in 0..x.power + 1 {
             for elt in rest.iter() {
                 result.push(*elt * power);
             }
