@@ -33,7 +33,7 @@ impl Chainer {
     fn new() -> Chainer {
         let facts = make_facts(10);
         let last = facts[9];
-        Chainer { total: -3, facts: facts, last_fact: last }
+        Chainer { total: -3, facts, last_fact: last }
     }
 
     fn chain(&mut self, number: u64, fact_sum: u64) {

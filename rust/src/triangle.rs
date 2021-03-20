@@ -61,7 +61,7 @@ impl FibonacciIter {
     pub fn new(limit: u32) -> FibonacciIter {
         FibonacciIter {
             work: vec![INITIAL_BOX.clone()],
-            limit: limit,
+            limit,
         }
     }
 }
@@ -78,7 +78,7 @@ impl Iterator for FibonacciIter {
                 if size <= self.limit {
                     self.work.extend(abox.children().into_iter());
                     Some(IterItem {
-                        tri: tri,
+                        tri,
                         circ: size,
                     })
                 } else {
@@ -102,7 +102,7 @@ impl Iter {
             root: FibonacciIter::new(limit),
             cur: None,
             k: 0,
-            limit: limit,
+            limit,
         }
     }
 }

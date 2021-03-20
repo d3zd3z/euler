@@ -71,8 +71,8 @@ impl NumberSequence {
         NumberSequence {
             index: 1,
             value: 1,
-            mult: mult,
-            add: add,
+            mult,
+            add,
         }
     }
 
@@ -117,8 +117,8 @@ impl<'a, T> Sames<'a, T> {
         Sames {
             aiter: a,
             biter: b,
-            acur: acur,
-            bcur: bcur,
+            acur,
+            bcur,
         }
     }
 }
