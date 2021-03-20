@@ -46,7 +46,7 @@ impl Problems {
         let mut all = HashMap::new();
         for p in probs.into_iter() {
             let num = p.num();
-            if !all.insert(p.num(), p).is_none() {
+            if all.insert(p.num(), p).is_some() {
                 panic!("Duplicate problem {}, not running", num);
             }
         }

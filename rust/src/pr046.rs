@@ -30,7 +30,7 @@ fn pr046() -> usize {
         if primes.is_prime(n) {
             continue;
         }
-        if let None = primes.goldbach(n) {
+        if primes.goldbach(n).is_none() {
             return n;
         }
     }
