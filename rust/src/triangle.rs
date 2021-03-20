@@ -4,7 +4,7 @@
 pub struct Triple {
     a: u32,
     b: u32,
-    c: u32
+    c: u32,
 }
 
 #[derive(Clone, Debug)]
@@ -12,7 +12,7 @@ struct Quad {
     p1: u32,
     p2: u32,
     q1: u32,
-    q2: u32
+    q2: u32,
 }
 
 static INITIAL_BOX: &Quad = &Quad {

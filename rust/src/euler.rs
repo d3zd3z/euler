@@ -37,7 +37,7 @@ pub trait Problem {
 }
 
 struct Problems {
-    probs: HashMap<usize, Box<dyn Problem + 'static>>
+    probs: HashMap<usize, Box<dyn Problem + 'static>>,
 }
 
 impl Problems {

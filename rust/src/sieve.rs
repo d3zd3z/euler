@@ -6,7 +6,7 @@ static DEFAULT_SIZE: usize = 8192usize;
 
 pub struct Sieve {
     vec: Vec<bool>,
-    limit: usize
+    limit: usize,
 }
 
 impl Sieve {
@@ -198,14 +198,14 @@ impl Sieve {
 #[test]
 fn test_factorize() {
     let mut sieve = Sieve::new();
-    let f = sieve.divisors(138*2);
+    let f = sieve.divisors(138 * 2);
     println!("{:?}\n", f);
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct Factor {
     pub prime: usize,
-    pub power: usize
+    pub power: usize,
 }
 
 #[allow(dead_code)]

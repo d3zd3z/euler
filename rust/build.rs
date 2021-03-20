@@ -67,7 +67,7 @@ fn get_problems() -> Vec<u32> {
             Some(cap) => {
                 let num: u32 = cap.get(1).unwrap().as_str().parse().unwrap();
                 result.push(num);
-            },
+            }
         }
     }
 
