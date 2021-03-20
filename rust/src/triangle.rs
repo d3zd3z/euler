@@ -15,7 +15,7 @@ struct Quad {
     q2: u32
 }
 
-static INITIAL_BOX: &'static Quad = &Quad { p1: 1, p2: 1, q1: 2, q2: 3 };
+static INITIAL_BOX: &Quad = &Quad { p1: 1, p2: 1, q1: 2, q2: 3 };
 
 impl Triple {
     fn circumference(&self) -> u32 {

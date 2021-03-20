@@ -114,13 +114,13 @@ impl Converter {
     }
 }
 
-static ONES: &'static [&'static str] = &[
+static ONES: &[&str] = &[
     "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
     "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
     "seventeen", "eighteen", "nineteen"
 ];
 
-static TENS: &'static [&'static str] = &[
+static TENS: &[&str] = &[
     "ten", "twenty", "thirty", "forty", "fifty",
     "sixty", "seventy", "eighty", "ninety"
 ];

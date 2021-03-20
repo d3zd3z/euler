@@ -27,7 +27,7 @@ fn pr037() -> u64 {
     rights.iter().fold(0, |a, x| {a + *x})
 }
 
-static RIGHT_DIGITS: &'static [u64] = &[1, 3, 7, 9];
+static RIGHT_DIGITS: &[u64] = &[1, 3, 7, 9];
 
 // Given a list of numbers, return a list of the numbers that are
 // still prime when a single digit is appended to the right.
