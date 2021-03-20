@@ -42,7 +42,7 @@ mod imp {
             }
         }
 
-        return true;
+        true
     }
 
     #[allow(clippy::many_single_char_names)]
@@ -66,7 +66,7 @@ mod imp {
             }
         }
 
-        return false;
+        false
     }
 
     fn compute_sd(number: T) -> (T, T) {
