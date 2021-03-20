@@ -60,7 +60,7 @@ impl Problems {
 
     fn run_all(&mut self) {
         let mut keys: Vec<usize> = self.probs.keys().map(|&k| k).collect();
-        keys.sort();
+        keys.sort_unstable();
         for &n in keys.iter() {
             self.run(n);
         }

@@ -62,6 +62,6 @@ fn get_problems() -> Vec<u32> {
         }
     }
 
-    result.sort();
+    result.sort_unstable();
     result
 }

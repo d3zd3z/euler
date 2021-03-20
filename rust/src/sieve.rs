@@ -184,7 +184,7 @@ impl Sieve {
         let mut result = vec![];
         spread(&factors[..], &mut result);
         // do sort::merge_sort(result) |a, b| { *a <= *b }
-        result.sort();
+        result.sort_unstable();
         result
     }
 }
