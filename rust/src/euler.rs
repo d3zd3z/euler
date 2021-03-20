@@ -13,19 +13,21 @@
 #[cfg(not_test)]
 extern crate test;
 
-use std::io;
-use std::env;
 use std::collections::HashMap;
+use std::env;
+use std::io;
 use std::io::prelude::*;
 
+// Needed for macros, must be early.
 mod problem;
+
 mod plist;
 
-mod sieve;
-mod misc;
-mod triangle;
-mod permute;
 mod miller;
+mod misc;
+mod permute;
+mod sieve;
+mod triangle;
 
 // TODO: Maybe there is a way of doing function pointers.  But, this
 // seems to be easier for now.
