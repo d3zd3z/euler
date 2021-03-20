@@ -25,7 +25,8 @@ fn pr035() -> u64 {
     let mut p = 2;
     while p < 1_000_000 {
         let rots = number_rotations(p);
-        if rots.iter().all(|i| { sv.is_prime(*i as usize) }) {
+        let all_prime = rots.iter().all(|i| { sv.is_prime(*i as usize) });
+        if all_prime {
             count += 1;
         }
         p = sv.next_prime(p as usize) as u64;
