@@ -26,7 +26,7 @@ fn pr017() -> u64 {
     let mut result = 0;
 
     for i in 1 .. 1001 {
-        let text = conv.to_english(i);
+        let text = conv.make_english(i);
         // println(fmt!("%4u '%s'", i, text));
         result += count_letters(&text[..]);
     }
@@ -59,7 +59,7 @@ impl Converter {
 }
 
 impl Converter {
-    fn to_english(&mut self, n: u64) -> String {
+    fn make_english(&mut self, n: u64) -> String {
         self.add_space = false;
         self.buffer = String::new();
         let mut work = n;
