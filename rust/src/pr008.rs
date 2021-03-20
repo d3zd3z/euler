@@ -53,7 +53,7 @@ fn amain() -> u32 {
             a * (b as u32 - 48)
         })
     }).collect::<Vec<u32>>();
-    let result = products.iter().map(|&x| x).max().unwrap();
+    let result = products.iter().copied().max().unwrap();
     result
 }
 
