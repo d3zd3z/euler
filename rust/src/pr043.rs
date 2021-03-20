@@ -60,6 +60,6 @@ fn digits_value(v: &[u8]) -> u64 {
     v.iter().fold(0u64, |a, &b| a * 10 + b as u64)
 }
 
-static EARLY_PRIMES: &'static [u32] = &[
+static EARLY_PRIMES: &[u32] = &[
     2, 3, 5, 7, 11, 13, 17
 ];

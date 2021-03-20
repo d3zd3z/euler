@@ -36,9 +36,9 @@ fn pr020() -> u64 {
 // Multiply the little-endian base 10_000 number in 'acc' by 'by'.
 fn multiply(acc: &mut [u64], by: u64) {
     let mut carry = 0;
-    for i in 0 .. acc.len() {
-        let temp = acc[i] * by + carry;
-        acc[i] = temp % BASE;
+    for x in acc {
+        let temp = *x * by + carry;
+        *x = temp % BASE;
         carry = temp / BASE;
     }
     if carry != 0 { panic!("Multiply overflow") }

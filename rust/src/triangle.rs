@@ -15,7 +15,7 @@ struct Quad {
     q2: u32
 }
 
-static INITIAL_BOX: &'static Quad = &Quad { p1: 1, p2: 1, q1: 2, q2: 3 };
+static INITIAL_BOX: &Quad = &Quad { p1: 1, p2: 1, q1: 2, q2: 3 };
 
 impl Triple {
     fn circumference(&self) -> u32 {
@@ -61,7 +61,7 @@ impl FibonacciIter {
     pub fn new(limit: u32) -> FibonacciIter {
         FibonacciIter {
             work: vec![INITIAL_BOX.clone()],
-            limit: limit,
+            limit,
         }
     }
 }
@@ -78,7 +78,7 @@ impl Iterator for FibonacciIter {
                 if size <= self.limit {
                     self.work.extend(abox.children().into_iter());
                     Some(IterItem {
-                        tri: tri,
+                        tri,
                         circ: size,
                     })
                 } else {
@@ -102,7 +102,7 @@ impl Iter {
             root: FibonacciIter::new(limit),
             cur: None,
             k: 0,
-            limit: limit,
+            limit,
         }
     }
 }

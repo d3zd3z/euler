@@ -62,7 +62,7 @@ fn divisor_count(sieve: &mut Sieve, n: u64) -> u64 {
         }
     }
 
-    return result
+    result
 }
 
 // An iterator over the triangle numbers.

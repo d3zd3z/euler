@@ -30,6 +30,6 @@ fn pr015() -> usize {
 
 fn bump(values: &mut [usize]) {
     for i in 0 .. STEPS {
-        values[i+1] = values[i+1] + values[i];
+        values[i+1] += values[i];
     }
 }

@@ -18,7 +18,7 @@ fn pr013() -> u64 {
     let s1 = s.iter().map(|s| {
         s[0 .. 13].parse::<u64>().unwrap()
     }).collect::<Vec<u64>>();
-    let total = s1.iter().fold(0, |s, &i| s + i);
+    let total = s1.iter().sum();
 
     shrink(total)
 }

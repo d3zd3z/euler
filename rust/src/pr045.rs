@@ -14,7 +14,7 @@
 //
 // Find the next triangle number that is also pentagonal and hexagonal.
 
-// use std::cmp::Ordering;
+use std::cmp::Ordering;
 
 define_problem!(pr045, 45, 1533776805);
 
@@ -71,8 +71,8 @@ impl NumberSequence {
         NumberSequence {
             index: 1,
             value: 1,
-            mult: mult,
-            add: add,
+            mult,
+            add,
         }
     }
 
@@ -117,8 +117,8 @@ impl<'a, T> Sames<'a, T> {
         Sames {
             aiter: a,
             biter: b,
-            acur: acur,
-            bcur: bcur,
+            acur,
+            bcur,
         }
     }
 }
@@ -134,14 +134,14 @@ impl<'a, T> Iterator for Sames<'a, T>
         loop {
             match (self.acur, self.bcur) {
                 (Some(aa), Some(bb)) => {
-                    if aa < bb {
-                        self.acur = self.aiter.next();
-                    } else if aa > bb {
-                        self.bcur = self.biter.next();
-                    } else {
-                        self.acur = self.aiter.next();
-                        self.bcur = self.biter.next();
-                        return Some(aa);
+                    match aa.cmp(&bb) {
+                        Ordering::Less => self.acur = self.aiter.next(),
+                        Ordering::Greater => self.bcur = self.biter.next(),
+                        _ => {
+                            self.acur = self.aiter.next();
+                            self.bcur = self.biter.next();
+                            return Some(aa);
+                        }
                     }
                 },
                 _ => return None

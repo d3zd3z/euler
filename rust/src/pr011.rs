@@ -55,7 +55,7 @@ fn pr011() -> u64 {
 
 struct Delta {dx: i64, dy: i64}
 
-fn product(ary: &Vec<[u32; 20]>, x: i64, y: i64, d: &Delta) -> u64 {
+fn product(ary: &[[u32; 20]], x: i64, y: i64, d: &Delta) -> u64 {
     let mut px = x;
     let mut py = y;
     let mut prod = 1;

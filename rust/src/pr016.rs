@@ -32,9 +32,9 @@ fn pr016() -> u64 {
 
 fn double(digits: &mut [u8]) {
     let mut carry = 0;
-    for i in 0 .. digits.len() {
-        let temp = digits[i] * 2 + carry;
-        digits[i] = temp % 10;
+    for digit in digits {
+        let temp = *digit * 2 + carry;
+        *digit = temp % 10;
         carry = temp / 10;
     }
 

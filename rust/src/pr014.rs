@@ -110,7 +110,7 @@ impl EnumCache {
     fn new() -> EnumCache {
         let size = 100000;
         EnumCache {
-            size: size,
+            size,
             cache: iter::repeat(Info::Unknown).take(size).collect(),
         }
     }

@@ -113,7 +113,7 @@ impl Sieve {
         next
     }
 
-    pub fn primes_upto<'a>(&'a mut self, n: usize) -> PrimeIter<'a> {
+    pub fn primes_upto(&mut self, n: usize) -> PrimeIter {
         PrimeIter {
             sieve: self,
             cur: 2,
@@ -161,7 +161,7 @@ impl Sieve {
                 count += 1;
             } else {
                 if count > 0 {
-                    result.push(Factor{prime: prime, power: count});
+                    result.push(Factor{prime, power: count});
                     count = 0;
                 }
 
@@ -172,7 +172,7 @@ impl Sieve {
         }
 
         if count > 0 {
-            result.push(Factor {prime: prime, power: count});
+            result.push(Factor {prime, power: count});
         }
 
         result
@@ -184,7 +184,7 @@ impl Sieve {
         let mut result = vec![];
         spread(&factors[..], &mut result);
         // do sort::merge_sort(result) |a, b| { *a <= *b }
-        result.sort();
+        result.sort_unstable();
         result
     }
 }

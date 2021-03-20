@@ -1,5 +1,12 @@
 // Project euler
 
+// I'm not sure this warning is ever right.
+#![allow(clippy::suspicious_operation_groupings)]
+
+// Yes, I do understand that 0 doesn't make for octal in Rust. There are lots of two digit
+// constants in the examples, and it would be silly to try to fix them.
+#![allow(clippy::zero_prefixed_literal)]
+
 // Testing is unstable, so bring it in when testing.
 // #![cfg_attr(test, feature(test))]
 
@@ -39,7 +46,7 @@ impl Problems {
         let mut all = HashMap::new();
         for p in probs.into_iter() {
             let num = p.num();
-            if !all.insert(p.num(), p).is_none() {
+            if all.insert(p.num(), p).is_some() {
                 panic!("Duplicate problem {}, not running", num);
             }
         }
@@ -59,8 +66,8 @@ impl Problems {
     }
 
     fn run_all(&mut self) {
-        let mut keys: Vec<usize> = self.probs.keys().map(|&k| k).collect();
-        keys.sort();
+        let mut keys: Vec<usize> = self.probs.keys().copied().collect();
+        keys.sort_unstable();
         for &n in keys.iter() {
             self.run(n);
         }
@@ -71,7 +78,7 @@ impl Problems {
 fn main() {
     let mut probs = Problems::new();
     let args: Vec<String> = env::args().skip(1).collect();
-    if args.len() == 0 {
+    if args.is_empty() {
         panic!("{}", "Usage: euler {all | n1 n2 n3}");
     } else if args.len() == 1 && args[0] == "all" {
         probs.run_all();

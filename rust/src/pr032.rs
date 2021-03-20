@@ -35,7 +35,7 @@ fn pr032() -> u64 {
         if done { break; }
     }
 
-    results.iter().fold(0, |accum, &k| accum + k)
+    results.iter().sum()
 }
 
 fn make_groupings(digits: &[u8], result: &mut HashSet<u64>) {

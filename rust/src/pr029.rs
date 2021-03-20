@@ -42,7 +42,7 @@ fn pr029() -> u64 {
     values.len() as u64
 }
 
-fn power(base: &Vec<Factor>, exp: u64) -> Vec<Factor> {
+fn power(base: &[Factor], exp: u64) -> Vec<Factor> {
     let mut result = vec![];
 
     for f in base.iter() {

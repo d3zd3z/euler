@@ -11,7 +11,6 @@
 pub use self::imp::*;
 
 mod imp {
-    use rand;
     pub type T = u64;
 
     /// Miller/Rabin primailty test.  Determines if 'n' is prime.  If it
@@ -43,9 +42,10 @@ mod imp {
             }
         }
 
-        return true;
+        true
     }
 
+    #[allow(clippy::many_single_char_names)]
     fn round(n: T, s: T, d: T) -> bool {
 
         let a = rand::random::<T>() % (n - 3) + 2;
@@ -66,7 +66,7 @@ mod imp {
             }
         }
 
-        return false;
+        false
     }
 
     fn compute_sd(number: T) -> (T, T) {
@@ -92,7 +92,7 @@ mod imp {
             }
 
             b = (b * b) % modulus;
-            p = p / 2;
+            p /= 2;
         }
 
         result

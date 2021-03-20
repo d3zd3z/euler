@@ -58,7 +58,7 @@ fn pr018() -> u64 {
     work[0]
 }
 
-#[cfg(none)]
+#[cfg(any())]
 fn get_triangle() {
     // TODO: Read problem 67 problem set in.
 }

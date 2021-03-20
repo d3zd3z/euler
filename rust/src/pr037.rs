@@ -27,7 +27,7 @@ fn pr037() -> u64 {
     rights.iter().fold(0, |a, x| {a + *x})
 }
 
-static RIGHT_DIGITS: &'static [u64] = &[1, 3, 7, 9];
+static RIGHT_DIGITS: &[u64] = &[1, 3, 7, 9];
 
 // Given a list of numbers, return a list of the numbers that are
 // still prime when a single digit is appended to the right.
@@ -49,7 +49,7 @@ fn right_truncatable_primes() -> Vec<u64> {
     let mut result: Vec<u64> = vec![];
     let mut set = vec![2, 3, 5, 7];
 
-    while set.len() > 0 {
+    while !set.is_empty() {
         for &i in set.iter() {
             result.push(i);
         }

@@ -48,6 +48,7 @@ pub fn decode_words(line: &str) -> Vec<String> {
 }
 
 // Integer square root.  Returns the floor of the sqrt of n.
+#[allow(clippy::many_single_char_names)]
 pub fn isqrt<T: PrimInt + FromPrimitive + ToPrimitive>(n: T) -> T {
     let z = T::zero();
     let one = T::one();
@@ -104,7 +105,7 @@ pub fn digits_of_rev(mut number: u64) -> Vec<u8> {
         number /= 10;
     }
 
-    if result.len() == 0 {
+    if result.is_empty() {
         result.push(0);
     }
 

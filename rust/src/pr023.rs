@@ -38,8 +38,8 @@ fn pr023() -> u64 {
 
     for ai in 0 .. abundants.len() {
         let a = abundants[ai];
-        for bi in ai .. abundants.len() {
-            let sum = a + abundants[bi];
+        for b in &abundants {
+            let sum = a + *b;
             if sum > 28123 {
                 break;
             }
