@@ -1,5 +1,12 @@
 // Project euler
 
+// I'm not sure this warning is ever right.
+#![allow(clippy::suspicious_operation_groupings)]
+
+// Yes, I do understand that 0 doesn't make for octal in Rust. There are lots of two digit
+// constants in the examples, and it would be silly to try to fix them.
+#![allow(clippy::zero_prefixed_literal)]
+
 // Testing is unstable, so bring it in when testing.
 // #![cfg_attr(test, feature(test))]
 

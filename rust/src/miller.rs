@@ -46,6 +46,7 @@ mod imp {
         return true;
     }
 
+    #[allow(clippy::many_single_char_names)]
     fn round(n: T, s: T, d: T) -> bool {
 
         let a = rand::random::<T>() % (n - 3) + 2;
