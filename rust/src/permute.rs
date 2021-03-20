@@ -160,7 +160,9 @@ mod bench {
 
             loop {
                 next_permutation(&mut nums[..], &mut done);
-                if done { break; }
+                if done {
+                    break;
+                }
             }
         });
     }
@@ -170,8 +172,7 @@ mod bench {
     fn bench_stdperm(b: &mut ::test::Bencher) {
         b.iter(|| {
             let nums: Vec<u8> = (0 .. BENCH_SIZE).collect();
-            for _pv in nums.permutations() {
-            }
+            for _pv in nums.permutations() {}
         });
     }
 }

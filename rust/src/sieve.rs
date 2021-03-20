@@ -161,7 +161,10 @@ impl Sieve {
                 count += 1;
             } else {
                 if count > 0 {
-                    result.push(Factor{prime, power: count});
+                    result.push(Factor {
+                        prime,
+                        power: count,
+                    });
                     count = 0;
                 }
 
@@ -172,7 +175,10 @@ impl Sieve {
         }
 
         if count > 0 {
-            result.push(Factor {prime, power: count});
+            result.push(Factor {
+                prime,
+                power: count,
+            });
         }
 
         result

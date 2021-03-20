@@ -74,16 +74,35 @@ pub fn isqrt<T: PrimInt + FromPrimitive + ToPrimitive>(n: T) -> T {
 // bits needed to encode this value.
 // TODO: Can we do this for a known size value?
 fn log2(n: u64) -> u64 {
-    if n == 0 { return 0; } // Needed, else it returns 64.
+    if n == 0 {
+        return 0;
+    } // Needed, else it returns 64.
 
     let mut result = 64;
     let mut n = n;
-    if n & 0xffffffff00000000 == 0 { result -= 32; n <<= 32; }
-    if n & 0xffff000000000000 == 0 { result -= 16; n <<= 16; }
-    if n & 0xff00000000000000 == 0 { result -=  8; n <<=  8; }
-    if n & 0xf000000000000000 == 0 { result -=  4; n <<=  4; }
-    if n & 0xc000000000000000 == 0 { result -=  2; n <<=  2; }
-    if n & 0x8000000000000000 == 0 { result -=  1; }
+    if n & 0xffffffff00000000 == 0 {
+        result -= 32;
+        n <<= 32;
+    }
+    if n & 0xffff000000000000 == 0 {
+        result -= 16;
+        n <<= 16;
+    }
+    if n & 0xff00000000000000 == 0 {
+        result -= 8;
+        n <<= 8;
+    }
+    if n & 0xf000000000000000 == 0 {
+        result -= 4;
+        n <<= 4;
+    }
+    if n & 0xc000000000000000 == 0 {
+        result -= 2;
+        n <<= 2;
+    }
+    if n & 0x8000000000000000 == 0 {
+        result -= 1;
+    }
     result
 }
 
