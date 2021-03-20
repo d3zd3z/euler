@@ -28,7 +28,7 @@ fn main() {
     writeln!(&mut f, "").unwrap();
 
     // Make the problem set.
-    writeln!(&mut f, "pub fn make() -> Vec<Box<Problem + 'static>> {{").unwrap();
+    writeln!(&mut f, "pub fn make() -> Vec<Box<dyn Problem + 'static>> {{").unwrap();
     writeln!(&mut f, "    let mut probs = Vec::new();").unwrap();
     for &p in problems.iter() {
         writeln!(&mut f, "    add_problem!(probs, pr{:03}::Solution);", p).unwrap();

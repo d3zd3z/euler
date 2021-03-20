@@ -44,9 +44,9 @@ fn pr043() -> u64 {
 // Check the given number if it obeys the interesting property.
 fn check(v: &[u8]) -> bool {
     fn piece(v: &[u8], start: usize) -> u32 {
-        (v[start] as u32 * 100 +
-         v[start+1] as u32 * 10 +
-         v[start+2] as u32)
+        v[start] as u32 * 100 +
+        v[start+1] as u32 * 10 +
+        v[start+2] as u32
     }
 
     EARLY_PRIMES.iter().enumerate().all(|(i, &n)| {

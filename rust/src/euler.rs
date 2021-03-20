@@ -52,7 +52,7 @@ impl Problems {
             None => panic!("Unknown problem: {}", num),
             Some(p) => {
                 print!("{:>3}: ", num);
-                io::stdout().flush().unwrap();;
+                io::stdout().flush().unwrap();
                 p.run();
             }
         }
@@ -72,7 +72,7 @@ fn main() {
     let mut probs = Problems::new();
     let args: Vec<String> = env::args().skip(1).collect();
     if args.len() == 0 {
-        panic!("Usage: euler {{all | n1 n2 n3}}");
+        panic!("{}", "Usage: euler {all | n1 n2 n3}");
     } else if args.len() == 1 && args[0] == "all" {
         probs.run_all();
     } else {
