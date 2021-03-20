@@ -17,7 +17,6 @@
 //
 // 871198282
 
-use std::cmp;
 use std::fs;
 use std::path::Path;
 use std::io::prelude::*;
