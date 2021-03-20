@@ -1,5 +1,8 @@
 // Triangle utilities.
 
+// This was an interesting experiment, but it is ultimately a really complicated way of computing
+// n*(n+1)/2.
+
 #[derive(Clone, Debug)]
 pub struct Triple {
     a: u32,
