@@ -30,9 +30,9 @@ fn pr022() -> u64 {
     file.read_to_end(&mut line).unwrap();
     let line = String::from_utf8(line).unwrap();
     let names = decode_words(&line[..]);
-    let mut pairs = names.iter().map(|n| { Box::new(name_value(&n[..])) })
-        .collect::<Vec<Box<NamePair>>>();
-    pairs.sort_by(pair_le);
+    let mut pairs = names.iter().map(|n| { name_value(&n[..]) })
+        .collect::<Vec<NamePair>>();
+    pairs.sort_by(|a, b| a.name.cmp(&b.name));
 
     let total = pairs.iter().enumerate().fold(0, |a, (bi, b)| {
         a + b.value * (bi as u64 + 1)
@@ -44,10 +44,6 @@ fn pr022() -> u64 {
 struct NamePair {
     name: String,
     value: u64
-}
-
-fn pair_le(a: &Box<NamePair>, b: &Box<NamePair>) -> cmp::Ordering {
-    a.name.cmp(&b.name)
 }
 
 fn name_value(name: &str) -> NamePair {
