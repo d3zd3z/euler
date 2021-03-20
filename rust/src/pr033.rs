@@ -28,7 +28,7 @@ fn pr033() -> i64 {
     for a in 10 .. 100 {
         for b in a+1 .. 100 {
             if is_frac(a, b) {
-                total = total * Ratio::new(a as i64, b as i64);
+                total *= Ratio::new(a as i64, b as i64);
             }
         }
     }

@@ -78,8 +78,8 @@ fn number_rotations(num: u64) -> Vec<u64> {
         let new_accum = accum + left * n_rem;
         let next = n_quot + right * new_accum;
 
-        right = right / 10;
-        left = left * 10;
+        right /= 10;
+        left *= 10;
         accum = new_accum;
         n = n_quot;
         result.push(next);

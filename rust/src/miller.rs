@@ -92,7 +92,7 @@ mod imp {
             }
 
             b = (b * b) % modulus;
-            p = p / 2;
+            p /= 2;
         }
 
         result
