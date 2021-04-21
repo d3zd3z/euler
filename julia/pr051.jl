@@ -49,7 +49,7 @@ end
 function check(number)
    text = string(number)
    for early in "012"
-      for places in combinations(findin(text, early), 3)
+      for places in combinations(findall(x -> x == early, text), 3)
          count = 0
          for i in early-'0':9
             if isprime(build(text, places, i))

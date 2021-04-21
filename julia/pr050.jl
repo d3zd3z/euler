@@ -28,9 +28,9 @@ function solve()
    longest_len = 0
    longest_val = 0
 
-   for a = 1:endof(ps)
+   for a = 1:lastindex(ps)
       total = 0
-      for b = a:endof(ps)
+      for b = a:lastindex(ps)
          total += ps[b]
          if total >= cap
             break

@@ -17,7 +17,7 @@
 #
 # 21124
 
-const ones = [
+const ones_names = [
    "one", "two", "three", "four", "five", "six", "seven",
    "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen",
    "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" ]
@@ -32,11 +32,11 @@ function spoken(num)
    elseif num <= 0
       error("Unsupported number")
    elseif num < 20
-      ones[num]
+      ones_names[num]
    elseif num < 100 && num % 10 == 0
       tens[div(num, 10) - 1]
    elseif num < 100
-      tens[div(num, 10) - 1] * "-" * ones[num % 10]
+      tens[div(num, 10) - 1] * "-" * ones_names[num % 10]
    elseif num < 1000 && num % 100 == 0
       spoken(div(num, 100)) * " hundred"
    elseif num < 1000
@@ -49,7 +49,7 @@ end
 function count_letters(text)
    count = 0
    for ch in text
-      if isalpha(ch)
+      if isletter(ch)
          count += 1
       end
    end

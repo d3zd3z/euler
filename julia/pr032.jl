@@ -30,8 +30,8 @@ function ofdigits(digits)
 end
 
 function make_groupings!(rset, digits)
-   for i = 2:endof(digits)-2
-      for j = i+1:endof(digits)-1
+   for i = 2:lastindex(digits)-2
+      for j = i+1:lastindex(digits)-1
          a = ofdigits(digits[1:i-1])
          b = ofdigits(digits[i:j-1])
          c = ofdigits(digits[j:end])

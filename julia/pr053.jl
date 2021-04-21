@@ -27,10 +27,10 @@
 
 import Base: zero, one, +
 
-immutable SatNorm
+struct SatNorm
    value :: Int
 end
-immutable Overflow
+struct Overflow
 end
 Saturated = Union{SatNorm, Overflow}
 

@@ -19,22 +19,24 @@
 # rotations of a number.
 
 using Primes
-import Base: start, done, next
+import Base: iterate
 
-immutable Rotator{T}
+struct Rotator{T}
    num :: T
    pow :: T
 end
 
 rotations(n) = Rotator(n, oftype(n, 10^(ndigits(n)-1)))
 
-rotateit{T}(r::Rotator{T}, i::T) = div(i, r.pow) + 10(mod(i, r.pow))
+rotateit(r::Rotator{T}, i::T) where T = div(i, r.pow) + 10(mod(i, r.pow))
 
-start{T}(r::Rotator{T}) = rotateit(r, r.num)
-done{T}(r::Rotator{T}, i::T) = i == r.num
-function next{T}(r::Rotator{T}, i::T)
-   i2 = rotateit(r, i)
-   i, i2
+iterate(r::Rotator{T}) where T = (r.num, rotateit(r, r.num))
+function iterate(r::Rotator{T}, i::T) where T
+    if i == r.num
+        nothing
+    else
+        (i, rotateit(r, i))
+    end
 end
 
 function solve()

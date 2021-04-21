@@ -27,7 +27,7 @@ using Combinatorics
 
 const divisors = primes(17)
 
-function undigits{T<:Integer}(a::Vector{T})
+function undigits(a::Vector{T}) where T<:Integer
    result = zero(T)
    for i in a
       result = result * 10 + i
@@ -35,7 +35,7 @@ function undigits{T<:Integer}(a::Vector{T})
    result
 end
 
-function check{T<:Integer}(a::Vector{T})
+function check(a::Vector{T}) where T<:Integer
    offset = 2
    for p in divisors
       if undigits(a[offset:offset+2]) % p != 0

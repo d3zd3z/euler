@@ -12,7 +12,7 @@
 #
 # 40730
 
-type State
+mutable struct State
    total :: Int64
    facts :: Vector{Int64}
    last_fact :: Int64

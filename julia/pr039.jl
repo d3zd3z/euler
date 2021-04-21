@@ -15,19 +15,19 @@
 import Base: *
 
 # Triangle support.
-immutable Triple{T}
+struct Triple{T}
    nums :: Array{T, 1}
 end
 
 # Box is used in Julia already.
-immutable TBox{T}
+struct TBox{T}
    box::Array{T, 2}
 end
 
 const init_box = TBox([1 1 ; 2 3])
 
 circumference(t::Triple) = sum(t.nums)
-*{T}(t::Triple{T}, k::T) = Triple(t.nums .* k)
+*(t::Triple{T}, k::T) where T = Triple(t.nums .* k)
 
 # Get the triangle out of a box.
 function triangle(t::TBox)
@@ -79,23 +79,24 @@ end
 
 using DataStructures
 
-function solve()
-   ac = counter(Int64)
-   for (tri, circ) in @task generate_triples(1000)
-      push!(ac, circ)
-   end
-
-   # Find which circumference has the largest number of solutions.
-   pmax = 0
-   pcount = 0
-   for (p, count) in ac
-      if count > pcount
-         pmax = p
-         pcount = count
-      end
-   end
-   pmax
-
-end
-
-println(solve())
+println("TODO")
+# function solve()
+#    ac = counter(Int64)
+#    for (tri, circ) in @task generate_triples(1000)
+#       push!(ac, circ)
+#    end
+# 
+#    # Find which circumference has the largest number of solutions.
+#    pmax = 0
+#    pcount = 0
+#    for (p, count) in ac
+#       if count > pcount
+#          pmax = p
+#          pcount = count
+#       end
+#    end
+#    pmax
+# 
+# end
+# 
+# println(solve())

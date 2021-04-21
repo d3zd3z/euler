@@ -55,17 +55,18 @@
 # 376
 
 import Base: show
+import Printf: @printf
 
 value_names = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
 name_value = let
    m = Dict{Char, Int8}()
-   for v in 1:endof(value_names)
+   for v in 1:lastindex(value_names)
       m[value_names[v]] = v
    end
    m
 end
 
-immutable Card
+struct Card
    value :: Int8
    suit  :: Char
 
@@ -290,7 +291,11 @@ function load_cards()
       for line in eachline(fd)
          line = chomp(line)
          hand = split(line, ' ')
-         cards = foldl((a, b) -> push!(a, Card(b)), Card[], hand)
+         # cards = foldl((a, b) -> push!(a, Card(b)), Card[], hand)
+         cards = Card[]
+         for h in hand
+             push!(cards, Card(h))
+         end
          push!(result, (cards[1:5], cards[6:10]))
       end
    end

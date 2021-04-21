@@ -43,7 +43,7 @@ function safeget(row, col)
    end
 end
 
-type Delta
+struct Delta
    dy :: Int
    dx :: Int
 end

@@ -26,11 +26,11 @@
 # Julia seems to try very hard to build a matrix, rather than an
 # array.  To thwart this, put each row in its own type.
 
-type Row
+struct Row
    elts :: Array{Int64, 1}
 end
 
-problem = flipdim([
+problem = reverse!([
    Row([75]),
    Row([95, 64]),
    Row([17, 47, 82]),
@@ -48,9 +48,9 @@ problem = flipdim([
    Row([04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23])
    ], 1)
 
-function combine{T}(a :: Vector{T}, b :: Vector{T})
-   result = Array{T}(length(b))
-   for i = 1:endof(b)
+function combine(a :: Vector{T}, b :: Vector{T}) where T
+   result = Vector{T}(undef, length(b))
+   for i = 1:lastindex(b)
       result[i] = b[i] + max(a[i], a[i+1])
    end
    result
@@ -58,7 +58,7 @@ end
 
 function solve()
    work = problem[1].elts
-   for i in 2:endof(problem)
+   for i in 2:lastindex(problem)
       work = combine(work, problem[i].elts)
    end
    work[1]

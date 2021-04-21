@@ -19,7 +19,7 @@ using Primes
 
 # Given a list of numbers, return a list of the numbers that are still
 # prime when a single digit as appended to the right.
-function add_primes{T}(numbers::Vector{T})
+function add_primes(numbers::Vector{T}) where T
    result = T[]
    for n in numbers
       for extra in [1, 3, 7, 9]

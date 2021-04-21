@@ -35,10 +35,10 @@ end
 
 function solve()
    block = open("../haskell/words.txt") do fd
-      readstring(fd)
+      read(fd, String)
    end
    words = split(block, ',')
-   map!(x->strip(x, '"'), words)
+   map!(x->strip(x, '"'), words, words)
 
    count = 0
    for word in words

@@ -37,7 +37,7 @@ function solve()
          end
       end
    end
-   den(total)
+   denominator(total)
 end
 
 println(solve())
