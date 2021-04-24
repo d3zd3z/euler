@@ -12,6 +12,7 @@
 #
 # 840
 
+import Base.Threads: @spawn
 import Base: *
 
 # Triangle support.
@@ -49,54 +50,59 @@ end
 # Generate all of the primitive Pythagorean triples with a
 # circumference <= limit.  Returns tuples of (Triple{T}, T) for the
 # triangle and its circumference.
-function primitive_generator(limit)
+function primitive_generator(dest, limit)
    work = [init_box]
    while !isempty(work)
       abox = pop!(work)
       triple = triangle(abox)
       size = circumference(triple)
       if size <= limit
-         produce((triple, size))
+         put!(dest, (triple, size))
          append!(work, children(abox))
       end
    end
+   close(dest)
 end
 
 # Generate all of the triples up to and including the limit.
-function generate_triples(limit)
-   for (tri, circ) in @task primitive_generator(limit)
+function generate_triples(dest, limit)
+   subch = Channel()
+   @spawn primitive_generator(subch, limit)
+   for (tri, circ) in subch
       k = 1
       while true
          kcirc = k * circ
          if kcirc > limit
             break
          end
-         produce(tri * k, kcirc)
+         put!(dest, ((tri * k, kcirc)))
          k += 1
       end
    end
+   close(dest)
 end
 
 using DataStructures
 
-println("TODO")
-# function solve()
-#    ac = counter(Int64)
-#    for (tri, circ) in @task generate_triples(1000)
-#       push!(ac, circ)
-#    end
-# 
-#    # Find which circumference has the largest number of solutions.
-#    pmax = 0
-#    pcount = 0
-#    for (p, count) in ac
-#       if count > pcount
-#          pmax = p
-#          pcount = count
-#       end
-#    end
-#    pmax
-# 
-# end
-# 
-# println(solve())
+function solve()
+   ac = counter(Int64)
+   ch = Channel()
+   @spawn generate_triples(ch, 1000)
+   for (tri, circ) in ch
+      push!(ac, circ)
+   end
+
+   # Find which circumference has the largest number of solutions.
+   pmax = 0
+   pcount = 0
+   for (p, count) in ac
+      if count > pcount
+         pmax = p
+         pcount = count
+      end
+   end
+   pmax
+
+end
+
+@time println(solve())
