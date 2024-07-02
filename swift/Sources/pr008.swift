@@ -46,7 +46,7 @@ class Problem8 {
         return max
     }
 
-    func product(pos: Int) -> Int {
+    func product(_ pos: Int) -> Int {
         var result = 1
         for b in pos ..< pos + 5 {
             result *= Int(number[b] - 48)

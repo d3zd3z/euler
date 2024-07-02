@@ -18,11 +18,11 @@ func pr005() -> Int64 {
     return n
 }
 
-func lcm(a: Int64, _ b: Int64) -> Int64 {
+func lcm(_ a: Int64, _ b: Int64) -> Int64 {
     return (a / gcd(a, b)) * b
 }
 
-func gcd(a: Int64, _ b: Int64) -> Int64 {
+func gcd(_ a: Int64, _ b: Int64) -> Int64 {
     var aa = a
     var bb = b
     while true {

@@ -6,18 +6,18 @@ public class Sieve {
 
     init(isize: Int = 8192) {
         limit = isize
-        vec = [Bool](count: limit + 1, repeatedValue: true)
+        vec = Array(repeating: true, count: limit + 1)
         fill()
     }
 
-    public func isPrime(n: Int) -> Bool {
+    public func isPrime(_ n: Int) -> Bool {
         if n > limit {
             var newLimit = limit
             while newLimit < n {
                 newLimit *= 8
             }
 
-            vec = [Bool](count: newLimit + 1, repeatedValue: true)
+            vec = Array(repeating: true, count: newLimit + 1)
             limit = newLimit
             fill()
         }
@@ -25,7 +25,7 @@ public class Sieve {
         return vec[n]
     }
 
-    public func nextPrime(n: Int) -> Int {
+    public func nextPrime(_ n: Int) -> Int {
         if n == 2 {
             return 3;
         }
@@ -38,8 +38,8 @@ public class Sieve {
     }
 
     // TODO: Can we make this work as a sequence?
-    public func generate(upto upto: Int) -> SieveGenerator {
-        return SieveGenerator(sieve: self, upto: upto)
+    public func generate(_ upto: Int) -> SieveIterator {
+        return SieveIterator(sieve: self, upto: upto)
     }
 
     func fill() {
@@ -66,11 +66,11 @@ public class Sieve {
     }
 }
 
-public class SieveGenerator: GeneratorType {
+public class SieveIterator: Sequence, IteratorProtocol {
     public typealias Element = Int
     var sieve: Sieve
     var cur: Int
-    var limit: Int?
+    var limit: Int
 
     init(sieve: Sieve, upto: Int) {
         self.sieve = sieve

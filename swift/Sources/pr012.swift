@@ -41,7 +41,7 @@ class Pr012 {
         fatalError("Unreachable")
     }
 
-    func divisorCount(n: Int) -> Int {
+    func divisorCount(_ n: Int) -> Int {
         var result = 1
         var tmp = n
         var prime = 2
@@ -69,7 +69,7 @@ func pr012() -> Int {
 }
 
 // Generate all of the triangle numbers.
-public struct TriGenerator: GeneratorType, SequenceType {
+public struct TriGenerator: IteratorProtocol, Sequence {
     public typealias T = Int
 
     public mutating func next() -> Int? {

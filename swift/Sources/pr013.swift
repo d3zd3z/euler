@@ -117,9 +117,7 @@ class Pr013 {
     func solve() -> Int64 {
         var work: Int64 = 0
         for text in nums {
-            let start = text.startIndex
-            let end = start.advancedBy(13)
-            let num = Int64(text[start ..< end])!
+            let num = Int64(text.prefix(13))!
             work += num
         }
 

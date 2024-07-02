@@ -42,7 +42,7 @@ func pr014() -> Int {
 }
 
 struct NonCachedCollatz {
-    mutating func chainLen(n: Int) -> Int {
+    mutating func chainLen(_ n: Int) -> Int {
         var work = n
         var len = 1
         while work > 1 {
@@ -68,10 +68,10 @@ struct EnumCachedCollatz {
     var cache: [Info]
     init() {
         size = 100000
-        cache = [Info](count: size, repeatedValue: Info.Unknown)
+        cache = Array(repeating: Info.Unknown, count: size)
     }
 
-    mutating func chainLen(n: Int) -> Int {
+    mutating func chainLen(_ n: Int) -> Int {
         if n < size {
             switch cache[n] {
             case Info.Unknown:
@@ -86,7 +86,7 @@ struct EnumCachedCollatz {
         }
     }
 
-    mutating func chain2(n: Int) -> Int {
+    mutating func chain2(_ n: Int) -> Int {
         if n == 1 {
             return 1
         } else if n & 1 == 0 {

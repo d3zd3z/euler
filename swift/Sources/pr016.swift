@@ -14,7 +14,7 @@ struct BigNum {
     var digits: [Int8]
 
     init(_ size: Int) {
-        digits = [Int8](count: size, repeatedValue: 0)
+        digits = Array(repeating: 0, count: size)
         digits[0] = 1
     }
 
@@ -37,5 +37,5 @@ func pr016() -> Int {
     for _ in 0 ..< 1000 {
         digits.double()
     }
-    return digits.digits.reduce(0, combine: {$0 + Int($1)})
+    return digits.digits.reduce(0, {$0 + Int($1)})
 }

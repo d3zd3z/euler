@@ -67,7 +67,7 @@ struct Delta {
 func pr011() -> Int {
     let deltas = [Delta(0, 1), Delta(1, 0), Delta(1, 1), Delta(1, -1)]
 
-    func product(x: Int, _ y: Int, _ delta: Delta) -> Int {
+    func product(_ x: Int, _ y: Int, _ delta: Delta) -> Int {
         var px = x
         var py = y
         var prod = 1

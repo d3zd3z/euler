@@ -14,7 +14,7 @@
 
 func pr015() -> Int {
     let STEPS = 20
-    var values = [Int](count: STEPS + 1, repeatedValue: 1)
+    var values = Array(repeating: 1, count: STEPS + 1)
 
     for _ in 0 ..< STEPS {
         bump(&values)
@@ -23,7 +23,7 @@ func pr015() -> Int {
     return values[STEPS]
 }
 
-func bump(inout values: [Int]) {
+func bump(_ values: inout [Int]) {
     for i in 0 ..< values.count-1 {
         values[i+1] += values[i]
     }
