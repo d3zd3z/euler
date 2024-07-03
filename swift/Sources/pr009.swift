@@ -14,14 +14,20 @@
 //
 // 31875000
 
-func pr009() -> Int {
-    for a in 1 ..< 1000 {
-        for b in a ..< 1000 {
-            let c = 1000 - a - b
-            if c > b && a*a + b*b == c*c {
-                return a * b * c
+struct Pr009: Problem {
+    typealias T = Int
+    let number = 9
+    let expected = 31875000
+
+    func run() -> Int {
+        for a in 1 ..< 1000 {
+            for b in a ..< 1000 {
+                let c = 1000 - a - b
+                if c > b && a*a + b*b == c*c {
+                    return a * b * c
+                }
             }
         }
+        fatalError("Unreachable")
     }
-    fatalError("Unreachable")
 }

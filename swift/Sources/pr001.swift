@@ -9,12 +9,18 @@
 //
 // // 234168
 
-func pr001() -> Int {
-    var total = 0
-    for i in 1...1000 {
-        if (i % 3 == 0) || (i % 5 == 0) {
-            total += i
+struct Pr001: Problem {
+    typealias T = Int
+    let number = 1
+    let expected = 234168
+
+    func run() -> Int {
+        var total = 0
+        for i in 1...1000 {
+            if (i % 3 == 0) || (i % 5 == 0) {
+                total += i
+            }
         }
+        return total
     }
-    return total
 }

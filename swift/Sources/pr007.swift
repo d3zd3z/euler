@@ -9,15 +9,21 @@
 //
 // 104743
 
-func pr007() -> Int {
-    let sieve = Sieve()
-    var prime = 2
-    var count = 1
+struct Pr007: Problem {
+    typealias T = Int
+    let number = 7
+    let expected = 104743
 
-    while count < 10001 {
-        prime = sieve.nextPrime(prime)
-        count += 1
+    func run() -> Int {
+        let sieve = Sieve()
+        var prime = 2
+        var count = 1
+
+        while count < 10001 {
+            prime = sieve.nextPrime(prime)
+            count += 1
+        }
+
+        return prime
     }
-
-    return prime
 }

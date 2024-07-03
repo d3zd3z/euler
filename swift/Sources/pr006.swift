@@ -18,12 +18,18 @@
 //
 // 25164150
 
-func pr006() -> Int {
-    var sumSq = 0
-    var sum = 0
-    for i in 1 ... 101 {
-        sum += i
-        sumSq += i * i
+struct Pr006: Problem {
+    typealias T = Int
+    let number = 6
+    let expected = 25164150
+
+    func run() -> Int {
+        var sumSq = 0
+        var sum = 0
+        for i in 1 ..< 101 {
+            sum += i
+            sumSq += i * i
+        }
+        return sum * sum - sumSq
     }
-    return sum * sum - sumSq
 }

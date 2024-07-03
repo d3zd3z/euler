@@ -9,16 +9,22 @@
 //
 // 906609
 
-func pr004() -> Int64 {
-    var max: Int64 = 0
-    for a in Int64(100) ..< 1000 {
-        for b in a ..< 1000 {
-            let c = a * b
-            if c > max && is_palindrome(c, base: 10) {
-                max = c
+struct Pr004: Problem {
+    typealias T = Int64
+    let number = 4
+    let expected: T = 906609
+
+    func run() -> Int64 {
+        var max: Int64 = 0
+        for a in Int64(100) ..< 1000 {
+            for b in a ..< 1000 {
+                let c = a * b
+                if c > max && is_palindrome(c, base: 10) {
+                    max = c
+                }
             }
         }
-    }
 
-    return max
+        return max
+    }
 }

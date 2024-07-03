@@ -10,27 +10,33 @@
 //
 // 232792560
 
-func pr005() -> Int64 {
-    var n: Int64 = 1
-    for j in Int64(2) ... 20 {
-        n = lcm(n, j)
-    }
-    return n
-}
+struct Pr005: Problem {
+    typealias T = Int64
+    let number = 5
+    let expected: T = 232792560
 
-func lcm(_ a: Int64, _ b: Int64) -> Int64 {
-    return (a / gcd(a, b)) * b
-}
-
-func gcd(_ a: Int64, _ b: Int64) -> Int64 {
-    var aa = a
-    var bb = b
-    while true {
-        if bb == 0 {
-            return aa
+    func run() -> Int64 {
+        var n: Int64 = 1
+        for j in Int64(2) ... 20 {
+            n = lcm(n, j)
         }
-        let tmp = aa%bb
-        aa = bb
-        bb = tmp
+        return n
+    }
+
+    func lcm(_ a: Int64, _ b: Int64) -> Int64 {
+        return (a / gcd(a, b)) * b
+    }
+
+    func gcd(_ a: Int64, _ b: Int64) -> Int64 {
+        var aa = a
+        var bb = b
+        while true {
+            if bb == 0 {
+                return aa
+            }
+            let tmp = aa%bb
+            aa = bb
+            bb = tmp
+        }
     }
 }

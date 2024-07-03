@@ -10,32 +10,38 @@
 //
 // 1366
 
-struct BigNum {
-    var digits: [Int8]
+struct Pr016: Problem {
+    typealias T = Int
+    let number = 16
+    let expected = 1366
 
-    init(_ size: Int) {
-        digits = Array(repeating: 0, count: size)
-        digits[0] = 1
-    }
+    struct BigNum {
+        var digits: [Int8]
 
-    mutating func double() {
-        var carry: Int8 = 0
-        for i in 0 ..< digits.count {
-            let temp = digits[i] * 2 + carry
-            digits[i] = temp % 10
-            carry = temp / 10
+        init(_ size: Int) {
+            digits = Array(repeating: 0, count: size)
+            digits[0] = 1
         }
 
-        if carry != 0 {
-            fatalError("Numeric Overflow")
+        mutating func double() {
+            var carry: Int8 = 0
+            for i in 0 ..< digits.count {
+                let temp = digits[i] * 2 + carry
+                digits[i] = temp % 10
+                carry = temp / 10
+            }
+
+            if carry != 0 {
+                fatalError("Numeric Overflow")
+            }
         }
     }
-}
 
-func pr016() -> Int {
-    var digits = BigNum(302)
-    for _ in 0 ..< 1000 {
-        digits.double()
+    func run() -> Int {
+        var digits = BigNum(302)
+        for _ in 0 ..< 1000 {
+            digits.double()
+        }
+        return digits.digits.reduce(0, {$0 + Int($1)})
     }
-    return digits.digits.reduce(0, {$0 + Int($1)})
 }

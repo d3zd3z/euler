@@ -24,21 +24,27 @@
 //
 // 837799
 
-func pr014() -> Int {
-    // var collatz = NonCachedCollatz()
-    var collatz = EnumCachedCollatz()
+struct Pr014: Problem {
+    typealias T = Int
+    let number = 14
+    let expected = 837799
 
-    var maxLen = 0
-    var max = 0
-    for x in 1 ..< 1000000 {
-        let len = collatz.chainLen(x)
-        if len > maxLen {
-            maxLen = len
-            max = x
+    func run() -> Int {
+        // var collatz = NonCachedCollatz()
+        var collatz = EnumCachedCollatz()
+
+        var maxLen = 0
+        var max = 0
+        for x in 1 ..< 1000000 {
+            let len = collatz.chainLen(x)
+            if len > maxLen {
+                maxLen = len
+                max = x
+            }
         }
+        // print(maxLen, max)
+        return max
     }
-    // print(maxLen, max)
-    return max
 }
 
 struct NonCachedCollatz {

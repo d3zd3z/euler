@@ -12,19 +12,25 @@
 //
 // 137846528820
 
-func pr015() -> Int {
-    let STEPS = 20
-    var values = Array(repeating: 1, count: STEPS + 1)
+struct Pr015: Problem {
+    typealias T = Int
+    let number = 15
+    let expected = 137846528820
 
-    for _ in 0 ..< STEPS {
-        bump(&values)
+    func run() -> Int {
+        let STEPS = 20
+        var values = Array(repeating: 1, count: STEPS + 1)
+
+        for _ in 0 ..< STEPS {
+            Self.bump(&values)
+        }
+
+        return values[STEPS]
     }
 
-    return values[STEPS]
-}
-
-func bump(_ values: inout [Int]) {
-    for i in 0 ..< values.count-1 {
-        values[i+1] += values[i]
+    static func bump(_ values: inout [Int]) {
+        for i in 0 ..< values.count-1 {
+            values[i+1] += values[i]
+        }
     }
 }

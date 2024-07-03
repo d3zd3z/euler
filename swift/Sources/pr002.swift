@@ -12,18 +12,24 @@
 
 // 4613732
 
-func pr002() -> Int {
-    var total = 0
-    var a = 1
-    var b = 2
-    while a < 4000000 {
-        if a % 2 == 0 {
-            total += a
-        }
-        let tmp = a + b
-        a = b
-        b = tmp
-    }
+struct Pr002: Problem {
+    typealias T = Int
+    let number = 2
+    let expected = 4613732
 
-    return total
+    func run() -> Int {
+        var total = 0
+        var a = 1
+        var b = 2
+        while a < 4000000 {
+            if a % 2 == 0 {
+                total += a
+            }
+            let tmp = a + b
+            a = b
+            b = tmp
+        }
+
+        return total
+    }
 }

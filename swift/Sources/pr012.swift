@@ -27,10 +27,14 @@
 //
 // 76576500
 
-class Pr012 {
+class Pr012: Problem {
+    typealias T = Int
+    let number = 12
+    let expected = 76576500
+
     let sieve = Sieve()
 
-    func solve() -> Int {
+    func run() -> Int {
         for tri in TriGenerator() {
             let dcount = divisorCount(tri)
             // print(tri, dcount)
@@ -62,10 +66,6 @@ class Pr012 {
 
         return result
     }
-}
-
-func pr012() -> Int {
-    return Pr012().solve()
 }
 
 // Generate all of the triangle numbers.

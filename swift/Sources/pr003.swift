@@ -10,19 +10,25 @@
 
 // First solution, without the prime sieve.
 
-func pr003() -> Int64 {
-    var num: Int64 = 600851475143
-    var p: Int64 = 3
-    while true {
-        while num % p == 0 {
-            num /= p
-        }
+struct Pr003: Problem {
+    typealias T = Int64
+    let number = 3
+    let expected: T = 6857
 
-        if num == 1 {
-            break
-        }
+    func run() -> Int64 {
+        var num: Int64 = 600851475143
+        var p: Int64 = 3
+        while true {
+            while num % p == 0 {
+                num /= p
+            }
 
-        p += 2
+            if num == 1 {
+                break
+            }
+
+            p += 2
+        }
+        return p
     }
-    return p
 }

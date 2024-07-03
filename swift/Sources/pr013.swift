@@ -11,7 +11,11 @@
 // of each number, adding them, and then taking the first 10 digits of
 // the result.  The error should be beyond the first 10 digits.
 
-class Pr013 {
+class Pr013: Problem {
+    typealias T = Int64
+    let number = 13
+    let expected: T = 5537376230
+
     let nums = [
         "37107287533902102798797998220837590246510135740250",
         "46376937677490009712648124896970078050417018260538",
@@ -114,7 +118,7 @@ class Pr013 {
         "20849603980134001723930671666823555245252804609722",
         "53503534226472524250874054075591789781264330331690"]
 
-    func solve() -> Int64 {
+    func run() -> Int64 {
         var work: Int64 = 0
         for text in nums {
             let num = Int64(text.prefix(13))!
@@ -127,8 +131,4 @@ class Pr013 {
 
         return work
     }
-}
-
-func pr013() -> Int64 {
-    return Pr013().solve()
 }
